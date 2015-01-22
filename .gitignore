@@ -1,3 +1,11 @@
+# C++ and Dev-C++
+*.o
+*.layout
+
+# RStudio
+.RData
+.Rhistory
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
