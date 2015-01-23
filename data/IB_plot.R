@@ -1,41 +1,40 @@
 library(RColorBrewer)
 
-print <- TRUE
+print <- FALSE
 pdf <- FALSE
 am <- FALSE
 width = 24
 height = 20
 xMax <- 100
 yMax <- 750
-size <- c(4,4)
+size <- c(10,10)
 
-
+display <- FALSE
 plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
         xAxis = "DELAY", yAxis = "BETA", yMax = 200, yMin = 0, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
         suppressSubPhases = TRUE, suppressInterPhases = !display, unicolor = !display, legendPos = "topright",
         postMeasurement = "AGENT1_MS", preMeasurement = c("EMPTY","AGENT1_MS","AGENT1_MACRO_MS","MACRO_MS","SIZE1_MS"), phasesNames = TRUE, measurementText = measurementText,
-        var = "DELAY", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = 0, time = 0, delay = NULL,
-        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+        var = "DELAY", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = "test", type = "GENERAL_MODEL")  
 
 
-plotExp <- function (id, r1, r2, display = FALSE, allMeasurements = TRUE, compact = TRUE) {
+plotExp <- function (id, r1, r2, display = FALSE, allMeasurements = TRUE, compact = TRUE, contrarian = c(0,0), time = 0) {
   if (compact) { type <- "COMPACT_MODEL"} else { type <- "GENERAL_MODEL" }
   fileName <- paste("exp.",id,"_param=",round(r1,2),"-",round(r2,2),sep="")
   if (allMeasurements) { fileName <- paste(fileName,"_full",sep="") }
   
   measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","MACRO_MS","AGENT1_MACRO_MS")
   if (allMeasurements) { measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS","MACRO_MS") }
-  
+    
   measurementText <- list("EMPTY" = c("EMPTY"), "AGENT1_MS" = c("AGENT"), "AGENT1_MESO2_MS" = c("AGENT","MESO2"), "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO1","MESO2"), "MACRO_MS" = c("MACRO"), "AGENT1_MACRO_MS" = c("AGENT","MACRO"), "AGENT1_MESO1_MS" = c("AGENT","MESO1"), "MESO1_MS" = c("MESO1"), "MESO1_MESO2_MS" = c("MESO1","MESO2"), "MESO2_MS" = c("MESO2"))
   
   plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
           xAxis = "DELAY", yAxis = "BETA", yMax = yMax, yMin = 0, xMax = xMax, xMin = 0, varMin = 1, noNegativeValue = TRUE,
           suppressSubPhases = TRUE, suppressInterPhases = !display, unicolor = !display, legendPos = "topright",
           postMeasurement = "AGENT1_MS", preMeasurement = measurements, phasesNames = TRUE, measurementText = measurementText,
-          var = "DELAY", size = size, intraRate = c(1,1), interRate = c(r1,r2), contrarian = 0, time = 0, delay = NULL,
+          var = "DELAY", size = size, intraRate = c(1,1), interRate = c(r1,r2), contrarian = contrarian, time = time, delay = NULL,
           print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = type)  
 }
-
 
 plotExp(11, 1, 1)
 plotExp(12, 2, 2)
@@ -92,6 +91,20 @@ plotExp(83, 1/3, 3)
 plotExp(84, 1/4, 4)
 plotExp(85, 1/5, 5)
 plotExp(89, 1/10, 10)
+
+plotExp(101, 1, 1, contrarian = c(0,0))
+plotExp(102, 1, 1, contrarian = c(1/21,1/21))
+plotExp(103, 1, 1, contrarian = c(1/21,0))
+plotExp(104, 1, 1, contrarian = c(0,1/21))
+plotExp(105, 1, 1, contrarian = c(1,1))
+
+plotExp(111, 1, 1, time = -1, contrarian = c(0,0))
+plotExp(112, 1, 1, time = -1, contrarian = c(1/21,1/21))
+plotExp(113, 1, 1, time = -1, contrarian = c(1/21,0))
+plotExp(114, 1, 1, time = -1, contrarian = c(0,1/21))
+plotExp(115, 1, 1, time = -1, contrarian = c(1,1))
+
+
 
 
 # COMPARISON CONTRARIAN VS CLASSICAL
@@ -174,7 +187,7 @@ plotExp4 <- function (id, r, display = FALSE, allMeasurements = FALSE, compact =
   
   measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO1_MESO2_MS","MACRO_MS")
   if (allMeasurements) { measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS","MACRO_MS") }
-
+  
   measurementText <- list("EMPTY" = c("EMPTY"), "AGENT1_MS" = c("AGENT"), "AGENT1_MESO1_MS" = c("AGENT","MESO"), "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO","HOLE"), "AGENT1_MACRO_MS" = c("AGENT","MACRO"), "MESO1_MS" = c("MESO"), "MESO1_MESO2_MS" = c("MESO","HOLE"), "MACRO_MS" = c("MACRO"))
   
   plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
@@ -203,7 +216,7 @@ plotExp5 <- function (id, r1, r2, display = FALSE, allMeasurements = FALSE, comp
   
   measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO1_MESO2_MS","MACRO_MS")
   if (allMeasurements) { measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS","MACRO_MS") }
-
+  
   measurementText <- list("EMPTY" = c("EMPTY"), "AGENT1_MS" = c("AGENT"), "AGENT1_MESO1_MS" = c("AGENT","MESO"), "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO","FOLLOWER"), "AGENT1_MACRO_MS" = c("AGENT","MACRO"), "MESO1_MS" = c("MESO"), "MESO1_MESO2_MS" = c("MESO","FOLLOWER"), "MACRO_MS" = c("MACRO"))
   
   plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
@@ -227,10 +240,10 @@ plotExp6 <- function (id, r1, r2, display = FALSE, allMeasurements = FALSE, comp
   if (compact) { type <- "COMPACT_MODEL"} else { type <- "GENERAL_MODEL" }
   fileName <- paste("exp6.",id,"_param=",round(r1,2),"-",round(r2,2),sep="")
   if (allMeasurements) { fileName <- paste(fileName,"_full",sep="") }
-
+  
   measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO2_MS","MESO1_MESO2_MS","MACRO_MS")
   if (allMeasurements) { measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS","MACRO_MS") }
-
+  
   measurementText <- list("EMPTY" = c("EMPTY"), "AGENT1_MS" = c("AGENT"), "AGENT1_MESO2_MS" = c("AGENT","LEADER"), "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO","LEADER"), "AGENT1_MACRO_MS" = c("AGENT","MACRO"), "MESO2_MS" = c("LEADER"), "MESO1_MESO2_MS" = c("MESO","LEADER"), "MACRO_MS" = c("MACRO"))
   
   plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,

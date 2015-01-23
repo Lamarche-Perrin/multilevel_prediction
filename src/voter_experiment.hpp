@@ -33,7 +33,7 @@ void addMeasurement (MeasurementType measurement, MeasurementSet *set, VoterGrap
 void addHeaderToCSV (std::string fileName);
 
 void addLineToCSV (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
-	int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian,
+	int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
 	VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, Partition *microP);
 
 
@@ -57,7 +57,7 @@ class VoterExperiment
 		int size2Min;			/*!< The size of community 2 in the first experiment*/
 		int size2Max;			/*!< The size of community 2 in the last experiment*/
 		int size2Step;			/*!< The size of community 2 between two consecutive experiments*/
-		bool equalSize;			/*!< If true, the size of community 2 is the same as the size of community 1 in all experiments*/
+		bool equalSize;			/*!< If true, the size of community 2 is the same than the size of community 1 in all experiments*/
 	
 		double intraR1Min;		/*!< The weight of edges within community 1 in the first experiment*/
 		double intraR1Max;		/*!< The weight of edges within community 1 in the last experiment*/
@@ -71,13 +71,17 @@ class VoterExperiment
 		double interR2Min;		/*!< The weight of edges from community 2 to community 1 in the first experiment*/
 		double interR2Max;		/*!< The weight of edges from community 2 to community 1 in the last experiment*/
 		double interR2Step;		/*!< The weight of edges from community 2 to community 1 between two consecutive experiments*/
-		bool equalIntraRate;	/*!< If true, the weight of edges within community 2 is the same as the weight of edges within community 2 in all experiments*/
-		bool equalInterRate;	/*!< If true, the weight of edges from community 2 to community 1 is the same as the weight of edges from community 1 to community 2 in all experiments*/
+		bool equalIntraRate;	/*!< If true, the weight of edges within community 2 is the same than the weight of edges within community 2 in all experiments*/
+		bool equalInterRate;	/*!< If true, the weight of edges from community 2 to community 1 is the same than the weight of edges from community 1 to community 2 in all experiments*/
 		bool oppositeInterRate;	/*!< If true, the weight of edges from community 2 to community 1 is the opposite of the weight of edges from community 1 to community 2 in all experiments (w2 = 1 - w1)*/
 	
-		double contrarianMin;	/*!< The contrarian rate of nodes in the first experiment*/
-		double contrarianMax;	/*!< The contrarian rate of nodes in the last experiment*/
-		double contrarianStep;	/*!< The contrarian rate of nodes between two consecutive experiments*/
+		double contrarian1Min;	/*!< The contrarian rate of nodes within community 1 in the first experiment*/
+		double contrarian1Max;	/*!< The contrarian rate of nodes within community 1 in the last experiment*/
+		double contrarian1Step;	/*!< The contrarian rate of nodes within community 1 between two consecutive experiments*/
+		double contrarian2Min;	/*!< The contrarian rate of nodes within community 2 in the first experiment*/
+		double contrarian2Max;	/*!< The contrarian rate of nodes within community 2 in the last experiment*/
+		double contrarian2Step;	/*!< The contrarian rate of nodes within community 2 between two consecutive experiments*/
+		bool equalContrarian;	/*!< If true, the contrarian rate of nodes within community 2 is the same than the contrarian rate of nodes within community 1 in all experiments*/
 	
 		int timeMin;			/*!< The time of pre-measurement (-1 for stationary distribution) in the first experiment*/
 		int timeMax;			/*!< The time of pre-measurement (-1 for stationary distribution) in the last experiment*/
@@ -97,14 +101,16 @@ class VoterExperiment
 		 * \param intraR2 : The weight of edges within community 2 in all experiments
 		 * \param interR1 : The weight of edges from community 1 to community 2 in all experiments
 		 * \param interR2 : The weight of edges from community 2 to community 1 in all experiments
-		 * \param contrarian : The contrarian rate of nodes in all experiments
+		 * \param contrarian1 : The contrarian rate of nodes within community 1 in all experiments
+		 * \param contrarian2 : The contrarian rate of nodes within community 2 in all experiments
 		 * \param time : The time of pre-measurement (-1 for stationary distribution) in all experiments
 		 * \param delay : The delay before post-measurement in all experiments
 		 * \param preMeasurements : A set of pre-measurement for prediction
 		 * \param postMeasurements : A set of post-measurement to be predicted
 		 */
 		VoterExperiment (int size1, int size2, double intraR1, double intraR2, double interR1, double interR2,
-			double contrarian, double time, double delay, std::set<MeasurementType> *preMeasurements, std::set<MeasurementType> *postMeasurements);
+			double contrarian1, double contrarian2, double time, double delay,
+			std::set<MeasurementType> *preMeasurements, std::set<MeasurementType> *postMeasurements);
 
 		/*!
 		 * \brief Destructor

@@ -232,6 +232,9 @@ class TwoCommunitiesVoterGraph : public VoterGraph
 		double interRate1;	/*!< The weight of edges from community 1 to community 2*/
 		double interRate2;	/*!< The weight of edges from community 2 to community 1*/
 		
+		double contrarian1;	/*!< The contrarian rate of nodes in community 1*/
+		double contrarian2; /*!< The contrarian rate of nodes in community 2*/
+
 		std::set<VoterNode*> *community1;	/*!< The set of nodes in community 1*/
 		std::set<VoterNode*> *community2;	/*!< The set of nodes in community 2*/
 		
@@ -243,12 +246,13 @@ class TwoCommunitiesVoterGraph : public VoterGraph
 		 * \param intraRate2 : The weight of edges within community 2
 		 * \param interRate1 : The weight of edges from community 1 to community 2
 		 * \param interRate2 : The weight of edges from community 2 to community 1
-		 * \param contrarian : The contrarian rate of each node
+		 * \param contrarian1 : The contrarian rate of nodes in community 1
+		 * \param contrarian2 : The contrarian rate of nodes in community 2
 		 * \param update : How the system evolves at each simulation step (UPDATE_NODES or UPDATE_EDGES)
 		  */
 		TwoCommunitiesVoterGraph (int size1, int size2,
 			double intraRate1, double intraRate2, double interRate1, double interRate2,
-			double contrarian = 0, int update = UPDATE_EDGES);
+			double contrarian1, double contrarian2, int update = UPDATE_EDGES);
 
 		/*!
 		 * \brief Destructor
@@ -300,6 +304,12 @@ class VoterProbe
 		 * \brief Destructor
 		 */
 		~VoterProbe ();
+
+		/*!
+		 * \brief Set the set of observed nodes
+		 * \param node : The set to be associated
+		 */
+		void setNodeSet (std::set<VoterNode*> *set);
 
 		/*!
 		 * \brief Add an observed node to the probe

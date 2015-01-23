@@ -14,22 +14,25 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
                     suppressSubPhases = FALSE, suppressInterPhases = FALSE, measurementText = NULL,
                     print = FALSE, pdf = TRUE, outputFileName = NULL, width = 8, height = 6, res = 600,
                     expId = NULL) {
-    
-  setwd("C:/Users/Robin/Mes projets/programming/aggregation_algorithms/aggregation/full_aggregation/data/VoterModel")
+  
+  setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")
   
   if (is.null(outputFileName)) { outputFileName = inputFileName }
-
+  
   if (is.null(size)) { size <- c(NULL,NULL) }
   if (is.null(intraRate)) { intraRate <- c(NULL,NULL) }
   if (is.null(interRate)) { interRate <- c(NULL,NULL) }
-
+  if (is.null(contrarian)) { contrarian <- c(0,0) }
+  
   size1 <- size[1]
   size2 <- size[2]
   intraRate1 <- intraRate[1]
   intraRate2 <- intraRate[2]
   interRate1 <- interRate[1]
   interRate2 <- interRate[2]
-
+  contrarian1 <- contrarian[1]
+  contrarian2 <- contrarian[2]
+  
   c <- brewer.pal(9,"Set1")
   
   color <- list("MACRO_MS" = c[2], "MICRO_MS" = c[1], "EMPTY_MS" = c[9], "AGENT_MS" = c[3], "MACRO_AND_AGENT" = c[4],
@@ -38,20 +41,20 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
   
   measurementLabel <- list("MACRO_MS" = "Macroscopic measurement", "MICRO_MS" = "Microscopic measurement",
                            "EMPTY" = "Empty measurement", "AGENT1_MS" = "One-agent measurement",
-                "MACRO_AND_AGENT" = "Multilevel measurement", "MESO1" = "Mesoscopic", "MESO_AND_AGENT" = "Agent and Meso",
-                "MESO2" = "Mesoscopic 2", "MESO" = "Two-mesoscopic", "MACRO_AND_MESO" = "Meso and Macro",
-                "MACRO_MESO_AND_AGENT" = "Agent, Meso and Macro",
-                "BETA_MACRO_EMPTY" = "IB-empty = IB-macro", "BETA_EMPTY_MACRO" = "IB-empty = IB-macro",
-                "BETA_MACRO_AGENT" = "IB-agent = IB-macro", "BETA_AGENT_MACRO" = "IB-agent = IB-macro",
-                "BETA_EMPTY_AGENT" = "IB-empty = IB-agent", "BETA_AGENT_EMPTY" = "IB-empty = IB-agent",
-                "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
-                "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
-                "BETA_AGENT_MACRO_AND_AGENT" = "IB-agent = IB-multilevel",
-                "BETA_MACRO_AND_AGENT_AGENT" = "IB-agent = IB-multilevel",
-                "BETA_MACRO_MACRO_AND_AGENT" = "IB-macro = IB-multilevel",
-                "BETA_MACRO_AND_AGENT_MACRO" = "IB-macro = IB-multilevel"
-                )
-    
+                           "MACRO_AND_AGENT" = "Multilevel measurement", "MESO1" = "Mesoscopic", "MESO_AND_AGENT" = "Agent and Meso",
+                           "MESO2" = "Mesoscopic 2", "MESO" = "Two-mesoscopic", "MACRO_AND_MESO" = "Meso and Macro",
+                           "MACRO_MESO_AND_AGENT" = "Agent, Meso and Macro",
+                           "BETA_MACRO_EMPTY" = "IB-empty = IB-macro", "BETA_EMPTY_MACRO" = "IB-empty = IB-macro",
+                           "BETA_MACRO_AGENT" = "IB-agent = IB-macro", "BETA_AGENT_MACRO" = "IB-agent = IB-macro",
+                           "BETA_EMPTY_AGENT" = "IB-empty = IB-agent", "BETA_AGENT_EMPTY" = "IB-empty = IB-agent",
+                           "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
+                           "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
+                           "BETA_AGENT_MACRO_AND_AGENT" = "IB-agent = IB-multilevel",
+                           "BETA_MACRO_AND_AGENT_AGENT" = "IB-agent = IB-multilevel",
+                           "BETA_MACRO_MACRO_AND_AGENT" = "IB-macro = IB-multilevel",
+                           "BETA_MACRO_AND_AGENT_MACRO" = "IB-macro = IB-multilevel"
+  )
+  
   # MAKE TITLE AND SUBTITLE
   title <- ""
   subtitle <- ""
@@ -74,18 +77,19 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
   }
   
   title <- bquote(.(title) ~ " of the " ~ bold(.(modelName)))
-
+  
   tTxt <- time
   if (!is.null(time) && time == -1) { tTxt <- bquote(infinity) }
-
+  
   timeTxt <- bquote("time: " ~ t == .(tTxt) ~ ", ")
-
+  
   delayTxt <- bquote("delay: " ~ tau == .(delay) ~ ", ")
   rateTxt <- bquote("")
   sizeTxt <- bquote("")
   
   contTxt <- bquote("")
-  if (!is.null(contrarian) && contrarian > 0) { contTxt <- bquote("contrarian: " ~ c == .(contrarian) ~ ", ") }
+  if (contrarian1 > 0 && (contrarian1 == contrarian2 || contrarian2 == 0)) { contTxt <- bquote("contrarian: " ~ c == .(round(contrarian1,2)) ~ ", ") }
+  if (contrarian1 > 0 && contrarian2 > 0 && contrarian2 != contrarian1) { contTxt <- bquote("contrarian: " ~ group("(",list(.(round(contrarian1,2)),.(round(contrarian2,2))),")") ~ ", ") }
   
   if (size2 == 0) {
     sizeTxt <- bquote("size: " ~ group("|",X,"|") == .(size) ~ ", ")
@@ -129,7 +133,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
   }
   
   
-  if (var == "CONTRARIAN") {
+  if (var == "CONTRARIAN1") {
     subtitle <- bquote("(" ~ .(sizeTxt) ~ .(timeTxt) ~ .(delayTxt) ~ .(rateTxt)
                        ~ "and variable contrarian rate:" ~ c %in% ~ group("[",list(0,1),"]") ~ ")")
     currentStateTxt <- bquote(X^.(tTxt))
@@ -148,9 +152,9 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
                     "DELAY" = bquote("Delay   " ~ tau),
                     "BETA" = bquote("Trade-off Parameter   " ~ beta),
                     "IB" = bquote("Information Bottleneck with" ~ beta == .(beta)),
-                    "CONTRARIAN" = bquote("Contrarian rate   " ~ c)
-                    )
-
+                    "CONTRARIAN1" = bquote("Contrarian rate   " ~ c)
+  )
+  
   xlab <- xAxis
   ylab <- yAxis
   
@@ -163,7 +167,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
   
   data <- read.csv(paste(inputFileName,".csv",sep=""), sep = ",")
   data <- data[data$TYPE == type & data$UPDATE == update & data$POSTM == postMeasurement,]
-    
+  
   if (!is.null(varMin)) { data <- data[data[,var] >= varMin,] }
   if (!is.null(varMax)) { data <- data[data[,var] <= varMax,] }
   if (!is.null(varStep)) { data <- data[data[,var] %% varStep == 0,] }        
@@ -171,32 +175,32 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
   data <- data[data$SIZE1 == size1 & data$SIZE2 == size2 & data$INTRARATE1 == round(intraRate1,6) & data$INTRARATE2 == round(intraRate2,6) & data$INTERRATE1 == round(interRate1,6) & data$INTERRATE2 == round(interRate2,6),]
   
   if (var == "TIME") {
-    data <- data[data$DELAY == delay & data$CONTRARIAN == contrarian & data$TIME >= 0,]
+    data <- data[data$DELAY == delay & data$CONTRARIAN1 == round(contrarian1,6) & data$CONTRARIAN2 == round(contrarian2,6) & data$TIME >= 0,]
     data <- data[with(data, order(data$TIME)), ]
-}
+  }
   
   if (var == "SIZE") {
-    data <- data[data$TIME == time & data$DELAY == delay & data$CONTRARIAN == contrarian,]
+    data <- data[data$TIME == time & data$DELAY == delay & data$CONTRARIAN1 == round(contrarian1,6) & data$CONTRARIAN2 == round(contrarian2,6),]
     data <- data[with(data, order(data$SIZE)), ]
   }
-
+  
   if (var == "DELAY") {
-    data <- data[data$TIME == time & data$CONTRARIAN == contrarian,]
+    data <- data[data$TIME == time & data$CONTRARIAN1 == round(contrarian1,6) & data$CONTRARIAN2 == round(contrarian2,6),]
     data <- data[with(data, order(data$DELAY)), ]
   }
-
-  if (var == "CONTRARIAN") {
+  
+  if (var == "CONTRARIAN1") {
     data <- data[data$TIME == time & data$DELAY == delay,]
-    data <- data[with(data, order(data$CONTRARIAN)), ]
+    data <- data[with(data, order(data$CONTRARIAN1)), ]
   }
-
+  
   if (xAxis == "MACRO_COND_H" || yAxis == "MACRO_COND_H") {
     data$MACRO_COND_H <- data$NEXT_MACRO_H - data$MACRO_I
   }
-
+  
   data$MACRO_I <- round(data$MACRO_I,5)
   data$CURRENT_I <- round(data$CURRENT_I,5)
-
+  
   if (xAxis == "BETA" || yAxis == "BETA") {
     newPreMeasurement <- c()
     data <- data[,c("PREM",var,"CURRENT_I","MACRO_I")]
@@ -211,7 +215,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
       boxRight <- list()
       boxUp <- list()
       boxDown <- list()
-
+      
       boxXPos <- list()
       boxXNorm <- list()
       boxYPos <- list()
@@ -260,7 +264,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
     preMeasurement <- newPreMeasurement
     data <- data[!is.na(data$BETA),]
     data$DISPLAY <- TRUE
-  
+    
     for (r in seq(1,nrow(data))) {
       v <- data[r,var]
       beta <- data[r,"BETA"]
@@ -279,7 +283,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
         boxRight[[prem_sup]] <- max(boxRight[[prem_sup]],v)
       }
     }
-
+    
     if (phasesNames) {
       for (v in seq(max(varMin,xMin),min(varMax,xMax))) {
         d <- data[data[,var] == v & data$BETA <= yMax & data$BETA >= yMin & data$DISPLAY,]
@@ -291,7 +295,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
           if (length(bMax) > 1) { bMax <- max(bMax) }
           if (length(bMin) == 0) { bMin <- yMin }
           if (length(bMin) > 1) { bMin <- min(bMin) }
-
+          
           boxXPos[[preM]] <- boxXPos[[preM]] + v * (bMax - bMin)
           boxXNorm[[preM]] <- boxXNorm[[preM]] + (bMax - bMin)
           boxYPos[[preM]] <- boxYPos[[preM]] + (bMax + bMin) / 2
@@ -309,13 +313,13 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
         }
       }
     }
-      
+    
     data <- data[data$BETA != Inf & data$BETA != -Inf,]
   }
-
-
+  
+  
   if (xAxis == "IB" || yAxis == "IB") { data$IB <- data$CURRENT_I - beta * data$MACRO_I }
-
+  
   # PRINT PLOT
   
   if (nrow(data) == 0) {
@@ -381,11 +385,11 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
       #      if (suppressInterPhases) { d[d$DISPLAY,var] <- NA }
       
       if (noNegativeValue) { d <- d[d[,xAxis] >= 0 & d[,yAxis] >= 0,] }
-
+      
       if (var == "DELAY") { labels <- d$DELAY }
       if (var == "TIME") { labels <- d$TIME }
       if (var == "SIZE") { labels <- d$SIZE }
-      if (var == "CONTRARIAN") { labels <- d$CONTRARIAN }
+      if (var == "CONTRARIAN1") { labels <- d$CONTRARIAN1 }
       
       if (!is.null(color) && !is.null(color[[preM]])) { col <- color[[preM]] } else { col <- c2[i] }
       if (unicolor) { col <- 1 }
@@ -398,12 +402,12 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
       } else { lwd <- 1 }
       
       lines(d[,xAxis], d[,yAxis], col=col, lwd=lwd)
-    
+      
       if (!is.null(pointList)) { d <- d[d[,var] %in% pointList,] } else {
         if (!is.null(pointMin)) { d <- d[d[,var] >= pointMin,] }
         if (!is.null(pointMax)) { d <- d[d[,var] <= pointMax,] }
         if (!is.null(pointStep)) {
-          if (var == "CONTRARIAN") {
+          if (var == "CONTRARIAN1") {
             d <- d[round(d[,var]*10000) %% round(pointStep*10000) == 0,]              
           } else {
             d <- d[d[,var] %% pointStep == 0,]
@@ -415,7 +419,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
         d <- d[d$DISPLAY,]
         lines(d[,xAxis], d[,yAxis], col=col, lwd=4)
       } else { points(d[,xAxis], d[,yAxis], pch=19, lwd=2, col=col) }
-
+      
       if (is.null(noLabel) || (noLabel != "ALL" && !(preM %in% noLabel))) {
         if (!is.null(labelList) && !is.null(labelList[["ALL"]])) {
           d <- d[d[,var] %in% labelList[["ALL"]],]
@@ -425,7 +429,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
           if (!is.null(labelMin)) { d <- d[d[,var] >= labelMin,] }
           if (!is.null(labelMax)) { d <- d[d[,var] <= labelMax,] }
           if (!is.null(labelStep)) {
-            if (var == "CONTRARIAN") {
+            if (var == "CONTRARIAN1") {
               d <- d[round(d[,var]*10000) %% round(labelStep*10000) == 0,]              
             } else {
               d <- d[d[,var] %% labelStep == 0,]
@@ -435,7 +439,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
         
         text(d[,xAxis], d[,yAxis], labels=d[,var], cex=1, pos=pos)
       }
-    
+      
       legendLabel[i] <- lab
       legendColor[i] <- col
       if (phaseDiagram) { legendPch[i] <- NA } else { legendPch[i] <- 19 }
@@ -479,6 +483,5 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
     if (print) { dev.off() }
   }
 }
-
 
 

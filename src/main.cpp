@@ -18,18 +18,36 @@ int main(int argc, char *argv[]) {
 	ExperimentSet *expSet = new ExperimentSet();
 	
 	std::set<MeasurementType>* preM = new std::set<MeasurementType>();
-	preM->insert(M_MICRO);
+//	preM->insert(M_MICRO);
+//	preM->insert(M_ALLSIZES1);
 	preM->insert(M_MACRO);
 	preM->insert(M_EMPTY);
 	preM->insert(M_AGENT1);
+	preM->insert(M_MESO1);
+	preM->insert(M_MESO2);
+	preM->insert(M_AGENT1_MESO1);
+	preM->insert(M_AGENT1_MESO2);
+	preM->insert(M_AGENT1_MESO1_MESO2);
 	preM->insert(M_AGENT1_MACRO);
-	preM->insert(M_ALLSIZES1);
-
+	preM->insert(M_MESO1);
+	preM->insert(M_MESO2);
+	preM->insert(M_MESO1_MESO2);
+	preM->insert(M_MACRO);
+	
 	std::set<MeasurementType>* postM = new std::set<MeasurementType>();
 	postM->insert(M_AGENT1);
 
 	VoterExperiment *exp;
-	exp = new VoterExperiment(3,0,1,0,0,0,0,0,0,preM,postM); exp->delayMax = 30; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,0,0,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,1./21,1./21,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,1./21,0,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,0,1./21,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,1,1,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+
+	exp = new VoterExperiment(10,10,1,1,1,1,1./21,1./21,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,1./21,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,0,1./21,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,1,1,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 
 /*
 	exp = new VoterExperiment(10,10,1,1,1,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
@@ -83,7 +101,7 @@ int main(int argc, char *argv[]) {
 	exp = new VoterExperiment(10,10,1,1,1./10,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
 */
 
-	voterExperiment(expSet,"data/DATA.CSV");
+	voterExperiment(expSet,"../data/DATA.CSV");
 
 	return EXIT_SUCCESS;
 }

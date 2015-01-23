@@ -84,7 +84,7 @@ CompleteVoterGraph::CompleteVoterGraph (int size, int update, double contrarian)
 
 TwoCommunitiesVoterGraph::TwoCommunitiesVoterGraph (int s1, int s2,
 	double intraR1, double intraR2, double interR1, double interR2,
-	double contrarian, int update) : VoterGraph (update)
+	double c1, double c2, int update) : VoterGraph (update)
 {
 	size1 = s1;
 	size2 = s2;
@@ -94,11 +94,14 @@ TwoCommunitiesVoterGraph::TwoCommunitiesVoterGraph (int s1, int s2,
 	interRate1 = interR1;
 	interRate2 = interR2;
 	
+	contrarian1 = c1;
+	contrarian2 = c2;
+	
 	community1 = new std::set<VoterNode*>();
 	community2 = new std::set<VoterNode*>();
 
-	for (int i = 0; i < size1; i++) { community1->insert(addNode(1,contrarian)); }
-	for (int i = 0; i < size2; i++) { community2->insert(addNode(1,contrarian)); }
+	for (int i = 0; i < size1; i++) { community1->insert(addNode(1,c1)); }
+	for (int i = 0; i < size2; i++) { community2->insert(addNode(1,c2)); }
 
 	for (std::set<VoterNode*>::iterator it1 = community1->begin(); it1 != community1->end(); ++it1)
 		for (std::set<VoterNode*>::iterator it2 = community1->begin(); it2 != community1->end(); ++it2)
@@ -446,7 +449,7 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 		for (unsigned long int j = 0; j < size; j++)
 			process->transition[j*size+i] = 0.;
 
-	if (true && updateProcess == UPDATE_EDGES)
+	if (updateProcess == UPDATE_EDGES)
 	{
 		for (unsigned long int i = 0; i < size; i++)
 		{
@@ -464,7 +467,13 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			{
 				if (a) { j = a + n1 * 2 + n2 * 2 * size1; }
 				else { j = a + (n1-1) * 2 + n2 * 2 * size1; }
-				p = intraRate1 * n1;
+				p = intraRate1 * n1 * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				if (a) { j = a + (n1-1) * 2 + n2 * 2 * size1; }
+				else { j = a + n1 * 2 + n2 * 2 * size1; }
+				p = intraRate1 * n1 * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -474,7 +483,13 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			{
 				if (a) { j = a + (n1+1) * 2 + n2 * 2 * size1; }
 				else { j = a + n1 * 2 + n2 * 2 * size1; }
-				p = intraRate1 * (size1-1 - n1);
+				p = intraRate1 * (size1-1 - n1) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				if (a) { j = a + n1 * 2 + n2 * 2 * size1; }
+				else { j = a + (n1+1) * 2 + n2 * 2 * size1; }
+				p = intraRate1 * (size1-1 - n1) * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -484,7 +499,13 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			{
 				if (a) { j = a + n1 * 2 + n2 * 2 * size1; }
 				else { j = a + n1 * 2 + (n2-1) * 2 * size1; }
-				p = interRate1 * n2;
+				p = interRate1 * n2 * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				if (a) { j = a + n1 * 2 + (n2-1) * 2 * size1; }
+				else { j = a + n1 * 2 + n2 * 2 * size1; }
+				p = interRate1 * n2 * contrarian2;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -494,7 +515,13 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			{
 				if (a) { j = a + n1 * 2 + (n2+1) * 2 * size1; }
 				else { j = a + n1 * 2 + n2 * 2 * size1; }
-				p = interRate1 * (size2 - n2);
+				p = interRate1 * (size2 - n2) * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				if (a) { j = a + n1 * 2 + n2 * 2 * size1; }
+				else { j = a + n1 * 2 + (n2+1) * 2 * size1; }
+				p = interRate1 * (size2 - n2) * contrarian2;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -503,7 +530,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n1 > 0)
 			{
 				j = 1 + n1 * 2 + n2 * 2 * size1;
-				p = intraRate1 * n1;
+				p = intraRate1 * n1 * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = 0 + n1 * 2 + n2 * 2 * size1;
+				p = intraRate1 * n1 * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -512,7 +544,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n1 < size1-1)
 			{
 				j = 0 + n1 * 2 + n2 * 2 * size1;
-				p = intraRate1 * (size1-1 - n1);
+				p = intraRate1 * (size1-1 - n1) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = 1 + n1 * 2 + n2 * 2 * size1;
+				p = intraRate1 * (size1-1 - n1) * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -521,7 +558,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n2 > 0)
 			{
 				j = 1 + n1 * 2 + n2 * 2 * size1;
-				p = interRate2 * n2;
+				p = interRate2 * n2 * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = 0 + n1 * 2 + n2 * 2 * size1;
+				p = interRate2 * n2 * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -530,7 +572,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n2 < size2)
 			{
 				j = 0 + n1 * 2 + n2 * 2 * size1;
-				p = interRate2 * (size2 - n2);
+				p = interRate2 * (size2 - n2) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = 1 + n1 * 2 + n2 * 2 * size1;
+				p = interRate2 * (size2 - n2) * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -539,7 +586,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n1 > 0 && n1 < size1-1)
 			{
 				j = a + (n1+1) * 2 + n2 * 2 * size1;
-				p = intraRate1 * n1 * (size1-1 - n1);
+				p = intraRate1 * n1 * (size1-1 - n1) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate1 * n1 * (size1-1 - n1) * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -548,7 +600,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n1 > 0 && n1 < size1-1)
 			{
 				j = a + (n1-1) * 2 + n2 * 2 * size1;
-				p = intraRate1 * (size1-1 - n1) * n1;
+				p = intraRate1 * (size1-1 - n1) * n1 * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate1 * (size1-1 - n1) * n1 * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -557,7 +614,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n2 > 0 && n2 < size2)
 			{
 				j = a + n1 * 2 + (n2+1) * 2 * size1;
-				p = intraRate2 * n2 * (size2 - n2);
+				p = intraRate2 * n2 * (size2 - n2) * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate2 * n2 * (size2 - n2) * contrarian2;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -566,7 +628,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n2 > 0 && n2 < size2)
 			{
 				j = a + n1 * 2 + (n2-1) * 2 * size1;
-				p = intraRate2 * (size2 - n2) * n2;
+				p = intraRate2 * (size2 - n2) * n2 * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate2 * (size2 - n2) * n2 * contrarian2;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -575,7 +642,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n1 > 0 && n2 < size2)
 			{
 				j = a + n1 * 2 + (n2+1) * 2 * size1;
-				p = interRate1 * n1 * (size2 - n2);
+				p = interRate1 * n1 * (size2 - n2) * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate1 * n1 * (size2 - n2) * contrarian2;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -584,7 +656,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n1 < size1-1 && n2 > 0)
 			{
 				j = a + n1 * 2 + (n2-1) * 2 * size1;
-				p = interRate1 * (size1-1 - n1) * n2;
+				p = interRate1 * (size1-1 - n1) * n2 * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate1 * (size1-1 - n1) * n2 * contrarian2;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -593,7 +670,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n2 > 0 && n1 < size1-1)
 			{
 				j = a + (n1+1) * 2 + n2 * 2 * size1;
-				p = interRate2 * n2 * (size1-1 - n1);
+				p = interRate2 * n2 * (size1-1 - n1) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate2 * n2 * (size1-1 - n1) * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
@@ -602,20 +684,128 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			if (n2 < size2 && n1 > 0)
 			{
 				j = a + (n1-1) * 2 + n2 * 2 * size1;
-				p = interRate2 * (size2 - n2) * n1;
+				p = interRate2 * (size2 - n2) * n1 * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate2 * (size2 - n2) * n1 * contrarian1;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+			
+			// n1 -> n1
+			if (n1 > 1)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate1 * n1 * (n1 - 1) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + (n1-1) * 2 + n2 * 2 * size1;
+				p = intraRate1 * n1 * (n1 - 1) * contrarian1;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+
+			// !n1 -> !n1
+			if (n1 < size1-2)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate1 * (size1-1 - n1) * (size1-1 - n1 - 1) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + (n1+1) * 2 + n2 * 2 * size1;
+				p = intraRate1 * (size1-1 - n1) * (size1-1 - n1 - 1) * contrarian1;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+			
+			// n2 -> n2
+			if (n2 > 1)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate2 * n2 * (n2 - 1) * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + (n2-1) * 2 * size1;
+				p = intraRate2 * n2 * (n2 - 1) * contrarian2;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+			
+			// !n2 -> !n2
+			if (n2 < size2-1)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = intraRate2 * (size2 - n2) * (size2 - n2 - 1) * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + (n2+1) * 2 * size1;
+				p = intraRate2 * (size2 - n2) * (size2 - n2 - 1) * contrarian2;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+			
+			// n1 -> n2
+			if (n1 > 0 && n2 > 0)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate1 * n1 * n2 * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + (n2-1) * 2 * size1;
+				p = interRate1 * n1 * n2 * contrarian2;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+			
+			// !n1 -> !n2
+			if (n1 < size1-1 && n2 < size2)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate1 * (size1-1 - n1) * (size2 - n2) * (1 - contrarian2);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + n1 * 2 + (n2+1) * 2 * size1;
+				p = interRate1 * (size1-1 - n1) * (size2 - n2) * contrarian2;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+			
+			// n2 -> n1
+			if (n2 > 0 && n1 > 0)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate2 * n2 * n1 * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + (n1-1) * 2 + n2 * 2 * size1;
+				p = interRate2 * n2 * n1 * contrarian1;
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+			}
+			
+			// !n2 -> !n1
+			if (n2 < size2 && n1 < size1-1)
+			{
+				j = a + n1 * 2 + n2 * 2 * size1;
+				p = interRate2 * (size2 - n2) * (size1-1 - n1) * (1 - contrarian1);
+				process->transition[j*size+i] += p/edgeWeight;
+				sumP += p/edgeWeight;
+
+				j = a + (n1+1) * 2 + n2 * 2 * size1;
+				p = interRate2 * (size2 - n2) * (size1-1 - n1) * contrarian1;
 				process->transition[j*size+i] += p/edgeWeight;
 				sumP += p/edgeWeight;
 			}
 						
-			// n1 -> n1 || !n1 -> !n1 || n2 -> n2 || !n2 -> !n2 || n1 -> n2 || !n1 -> !n2 || n2 -> n1 || !n2 -> !n1
-			j = a + n1 * 2 + n2 * 2 * size1;
-			p = intraRate1 * n1 * (n1-1) + intraRate1 * (size1-1 - n1) * (size1-1 - n1 - 1)
-				+ intraRate2 * n2 * (n2-1) + intraRate2 * (size2 - n2) * (size2 - n2 - 1)
-				+ interRate1 * n1 * n2 + interRate1 * (size1-1 - n1) * (size2 - n2)
-				+ interRate2 * n2 * n1 + interRate2 * (size2 - n2) * (size1-1 - n1);
-			process->transition[j*size+i] += p/edgeWeight;
-			sumP += p/edgeWeight;
-			
 			if (std::abs(sumP - 1) > 1e-10) { std::cout << "ERROR: probabilities do not sum to 1!" << std::endl; }
 		}
 	}
@@ -750,6 +940,13 @@ VoterProbe::VoterProbe (VoterGraph *g)
 VoterProbe::~VoterProbe ()
 {
 	delete nodeSet;
+}
+
+void VoterProbe::setNodeSet (std::set<VoterNode*> *set)
+{
+	delete nodeSet;
+	nodeSet = set;
+	nodeNumber = set->size();
 }
 
 
