@@ -1,6 +1,14 @@
 #ifndef INCLUDE_PARTITION
 #define INCLUDE_PARTITION
 
+/*!
+ * \file partition.hpp
+ * \brief Classes to build partitions of the state space of Markov chains
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
+ 
+
 #include <set>
 #include <list>
 
@@ -10,7 +18,10 @@ class Partition;
 typedef std::set<Part*> PartSet;
 typedef std::list<Partition*> PartitionList;
 
-
+/*!
+ * \class Part
+ * \brief A part of a partition (i.e., a set of individuals)
+ */
 class Part
 {
 	public:
@@ -29,6 +40,10 @@ class Part
 
 
 
+/*!
+ * \class Partition
+ * \brief A partition (i.e., a set of disjoint and covering parts)
+ */
 class Partition
 {
 	public:

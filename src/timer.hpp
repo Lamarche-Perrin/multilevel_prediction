@@ -1,10 +1,20 @@
 #ifndef INCLUDE_TIMER
 #define INCLUDE_TIMER
 
+/*!
+ * \file timer.hpp
+ * \brief Tools to mesure computation times and memory consumption during the program execution
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
+
+
 #include <list>
 #include <time.h>
 
-
+/*!
+ * \brief The computation time and memory consumption associated to an experiment of a given size
+ */
 typedef struct DataPointStruct
 {
 	int size;
@@ -13,6 +23,9 @@ typedef struct DataPointStruct
 } DataPoint;
 
 
+/*!
+ * \brief A timer mesuring computation times and memory consumption during the program execution
+ */
 class Timer
 {
 	public:

@@ -1,6 +1,14 @@
 #ifndef INCLUDE_CSV_TOOLS
 #define INCLUDE_CSV_TOOLS
 
+/*!
+ * \file csv_tools.hpp
+ * \brief Tools to handle input and output CSV files
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
+
+
 #include <vector>
 #include <string>
 #include <time.h>

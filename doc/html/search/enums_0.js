@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['updateprocess',['UpdateProcess',['../voter__graph_8hpp.html#ab3bec55c359e4ed771339c8bc61fc35a',1,'voter_graph.hpp']]]
+  ['measurementtype',['MeasurementType',['../voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7',1,'voter_graph.hpp']]]
 ];

@@ -1,124 +1,98 @@
 \hypertarget{class_voter_experiment}{}\section{Voter\+Experiment Class Reference}
 \label{class_voter_experiment}\index{Voter\+Experiment@{Voter\+Experiment}}
+
+
+Programming a prediction experiment on a two-\/communities Voter Model.  
+
+
+
+
+{\ttfamily \#include $<$voter\+\_\+experiment.\+hpp$>$}
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_voter_experiment_a1d1c7a26444c8cd21c571354fe624596}{}{\bfseries Voter\+Experiment} (int size1, int size2, double intra\+R1, double intra\+R2, double inter\+R1, double inter\+R2, double contrarian, double time, double delay, std\+::set$<$ int $>$ $\ast$pre\+Measurements, std\+::set$<$ int $>$ $\ast$post\+Measurements)\label{class_voter_experiment_a1d1c7a26444c8cd21c571354fe624596}
+\hyperlink{class_voter_experiment_ad7a7756aab9187e0a79fd40860a104ed}{Voter\+Experiment} (int size1, int size2, double intra\+R1, double intra\+R2, double inter\+R1, double inter\+R2, double contrarian, double time, double delay, std\+::set$<$ \hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\+Type} $>$ $\ast$\hyperlink{class_voter_experiment_a1de8c983105c4c2dabe6155f716bef93}{pre\+Measurements}, std\+::set$<$ \hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\+Type} $>$ $\ast$\hyperlink{class_voter_experiment_a858051eb0f9c27891f50ddfb982b2534}{post\+Measurements})
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hypertarget{class_voter_experiment_a1d3755542da65c490868ec76484fd92f}{}\hyperlink{class_voter_experiment_a1d3755542da65c490868ec76484fd92f}{$\sim$\+Voter\+Experiment} ()\label{class_voter_experiment_a1d3755542da65c490868ec76484fd92f}
 
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_voter_experiment_a013f931e0562435c97530c8a4be7042e}{}int {\bfseries id}\label{class_voter_experiment_a013f931e0562435c97530c8a4be7042e}
-
+int \hyperlink{class_voter_experiment_a013f931e0562435c97530c8a4be7042e}{id}
 \item 
-\hypertarget{class_voter_experiment_ad4993e52a8a59875a40fa31722f52774}{}int {\bfseries update}\label{class_voter_experiment_ad4993e52a8a59875a40fa31722f52774}
-
+\hyperlink{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35a}{Update\+Process} \hyperlink{class_voter_experiment_af6c2b58598cbf149ba835dc1da4c327a}{update}
 \item 
-\hypertarget{class_voter_experiment_a03efdf4f20508ff7bcc6fd5c0e29a9c0}{}double {\bfseries threshold}\label{class_voter_experiment_a03efdf4f20508ff7bcc6fd5c0e29a9c0}
-
+double \hyperlink{class_voter_experiment_a03efdf4f20508ff7bcc6fd5c0e29a9c0}{threshold}
 \item 
-\hypertarget{class_voter_experiment_a040b07572c50cab60e5777bf31143a76}{}bool {\bfseries compact\+Model}\label{class_voter_experiment_a040b07572c50cab60e5777bf31143a76}
-
+bool \hyperlink{class_voter_experiment_a040b07572c50cab60e5777bf31143a76}{compact\+Model}
 \item 
-\hypertarget{class_voter_experiment_a2f6b6040d2fb3f5d44276e0c9a137806}{}int {\bfseries size1\+Min}\label{class_voter_experiment_a2f6b6040d2fb3f5d44276e0c9a137806}
-
+int \hyperlink{class_voter_experiment_a2f6b6040d2fb3f5d44276e0c9a137806}{size1\+Min}
 \item 
-\hypertarget{class_voter_experiment_a351c47da6acaf3e4310d8eaed8471dc3}{}int {\bfseries size1\+Max}\label{class_voter_experiment_a351c47da6acaf3e4310d8eaed8471dc3}
-
+int \hyperlink{class_voter_experiment_a351c47da6acaf3e4310d8eaed8471dc3}{size1\+Max}
 \item 
-\hypertarget{class_voter_experiment_aca18061e6ee12ea935792b34fe245d87}{}int {\bfseries size1\+Step}\label{class_voter_experiment_aca18061e6ee12ea935792b34fe245d87}
-
+int \hyperlink{class_voter_experiment_aca18061e6ee12ea935792b34fe245d87}{size1\+Step}
 \item 
-\hypertarget{class_voter_experiment_aa4865f2c06bd9bfdf136536e7b4e2297}{}int {\bfseries size2\+Min}\label{class_voter_experiment_aa4865f2c06bd9bfdf136536e7b4e2297}
-
+int \hyperlink{class_voter_experiment_aa4865f2c06bd9bfdf136536e7b4e2297}{size2\+Min}
 \item 
-\hypertarget{class_voter_experiment_a5a0a8935b13623bb196fda30c8c5e0e0}{}int {\bfseries size2\+Max}\label{class_voter_experiment_a5a0a8935b13623bb196fda30c8c5e0e0}
-
+int \hyperlink{class_voter_experiment_a5a0a8935b13623bb196fda30c8c5e0e0}{size2\+Max}
 \item 
-\hypertarget{class_voter_experiment_a0c06dcb42e19c7879e1becc9b3d6a5df}{}int {\bfseries size2\+Step}\label{class_voter_experiment_a0c06dcb42e19c7879e1becc9b3d6a5df}
-
+int \hyperlink{class_voter_experiment_a0c06dcb42e19c7879e1becc9b3d6a5df}{size2\+Step}
 \item 
-\hypertarget{class_voter_experiment_accbcfbfc5929ac118cda138f5cf9f702}{}bool {\bfseries equal\+Size}\label{class_voter_experiment_accbcfbfc5929ac118cda138f5cf9f702}
-
+bool \hyperlink{class_voter_experiment_accbcfbfc5929ac118cda138f5cf9f702}{equal\+Size}
 \item 
-\hypertarget{class_voter_experiment_affe7cb18bec707f3e07ef494f884b571}{}double {\bfseries intra\+R1\+Min}\label{class_voter_experiment_affe7cb18bec707f3e07ef494f884b571}
-
+double \hyperlink{class_voter_experiment_affe7cb18bec707f3e07ef494f884b571}{intra\+R1\+Min}
 \item 
-\hypertarget{class_voter_experiment_a47c5094262c72f2ef4d41f0592ac91e5}{}double {\bfseries intra\+R1\+Max}\label{class_voter_experiment_a47c5094262c72f2ef4d41f0592ac91e5}
-
+double \hyperlink{class_voter_experiment_a47c5094262c72f2ef4d41f0592ac91e5}{intra\+R1\+Max}
 \item 
-\hypertarget{class_voter_experiment_ad1942e9491c0eb3bc8b27647224ec6fc}{}double {\bfseries intra\+R1\+Step}\label{class_voter_experiment_ad1942e9491c0eb3bc8b27647224ec6fc}
-
+double \hyperlink{class_voter_experiment_ad1942e9491c0eb3bc8b27647224ec6fc}{intra\+R1\+Step}
 \item 
-\hypertarget{class_voter_experiment_a95db9758a55853d37f40ea5422477f28}{}double {\bfseries intra\+R2\+Min}\label{class_voter_experiment_a95db9758a55853d37f40ea5422477f28}
-
+double \hyperlink{class_voter_experiment_a95db9758a55853d37f40ea5422477f28}{intra\+R2\+Min}
 \item 
-\hypertarget{class_voter_experiment_a3ed3ee17da83a374fe1f35a995352ac7}{}double {\bfseries intra\+R2\+Max}\label{class_voter_experiment_a3ed3ee17da83a374fe1f35a995352ac7}
-
+double \hyperlink{class_voter_experiment_a3ed3ee17da83a374fe1f35a995352ac7}{intra\+R2\+Max}
 \item 
-\hypertarget{class_voter_experiment_a6239bcb8949bc8c5aab8d76c02e514af}{}double {\bfseries intra\+R2\+Step}\label{class_voter_experiment_a6239bcb8949bc8c5aab8d76c02e514af}
-
+double \hyperlink{class_voter_experiment_a6239bcb8949bc8c5aab8d76c02e514af}{intra\+R2\+Step}
 \item 
-\hypertarget{class_voter_experiment_a46f2fcbd4356bf8d89de85048ee086fb}{}double {\bfseries inter\+R1\+Min}\label{class_voter_experiment_a46f2fcbd4356bf8d89de85048ee086fb}
-
+double \hyperlink{class_voter_experiment_a46f2fcbd4356bf8d89de85048ee086fb}{inter\+R1\+Min}
 \item 
-\hypertarget{class_voter_experiment_a9bdf90b5a8c519608bb14337b7b6a884}{}double {\bfseries inter\+R1\+Max}\label{class_voter_experiment_a9bdf90b5a8c519608bb14337b7b6a884}
-
+double \hyperlink{class_voter_experiment_a9bdf90b5a8c519608bb14337b7b6a884}{inter\+R1\+Max}
 \item 
-\hypertarget{class_voter_experiment_ab720cd6c457bc899a795c95a95922b54}{}double {\bfseries inter\+R1\+Step}\label{class_voter_experiment_ab720cd6c457bc899a795c95a95922b54}
-
+double \hyperlink{class_voter_experiment_ab720cd6c457bc899a795c95a95922b54}{inter\+R1\+Step}
 \item 
-\hypertarget{class_voter_experiment_a8ddf85950b96c4b19081b77e61e5cb74}{}double {\bfseries inter\+R2\+Min}\label{class_voter_experiment_a8ddf85950b96c4b19081b77e61e5cb74}
-
+double \hyperlink{class_voter_experiment_a8ddf85950b96c4b19081b77e61e5cb74}{inter\+R2\+Min}
 \item 
-\hypertarget{class_voter_experiment_a50fba0900d0a667baa81860789104b08}{}double {\bfseries inter\+R2\+Max}\label{class_voter_experiment_a50fba0900d0a667baa81860789104b08}
-
+double \hyperlink{class_voter_experiment_a50fba0900d0a667baa81860789104b08}{inter\+R2\+Max}
 \item 
-\hypertarget{class_voter_experiment_af0b724b2c343c5d94bceed53b0f7bfec}{}double {\bfseries inter\+R2\+Step}\label{class_voter_experiment_af0b724b2c343c5d94bceed53b0f7bfec}
-
+double \hyperlink{class_voter_experiment_af0b724b2c343c5d94bceed53b0f7bfec}{inter\+R2\+Step}
 \item 
-\hypertarget{class_voter_experiment_a7f84a77316202aad327b2aa2cf16829c}{}bool {\bfseries equal\+Intra\+Rate}\label{class_voter_experiment_a7f84a77316202aad327b2aa2cf16829c}
-
+bool \hyperlink{class_voter_experiment_a7f84a77316202aad327b2aa2cf16829c}{equal\+Intra\+Rate}
 \item 
-\hypertarget{class_voter_experiment_a95947b09a90a06bbf9246a0c89779411}{}bool {\bfseries equal\+Inter\+Rate}\label{class_voter_experiment_a95947b09a90a06bbf9246a0c89779411}
-
+bool \hyperlink{class_voter_experiment_a95947b09a90a06bbf9246a0c89779411}{equal\+Inter\+Rate}
 \item 
-\hypertarget{class_voter_experiment_a6d5ba67afc5efb089c3aaf0da507f0e2}{}bool {\bfseries opposite\+Inter\+Rate}\label{class_voter_experiment_a6d5ba67afc5efb089c3aaf0da507f0e2}
-
+bool \hyperlink{class_voter_experiment_a6d5ba67afc5efb089c3aaf0da507f0e2}{opposite\+Inter\+Rate}
 \item 
-\hypertarget{class_voter_experiment_a8f63fda5e3d9e999338d8dad4e8c7fec}{}double {\bfseries contrarian\+Min}\label{class_voter_experiment_a8f63fda5e3d9e999338d8dad4e8c7fec}
-
+double \hyperlink{class_voter_experiment_a8f63fda5e3d9e999338d8dad4e8c7fec}{contrarian\+Min}
 \item 
-\hypertarget{class_voter_experiment_ad98a9b74ed00fff511a28ac7f2eb3ea5}{}double {\bfseries contrarian\+Max}\label{class_voter_experiment_ad98a9b74ed00fff511a28ac7f2eb3ea5}
-
+double \hyperlink{class_voter_experiment_ad98a9b74ed00fff511a28ac7f2eb3ea5}{contrarian\+Max}
 \item 
-\hypertarget{class_voter_experiment_a97cb958e2e52c3edd65bcfad893ffbe6}{}double {\bfseries contrarian\+Step}\label{class_voter_experiment_a97cb958e2e52c3edd65bcfad893ffbe6}
-
+double \hyperlink{class_voter_experiment_a97cb958e2e52c3edd65bcfad893ffbe6}{contrarian\+Step}
 \item 
-\hypertarget{class_voter_experiment_aa27e26baf58fb885bf20bc437bbc8b04}{}int {\bfseries time\+Min}\label{class_voter_experiment_aa27e26baf58fb885bf20bc437bbc8b04}
-
+int \hyperlink{class_voter_experiment_aa27e26baf58fb885bf20bc437bbc8b04}{time\+Min}
 \item 
-\hypertarget{class_voter_experiment_ae02232a37adc28d878214b02ed23afd6}{}int {\bfseries time\+Max}\label{class_voter_experiment_ae02232a37adc28d878214b02ed23afd6}
-
+int \hyperlink{class_voter_experiment_ae02232a37adc28d878214b02ed23afd6}{time\+Max}
 \item 
-\hypertarget{class_voter_experiment_ad84ef40e21aeb5406a954d6ff38d7dc4}{}int {\bfseries time\+Step}\label{class_voter_experiment_ad84ef40e21aeb5406a954d6ff38d7dc4}
-
+int \hyperlink{class_voter_experiment_ad84ef40e21aeb5406a954d6ff38d7dc4}{time\+Step}
 \item 
-\hypertarget{class_voter_experiment_a65edc09b6f6077cd29739e8f93c46246}{}int {\bfseries delay\+Min}\label{class_voter_experiment_a65edc09b6f6077cd29739e8f93c46246}
-
+int \hyperlink{class_voter_experiment_a65edc09b6f6077cd29739e8f93c46246}{delay\+Min}
 \item 
-\hypertarget{class_voter_experiment_a1556d0e6c7c1590a8ba3604806738b51}{}int {\bfseries delay\+Max}\label{class_voter_experiment_a1556d0e6c7c1590a8ba3604806738b51}
-
+int \hyperlink{class_voter_experiment_a1556d0e6c7c1590a8ba3604806738b51}{delay\+Max}
 \item 
-\hypertarget{class_voter_experiment_a1c95cd8bdfefbcb1c51560f2b9fc5b85}{}int {\bfseries delay\+Step}\label{class_voter_experiment_a1c95cd8bdfefbcb1c51560f2b9fc5b85}
-
+int \hyperlink{class_voter_experiment_a1c95cd8bdfefbcb1c51560f2b9fc5b85}{delay\+Step}
 \item 
-\hypertarget{class_voter_experiment_af81685b5c3ac3a351294323fbf1bf4e4}{}std\+::set$<$ int $>$ $\ast$ {\bfseries pre\+Measurements}\label{class_voter_experiment_af81685b5c3ac3a351294323fbf1bf4e4}
-
+std\+::set$<$ \hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\+Type} $>$ $\ast$ \hyperlink{class_voter_experiment_a1de8c983105c4c2dabe6155f716bef93}{pre\+Measurements}
 \item 
-\hypertarget{class_voter_experiment_a0f8a4f7cdec84828dc4e3bf657e75675}{}std\+::set$<$ int $>$ $\ast$ {\bfseries post\+Measurements}\label{class_voter_experiment_a0f8a4f7cdec84828dc4e3bf657e75675}
-
+std\+::set$<$ \hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\+Type} $>$ $\ast$ \hyperlink{class_voter_experiment_a858051eb0f9c27891f50ddfb982b2534}{post\+Measurements}
 \end{DoxyCompactItemize}
 \subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
@@ -128,7 +102,173 @@
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+Programming a prediction experiment on a two-\/communities Voter Model. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_voter_experiment_ad7a7756aab9187e0a79fd40860a104ed}{}\index{Voter\+Experiment@{Voter\+Experiment}!Voter\+Experiment@{Voter\+Experiment}}
+\index{Voter\+Experiment@{Voter\+Experiment}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{Voter\+Experiment}]{\setlength{\rightskip}{0pt plus 5cm}Voter\+Experiment\+::\+Voter\+Experiment (
+\begin{DoxyParamCaption}
+\item[{int}]{size1, }
+\item[{int}]{size2, }
+\item[{double}]{intra\+R1, }
+\item[{double}]{intra\+R2, }
+\item[{double}]{inter\+R1, }
+\item[{double}]{inter\+R2, }
+\item[{double}]{contrarian, }
+\item[{double}]{time, }
+\item[{double}]{delay, }
+\item[{std\+::set$<$ {\bf Measurement\+Type} $>$ $\ast$}]{pre\+Measurements, }
+\item[{std\+::set$<$ {\bf Measurement\+Type} $>$ $\ast$}]{post\+Measurements}
+\end{DoxyParamCaption}
+)}\label{class_voter_experiment_ad7a7756aab9187e0a79fd40860a104ed}
+
+
+Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size1} & \+: The size of community 1 in all experiments \\
+\hline
+{\em size2} & \+: The size of community 2 in all experiments \\
+\hline
+{\em intra\+R1} & \+: The weight of edges within community 1 in all experiments \\
+\hline
+{\em intra\+R2} & \+: The weight of edges within community 2 in all experiments \\
+\hline
+{\em inter\+R1} & \+: The weight of edges from community 1 to community 2 in all experiments \\
+\hline
+{\em inter\+R2} & \+: The weight of edges from community 2 to community 1 in all experiments \\
+\hline
+{\em contrarian} & \+: The contrarian rate of nodes in all experiments \\
+\hline
+{\em time} & \+: The time of pre-\/measurement (-\/1 for stationary distribution) in all experiments \\
+\hline
+{\em delay} & \+: The delay before post-\/measurement in all experiments \\
+\hline
+{\em pre\+Measurements} & \+: A set of pre-\/measurement for prediction \\
+\hline
+{\em post\+Measurements} & \+: A set of post-\/measurement to be predicted \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_voter_experiment_a040b07572c50cab60e5777bf31143a76}{}\index{Voter\+Experiment@{Voter\+Experiment}!compact\+Model@{compact\+Model}}
+\index{compact\+Model@{compact\+Model}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{compact\+Model}]{\setlength{\rightskip}{0pt plus 5cm}bool Voter\+Experiment\+::compact\+Model}\label{class_voter_experiment_a040b07572c50cab60e5777bf31143a76}
+If true, the computed microscopic Markov chain is lumped according to the macro-\/state of community 1, the macro-\/state of community 2, and the state of the first agent in community 1 \hypertarget{class_voter_experiment_ad98a9b74ed00fff511a28ac7f2eb3ea5}{}\index{Voter\+Experiment@{Voter\+Experiment}!contrarian\+Max@{contrarian\+Max}}
+\index{contrarian\+Max@{contrarian\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{contrarian\+Max}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::contrarian\+Max}\label{class_voter_experiment_ad98a9b74ed00fff511a28ac7f2eb3ea5}
+The contrarian rate of nodes in the last experiment \hypertarget{class_voter_experiment_a8f63fda5e3d9e999338d8dad4e8c7fec}{}\index{Voter\+Experiment@{Voter\+Experiment}!contrarian\+Min@{contrarian\+Min}}
+\index{contrarian\+Min@{contrarian\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{contrarian\+Min}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::contrarian\+Min}\label{class_voter_experiment_a8f63fda5e3d9e999338d8dad4e8c7fec}
+The contrarian rate of nodes in the first experiment \hypertarget{class_voter_experiment_a97cb958e2e52c3edd65bcfad893ffbe6}{}\index{Voter\+Experiment@{Voter\+Experiment}!contrarian\+Step@{contrarian\+Step}}
+\index{contrarian\+Step@{contrarian\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{contrarian\+Step}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::contrarian\+Step}\label{class_voter_experiment_a97cb958e2e52c3edd65bcfad893ffbe6}
+The contrarian rate of nodes between two consecutive experiments \hypertarget{class_voter_experiment_a1556d0e6c7c1590a8ba3604806738b51}{}\index{Voter\+Experiment@{Voter\+Experiment}!delay\+Max@{delay\+Max}}
+\index{delay\+Max@{delay\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{delay\+Max}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::delay\+Max}\label{class_voter_experiment_a1556d0e6c7c1590a8ba3604806738b51}
+The delay before post-\/measurement in the last experiment \hypertarget{class_voter_experiment_a65edc09b6f6077cd29739e8f93c46246}{}\index{Voter\+Experiment@{Voter\+Experiment}!delay\+Min@{delay\+Min}}
+\index{delay\+Min@{delay\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{delay\+Min}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::delay\+Min}\label{class_voter_experiment_a65edc09b6f6077cd29739e8f93c46246}
+The delay before post-\/measurement in the first experiment \hypertarget{class_voter_experiment_a1c95cd8bdfefbcb1c51560f2b9fc5b85}{}\index{Voter\+Experiment@{Voter\+Experiment}!delay\+Step@{delay\+Step}}
+\index{delay\+Step@{delay\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{delay\+Step}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::delay\+Step}\label{class_voter_experiment_a1c95cd8bdfefbcb1c51560f2b9fc5b85}
+The delay before post-\/measurement between two consecutive experiments \hypertarget{class_voter_experiment_a95947b09a90a06bbf9246a0c89779411}{}\index{Voter\+Experiment@{Voter\+Experiment}!equal\+Inter\+Rate@{equal\+Inter\+Rate}}
+\index{equal\+Inter\+Rate@{equal\+Inter\+Rate}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{equal\+Inter\+Rate}]{\setlength{\rightskip}{0pt plus 5cm}bool Voter\+Experiment\+::equal\+Inter\+Rate}\label{class_voter_experiment_a95947b09a90a06bbf9246a0c89779411}
+If true, the weight of edges from community 2 to community 1 is the same as the weight of edges from community 1 to community 2 in all experiments \hypertarget{class_voter_experiment_a7f84a77316202aad327b2aa2cf16829c}{}\index{Voter\+Experiment@{Voter\+Experiment}!equal\+Intra\+Rate@{equal\+Intra\+Rate}}
+\index{equal\+Intra\+Rate@{equal\+Intra\+Rate}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{equal\+Intra\+Rate}]{\setlength{\rightskip}{0pt plus 5cm}bool Voter\+Experiment\+::equal\+Intra\+Rate}\label{class_voter_experiment_a7f84a77316202aad327b2aa2cf16829c}
+If true, the weight of edges within community 2 is the same as the weight of edges within community 2 in all experiments \hypertarget{class_voter_experiment_accbcfbfc5929ac118cda138f5cf9f702}{}\index{Voter\+Experiment@{Voter\+Experiment}!equal\+Size@{equal\+Size}}
+\index{equal\+Size@{equal\+Size}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{equal\+Size}]{\setlength{\rightskip}{0pt plus 5cm}bool Voter\+Experiment\+::equal\+Size}\label{class_voter_experiment_accbcfbfc5929ac118cda138f5cf9f702}
+If true, the size of community 2 is the same as the size of community 1 in all experiments \hypertarget{class_voter_experiment_a013f931e0562435c97530c8a4be7042e}{}\index{Voter\+Experiment@{Voter\+Experiment}!id@{id}}
+\index{id@{id}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{id}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::id}\label{class_voter_experiment_a013f931e0562435c97530c8a4be7042e}
+A unique experiment number \hypertarget{class_voter_experiment_a9bdf90b5a8c519608bb14337b7b6a884}{}\index{Voter\+Experiment@{Voter\+Experiment}!inter\+R1\+Max@{inter\+R1\+Max}}
+\index{inter\+R1\+Max@{inter\+R1\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{inter\+R1\+Max}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::inter\+R1\+Max}\label{class_voter_experiment_a9bdf90b5a8c519608bb14337b7b6a884}
+The weight of edges from community 1 to community 2 in the last experiment \hypertarget{class_voter_experiment_a46f2fcbd4356bf8d89de85048ee086fb}{}\index{Voter\+Experiment@{Voter\+Experiment}!inter\+R1\+Min@{inter\+R1\+Min}}
+\index{inter\+R1\+Min@{inter\+R1\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{inter\+R1\+Min}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::inter\+R1\+Min}\label{class_voter_experiment_a46f2fcbd4356bf8d89de85048ee086fb}
+The weight of edges from community 1 to community 2 in the first experiment \hypertarget{class_voter_experiment_ab720cd6c457bc899a795c95a95922b54}{}\index{Voter\+Experiment@{Voter\+Experiment}!inter\+R1\+Step@{inter\+R1\+Step}}
+\index{inter\+R1\+Step@{inter\+R1\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{inter\+R1\+Step}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::inter\+R1\+Step}\label{class_voter_experiment_ab720cd6c457bc899a795c95a95922b54}
+The weight of edges from community 1 to community 2 between two consecutive experiments \hypertarget{class_voter_experiment_a50fba0900d0a667baa81860789104b08}{}\index{Voter\+Experiment@{Voter\+Experiment}!inter\+R2\+Max@{inter\+R2\+Max}}
+\index{inter\+R2\+Max@{inter\+R2\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{inter\+R2\+Max}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::inter\+R2\+Max}\label{class_voter_experiment_a50fba0900d0a667baa81860789104b08}
+The weight of edges from community 2 to community 1 in the last experiment \hypertarget{class_voter_experiment_a8ddf85950b96c4b19081b77e61e5cb74}{}\index{Voter\+Experiment@{Voter\+Experiment}!inter\+R2\+Min@{inter\+R2\+Min}}
+\index{inter\+R2\+Min@{inter\+R2\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{inter\+R2\+Min}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::inter\+R2\+Min}\label{class_voter_experiment_a8ddf85950b96c4b19081b77e61e5cb74}
+The weight of edges from community 2 to community 1 in the first experiment \hypertarget{class_voter_experiment_af0b724b2c343c5d94bceed53b0f7bfec}{}\index{Voter\+Experiment@{Voter\+Experiment}!inter\+R2\+Step@{inter\+R2\+Step}}
+\index{inter\+R2\+Step@{inter\+R2\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{inter\+R2\+Step}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::inter\+R2\+Step}\label{class_voter_experiment_af0b724b2c343c5d94bceed53b0f7bfec}
+The weight of edges from community 2 to community 1 between two consecutive experiments \hypertarget{class_voter_experiment_a47c5094262c72f2ef4d41f0592ac91e5}{}\index{Voter\+Experiment@{Voter\+Experiment}!intra\+R1\+Max@{intra\+R1\+Max}}
+\index{intra\+R1\+Max@{intra\+R1\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{intra\+R1\+Max}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::intra\+R1\+Max}\label{class_voter_experiment_a47c5094262c72f2ef4d41f0592ac91e5}
+The weight of edges within community 1 in the last experiment \hypertarget{class_voter_experiment_affe7cb18bec707f3e07ef494f884b571}{}\index{Voter\+Experiment@{Voter\+Experiment}!intra\+R1\+Min@{intra\+R1\+Min}}
+\index{intra\+R1\+Min@{intra\+R1\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{intra\+R1\+Min}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::intra\+R1\+Min}\label{class_voter_experiment_affe7cb18bec707f3e07ef494f884b571}
+The weight of edges within community 1 in the first experiment \hypertarget{class_voter_experiment_ad1942e9491c0eb3bc8b27647224ec6fc}{}\index{Voter\+Experiment@{Voter\+Experiment}!intra\+R1\+Step@{intra\+R1\+Step}}
+\index{intra\+R1\+Step@{intra\+R1\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{intra\+R1\+Step}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::intra\+R1\+Step}\label{class_voter_experiment_ad1942e9491c0eb3bc8b27647224ec6fc}
+The weight of edges within community 1 between two consecutive experiments \hypertarget{class_voter_experiment_a3ed3ee17da83a374fe1f35a995352ac7}{}\index{Voter\+Experiment@{Voter\+Experiment}!intra\+R2\+Max@{intra\+R2\+Max}}
+\index{intra\+R2\+Max@{intra\+R2\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{intra\+R2\+Max}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::intra\+R2\+Max}\label{class_voter_experiment_a3ed3ee17da83a374fe1f35a995352ac7}
+The weight of edges within community 2 in the last experiment \hypertarget{class_voter_experiment_a95db9758a55853d37f40ea5422477f28}{}\index{Voter\+Experiment@{Voter\+Experiment}!intra\+R2\+Min@{intra\+R2\+Min}}
+\index{intra\+R2\+Min@{intra\+R2\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{intra\+R2\+Min}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::intra\+R2\+Min}\label{class_voter_experiment_a95db9758a55853d37f40ea5422477f28}
+The weight of edges within community 2 in the first experiment \hypertarget{class_voter_experiment_a6239bcb8949bc8c5aab8d76c02e514af}{}\index{Voter\+Experiment@{Voter\+Experiment}!intra\+R2\+Step@{intra\+R2\+Step}}
+\index{intra\+R2\+Step@{intra\+R2\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{intra\+R2\+Step}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::intra\+R2\+Step}\label{class_voter_experiment_a6239bcb8949bc8c5aab8d76c02e514af}
+The weight of edges within community 2 between two consecutive experiments \hypertarget{class_voter_experiment_a6d5ba67afc5efb089c3aaf0da507f0e2}{}\index{Voter\+Experiment@{Voter\+Experiment}!opposite\+Inter\+Rate@{opposite\+Inter\+Rate}}
+\index{opposite\+Inter\+Rate@{opposite\+Inter\+Rate}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{opposite\+Inter\+Rate}]{\setlength{\rightskip}{0pt plus 5cm}bool Voter\+Experiment\+::opposite\+Inter\+Rate}\label{class_voter_experiment_a6d5ba67afc5efb089c3aaf0da507f0e2}
+If true, the weight of edges from community 2 to community 1 is the opposite of the weight of edges from community 1 to community 2 in all experiments (w2 = 1 -\/ w1) \hypertarget{class_voter_experiment_a858051eb0f9c27891f50ddfb982b2534}{}\index{Voter\+Experiment@{Voter\+Experiment}!post\+Measurements@{post\+Measurements}}
+\index{post\+Measurements@{post\+Measurements}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{post\+Measurements}]{\setlength{\rightskip}{0pt plus 5cm}std\+::set$<${\bf Measurement\+Type}$>$$\ast$ Voter\+Experiment\+::post\+Measurements}\label{class_voter_experiment_a858051eb0f9c27891f50ddfb982b2534}
+A set of post-\/measurement to be predicted \hypertarget{class_voter_experiment_a1de8c983105c4c2dabe6155f716bef93}{}\index{Voter\+Experiment@{Voter\+Experiment}!pre\+Measurements@{pre\+Measurements}}
+\index{pre\+Measurements@{pre\+Measurements}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{pre\+Measurements}]{\setlength{\rightskip}{0pt plus 5cm}std\+::set$<${\bf Measurement\+Type}$>$$\ast$ Voter\+Experiment\+::pre\+Measurements}\label{class_voter_experiment_a1de8c983105c4c2dabe6155f716bef93}
+A set of pre-\/measurement for prediction \hypertarget{class_voter_experiment_a351c47da6acaf3e4310d8eaed8471dc3}{}\index{Voter\+Experiment@{Voter\+Experiment}!size1\+Max@{size1\+Max}}
+\index{size1\+Max@{size1\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{size1\+Max}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::size1\+Max}\label{class_voter_experiment_a351c47da6acaf3e4310d8eaed8471dc3}
+The size of community 1 in the last experiment \hypertarget{class_voter_experiment_a2f6b6040d2fb3f5d44276e0c9a137806}{}\index{Voter\+Experiment@{Voter\+Experiment}!size1\+Min@{size1\+Min}}
+\index{size1\+Min@{size1\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{size1\+Min}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::size1\+Min}\label{class_voter_experiment_a2f6b6040d2fb3f5d44276e0c9a137806}
+The size of community 1 in the first experiment \hypertarget{class_voter_experiment_aca18061e6ee12ea935792b34fe245d87}{}\index{Voter\+Experiment@{Voter\+Experiment}!size1\+Step@{size1\+Step}}
+\index{size1\+Step@{size1\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{size1\+Step}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::size1\+Step}\label{class_voter_experiment_aca18061e6ee12ea935792b34fe245d87}
+The size of community 1 between two consecutive experiments \hypertarget{class_voter_experiment_a5a0a8935b13623bb196fda30c8c5e0e0}{}\index{Voter\+Experiment@{Voter\+Experiment}!size2\+Max@{size2\+Max}}
+\index{size2\+Max@{size2\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{size2\+Max}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::size2\+Max}\label{class_voter_experiment_a5a0a8935b13623bb196fda30c8c5e0e0}
+The size of community 2 in the last experiment \hypertarget{class_voter_experiment_aa4865f2c06bd9bfdf136536e7b4e2297}{}\index{Voter\+Experiment@{Voter\+Experiment}!size2\+Min@{size2\+Min}}
+\index{size2\+Min@{size2\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{size2\+Min}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::size2\+Min}\label{class_voter_experiment_aa4865f2c06bd9bfdf136536e7b4e2297}
+The size of community 2 in the first experiment \hypertarget{class_voter_experiment_a0c06dcb42e19c7879e1becc9b3d6a5df}{}\index{Voter\+Experiment@{Voter\+Experiment}!size2\+Step@{size2\+Step}}
+\index{size2\+Step@{size2\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{size2\+Step}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::size2\+Step}\label{class_voter_experiment_a0c06dcb42e19c7879e1becc9b3d6a5df}
+The size of community 2 between two consecutive experiments \hypertarget{class_voter_experiment_a03efdf4f20508ff7bcc6fd5c0e29a9c0}{}\index{Voter\+Experiment@{Voter\+Experiment}!threshold@{threshold}}
+\index{threshold@{threshold}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{threshold}]{\setlength{\rightskip}{0pt plus 5cm}double Voter\+Experiment\+::threshold}\label{class_voter_experiment_a03efdf4f20508ff7bcc6fd5c0e29a9c0}
+The precision threshold to compute the stationary distribution of the Markov chain (see compute\+Stationary\+Distribution method in \hyperlink{class_markov_process}{Markov\+Process} class) \hypertarget{class_voter_experiment_ae02232a37adc28d878214b02ed23afd6}{}\index{Voter\+Experiment@{Voter\+Experiment}!time\+Max@{time\+Max}}
+\index{time\+Max@{time\+Max}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{time\+Max}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::time\+Max}\label{class_voter_experiment_ae02232a37adc28d878214b02ed23afd6}
+The time of pre-\/measurement (-\/1 for stationary distribution) in the last experiment \hypertarget{class_voter_experiment_aa27e26baf58fb885bf20bc437bbc8b04}{}\index{Voter\+Experiment@{Voter\+Experiment}!time\+Min@{time\+Min}}
+\index{time\+Min@{time\+Min}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{time\+Min}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::time\+Min}\label{class_voter_experiment_aa27e26baf58fb885bf20bc437bbc8b04}
+The time of pre-\/measurement (-\/1 for stationary distribution) in the first experiment \hypertarget{class_voter_experiment_ad84ef40e21aeb5406a954d6ff38d7dc4}{}\index{Voter\+Experiment@{Voter\+Experiment}!time\+Step@{time\+Step}}
+\index{time\+Step@{time\+Step}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{time\+Step}]{\setlength{\rightskip}{0pt plus 5cm}int Voter\+Experiment\+::time\+Step}\label{class_voter_experiment_ad84ef40e21aeb5406a954d6ff38d7dc4}
+The time of pre-\/measurement (-\/1 for stationary distribution) between two consecutive experiments \hypertarget{class_voter_experiment_af6c2b58598cbf149ba835dc1da4c327a}{}\index{Voter\+Experiment@{Voter\+Experiment}!update@{update}}
+\index{update@{update}!Voter\+Experiment@{Voter\+Experiment}}
+\subsubsection[{update}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Update\+Process} Voter\+Experiment\+::update}\label{class_voter_experiment_af6c2b58598cbf149ba835dc1da4c327a}
+The update process of the built Voter Model 
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+experiment.\+hpp\item 
+C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/\hyperlink{voter__experiment_8hpp}{voter\+\_\+experiment.\+hpp}\item 
 C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+experiment.\+cpp\end{DoxyCompactItemize}

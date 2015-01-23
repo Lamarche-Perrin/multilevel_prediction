@@ -28,7 +28,27 @@ enum VoterMetric {
 enum UpdateProcess {
 	UPDATE_NODES,		/*!< Node-driven interactions: A node is chosen at each simulation step, it acts on one of its outcoming nodes*/
 	UPDATE_EDGES		/*!< Edge-driven interactions: An edge is chosen at each simulation step, its incoming node acts on its outcoming node*/
-}
+};
+
+
+/*!
+ * \brief A specific measurement in the case of a two-communities interaction graphs
+ */
+enum MeasurementType {
+	M_MICRO,				/*!< Microscopic state*/
+	M_AGENT1,				/*!< State of the first node in community 1*/
+	M_MESO1,				/*!< Aggregated state of all nodes in community 1*/
+	M_MESO2,				/*!< Aggregated state of all nodes in community 2*/
+	M_MACRO,				/*!< Aggregated state of nodes in both communities*/
+	M_EMPTY,				/*!< No observation*/
+	M_ALLSIZES1,			/*!< Aggregated state of node subsets of all sizes within community 1*/
+	M_AGENT1_MESO1,			/*!< Join measurement (see above)*/
+	M_AGENT1_MESO2,			/*!< Join measurement (see above)*/
+	M_AGENT1_MACRO,			/*!< Join measurement (see above)*/
+	M_AGENT1_MESO1_MESO2,	/*!< Join measurement (see above)*/
+	M_MESO1_MESO2			/*!< Join measurement (see above)*/
+};
+
 
 class VoterNode;
 class VoterEdge;
@@ -216,44 +236,44 @@ class TwoCommunitiesVoterGraph : public VoterGraph
 		std::set<VoterNode*> *community2;	/*!< The set of nodes in community 2*/
 		
 		/*!
-		* \brief Constructor
-		* \param size1 : The size of community 1
-		* \param size2 : The size of community 2
-		* \param intraRate1 : The weight of edges within community 1
-		* \param intraRate2 : The weight of edges within community 2
-		* \param interRate1 : The weight of edges from community 1 to community 2
-		* \param interRate2 : The weight of edges from community 2 to community 1
-		* \param contrarian : The contrarian rate of each node
-		* \param update : How the system evolves at each simulation step (UPDATE_NODES or UPDATE_EDGES)
-		*/
+		 * \brief Constructor
+		 * \param size1 : The size of community 1
+		 * \param size2 : The size of community 2
+		 * \param intraRate1 : The weight of edges within community 1
+		 * \param intraRate2 : The weight of edges within community 2
+		 * \param interRate1 : The weight of edges from community 1 to community 2
+		 * \param interRate2 : The weight of edges from community 2 to community 1
+		 * \param contrarian : The contrarian rate of each node
+		 * \param update : How the system evolves at each simulation step (UPDATE_NODES or UPDATE_EDGES)
+		  */
 		TwoCommunitiesVoterGraph (int size1, int size2,
 			double intraRate1, double intraRate2, double interRate1, double interRate2,
 			double contrarian = 0, int update = UPDATE_EDGES);
 
 		/*!
-		* \brief Destructor
-		*/
+		 * \brief Destructor
+		 */
 		~TwoCommunitiesVoterGraph ();
 
 		/*!
-		* \brief Build the Markov chain associated to the graph, lumped according to the macro-state of community 1, the macro-state of community 2, and the state of the first agent in community 1
-		* \return The computed lumped Markov chain
-		*/
+		 * \brief Build the Markov chain associated to the graph, lumped according to the macro-state of community 1, the macro-state of community 2, and the state of the first agent in community 1
+		 * \return The computed lumped Markov chain
+		 */
 		MarkovProcess *getCompactMarkovProcess();
 
 		/*!
-		* \brief Build the partition of the lumped Markov chain state space (see getCompactMarkovProcess) associated to a probe with a given metric (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
-		* \param probe : The probe used to partition the lumped state space
-		* \param metric : The metric of the probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
-		* \return The computed partition over the lumped state space
-		*/
+		 * \brief Build the partition of the lumped Markov chain state space (see getCompactMarkovProcess) associated to a probe with a given metric (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
+		 * \param probe : The probe used to partition the lumped state space
+		 * \param metric : The metric of the probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
+		 * \return The computed partition over the lumped state space
+		 */
 		Partition *getCompactMarkovPartition (VoterProbe *probe, VoterMetric metric);
 
 		/*!
-		* \brief Build the partition of the lumped Markov chain state space (see getCompactMarkovProcess) associated to a measurement (i.e., a set of probes)
-		* \param measurement : The measurement used to partition the lumped state space
-		* \return The computed partition over the lumped state space
-		*/
+		 * \brief Build the partition of the lumped Markov chain state space (see getCompactMarkovProcess) associated to a measurement (i.e., a set of probes)
+		 * \param measurement : The measurement used to partition the lumped state space
+		 * \return The computed partition over the lumped state space
+		 */
 		Partition *getCompactMarkovPartition (VoterMeasurement *measurement);
 };
 
@@ -271,32 +291,32 @@ class VoterProbe
 		std::set<VoterNode*> *nodeSet;		/*!< The set of observed nodes*/
 
 		/*!
-		* \brief Constructor
-		* \param graph : The interaction graph to be observed
-		*/
+		 * \brief Constructor
+		 * \param graph : The interaction graph to be observed
+		 */
 		VoterProbe (VoterGraph *graph);
 
 		/*!
-		* \brief Destructor
-		*/
+		 * \brief Destructor
+		 */
 		~VoterProbe ();
 
 		/*!
-		* \brief Add an observed node to the probe
-		* \param node : The node to be added
-		*/
+		 * \brief Add an observed node to the probe
+		 * \param node : The node to be added
+		 */
 		void addNode (VoterNode *node);
 
 		/*!
-		* \brief Add a set of observed nodes to the probe
-		* \param graph : A binary number indicating for each node of the graph if it should (1) or should not (0) be added (the nodes are ordered according to their unique id)
-		*/
+		 * \brief Add a set of observed nodes to the probe
+		 * \param graph : A binary number indicating for each node of the graph if it should (1) or should not (0) be added (the nodes are ordered according to their unique id)
+		 */
 		void addNodes (unsigned long int i);
 
 		/*!
-		* \brief Print the probe details
-		* \param endl : Line break after printing if true
-		*/
+		 * \brief Print the probe details
+		 * \param endl : Line break after printing if true
+		 */
 		void print (bool endl = false);
 };
 
@@ -317,28 +337,28 @@ class VoterMeasurement
 		std::map<int,VoterMetric> *metricMap;	/*!< The map of metrics (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES) associated to each constituting probe organized by probe numbers*/
 		
 		/*!
-		* \brief Constructor
-		* \param graph : The interaction graph to be observed
-		* \param type : The name of the measurement
-		*/
+		 * \brief Constructor
+		 * \param graph : The interaction graph to be observed
+		 * \param type : The name of the measurement
+		 */
 		VoterMeasurement (VoterGraph *graph, std::string type);
 
 		/*!
-		* \brief Destructor
-		*/
+		 * \brief Destructor
+		 */
 		~VoterMeasurement ();
 
 		/*!
-		* \brief Add a probe to the measurement
-		* \param node : The probe to be added
-		* \param metric : The metric associated to the added probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
-		*/
+		 * \brief Add a probe to the measurement
+		 * \param node : The probe to be added
+		 * \param metric : The metric associated to the added probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
+		 */
 		void addProbe (VoterProbe *probe, VoterMetric metric);
 
 		/*!
-		* \brief Print the measurement details
-		* \param endl : Line break after printing if true
-		*/
+		 * \brief Print the measurement details
+		 * \param endl : Line break after printing if true
+		 */
 		void print (bool endl = false);
 };
 
@@ -351,10 +371,10 @@ class MacroVoterMeasurement : public VoterMeasurement
 {
 	public :
 		/*!
-		* \brief Constructor
-		* \param graph : The interaction graph to be observed
-		* \param metrics : The set of metrics associated to the macro-probe
-		*/
+		 * \brief Constructor
+		 * \param graph : The interaction graph to be observed
+		 * \param metrics : The set of metrics associated to the macro-probe
+		 */
 		MacroVoterMeasurement (VoterGraph *graph, std::set<VoterMetric> metrics);
 };
 
@@ -367,10 +387,10 @@ class MicroVoterMeasurement : public VoterMeasurement
 {
 	public :
 		/*!
-		* \brief Constructor
-		* \param graph : The interaction graph to be observed
-		* \param metric : The set of metric associated to the micro-probe
-		*/
+		 * \brief Constructor
+		 * \param graph : The interaction graph to be observed
+		 * \param metric : The set of metric associated to the micro-probe
+		 */
 		MicroVoterMeasurement (VoterGraph *graph, std::set<VoterMetric> metric);
 };
 
@@ -383,9 +403,9 @@ class EmptyVoterMeasurement : public VoterMeasurement
 {
 	public :
 		/*!
-		* \brief Constructor
-		* \param graph : The interaction graph to be observed
-		*/
+		 * \brief Constructor
+		 * \param graph : The interaction graph to be observed
+		 */
 		EmptyVoterMeasurement (VoterGraph *graph);
 };
 

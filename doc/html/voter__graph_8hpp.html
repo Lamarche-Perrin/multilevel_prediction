@@ -88,18 +88,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">voter_graph.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Building the interaction graph and measurement of a Voter Model.  
+<p>Classes to build an interaction graph (nodes and edges) describing a Voter Model and some observation tools (probes and measurements)  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;map&gt;</code><br />
-<code>#include &quot;markov_process.hpp&quot;</code><br />
-<code>#include &quot;partition.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="markov__process_8hpp_source.html">markov_process.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="partition_8hpp_source.html">partition.hpp</a>&quot;</code><br />
 </div>
 <p><a href="voter__graph_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -154,19 +153,83 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:ab3bec55c359e4ed771339c8bc61fc35a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The way a Voter Model evolves at each simulation step, by randomly choosing a node or an edge for interaction.  <a href="voter__graph_8hpp.html#ab3bec55c359e4ed771339c8bc61fc35a">More...</a><br /></td></tr>
 <tr class="separator:ab3bec55c359e4ed771339c8bc61fc35a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:af05e995e8d66f95b369df12325e05c59"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af05e995e8d66f95b369df12325e05c59"></a>
-enum <a class="el" href="voter__graph_8hpp.html#ab3bec55c359e4ed771339c8bc61fc35a">UpdateProcess</a>&#160;</td><td class="memItemRight" valign="bottom"><b>VoterNode</b></td></tr>
-<tr class="separator:af05e995e8d66f95b369df12325e05c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad35f880f44d18d9c643f02c4057034f7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7">MeasurementType</a> { <br />
+&#160;&#160;<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7aa1f036df973cca52be7bdba20572129a">M_MICRO</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a592fede240b8f61c0314f7874730563f">M_AGENT1</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7ae305f82c16f754bf6fef777a0816232d">M_MESO1</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a0809ac472ab7bf9223dfb601147c69a0">M_MESO2</a>, 
+<br />
+&#160;&#160;<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a487bc62b8a3093ced0adb601d41bc1f2">M_MACRO</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a3e108d351b7ac049b4c589a96a8e4f58">M_EMPTY</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a9389756863d026a7bb3b071e3f05cf13">M_ALLSIZES1</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a47bc8c0999633275e6739e97e010a64d">M_AGENT1_MESO1</a>, 
+<br />
+&#160;&#160;<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a9d5767bef22383ddf1bc1d7283b25015">M_AGENT1_MESO2</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a30103f9eb07b1bfce3e21628b85a3c2d">M_AGENT1_MACRO</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a8b82d5ebca69da9ff387912643b5aa5d">M_AGENT1_MESO1_MESO2</a>, 
+<a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7a619f3325004a2e96f88190dd5ce4be36">M_MESO1_MESO2</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ad35f880f44d18d9c643f02c4057034f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">A specific measurement in the case of a two-communities interaction graphs.  <a href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7">More...</a><br /></td></tr>
+<tr class="separator:ad35f880f44d18d9c643f02c4057034f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Building the interaction graph and measurement of a Voter Model. </p>
+<div class="textblock"><p>Classes to build an interaction graph (nodes and edges) describing a Voter Model and some observation tools (probes and measurements) </p>
 <dl class="section author"><dt>Author</dt><dd>Robin Lamarche-Perrin </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>22/01/2015</dd></dl>
-<p>Classes to build an interaction graph (nodes and edges) describing a Voter Model and some observation tools (probes and measurements) </p>
+<dl class="section date"><dt>Date</dt><dd>22/01/2015 </dd></dl>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="voter__graph_8hpp.html#ad35f880f44d18d9c643f02c4057034f7">MeasurementType</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A specific measurement in the case of a two-communities interaction graphs. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7aa1f036df973cca52be7bdba20572129a"></a>M_MICRO&#160;</td><td class="fielddoc">
+<p>Microscopic state </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a592fede240b8f61c0314f7874730563f"></a>M_AGENT1&#160;</td><td class="fielddoc">
+<p>State of the first node in community 1 </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7ae305f82c16f754bf6fef777a0816232d"></a>M_MESO1&#160;</td><td class="fielddoc">
+<p>Aggregated state of all nodes in community 1 </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a0809ac472ab7bf9223dfb601147c69a0"></a>M_MESO2&#160;</td><td class="fielddoc">
+<p>Aggregated state of all nodes in community 2 </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a487bc62b8a3093ced0adb601d41bc1f2"></a>M_MACRO&#160;</td><td class="fielddoc">
+<p>Aggregated state of nodes in both communities </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a3e108d351b7ac049b4c589a96a8e4f58"></a>M_EMPTY&#160;</td><td class="fielddoc">
+<p>No observation </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a9389756863d026a7bb3b071e3f05cf13"></a>M_ALLSIZES1&#160;</td><td class="fielddoc">
+<p>Aggregated state of node subsets of all sizes within community 1 </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a47bc8c0999633275e6739e97e010a64d"></a>M_AGENT1_MESO1&#160;</td><td class="fielddoc">
+<p>Join measurement (see above) </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a9d5767bef22383ddf1bc1d7283b25015"></a>M_AGENT1_MESO2&#160;</td><td class="fielddoc">
+<p>Join measurement (see above) </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a30103f9eb07b1bfce3e21628b85a3c2d"></a>M_AGENT1_MACRO&#160;</td><td class="fielddoc">
+<p>Join measurement (see above) </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a8b82d5ebca69da9ff387912643b5aa5d"></a>M_AGENT1_MESO1_MESO2&#160;</td><td class="fielddoc">
+<p>Join measurement (see above) </p>
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad35f880f44d18d9c643f02c4057034f7a619f3325004a2e96f88190dd5ce4be36"></a>M_MESO1_MESO2&#160;</td><td class="fielddoc">
+<p>Join measurement (see above) </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="ab3bec55c359e4ed771339c8bc61fc35a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -214,7 +277,7 @@ enum <a class="el" href="voter__graph_8hpp.html#ab3bec55c359e4ed771339c8bc61fc35
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 23 2015 08:50:12 for Multilevel Prediction by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 23 2015 09:56:56 for Multilevel Prediction by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

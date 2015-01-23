@@ -1,15 +1,3 @@
-/**
- * \file main.cpp
- * \brief Main program
- * \author Robin Lamarche-Perrin
- * \date 22/01/2015
- *
- * Main program to run tests and experiments (see for example class VoterExperiment).
- *
- */
-
-
-
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
@@ -22,9 +10,6 @@
 
 
 bool VERBOSE = false;
-int VERBOSE_TAB = 0;
-
-bool NORMALIZED_MEASURE = true;
 
 
 int main(int argc, char *argv[]) {
@@ -32,7 +17,7 @@ int main(int argc, char *argv[]) {
 
 	ExperimentSet *expSet = new ExperimentSet();
 	
-	std::set<int>* preM = new std::set<int>();
+	std::set<MeasurementType>* preM = new std::set<MeasurementType>();
 	preM->insert(M_MICRO);
 	preM->insert(M_MACRO);
 	preM->insert(M_EMPTY);
@@ -40,7 +25,7 @@ int main(int argc, char *argv[]) {
 	preM->insert(M_AGENT1_MACRO);
 	preM->insert(M_ALLSIZES1);
 
-	std::set<int>* postM = new std::set<int>();
+	std::set<MeasurementType>* postM = new std::set<MeasurementType>();
 	postM->insert(M_AGENT1);
 
 	VoterExperiment *exp;
@@ -98,7 +83,7 @@ int main(int argc, char *argv[]) {
 	exp = new VoterExperiment(10,10,1,1,1./10,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
 */
 
-	voterExperiment(expSet);
+	voterExperiment(expSet,"data/DATA.CSV");
 
 	return EXIT_SUCCESS;
 }
