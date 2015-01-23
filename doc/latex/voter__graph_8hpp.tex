@@ -1,0 +1,77 @@
+\hypertarget{voter__graph_8hpp}{}\section{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+graph.hpp File Reference}
+\label{voter__graph_8hpp}\index{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+graph.\+hpp@{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+graph.\+hpp}}
+
+
+Building the interaction graph and measurement of a Voter Model.  
+
+
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include \char`\"{}markov\+\_\+process.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}partition.\+hpp\char`\"{}}\\*
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_voter_node}{Voter\+Node}
+\begin{DoxyCompactList}\small\item\em A node of the interaction graph. \end{DoxyCompactList}\item 
+class \hyperlink{class_voter_edge}{Voter\+Edge}
+\begin{DoxyCompactList}\small\item\em An edge of the interaction graph. \end{DoxyCompactList}\item 
+class \hyperlink{class_voter_graph}{Voter\+Graph}
+\begin{DoxyCompactList}\small\item\em The interaction graph describing a Voter Model. \end{DoxyCompactList}\item 
+class \hyperlink{class_complete_voter_graph}{Complete\+Voter\+Graph}
+\begin{DoxyCompactList}\small\item\em An interaction graph with edges between each pair of nodes (in both direction, with equal weight for each edge) \end{DoxyCompactList}\item 
+class \hyperlink{class_two_communities_voter_graph}{Two\+Communities\+Voter\+Graph}
+\begin{DoxyCompactList}\small\item\em An interaction graph consisting in two communities of nodes (complete graph within each community, complete interaction between the two communities, possibly with different weights) \end{DoxyCompactList}\item 
+class \hyperlink{class_voter_probe}{Voter\+Probe}
+\begin{DoxyCompactList}\small\item\em A probe to observe the Voter Model according to a subset of nodes. \end{DoxyCompactList}\item 
+class \hyperlink{class_voter_measurement}{Voter\+Measurement}
+\begin{DoxyCompactList}\small\item\em A measurement to observe the Voter Model according set of probes. \end{DoxyCompactList}\item 
+class \hyperlink{class_macro_voter_measurement}{Macro\+Voter\+Measurement}
+\begin{DoxyCompactList}\small\item\em A measurement consisting in one probe observing all nodes of the interaction graph. \end{DoxyCompactList}\item 
+class \hyperlink{class_micro_voter_measurement}{Micro\+Voter\+Measurement}
+\begin{DoxyCompactList}\small\item\em A measurement consisting in one probe for each node of the interaction graph. \end{DoxyCompactList}\item 
+class \hyperlink{class_empty_voter_measurement}{Empty\+Voter\+Measurement}
+\begin{DoxyCompactList}\small\item\em A measurement without any probe (no observation) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{voter__graph_8hpp_a35921a1d3f69847688d66c815e0527ee}{}typedef std\+::set$<$ \hyperlink{class_voter_measurement}{Voter\+Measurement} $\ast$ $>$ {\bfseries Measurement\+Set}\label{voter__graph_8hpp_a35921a1d3f69847688d66c815e0527ee}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const bool \hyperlink{voter__graph_8hpp_a7031afde5197abae5d9b4d6d22c0a637}{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E} = 0
+\item 
+const bool \hyperlink{voter__graph_8hpp_af505335800b688e19a6826557f58a834}{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S} = 1
+\item 
+const bool \hyperlink{voter__graph_8hpp_a7517844278638648c9fff4cdeabd88e6}{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S} = 0
+\item 
+const bool \hyperlink{voter__graph_8hpp_a305d80651467e931f258a3686976d31c}{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S} = 1
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Building the interaction graph and measurement of a Voter Model. 
+
+\begin{DoxyAuthor}{Author}
+Robin Lamarche-\/\+Perrin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+22/01/2015
+\end{DoxyDate}
+Classes to build an interaction graph (nodes and edges) describing a Voter Model and some observation tools (probes and measurements) 
+
+\subsection{Variable Documentation}
+\hypertarget{voter__graph_8hpp_af505335800b688e19a6826557f58a834}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S@{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}}
+\index{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S@{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
+\subsubsection[{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}const bool M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S = 1}\label{voter__graph_8hpp_af505335800b688e19a6826557f58a834}
+Metric of a probe indicating the probability that one of the observed nodes will change during the next simulation step \hypertarget{voter__graph_8hpp_a7031afde5197abae5d9b4d6d22c0a637}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E@{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}}
+\index{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E@{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
+\subsubsection[{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}const bool M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E = 0}\label{voter__graph_8hpp_a7031afde5197abae5d9b4d6d22c0a637}
+Metric of a probe indicating the number of observed nodes in state 1 \hypertarget{voter__graph_8hpp_a305d80651467e931f258a3686976d31c}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}}
+\index{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
+\subsubsection[{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}const bool U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S = 1}\label{voter__graph_8hpp_a305d80651467e931f258a3686976d31c}
+Update process of the Voter Model where an edge is chosen at each simulation step, and the incoming node acts on the outcoming node \hypertarget{voter__graph_8hpp_a7517844278638648c9fff4cdeabd88e6}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}}
+\index{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
+\subsubsection[{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}const bool U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S = 0}\label{voter__graph_8hpp_a7517844278638648c9fff4cdeabd88e6}
+Update process of the Voter Model where a node is chosen at each simulation step, and this node acts on one of its outcoming nodes 

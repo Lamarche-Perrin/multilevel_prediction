@@ -1,5 +1,5 @@
 [Project]
-FileName=full_aggregation.dev
+FileName=multilevel_prediction.dev
 Name=multilevel_prediction
 UnitCount=14
 Type=1
@@ -341,7 +341,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=voter_experiments.cpp
+FileName=voter_experiment.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -351,7 +351,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=voter_experiments.hpp
+FileName=voter_experiment.hpp
 CompileCpp=1
 Folder=
 Compile=1

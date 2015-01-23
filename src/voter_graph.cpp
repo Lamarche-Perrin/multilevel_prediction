@@ -389,7 +389,6 @@ Partition *VoterGraph::getMarkovPartition (VoterMeasurement *m)
 	{
 		VoterProbe *p = m->probeMap->at(num);
 		int metric = m->metricMap->at(num);
-//		for (std::set<VoterProbe*>::iterator it = m->probeSet->begin(); it != m->probeSet->end(); ++it)
 		
 		if (partition1 == 0) { partition1 = getMarkovPartition(p,metric); }
 		else {
@@ -419,7 +418,6 @@ Partition *VoterGraph::getMarkovPartition (VoterMeasurement *m)
 		}
 	}
 	
-//	if (partition1 == 0) { return new Partition(); } else { return partition1; }
 	return partition1;
 }
 
@@ -428,7 +426,6 @@ Partition *VoterGraph::getMarkovPartition (VoterMeasurement *m)
 MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 {
 	unsigned long int size = 2*size1*(size2+1);
-//	std::cout << size << std::endl;
 
 	process = new MarkovProcess(size);
 
@@ -443,7 +440,6 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 
 	double sumP = 0;
 	for (unsigned long int i = 0; i < size; i++) { sumP += process->distribution[i]; }
-//	std::cout << sumP << std::endl;
 	if (std::abs(sumP - 1) > 1e-10) { std::cout << "ERROR: probabilities do not sum to 1!" << std::endl; }
 	
 	for (unsigned long int i = 0; i < size; i++)
@@ -620,7 +616,6 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 			process->transition[j*size+i] += p/edgeWeight;
 			sumP += p/edgeWeight;
 			
-//			std::cout << sumP;
 			if (std::abs(sumP - 1) > 1e-10) { std::cout << "ERROR: probabilities do not sum to 1!" << std::endl; }
 		}
 	}
@@ -711,7 +706,6 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterMeasurement
 	{
 		VoterProbe *p = m->probeMap->at(num);
 		int metric = m->metricMap->at(num);
-//		for (std::set<VoterProbe*>::iterator it = m->probeSet->begin(); it != m->probeSet->end(); ++it)
 		
 		if (partition1 == 0) { partition1 = getCompactMarkovPartition(p,metric); }
 		else {
@@ -741,7 +735,6 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterMeasurement
 		}
 	}
 	
-//	if (partition1 == 0) { return new Partition(); } else { return partition1; }
 	return partition1;
 }
 

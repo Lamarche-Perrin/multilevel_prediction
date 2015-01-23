@@ -1,0 +1,89 @@
+\hypertarget{class_markov_process}{}\section{Markov\+Process Class Reference}
+\label{class_markov_process}\index{Markov\+Process@{Markov\+Process}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_markov_process_a6dbcf0cf4a855b803c57d3e69bb42a7d}{}{\bfseries Markov\+Process} (int size)\label{class_markov_process_a6dbcf0cf4a855b803c57d3e69bb42a7d}
+
+\item 
+\hypertarget{class_markov_process_acee38f7c8f384f9be422c965a0efc4fb}{}void {\bfseries print} ()\label{class_markov_process_acee38f7c8f384f9be422c965a0efc4fb}
+
+\item 
+\hypertarget{class_markov_process_a2942db4262f73c20cc49bfebaf0df101}{}void {\bfseries set\+Distribution} (double $\ast$array)\label{class_markov_process_a2942db4262f73c20cc49bfebaf0df101}
+
+\item 
+\hypertarget{class_markov_process_a1dfca569e38a94214afc152c5b0c2567}{}void {\bfseries set\+Transition} (int j, double $\ast$array)\label{class_markov_process_a1dfca569e38a94214afc152c5b0c2567}
+
+\item 
+\hypertarget{class_markov_process_a687c9c983ac090f2ba40d028c6f04786}{}void {\bfseries set\+Transition} (double $\ast$array)\label{class_markov_process_a687c9c983ac090f2ba40d028c6f04786}
+
+\item 
+\hypertarget{class_markov_process_afa7edaa775112df8dd4fc5007034d7e7}{}double $\ast$ {\bfseries get\+Distribution} (int time)\label{class_markov_process_afa7edaa775112df8dd4fc5007034d7e7}
+
+\item 
+\hypertarget{class_markov_process_a39c87840da9b238d7c33bd5ad23d538d}{}double $\ast$ {\bfseries get\+Transition} (int delay)\label{class_markov_process_a39c87840da9b238d7c33bd5ad23d538d}
+
+\item 
+\hypertarget{class_markov_process_a77be24a3ccec6e19ba922f932d19e0fa}{}void {\bfseries compute\+Stationary\+Distribution} (double threshold)\label{class_markov_process_a77be24a3ccec6e19ba922f932d19e0fa}
+
+\item 
+\hypertarget{class_markov_process_a6cd7abb0de322eb2ee133eda283388c3}{}double $\ast$ {\bfseries get\+Stationary\+Distribution} ()\label{class_markov_process_a6cd7abb0de322eb2ee133eda283388c3}
+
+\item 
+\hypertarget{class_markov_process_a4ed608f200c71a15ae4140b0f1305a88}{}double {\bfseries get\+Probability} (int individuals, int current\+Time)\label{class_markov_process_a4ed608f200c71a15ae4140b0f1305a88}
+
+\item 
+\hypertarget{class_markov_process_afe80afb9c456631a9168c762058d3cd2}{}double {\bfseries get\+Probability} (\hyperlink{class_part}{Part} $\ast$part, int current\+Time)\label{class_markov_process_afe80afb9c456631a9168c762058d3cd2}
+
+\item 
+\hypertarget{class_markov_process_ab17f4ae9fa56c009553a5d50e899a84b}{}double {\bfseries get\+Next\+Probability} (int next\+Individual, int current\+Individual, int delay)\label{class_markov_process_ab17f4ae9fa56c009553a5d50e899a84b}
+
+\item 
+\hypertarget{class_markov_process_a254635ef2e405073dd19aa14aa4ec365}{}double {\bfseries get\+Next\+Probability} (\hyperlink{class_part}{Part} $\ast$next\+Part, int current\+Individual, int delay)\label{class_markov_process_a254635ef2e405073dd19aa14aa4ec365}
+
+\item 
+\hypertarget{class_markov_process_a72033d86b846a06449a005f796ec14c1}{}double {\bfseries get\+Next\+Probability} (\hyperlink{class_part}{Part} $\ast$next\+Part, \hyperlink{class_part}{Part} $\ast$current\+Part, int delay, int time)\label{class_markov_process_a72033d86b846a06449a005f796ec14c1}
+
+\item 
+\hypertarget{class_markov_process_ad1d295d33c8abc5bdabea3eeaf33b553}{}double {\bfseries get\+Entropy} (\hyperlink{class_partition}{Partition} $\ast$partition, int current\+Time)\label{class_markov_process_ad1d295d33c8abc5bdabea3eeaf33b553}
+
+\item 
+\hypertarget{class_markov_process_a37aa6fee427f28a0d44dc369a2fd3b6a}{}double {\bfseries get\+Mutual\+Information} (\hyperlink{class_partition}{Partition} $\ast$next\+Partition, \hyperlink{class_partition}{Partition} $\ast$current\+Partition, int delay, int time)\label{class_markov_process_a37aa6fee427f28a0d44dc369a2fd3b6a}
+
+\item 
+\hypertarget{class_markov_process_a85b3be2d849c1b21ad1f98f06816ed76}{}double {\bfseries get\+Next\+Entropy} (\hyperlink{class_partition}{Partition} $\ast$partition, bool micro, int time)\label{class_markov_process_a85b3be2d849c1b21ad1f98f06816ed76}
+
+\item 
+\hypertarget{class_markov_process_a619919d687122a85e49368a5cf545a86}{}double {\bfseries get\+Closure\+Measure} (\hyperlink{class_partition}{Partition} $\ast$partition, int time)\label{class_markov_process_a619919d687122a85e49368a5cf545a86}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_markov_process_ad38170c3a73d113dc152e73bc57d0523}{}int {\bfseries size}\label{class_markov_process_ad38170c3a73d113dc152e73bc57d0523}
+
+\item 
+\hypertarget{class_markov_process_ab08fd1641b1f866be6a7e3dcca7ed575}{}double $\ast$ {\bfseries distribution}\label{class_markov_process_ab08fd1641b1f866be6a7e3dcca7ed575}
+
+\item 
+\hypertarget{class_markov_process_a8e5ced320dd6b0a41c2f38f316c37cbf}{}std\+::vector$<$ double $\ast$ $>$ $\ast$ {\bfseries distributions}\label{class_markov_process_a8e5ced320dd6b0a41c2f38f316c37cbf}
+
+\item 
+\hypertarget{class_markov_process_a5eddf681cb7bc196a248813ba42b516f}{}int {\bfseries last\+Time}\label{class_markov_process_a5eddf681cb7bc196a248813ba42b516f}
+
+\item 
+\hypertarget{class_markov_process_aae914f9e4fa973b5515bebc41508a289}{}double $\ast$ {\bfseries transition}\label{class_markov_process_aae914f9e4fa973b5515bebc41508a289}
+
+\item 
+\hypertarget{class_markov_process_a16e4250dba911530aff3d2766a367e5b}{}std\+::vector$<$ double $\ast$ $>$ $\ast$ {\bfseries transitions}\label{class_markov_process_a16e4250dba911530aff3d2766a367e5b}
+
+\item 
+\hypertarget{class_markov_process_a5fa10a819200afd87b558332b6e351a6}{}int {\bfseries last\+Delay}\label{class_markov_process_a5fa10a819200afd87b558332b6e351a6}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/markov\+\_\+process.\+hpp\item 
+C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/markov\+\_\+process.\+cpp\end{DoxyCompactItemize}

@@ -1,3 +1,14 @@
+/**
+ * \file main.cpp
+ * \brief Main program
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ *
+ * Main program to run tests and experiments (see for example class VoterExperiment).
+ *
+ */
+
+
 
 #include <cstdlib>
 #include <iostream>
@@ -6,7 +17,7 @@
 
 #include "main.hpp"
 #include "timer.hpp"
-#include "voter_experiments.hpp"
+#include "voter_experiment.hpp"
 #include "voter_graph.hpp"
 
 

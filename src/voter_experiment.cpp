@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <sstream>
 
-#include "voter_experiments.hpp"
+#include "voter_experiment.hpp"
 #include "voter_graph.hpp"
 
 #include "timer.hpp"
