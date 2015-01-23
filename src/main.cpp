@@ -127,15 +127,15 @@ void testVoterGraph ()
 	VoterProbe *probe = new VoterProbe(VG);
 	VoterMeasurement *preM = new VoterMeasurement(VG,"preM");
 	probe->addNode(n);
-	preM->addProbe(probe,METRIC_MACRO_STATE);
+	preM->addProbe(probe,MACRO_STATE);
 
 	VoterProbe *probe1 = new VoterProbe(VG);
 	VoterProbe *probe2 = new VoterProbe(VG);
 	VoterMeasurement *postM = new VoterMeasurement(VG,"postM");
 	probe1->addNode(n1);
 	probe2->addNode(n2);
-	postM->addProbe(probe1,METRIC_MACRO_STATE);
-	postM->addProbe(probe2,METRIC_MACRO_STATE);
+	postM->addProbe(probe1,MACRO_STATE);
+	postM->addProbe(probe2,MACRO_STATE);
 
 	Partition *preP = VG->getMarkovPartition(preM);
 	Partition *postP = VG->getMarkovPartition(postM);

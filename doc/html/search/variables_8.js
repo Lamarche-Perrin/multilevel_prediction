@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['size1',['size1',['../class_two_communities_voter_graph.html#a3c9db0ac7e58d875ab3ce277bf74b284',1,'TwoCommunitiesVoterGraph']]],
-  ['size2',['size2',['../class_two_communities_voter_graph.html#a8b88457f020773b984e0d8c85d9ee502',1,'TwoCommunitiesVoterGraph']]]
+  ['outedgenumber',['outEdgeNumber',['../class_voter_node.html#ad02a5823353dd4f1e0a1b9965553a1ef',1,'VoterNode']]],
+  ['outedgeset',['outEdgeSet',['../class_voter_node.html#abbeb36b008f12217d080f9eb287ae9de',1,'VoterNode']]],
+  ['outedgeweight',['outEdgeWeight',['../class_voter_node.html#ae092216c9048f14155b2e580236ab6a9',1,'VoterNode']]]
 ];

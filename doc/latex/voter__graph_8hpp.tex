@@ -37,16 +37,22 @@ class \hyperlink{class_empty_voter_measurement}{Empty\+Voter\+Measurement}
 \hypertarget{voter__graph_8hpp_a35921a1d3f69847688d66c815e0527ee}{}typedef std\+::set$<$ \hyperlink{class_voter_measurement}{Voter\+Measurement} $\ast$ $>$ {\bfseries Measurement\+Set}\label{voter__graph_8hpp_a35921a1d3f69847688d66c815e0527ee}
 
 \end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{Voter\+Metric} \{ \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5a24b3f95ee25ae00ace7b4a23a5b14f51}{M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}, 
+\hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5a98c18bb584fb183b82a56273e82e8294}{A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}
+ \}
+\begin{DoxyCompactList}\small\item\em A metric associated to a probe. \end{DoxyCompactList}\item 
+enum \hyperlink{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35a}{Update\+Process} \{ \hyperlink{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35aa6ad0c87e611bfeadd367737761894c70}{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}, 
+\hyperlink{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35aa01d100088352e1a7d3a34c9a66d0f951}{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}
+ \}
+\begin{DoxyCompactList}\small\item\em The way a Voter Model evolves at each simulation step, by randomly choosing a node or an edge for interaction. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-const bool \hyperlink{voter__graph_8hpp_a7031afde5197abae5d9b4d6d22c0a637}{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E} = 0
-\item 
-const bool \hyperlink{voter__graph_8hpp_af505335800b688e19a6826557f58a834}{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S} = 1
-\item 
-const bool \hyperlink{voter__graph_8hpp_a7517844278638648c9fff4cdeabd88e6}{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S} = 0
-\item 
-const bool \hyperlink{voter__graph_8hpp_a305d80651467e931f258a3686976d31c}{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S} = 1
+\hypertarget{voter__graph_8hpp_af05e995e8d66f95b369df12325e05c59}{}enum \hyperlink{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35a}{Update\+Process} {\bfseries Voter\+Node}\label{voter__graph_8hpp_af05e995e8d66f95b369df12325e05c59}
+
 \end{DoxyCompactItemize}
 
 
@@ -61,17 +67,36 @@ Robin Lamarche-\/\+Perrin
 \end{DoxyDate}
 Classes to build an interaction graph (nodes and edges) describing a Voter Model and some observation tools (probes and measurements) 
 
-\subsection{Variable Documentation}
-\hypertarget{voter__graph_8hpp_af505335800b688e19a6826557f58a834}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S@{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}}
-\index{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S@{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
-\subsubsection[{M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}const bool M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S = 1}\label{voter__graph_8hpp_af505335800b688e19a6826557f58a834}
-Metric of a probe indicating the probability that one of the observed nodes will change during the next simulation step \hypertarget{voter__graph_8hpp_a7031afde5197abae5d9b4d6d22c0a637}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E@{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}}
-\index{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E@{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
-\subsubsection[{M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}const bool M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E = 0}\label{voter__graph_8hpp_a7031afde5197abae5d9b4d6d22c0a637}
-Metric of a probe indicating the number of observed nodes in state 1 \hypertarget{voter__graph_8hpp_a305d80651467e931f258a3686976d31c}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}}
-\index{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
-\subsubsection[{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}const bool U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S = 1}\label{voter__graph_8hpp_a305d80651467e931f258a3686976d31c}
-Update process of the Voter Model where an edge is chosen at each simulation step, and the incoming node acts on the outcoming node \hypertarget{voter__graph_8hpp_a7517844278638648c9fff4cdeabd88e6}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}}
-\index{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
-\subsubsection[{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}const bool U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S = 0}\label{voter__graph_8hpp_a7517844278638648c9fff4cdeabd88e6}
-Update process of the Voter Model where a node is chosen at each simulation step, and this node acts on one of its outcoming nodes 
+\subsection{Enumeration Type Documentation}
+\hypertarget{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35a}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!Update\+Process@{Update\+Process}}
+\index{Update\+Process@{Update\+Process}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
+\subsubsection[{Update\+Process}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Update\+Process}}\label{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35a}
+
+
+The way a Voter Model evolves at each simulation step, by randomly choosing a node or an edge for interaction. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S}}\item[{\em 
+\hypertarget{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35aa6ad0c87e611bfeadd367737761894c70}{}U\+P\+D\+A\+T\+E\+\_\+\+N\+O\+D\+E\+S\label{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35aa6ad0c87e611bfeadd367737761894c70}
+}]Node-\/driven interactions\+: A node is chosen at each simulation step, it acts on one of its outcoming nodes \index{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S@{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S}}\item[{\em 
+\hypertarget{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35aa01d100088352e1a7d3a34c9a66d0f951}{}U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S\label{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35aa01d100088352e1a7d3a34c9a66d0f951}
+}]Edge-\/driven interactions\+: An edge is chosen at each simulation step, its incoming node acts on its outcoming node \end{description}
+\end{Desc}
+\hypertarget{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!Voter\+Metric@{Voter\+Metric}}
+\index{Voter\+Metric@{Voter\+Metric}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}
+\subsubsection[{Voter\+Metric}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Voter\+Metric}}\label{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}
+
+
+A metric associated to a probe. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E@{M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E@{M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E}}\item[{\em 
+\hypertarget{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5a24b3f95ee25ae00ace7b4a23a5b14f51}{}M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E\label{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5a24b3f95ee25ae00ace7b4a23a5b14f51}
+}]The probe returns the number of observed nodes in state 1 \index{A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S@{A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}!voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}}\index{voter\+\_\+graph.\+hpp@{voter\+\_\+graph.\+hpp}!A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S@{A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S}}\item[{\em 
+\hypertarget{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5a98c18bb584fb183b82a56273e82e8294}{}A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S\label{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5a98c18bb584fb183b82a56273e82e8294}
+}]The probe returns the probability that one of the observed nodes will change during the next simulation step \end{description}
+\end{Desc}

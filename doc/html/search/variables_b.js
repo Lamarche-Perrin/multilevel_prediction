@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['weight',['weight',['../class_voter_node.html#a06aa43e2603a2c8ee7540c754ef1fce2',1,'VoterNode::weight()'],['../class_voter_edge.html#a08b1042475d9628a0da0e7ebf8557923',1,'VoterEdge::weight()']]]
+  ['transition',['transition',['../class_markov_process.html#aae914f9e4fa973b5515bebc41508a289',1,'MarkovProcess']]],
+  ['transitions',['transitions',['../class_markov_process.html#a16e4250dba911530aff3d2766a367e5b',1,'MarkovProcess']]],
+  ['type',['type',['../class_voter_measurement.html#ad4471a133827f052622a84c4a451aabe',1,'VoterMeasurement']]]
 ];

@@ -300,12 +300,12 @@ int nChoosek (int n, int k )
 
 
 
-Partition *VoterGraph::getMarkovPartition (VoterProbe *probe, int metric)
+Partition *VoterGraph::getMarkovPartition (VoterProbe *probe, VoterMetric metric)
 {
 	unsigned long int size = 1 << nodeNumber;
 	Partition *partition = new Partition();
 	
-	if (metric == METRIC_MACRO_STATE)
+	if (metric == MACRO_STATE)
 	{
 		std::map<int,Part*> partMap;
 		for (int nb = 0; nb <= probe->nodeNumber; nb++)
@@ -324,7 +324,7 @@ Partition *VoterGraph::getMarkovPartition (VoterProbe *probe, int metric)
 		}
 	}
 	
-	if (metric == METRIC_ACTIVE_EDGES)
+	if (metric == ACTIVE_EDGES)
 	{
 		if (probe->nodeNumber == 0)
 		{
@@ -388,7 +388,7 @@ Partition *VoterGraph::getMarkovPartition (VoterMeasurement *m)
 	for (int num = 0; num < m->probeNumber; num++)
 	{
 		VoterProbe *p = m->probeMap->at(num);
-		int metric = m->metricMap->at(num);
+		VoterMetric metric = m->metricMap->at(num);
 		
 		if (partition1 == 0) { partition1 = getMarkovPartition(p,metric); }
 		else {
@@ -624,12 +624,12 @@ MarkovProcess *TwoCommunitiesVoterGraph::getCompactMarkovProcess ()
 }
 
 
-Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *probe, int metric)
+Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *probe, VoterMetric metric)
 {
 	unsigned long int size = 2 * size1 * (size2 + 1);
 	Partition *partition = new Partition();
 	
-	if (metric == METRIC_MACRO_STATE)
+	if (metric == MACRO_STATE)
 	{
 		std::map<int,Part*> partMap;
 		for (int nb = 0; nb <= probe->nodeNumber; nb++)
@@ -705,7 +705,7 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterMeasurement
 	for (int num = 0; num < m->probeNumber; num++)
 	{
 		VoterProbe *p = m->probeMap->at(num);
-		int metric = m->metricMap->at(num);
+		VoterMetric metric = m->metricMap->at(num);
 		
 		if (partition1 == 0) { partition1 = getCompactMarkovPartition(p,metric); }
 		else {
@@ -800,7 +800,7 @@ VoterMeasurement::VoterMeasurement (VoterGraph *g, std::string t)
 	
 	probeNumber = 0;
 	probeMap = new std::map<int,VoterProbe*>();
-	metricMap = new std::map<int,int>();
+	metricMap = new std::map<int,VoterMetric>();
 }
 
 
@@ -812,7 +812,7 @@ VoterMeasurement::~VoterMeasurement ()
 }
 
 
-void VoterMeasurement::addProbe (VoterProbe *p, int metric)
+void VoterMeasurement::addProbe (VoterProbe *p, VoterMetric metric)
 {
 	probeMap->insert(std::make_pair(probeNumber,p));
 	metricMap->insert(std::make_pair(probeNumber,metric));
@@ -827,13 +827,13 @@ void VoterMeasurement::print (bool endl)
 }
 
 
-MacroVoterMeasurement::MacroVoterMeasurement (VoterGraph *g, std::set<int> metrics) : VoterMeasurement(g,"MACRO")
+MacroVoterMeasurement::MacroVoterMeasurement (VoterGraph *g, std::set<VoterMetric> metrics) : VoterMeasurement(g,"MACRO")
 {
-	for (std::set<int>::iterator it = metrics.begin(); it != metrics.end(); ++it)
+	for (std::set<VoterMetric>::iterator it = metrics.begin(); it != metrics.end(); ++it)
 	{
-		int metric = *it;
-		if (metric == METRIC_MACRO_STATE) { type = type + "_MS"; }
-		if (metric == METRIC_ACTIVE_EDGES) { type = type + "_AE"; }
+		VoterMetric metric = *it;
+		if (metric == MACRO_STATE) { type = type + "_MS"; }
+		if (metric == ACTIVE_EDGES) { type = type + "_AE"; }
 		
 		VoterProbe *probe = new VoterProbe(g);
 		for (std::set<VoterNode*>::iterator it = g->nodeSet->begin(); it != g->nodeSet->end(); ++it) { probe->addNode(*it); }
@@ -842,13 +842,13 @@ MacroVoterMeasurement::MacroVoterMeasurement (VoterGraph *g, std::set<int> metri
 }
 
 
-MicroVoterMeasurement::MicroVoterMeasurement (VoterGraph *g, std::set<int> metrics) : VoterMeasurement(g,"MICRO")
+MicroVoterMeasurement::MicroVoterMeasurement (VoterGraph *g, std::set<VoterMetric> metrics) : VoterMeasurement(g,"MICRO")
 {
-	for (std::set<int>::iterator it = metrics.begin(); it != metrics.end(); ++it)
+	for (std::set<VoterMetric>::iterator it = metrics.begin(); it != metrics.end(); ++it)
 	{
-		int metric = *it;
-		if (metric == METRIC_MACRO_STATE) { type = type + "_MS"; }
-		if (metric == METRIC_ACTIVE_EDGES) { type = type + "_AE"; }
+		VoterMetric metric = *it;
+		if (metric == MACRO_STATE) { type = type + "_MS"; }
+		if (metric == ACTIVE_EDGES) { type = type + "_AE"; }
 		
 		for (std::set<VoterNode*>::iterator it = g->nodeSet->begin(); it != g->nodeSet->end(); ++it)
 		{

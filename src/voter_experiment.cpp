@@ -91,8 +91,8 @@ void voterExperiment (ExperimentSet *expSet)
 						MP->getTransition(delayMax);
 					
 
-						std::set<int> MS;				
-						MS.insert(METRIC_MACRO_STATE);
+						std::set<VoterMetric> MS;				
+						MS.insert(MACRO_STATE);
 
 						macroPr = new VoterProbe(VG);
 						for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it) { macroPr->addNode(*it); }
@@ -130,9 +130,9 @@ void voterExperiment (ExperimentSet *expSet)
 						if (compactModel)
 						{
 							VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1_MESO2_MS");
-							m->addProbe(meso1Pr,METRIC_MACRO_STATE);
-							m->addProbe(meso2Pr,METRIC_MACRO_STATE);
-							m->addProbe(agent1Pr,METRIC_MACRO_STATE);
+							m->addProbe(meso1Pr,MACRO_STATE);
+							m->addProbe(meso2Pr,MACRO_STATE);
+							m->addProbe(agent1Pr,MACRO_STATE);
 							microP = VG->getCompactMarkovPartition(m);
 						}
 						
@@ -190,7 +190,7 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_MACRO :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"MACRO_MS");
-			m->addProbe(macroPr,METRIC_MACRO_STATE);
+			m->addProbe(macroPr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -205,7 +205,7 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_AGENT1 :		
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MS");
-			m->addProbe(agent1Pr,METRIC_MACRO_STATE);
+			m->addProbe(agent1Pr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -213,8 +213,8 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_AGENT1_MACRO :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MACRO_MS");
-			m->addProbe(agent1Pr,METRIC_MACRO_STATE);
-			m->addProbe(macroPr,METRIC_MACRO_STATE);
+			m->addProbe(agent1Pr,MACRO_STATE);
+			m->addProbe(macroPr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -226,7 +226,7 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 			{
 				VoterProbe *probe = new VoterProbe(VG);
 				probe->addNode(*it);
-				m->addProbe(probe,METRIC_MACRO_STATE);
+				m->addProbe(probe,MACRO_STATE);
 			}
 			set->insert(m);
 			break;
@@ -235,7 +235,7 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_MESO1 :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"MESO1_MS");
-			m->addProbe(meso1Pr,METRIC_MACRO_STATE);
+			m->addProbe(meso1Pr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -243,7 +243,7 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_MESO2 :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"MESO2_MS");
-			m->addProbe(meso2Pr,METRIC_MACRO_STATE);
+			m->addProbe(meso2Pr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -251,8 +251,8 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_MESO1_MESO2 :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"MESO1_MESO2_MS");
-			m->addProbe(meso1Pr,METRIC_MACRO_STATE);
-			m->addProbe(meso2Pr,METRIC_MACRO_STATE);
+			m->addProbe(meso1Pr,MACRO_STATE);
+			m->addProbe(meso2Pr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -260,8 +260,8 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_AGENT1_MESO1 :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1_MS");
-			m->addProbe(agent1Pr,METRIC_MACRO_STATE);
-			m->addProbe(meso1Pr,METRIC_MACRO_STATE);
+			m->addProbe(agent1Pr,MACRO_STATE);
+			m->addProbe(meso1Pr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -269,8 +269,8 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_AGENT1_MESO2 :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO2_MS");
-			m->addProbe(agent1Pr,METRIC_MACRO_STATE);
-			m->addProbe(meso2Pr,METRIC_MACRO_STATE);
+			m->addProbe(agent1Pr,MACRO_STATE);
+			m->addProbe(meso2Pr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -278,9 +278,9 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 		case M_AGENT1_MESO1_MESO2 :
 		{
 			VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1_MESO2_MS");
-			m->addProbe(meso1Pr,METRIC_MACRO_STATE);
-			m->addProbe(meso2Pr,METRIC_MACRO_STATE);
-			m->addProbe(agent1Pr,METRIC_MACRO_STATE);
+			m->addProbe(meso1Pr,MACRO_STATE);
+			m->addProbe(meso2Pr,MACRO_STATE);
+			m->addProbe(agent1Pr,MACRO_STATE);
 			set->insert(m);
 			break;
 		}
@@ -313,7 +313,7 @@ void addMeasurement (int measurement, MeasurementSet *set, VoterGraph *VG)
 				j++;
 			}
 	
-			for (int i = 1; i < s1; i++) { mList[i-1]->addProbe(prList[i-1],METRIC_MACRO_STATE); }
+			for (int i = 1; i < s1; i++) { mList[i-1]->addProbe(prList[i-1],MACRO_STATE); }
 			break;
 		}
 			

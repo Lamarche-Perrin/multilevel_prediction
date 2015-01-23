@@ -3,12 +3,9 @@
 
 /*!
  * \file voter_graph.hpp
- * \brief  Building the interaction graph and measurement of a Voter Model
+ * \brief Classes to build an interaction graph (nodes and edges) describing a Voter Model and some observation tools (probes and measurements)
  * \author Robin Lamarche-Perrin
  * \date 22/01/2015
- *
- * Classes to build an interaction graph (nodes and edges) describing a Voter Model and some observation tools (probes and measurements)
- *
  */
  
 
@@ -17,12 +14,21 @@
 #include "markov_process.hpp"
 #include "partition.hpp"
 
-const bool METRIC_MACRO_STATE = 0;	/*!< Metric of a probe indicating the number of observed nodes in state 1*/
-const bool METRIC_ACTIVE_EDGES = 1; /*!< Metric of a probe indicating the probability that one of the observed nodes will change during the next simulation step*/
+/*!
+ * \brief A metric associated to a probe
+ */
+enum VoterMetric {
+	MACRO_STATE,		/*!< The probe returns the number of observed nodes in state 1*/
+	ACTIVE_EDGES		/*!< The probe returns the probability that one of the observed nodes will change during the next simulation step*/
+};
 
-const bool UPDATE_NODES = 0;	/*!< Update process of the Voter Model where a node is chosen at each simulation step, and this node acts on one of its outcoming nodes*/
-const bool UPDATE_EDGES = 1;	/*!< Update process of the Voter Model where an edge is chosen at each simulation step, and the incoming node acts on the outcoming node*/
-
+/*!
+ * \brief The way a Voter Model evolves at each simulation step, by randomly choosing a node or an edge for interaction
+ */
+enum UpdateProcess {
+	UPDATE_NODES,		/*!< Node-driven interactions: A node is chosen at each simulation step, it acts on one of its outcoming nodes*/
+	UPDATE_EDGES		/*!< Edge-driven interactions: An edge is chosen at each simulation step, its incoming node acts on its outcoming node*/
+}
 
 class VoterNode;
 class VoterEdge;
@@ -125,7 +131,7 @@ class VoterGraph
 		~VoterGraph ();
 		
 		/*!
-		* \brief Print the graph
+		* \brief Print the graph structure and details
 		*/
 		void print ();
 
@@ -163,7 +169,7 @@ class VoterGraph
 		* \param metric : The metric of the probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
 		* \return The computed partition
 		*/
-		Partition *getMarkovPartition (VoterProbe *probe, int metric);
+		Partition *getMarkovPartition (VoterProbe *probe, VoterMetric metric);
 
 		/*!
 		* \brief Build the partition of the Markov chain state space associated to a measurement (i.e., a set of probes)
@@ -241,7 +247,7 @@ class TwoCommunitiesVoterGraph : public VoterGraph
 		* \param metric : The metric of the probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
 		* \return The computed partition over the lumped state space
 		*/
-		Partition *getCompactMarkovPartition (VoterProbe *probe, int metric);
+		Partition *getCompactMarkovPartition (VoterProbe *probe, VoterMetric metric);
 
 		/*!
 		* \brief Build the partition of the lumped Markov chain state space (see getCompactMarkovProcess) associated to a measurement (i.e., a set of probes)
@@ -308,7 +314,7 @@ class VoterMeasurement
 		
 		int probeNumber;		/*!< The number of probes constituting the measurement*/
 		std::map<int,VoterProbe*> *probeMap;	/*!< The map of constituting probes organized by probe numbers*/
-		std::map<int,int> *metricMap;			/*!< The map of metrics (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES) associated to each constituting probe organized by probe numbers*/
+		std::map<int,VoterMetric> *metricMap;	/*!< The map of metrics (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES) associated to each constituting probe organized by probe numbers*/
 		
 		/*!
 		* \brief Constructor
@@ -327,7 +333,7 @@ class VoterMeasurement
 		* \param node : The probe to be added
 		* \param metric : The metric associated to the added probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
 		*/
-		void addProbe (VoterProbe *probe, int metric);
+		void addProbe (VoterProbe *probe, VoterMetric metric);
 
 		/*!
 		* \brief Print the measurement details
@@ -347,9 +353,9 @@ class MacroVoterMeasurement : public VoterMeasurement
 		/*!
 		* \brief Constructor
 		* \param graph : The interaction graph to be observed
-		* \param metric : The metric associated to the added probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
+		* \param metrics : The set of metrics associated to the macro-probe
 		*/
-		MacroVoterMeasurement (VoterGraph *graph, std::set<int> metric);
+		MacroVoterMeasurement (VoterGraph *graph, std::set<VoterMetric> metrics);
 };
 
 
@@ -363,9 +369,9 @@ class MicroVoterMeasurement : public VoterMeasurement
 		/*!
 		* \brief Constructor
 		* \param graph : The interaction graph to be observed
-		* \param metric : The metric associated to the added probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
+		* \param metric : The set of metric associated to the micro-probe
 		*/
-		MicroVoterMeasurement (VoterGraph *graph, std::set<int> metric);
+		MicroVoterMeasurement (VoterGraph *graph, std::set<VoterMetric> metric);
 };
 
 

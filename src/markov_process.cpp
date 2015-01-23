@@ -280,7 +280,7 @@ double MarkovProcess::getNextEntropy (Partition *partition, bool micro, int time
 }
 
 
-double MarkovProcess::getClosureMeasure (Partition *partition, int time)
+double MarkovProcess::getInformationFlow (Partition *partition, int time)
 {
 	return getNextEntropy(partition,false,time) - getNextEntropy(partition,true,time);
 }

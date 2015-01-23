@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['graph',['graph',['../class_voter_probe.html#add099ac2ac20a5f6a0e3616e78639497',1,'VoterProbe::graph()'],['../class_voter_measurement.html#a8d22d4b78f7e2f4c747f5716c4885351',1,'VoterMeasurement::graph()']]]
+  ['edgenumber',['edgeNumber',['../class_voter_graph.html#a6840594abf9c606b4ac8c7cac88cdf9b',1,'VoterGraph']]],
+  ['edgeset',['edgeSet',['../class_voter_graph.html#a712b0ec4b780579721b7b6bca8fd409e',1,'VoterGraph']]],
+  ['edgeweight',['edgeWeight',['../class_voter_graph.html#a33dc5727bd80818f0d4e89c17303d7c8',1,'VoterGraph']]]
 ];

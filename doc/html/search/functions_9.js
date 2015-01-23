@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['_7etwocommunitiesvotergraph',['~TwoCommunitiesVoterGraph',['../class_two_communities_voter_graph.html#ab74e186e76188e7de8ae11359ad1e55e',1,'TwoCommunitiesVoterGraph']]],
-  ['_7evoteredge',['~VoterEdge',['../class_voter_edge.html#a65882f301c4f20f229e5413c4212ce0c',1,'VoterEdge']]],
-  ['_7evotergraph',['~VoterGraph',['../class_voter_graph.html#a84a3f081c6e15cf8d1635d6ee6d5e51e',1,'VoterGraph']]],
-  ['_7evotermeasurement',['~VoterMeasurement',['../class_voter_measurement.html#a2cbd2d015fad1579c21dc62dd2511fe6',1,'VoterMeasurement']]],
-  ['_7evoternode',['~VoterNode',['../class_voter_node.html#af5714338e00b415ff5838239646079fa',1,'VoterNode']]],
-  ['_7evoterprobe',['~VoterProbe',['../class_voter_probe.html#a13ddd0051f730aa8c5b4c1487ace3e16',1,'VoterProbe']]]
+  ['voteredge',['VoterEdge',['../class_voter_edge.html#aba882697ef6b0a859a6842d378b589e1',1,'VoterEdge']]],
+  ['votergraph',['VoterGraph',['../class_voter_graph.html#aa5e00e0f2d2d8de10a217633d4594814',1,'VoterGraph']]],
+  ['votermeasurement',['VoterMeasurement',['../class_voter_measurement.html#a0668249876e48af0ae246a554b30195c',1,'VoterMeasurement']]],
+  ['voternode',['VoterNode',['../class_voter_node.html#a2a776a4a502a6087f44f8b3451d6debc',1,'VoterNode']]],
+  ['voterprobe',['VoterProbe',['../class_voter_probe.html#a589eba6cb211385f334b2cad33c7b591',1,'VoterProbe']]]
 ];

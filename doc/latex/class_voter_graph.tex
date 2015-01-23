@@ -18,14 +18,14 @@ Inheritance diagram for Voter\+Graph\+:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_voter_graph_aa5e00e0f2d2d8de10a217633d4594814}{Voter\+Graph} (int update=\hyperlink{voter__graph_8hpp_a305d80651467e931f258a3686976d31c}{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S})
+\hyperlink{class_voter_graph_aa5e00e0f2d2d8de10a217633d4594814}{Voter\+Graph} (int update=\hyperlink{voter__graph_8hpp_ab3bec55c359e4ed771339c8bc61fc35aa01d100088352e1a7d3a34c9a66d0f951}{U\+P\+D\+A\+T\+E\+\_\+\+E\+D\+G\+E\+S})
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 \hypertarget{class_voter_graph_a84a3f081c6e15cf8d1635d6ee6d5e51e}{}\hyperlink{class_voter_graph_a84a3f081c6e15cf8d1635d6ee6d5e51e}{$\sim$\+Voter\+Graph} ()\label{class_voter_graph_a84a3f081c6e15cf8d1635d6ee6d5e51e}
 
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
 \hypertarget{class_voter_graph_aacb7bbd4bcc7f923b2784b0bcefcd1a3}{}void \hyperlink{class_voter_graph_aacb7bbd4bcc7f923b2784b0bcefcd1a3}{print} ()\label{class_voter_graph_aacb7bbd4bcc7f923b2784b0bcefcd1a3}
 
-\begin{DoxyCompactList}\small\item\em Print the graph. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Print the graph structure and details. \end{DoxyCompactList}\item 
 \hyperlink{class_voter_node}{Voter\+Node} $\ast$ \hyperlink{class_voter_graph_af53017970f3ac08838b67f4a09171b92}{add\+Node} (double weight=1, double contrarian=0)
 \begin{DoxyCompactList}\small\item\em Add a node to the graph. \end{DoxyCompactList}\item 
 \hyperlink{class_voter_edge}{Voter\+Edge} $\ast$ \hyperlink{class_voter_graph_a1f6b8be82800577c45908102251f1e35}{add\+Edge} (\hyperlink{class_voter_node}{Voter\+Node} $\ast$node1, \hyperlink{class_voter_node}{Voter\+Node} $\ast$node2, double weight=1)
@@ -35,7 +35,7 @@ Inheritance diagram for Voter\+Graph\+:\begin{figure}[H]
 \begin{DoxyCompactList}\small\item\em Add an edge between each pair of nodes in the graph (in both direction, with equal weight for each edge) \end{DoxyCompactList}\item 
 \hyperlink{class_markov_process}{Markov\+Process} $\ast$ \hyperlink{class_voter_graph_acc86929339ec0a0ce2946146919b1eb7}{get\+Markov\+Process} ()
 \begin{DoxyCompactList}\small\item\em Build the Markov chain associated to the described Voter Model. \end{DoxyCompactList}\item 
-\hyperlink{class_partition}{Partition} $\ast$ \hyperlink{class_voter_graph_a2303b38ee1a599554f730236d9f4fc7c}{get\+Markov\+Partition} (\hyperlink{class_voter_probe}{Voter\+Probe} $\ast$probe, int metric)
+\hyperlink{class_partition}{Partition} $\ast$ \hyperlink{class_voter_graph_a04231db4297c6a1d4232c5403b202d71}{get\+Markov\+Partition} (\hyperlink{class_voter_probe}{Voter\+Probe} $\ast$probe, \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{Voter\+Metric} metric)
 \begin{DoxyCompactList}\small\item\em Build the partition of the Markov chain state space associated to a probe with a given metric (e.\+g., M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E of M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S) \end{DoxyCompactList}\item 
 \hyperlink{class_partition}{Partition} $\ast$ \hyperlink{class_voter_graph_a2c0a299c1249cc04e011d0f507467007}{get\+Markov\+Partition} (\hyperlink{class_voter_measurement}{Voter\+Measurement} $\ast$measurement)
 \begin{DoxyCompactList}\small\item\em Build the partition of the Markov chain state space associated to a measurement (i.\+e., a set of probes) \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -132,14 +132,14 @@ Add a node to the graph.
 \begin{DoxyReturn}{Returns}
 The added node 
 \end{DoxyReturn}
-\hypertarget{class_voter_graph_a2303b38ee1a599554f730236d9f4fc7c}{}\index{Voter\+Graph@{Voter\+Graph}!get\+Markov\+Partition@{get\+Markov\+Partition}}
+\hypertarget{class_voter_graph_a04231db4297c6a1d4232c5403b202d71}{}\index{Voter\+Graph@{Voter\+Graph}!get\+Markov\+Partition@{get\+Markov\+Partition}}
 \index{get\+Markov\+Partition@{get\+Markov\+Partition}!Voter\+Graph@{Voter\+Graph}}
 \subsubsection[{get\+Markov\+Partition}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Partition} $\ast$ Voter\+Graph\+::get\+Markov\+Partition (
 \begin{DoxyParamCaption}
 \item[{{\bf Voter\+Probe} $\ast$}]{probe, }
-\item[{int}]{metric}
+\item[{{\bf Voter\+Metric}}]{metric}
 \end{DoxyParamCaption}
-)}\label{class_voter_graph_a2303b38ee1a599554f730236d9f4fc7c}
+)}\label{class_voter_graph_a04231db4297c6a1d4232c5403b202d71}
 
 
 Build the partition of the Markov chain state space associated to a probe with a given metric (e.\+g., M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E of M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S) 

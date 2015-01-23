@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o timer.o markov_process.o voter_graph.o voter_experiments.o partition.o csv_tools.o
-LINKOBJ  = main.o timer.o markov_process.o voter_graph.o voter_experiments.o partition.o csv_tools.o
+OBJ      = main.o timer.o markov_process.o voter_graph.o voter_experiment.o partition.o csv_tools.o
+LINKOBJ  = main.o timer.o markov_process.o voter_graph.o voter_experiment.o partition.o csv_tools.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc -L"C:/Program Files (x86)/Dev-Cpp/chilkat-9.5.0-x86_64-vc12/libs" ../../../../../../../Dev-Cpp/lib/libpsapi.a -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.8.1/include/c++"
@@ -36,8 +36,8 @@ markov_process.o: markov_process.cpp
 voter_graph.o: voter_graph.cpp
 	$(CPP) -c voter_graph.cpp -o voter_graph.o $(CXXFLAGS)
 
-voter_experiments.o: voter_experiments.cpp
-	$(CPP) -c voter_experiments.cpp -o voter_experiments.o $(CXXFLAGS)
+voter_experiment.o: voter_experiment.cpp
+	$(CPP) -c voter_experiment.cpp -o voter_experiment.o $(CXXFLAGS)
 
 partition.o: partition.cpp
 	$(CPP) -c partition.cpp -o partition.o $(CXXFLAGS)

@@ -23,7 +23,7 @@ Inheritance diagram for Voter\+Measurement\+:\begin{figure}[H]
 \hypertarget{class_voter_measurement_a2cbd2d015fad1579c21dc62dd2511fe6}{}\hyperlink{class_voter_measurement_a2cbd2d015fad1579c21dc62dd2511fe6}{$\sim$\+Voter\+Measurement} ()\label{class_voter_measurement_a2cbd2d015fad1579c21dc62dd2511fe6}
 
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-void \hyperlink{class_voter_measurement_a75f0daed0375419a9aea7c57445a8d41}{add\+Probe} (\hyperlink{class_voter_probe}{Voter\+Probe} $\ast$probe, int metric)
+void \hyperlink{class_voter_measurement_aa1c64516bc57f2a363ce76c911e26e24}{add\+Probe} (\hyperlink{class_voter_probe}{Voter\+Probe} $\ast$probe, \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{Voter\+Metric} metric)
 \begin{DoxyCompactList}\small\item\em Add a probe to the measurement. \end{DoxyCompactList}\item 
 void \hyperlink{class_voter_measurement_a9164cbbbf69d83a6ca5d8cda0951dcd5}{print} (bool endl=false)
 \begin{DoxyCompactList}\small\item\em Print the measurement details. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -40,7 +40,7 @@ int \hyperlink{class_voter_measurement_a8cd0709289a4d1af82586d4b09c5a43a}{probe\
 \item 
 std\+::map$<$ int, \hyperlink{class_voter_probe}{Voter\+Probe} $\ast$ $>$ $\ast$ \hyperlink{class_voter_measurement_abdee5af4a48de3334ace791912033e28}{probe\+Map}
 \item 
-std\+::map$<$ int, int $>$ $\ast$ \hyperlink{class_voter_measurement_a316930ebb0b6623a37ca51598b0413d2}{metric\+Map}
+std\+::map$<$ int, \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{Voter\+Metric} $>$ $\ast$ \hyperlink{class_voter_measurement_a27a9133a8ff11810c10c06b647a3ce85}{metric\+Map}
 \end{DoxyCompactItemize}
 
 
@@ -70,14 +70,14 @@ Constructor.
 
 
 \subsection{Member Function Documentation}
-\hypertarget{class_voter_measurement_a75f0daed0375419a9aea7c57445a8d41}{}\index{Voter\+Measurement@{Voter\+Measurement}!add\+Probe@{add\+Probe}}
+\hypertarget{class_voter_measurement_aa1c64516bc57f2a363ce76c911e26e24}{}\index{Voter\+Measurement@{Voter\+Measurement}!add\+Probe@{add\+Probe}}
 \index{add\+Probe@{add\+Probe}!Voter\+Measurement@{Voter\+Measurement}}
 \subsubsection[{add\+Probe}]{\setlength{\rightskip}{0pt plus 5cm}void Voter\+Measurement\+::add\+Probe (
 \begin{DoxyParamCaption}
 \item[{{\bf Voter\+Probe} $\ast$}]{probe, }
-\item[{int}]{metric}
+\item[{{\bf Voter\+Metric}}]{metric}
 \end{DoxyParamCaption}
-)}\label{class_voter_measurement_a75f0daed0375419a9aea7c57445a8d41}
+)}\label{class_voter_measurement_aa1c64516bc57f2a363ce76c911e26e24}
 
 
 Add a probe to the measurement. 
@@ -111,9 +111,9 @@ Print the measurement details.
 \hypertarget{class_voter_measurement_a8d22d4b78f7e2f4c747f5716c4885351}{}\index{Voter\+Measurement@{Voter\+Measurement}!graph@{graph}}
 \index{graph@{graph}!Voter\+Measurement@{Voter\+Measurement}}
 \subsubsection[{graph}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Voter\+Graph}$\ast$ Voter\+Measurement\+::graph}\label{class_voter_measurement_a8d22d4b78f7e2f4c747f5716c4885351}
-The interaction graph to be observed \hypertarget{class_voter_measurement_a316930ebb0b6623a37ca51598b0413d2}{}\index{Voter\+Measurement@{Voter\+Measurement}!metric\+Map@{metric\+Map}}
+The interaction graph to be observed \hypertarget{class_voter_measurement_a27a9133a8ff11810c10c06b647a3ce85}{}\index{Voter\+Measurement@{Voter\+Measurement}!metric\+Map@{metric\+Map}}
 \index{metric\+Map@{metric\+Map}!Voter\+Measurement@{Voter\+Measurement}}
-\subsubsection[{metric\+Map}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$int,int$>$$\ast$ Voter\+Measurement\+::metric\+Map}\label{class_voter_measurement_a316930ebb0b6623a37ca51598b0413d2}
+\subsubsection[{metric\+Map}]{\setlength{\rightskip}{0pt plus 5cm}std\+::map$<$int,{\bf Voter\+Metric}$>$$\ast$ Voter\+Measurement\+::metric\+Map}\label{class_voter_measurement_a27a9133a8ff11810c10c06b647a3ce85}
 The map of metrics (e.\+g., M\+E\+T\+R\+I\+C\+\_\+\+M\+A\+C\+R\+O\+\_\+\+S\+T\+A\+T\+E of M\+E\+T\+R\+I\+C\+\_\+\+A\+C\+T\+I\+V\+E\+\_\+\+E\+D\+G\+E\+S) associated to each constituting probe organized by probe numbers \hypertarget{class_voter_measurement_aa3879b092c573e4ba4f45531a4f57e5b}{}\index{Voter\+Measurement@{Voter\+Measurement}!partition@{partition}}
 \index{partition@{partition}!Voter\+Measurement@{Voter\+Measurement}}
 \subsubsection[{partition}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Partition}$\ast$ Voter\+Measurement\+::partition}\label{class_voter_measurement_aa3879b092c573e4ba4f45531a4f57e5b}
