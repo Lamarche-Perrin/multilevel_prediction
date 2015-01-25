@@ -3,6 +3,13 @@ suppressDuplicates("DATA")
 suppressDuplicates("DATA",TRUE)
 
 
+
+setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")
+data <- read.csv("DATA_FORMATED.CSV", sep = ",")
+data <- data[!data$PREM %in% c("MACRO_2B","MACRO_3B","MACRO_4B","MACRO_5B","AGENT1_2B","AGENT1_3B","AGENT1_4B","AGENT1_5B","AGENT1_MACRO_2B","AGENT1_MACRO_3B","AGENT1_MACRO_4B","AGENT1_MACRO_5B"),]
+write.csv(data,file="DATA_FORMATED.CSV",row.names=FALSE)
+
+
 suppressDuplicates <- function (file, force = FALSE) {
   
   setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")

@@ -65,7 +65,7 @@ class MarkovProcess
 		void setTransition (int j, double *array);
 
 		/*!
-		 * \brief Get the state distribution at a given time
+		 * \brief Get the state distribution at a given time (-1 for the stationary distribution)
 		 */
 		double *getDistribution (int time);
 
@@ -80,11 +80,6 @@ class MarkovProcess
 		 * \warning Will endlessly loop for periodic Markov chains
 		 */
 		void computeStationaryDistribution (double threshold);
-
-		/*!
-		 * \brief Get the stationary distribution
-		 */
-		double *getStationaryDistribution ();
 
 		/*!
 		 * \brief Get the probability to be in a given state at a given time (-1 for the stationary distribution)

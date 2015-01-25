@@ -17,27 +17,50 @@ int main(int argc, char *argv[]) {
 
 	ExperimentSet *expSet = new ExperimentSet();
 	
-	std::set<MeasurementType>* preM = new std::set<MeasurementType>();
-//	preM->insert(M_MICRO);
-//	preM->insert(M_ALLSIZES1);
-	preM->insert(M_MACRO);
-	preM->insert(M_EMPTY);
-	preM->insert(M_AGENT1);
-	preM->insert(M_MESO1);
-	preM->insert(M_MESO2);
-	preM->insert(M_AGENT1_MESO1);
-	preM->insert(M_AGENT1_MESO2);
-	preM->insert(M_AGENT1_MESO1_MESO2);
-	preM->insert(M_AGENT1_MACRO);
-	preM->insert(M_MESO1);
-	preM->insert(M_MESO2);
-	preM->insert(M_MESO1_MESO2);
-	preM->insert(M_MACRO);
-	
-	std::set<MeasurementType>* postM = new std::set<MeasurementType>();
-	postM->insert(M_AGENT1);
+	SpecMeasurementSet* preM = new SpecMeasurementSet();
+
+//	preM->insert(std::make_pair(M_MACRO,MACRO_STATE));
+//	preM->insert(std::make_pair(M_EMPTY,MACRO_STATE));
+//	preM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
+//	preM->insert(std::make_pair(M_AGENT1_MACRO,MACRO_STATE));
+//	preM->insert(std::make_pair(M_MACRO,MACRO_STATE));
+
+//	preM->insert(std::make_pair(M_MICRO,MACRO_STATE));
+//	preM->insert(std::make_pair(M_ALLSIZES1,MACRO_STATE));
+//	preM->insert(std::make_pair(M_MESO1,MACRO_STATE));
+//	preM->insert(std::make_pair(M_MESO2,MACRO_STATE));
+//	preM->insert(std::make_pair(M_AGENT1_MESO1,MACRO_STATE));
+//	preM->insert(std::make_pair(M_AGENT1_MESO2,MACRO_STATE));
+//	preM->insert(std::make_pair(M_AGENT1_MESO1_MESO2,MACRO_STATE));
+//	preM->insert(std::make_pair(M_MESO1,MACRO_STATE));
+//	preM->insert(std::make_pair(M_MESO2,MACRO_STATE));
+//	preM->insert(std::make_pair(M_MESO1_MESO2,MACRO_STATE));
+
+/*
+	preM->insert(std::make_pair(M_MACRO,MAJ_2B));
+	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_2B));
+
+	preM->insert(std::make_pair(M_MACRO,MAJ_4B));
+	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_4B));
+
+	preM->insert(std::make_pair(M_MACRO,MAJ_10B));
+	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_10B));
+
+	preM->insert(std::make_pair(M_MACRO,MAJ_20B));
+	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_20B));
+*/
+
+	SpecMeasurementSet* postM = new SpecMeasurementSet();
+	postM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
 
 	VoterExperiment *exp;
+
+	exp = new VoterExperiment(10,10,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 2; exp->compactModel = true; expSet->insert(exp);
+
+//	exp = new VoterExperiment(8,0,1,1,1,1,1./21,1./21,-1,0,preM,postM); exp->delayMax = 30; exp->compactModel = false; expSet->insert(exp);
+//	exp = new VoterExperiment(4,4,1,1,1,1,1./21,1./21,-1,0,preM,postM); exp->delayMax = 30; exp->compactModel = false; expSet->insert(exp);
+
+/*
 	exp = new VoterExperiment(10,10,1,1,1,1,0,0,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 	exp = new VoterExperiment(10,10,1,1,1,1,1./21,1./21,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 	exp = new VoterExperiment(10,10,1,1,1,1,1./21,0,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
@@ -48,57 +71,60 @@ int main(int argc, char *argv[]) {
 	exp = new VoterExperiment(10,10,1,1,1,1,1./21,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 	exp = new VoterExperiment(10,10,1,1,1,1,0,1./21,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 	exp = new VoterExperiment(10,10,1,1,1,1,1,1,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+*/
 
 /*
-	exp = new VoterExperiment(10,10,1,1,1,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	double c = 1./21;
 
-	exp = new VoterExperiment(10,10,1,1,2,2,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,3,3,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,4,4,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,5,5,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,10,10,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 
-	exp = new VoterExperiment(10,10,1,1,1./2,1./2,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./3,1./3,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./4,1./4,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./5,1./5,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./10,1./10,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,2,2,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,3,3,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,4,4,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,5,5,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,10,10,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 
-	exp = new VoterExperiment(10,10,1,1,2,1./2,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,3,1./3,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,4,1./4,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,5,1./5,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,10,1./10,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./2,1./2,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./3,1./3,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./4,1./4,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./5,1./5,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./10,1./10,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 
-	exp = new VoterExperiment(10,10,1,1,1./2,2,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./3,3,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./4,4,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./5,5,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./10,10,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,2,1./2,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,3,1./3,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,4,1./4,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,5,1./5,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,10,1./10,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 
-	exp = new VoterExperiment(10,10,1,1,1,2,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,3,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,4,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,5,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,10,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./2,2,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./3,3,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./4,4,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./5,5,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./10,10,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+
+	exp = new VoterExperiment(10,10,1,1,1,2,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,3,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,4,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,5,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,10,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 	
-	exp = new VoterExperiment(10,10,1,1,2,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,3,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,4,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,5,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,10,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,2,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,3,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,4,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,5,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,10,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 
-	exp = new VoterExperiment(10,10,1,1,1,1./2,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,1./3,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,1./4,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,1./5,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1,1./10,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1./2,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1./3,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1./4,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1./5,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1,1./10,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 
-	exp = new VoterExperiment(10,10,1,1,1./2,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./3,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./4,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./5,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
-	exp = new VoterExperiment(10,10,1,1,1./10,1,0,0,0); exp->delayMax = 100; expSet.insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./2,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./3,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./4,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./5,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+	exp = new VoterExperiment(10,10,1,1,1./10,1,c,c,-1,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
 */
 
 	voterExperiment(expSet,"../data/DATA.CSV");

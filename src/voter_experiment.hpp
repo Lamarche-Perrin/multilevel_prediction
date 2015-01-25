@@ -28,7 +28,7 @@ typedef std::set<VoterExperiment*> ExperimentSet;
  */
 void voterExperiment (std::set<VoterExperiment*> *expSet, std::string fileName);
 
-void addMeasurement (MeasurementType measurement, MeasurementSet *set, VoterGraph *VG);
+void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG);
 
 void addHeaderToCSV (std::string fileName);
 
@@ -90,8 +90,8 @@ class VoterExperiment
 		int delayMax;			/*!< The delay before post-measurement in the last experiment*/
 		int delayStep;			/*!< The delay before post-measurement between two consecutive experiments*/
 		
-		std::set<MeasurementType> *preMeasurements;			/*!< A set of pre-measurement for prediction*/
-		std::set<MeasurementType> *postMeasurements;		/*!< A set of post-measurement to be predicted*/
+		SpecMeasurementSet *preMeasurements;		/*!< A set of pre-measurement for prediction*/
+		SpecMeasurementSet *postMeasurements;		/*!< A set of post-measurement to be predicted*/
 		
 		/*!
 		 * \brief Constructor
@@ -110,13 +110,12 @@ class VoterExperiment
 		 */
 		VoterExperiment (int size1, int size2, double intraR1, double intraR2, double interR1, double interR2,
 			double contrarian1, double contrarian2, double time, double delay,
-			std::set<MeasurementType> *preMeasurements, std::set<MeasurementType> *postMeasurements);
+			SpecMeasurementSet *preMeasurements, SpecMeasurementSet *postMeasurements);
 
 		/*!
 		 * \brief Destructor
 		 */
 		~VoterExperiment ();
-
 };
 
 #endif

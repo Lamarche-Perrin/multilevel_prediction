@@ -1,6 +1,6 @@
 library(RColorBrewer)
 
-print <- FALSE
+print <- TRUE
 pdf <- FALSE
 am <- FALSE
 width = 24
@@ -8,6 +8,31 @@ height = 20
 xMax <- 100
 yMax <- 750
 size <- c(10,10)
+
+measurementText <- list(
+  "EMPTY" = c("EMPTY"),
+  "AGENT1_MS" = c("AGENT"),
+  "AGENT1_MESO2_MS" = c("AGENT","MESO2"),
+  "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO1","MESO2"),
+  "MACRO_MS" = c("MACRO"),
+  "AGENT1_MACRO_MS" = c("AGENT","MACRO"),
+  "AGENT1_MESO1_MS" = c("AGENT","MESO1"),
+  "MESO1_MS" = c("MESO1"),
+  "MESO1_MESO2_MS" = c("MESO1","MESO2"),
+  "MESO2_MS" = c("MESO2"),
+  "MACRO_MAJ" = c("MACRO_MAJ"), "AGENT1_MACRO_MAJ" = c("AGENT","MACRO_MAJ"),
+  "MACRO_10PC" = c("MACRO_10PC"), "AGENT1_MACRO_10PC" = c("AGENT","MACRO_10PC"),
+  "MACRO_20PC" = c(""), "AGENT1_MACRO_20PC" = c(""),
+  "MACRO_30PC" = c(""), "AGENT1_MACRO_30PC" = c(""),
+  "MACRO_40PC" = c(""), "AGENT1_MACRO_40PC" = c(""),
+  "MACRO_50PC" = c(""), "AGENT1_MACRO_50PC" = c(""),
+  "MACRO_60PC" = c(""), "AGENT1_MACRO_60PC" = c(""),
+  "MACRO_70PC" = c(""), "AGENT1_MACRO_70PC" = c(""),
+  "MACRO_80PC" = c(""), "AGENT1_MACRO_80PC" = c(""),
+  "MACRO_90PC" = c(""), "AGENT1_MACRO_90PC" = c(""),
+  "MACRO_4B" = c("MACRO_4B"), "AGENT1_MACRO_4B" = c("AGENT","MACRO_4B"),
+  "MACRO_10B" = c("MACRO_10B"), "AGENT1_MACRO_10B" = c("AGENT","MACRO_10B")
+)
 
 display <- FALSE
 plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
@@ -18,16 +43,67 @@ plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = 
         print = print, pdf = pdf, width = width, height = height, outputFileName = "test", type = "GENERAL_MODEL")  
 
 
-plotExp <- function (id, r1, r2, display = FALSE, allMeasurements = TRUE, compact = TRUE, contrarian = c(0,0), time = 0) {
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
+        xAxis = "DELAY", yAxis = "BETA", yMax = 200, yMin = 0, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = !display, unicolor = !display, legendPos = "topright",
+        postMeasurement = "AGENT1_MS", preMeasurement = c("EMPTY","AGENT1_MS","AGENT1_MACRO_MS","MACRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"), phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/21,1/21), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = "test", type = "GENERAL_MODEL")  
+
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
+        xAxis = "DELAY", yAxis = "BETA", yMax = 200, yMin = 0, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = !display, unicolor = !display, legendPos = "topright",
+        postMeasurement = "AGENT1_MS", preMeasurement = c("EMPTY","AGENT1_MS","AGENT1_MACRO_MS","MACRO_MS","MESO2_MS"), phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(4,4), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/21,1/21), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = "test", type = "GENERAL_MODEL")  
+
+
+
+
+
+plotExp <- function (id, r1, r2, display = FALSE, compact = TRUE, contrarian = c(0,0), time = 0, name = NULL,
+                     communityMeasurements = TRUE, majMeasurements = FALSE, pcMeasurements = FALSE, binMeasurements = FALSE) {
+
   if (compact) { type <- "COMPACT_MODEL"} else { type <- "GENERAL_MODEL" }
-  fileName <- paste("exp.",id,"_param=",round(r1,2),"-",round(r2,2),sep="")
-  if (allMeasurements) { fileName <- paste(fileName,"_full",sep="") }
+
+  if (!is.null(name)) { fileName <- name }
+  else {
+    fileName <- paste("exp.",id,"_param=",round(r1,2),"-",round(r2,2),sep="")
+    if (!identical(contrarian,c(0,0))) { fileName <- paste("c",fileName,sep="") }
+  }
   
-  measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","MACRO_MS","AGENT1_MACRO_MS")
-  if (allMeasurements) { measurements <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS","MACRO_MS") }
-    
-  measurementText <- list("EMPTY" = c("EMPTY"), "AGENT1_MS" = c("AGENT"), "AGENT1_MESO2_MS" = c("AGENT","MESO2"), "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO1","MESO2"), "MACRO_MS" = c("MACRO"), "AGENT1_MACRO_MS" = c("AGENT","MACRO"), "AGENT1_MESO1_MS" = c("AGENT","MESO1"), "MESO1_MS" = c("MESO1"), "MESO1_MESO2_MS" = c("MESO1","MESO2"), "MESO2_MS" = c("MESO2"))
-  
+  measurements <- c("EMPTY","AGENT1_MS","AGENT1_MACRO_MS","MACRO_MS")  
+  if (communityMeasurements) {
+    measurements <- c(measurements,c("AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS"))
+  }
+
+  if (majMeasurements) {
+    measurements <- c(measurements,c("AGENT1_MACRO_MAJ","MACRO_MAJ"))
+
+    if (communityMeasurements) {
+          measurements <- c(measurements,c("AGENT1_MESO1_MAJ","AGENT1_MESO2_MAJ","AGENT1_MESO1_MESO2_MAJ","MESO1_MAJ","MESO2_MAJ","MESO1_MESO2_MAJ"))
+    }
+  }
+
+  if (pcMeasurements) {
+    measurements <- c(measurements,c("AGENT1_MACRO_10PC","MACRO_10PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_20PC","MACRO_20PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_30PC","MACRO_30PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_40PC","MACRO_40PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_50PC","MACRO_50PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_60PC","MACRO_60PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_70PC","MACRO_70PC"))
+    #    measurements <- c(measurements,c("AGENT1_MACRO_80PC","MACRO_80PC"))
+    #    measurements <- c(measurements,c("AGENT1_MACRO_90PC","MACRO_90PC"))    
+  }
+
+  if (binMeasurements) {
+    measurements <- c(measurements,c("AGENT1_MACRO_2B","MACRO_2B"))
+    measurements <- c(measurements,c("AGENT1_MACRO_4B","MACRO_4B"))
+    measurements <- c(measurements,c("AGENT1_MACRO_10B","MACRO_10B"))
+#    measurements <- c(measurements,c("AGENT1_MACRO_20B","MACRO_20B"))
+  }
+
   plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
           xAxis = "DELAY", yAxis = "BETA", yMax = yMax, yMin = 0, xMax = xMax, xMin = 0, varMin = 1, noNegativeValue = TRUE,
           suppressSubPhases = TRUE, suppressInterPhases = !display, unicolor = !display, legendPos = "topright",
@@ -36,61 +112,73 @@ plotExp <- function (id, r1, r2, display = FALSE, allMeasurements = TRUE, compac
           print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = type)  
 }
 
-plotExp(11, 1, 1)
-plotExp(12, 2, 2)
-plotExp(13, 3, 3)
-plotExp(14, 4, 4)
-plotExp(15, 5, 5)
-plotExp(19, 10, 10)
+time <- -1
+contrarian <- c(1/21,1/21)
 
-plotExp(21, 1/1, 1/1)
-plotExp(22, 1/2, 1/2)
-plotExp(23, 1/3, 1/3)
-plotExp(24, 1/4, 1/4)
-plotExp(25, 1/5, 1/5)
-plotExp(29, 1/10, 1/10)
+plotExp(11, 1, 1, communityMeasurements = FALSE, binMeasurements = TRUE, name = "resolution_complete_graph")
+plotExp(11, 1, 1, communityMeasurements = FALSE, majMeasurements = TRUE, name = "majority_complete_graph")
+plotExp(11, 1, 1, communityMeasurements = FALSE, majMeasurements = TRUE, pcMeasurements = TRUE, name = "other_maj_complete_graph")
 
-plotExp(31, 1, 1/1)
-plotExp(32, 1, 1/2)
-plotExp(33, 1, 1/3)
-plotExp(34, 1, 1/4)
-plotExp(35, 1, 1/5)
-plotExp(39, 1, 1/10)
 
-plotExp(41, 1/1, 1)
-plotExp(42, 1/2, 1)
-plotExp(43, 1/3, 1)
-plotExp(44, 1/4, 1)
-plotExp(45, 1/5, 1)
-plotExp(49, 1/10, 1)
+plotExp(11, 1, 1, contrarian = contrarian, time = -1)
 
-plotExp(51, 1, 1)
-plotExp(52, 2, 1)
-plotExp(53, 3, 1)
-plotExp(54, 4, 1)
-plotExp(55, 5, 1)
-plotExp(59, 10, 1)
+plotExp(11, 1, 1, contrarian = contrarian, time = -1)
+plotExp(12, 2, 2, contrarian = contrarian, time = -1)
+plotExp(13, 3, 3, contrarian = contrarian, time = -1)
+plotExp(14, 4, 4, contrarian = contrarian, time = -1)
+plotExp(15, 5, 5, contrarian = contrarian, time = -1)
+plotExp(19, 10, 10, contrarian = contrarian, time = -1)
 
-plotExp(61, 1, 1)
-plotExp(62, 1, 2)
-plotExp(63, 1, 3)
-plotExp(64, 1, 4)
-plotExp(65, 1, 5)
-plotExp(69, 1, 10)
+plotExp(21, 1/1, 1/1, contrarian = contrarian, time = -1)
+plotExp(22, 1/2, 1/2, contrarian = contrarian, time = -1)
+plotExp(23, 1/3, 1/3, contrarian = contrarian, time = -1)
+plotExp(24, 1/4, 1/4, contrarian = contrarian, time = -1)
+plotExp(25, 1/5, 1/5, contrarian = contrarian, time = -1)
+plotExp(29, 1/10, 1/10, contrarian = contrarian, time = -1)
 
-plotExp(71, 1, 1/1)
-plotExp(72, 2, 1/2)
-plotExp(73, 3, 1/3)
-plotExp(74, 4, 1/4)
-plotExp(75, 5, 1/5)
-plotExp(79, 10, 1/10)
+plotExp(31, 1, 1/1, contrarian = contrarian, time = -1)
+plotExp(32, 1, 1/2, contrarian = contrarian, time = -1)
+plotExp(33, 1, 1/3, contrarian = contrarian, time = -1)
+plotExp(34, 1, 1/4, contrarian = contrarian, time = -1)
+plotExp(35, 1, 1/5, contrarian = contrarian, time = -1)
+plotExp(39, 1, 1/10, contrarian = contrarian, time = -1)
 
-plotExp(81, 1/1, 1)
-plotExp(82, 1/2, 2)
-plotExp(83, 1/3, 3)
-plotExp(84, 1/4, 4)
-plotExp(85, 1/5, 5)
-plotExp(89, 1/10, 10)
+plotExp(41, 1/1, 1, contrarian = contrarian, time = -1)
+plotExp(42, 1/2, 1, contrarian = contrarian, time = -1)
+plotExp(43, 1/3, 1, contrarian = contrarian, time = -1)
+plotExp(44, 1/4, 1, contrarian = contrarian, time = -1)
+plotExp(45, 1/5, 1, contrarian = contrarian, time = -1)
+plotExp(49, 1/10, 1, contrarian = contrarian, time = -1)
+
+plotExp(51, 1, 1, contrarian = contrarian, time = -1)
+plotExp(52, 2, 1, contrarian = contrarian, time = -1)
+plotExp(53, 3, 1, contrarian = contrarian, time = -1)
+plotExp(54, 4, 1, contrarian = contrarian, time = -1)
+plotExp(55, 5, 1, contrarian = contrarian, time = -1)
+plotExp(59, 10, 1, contrarian = contrarian, time = -1)
+
+plotExp(61, 1, 1, contrarian = contrarian, time = -1)
+plotExp(62, 1, 2, contrarian = contrarian, time = -1)
+plotExp(63, 1, 3, contrarian = contrarian, time = -1)
+plotExp(64, 1, 4, contrarian = contrarian, time = -1)
+plotExp(65, 1, 5, contrarian = contrarian, time = -1)
+plotExp(69, 1, 10, contrarian = contrarian, time = -1)
+
+plotExp(71, 1, 1/1, contrarian = contrarian, time = -1)
+plotExp(72, 2, 1/2, contrarian = contrarian, time = -1)
+plotExp(73, 3, 1/3, contrarian = contrarian, time = -1)
+plotExp(74, 4, 1/4, contrarian = contrarian, time = -1)
+plotExp(75, 5, 1/5, contrarian = contrarian, time = -1)
+plotExp(79, 10, 1/10, contrarian = contrarian, time = -1)
+
+plotExp(81, 1/1, 1, contrarian = contrarian, time = -1)
+plotExp(82, 1/2, 2, contrarian = contrarian, time = -1)
+plotExp(83, 1/3, 3, contrarian = contrarian, time = -1)
+plotExp(84, 1/4, 4, contrarian = contrarian, time = -1)
+plotExp(85, 1/5, 5, contrarian = contrarian, time = -1)
+plotExp(89, 1/10, 10, contrarian = contrarian, time = -1)
+
+
 
 plotExp(101, 1, 1, contrarian = c(0,0))
 plotExp(102, 1, 1, contrarian = c(1/21,1/21))
