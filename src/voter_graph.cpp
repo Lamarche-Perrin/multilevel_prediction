@@ -1,3 +1,7 @@
+/*!
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
 
 #include <iostream>
 #include <set>
@@ -338,7 +342,7 @@ Partition *VoterGraph::getMarkovPartition (VoterProbe *probe, VoterMetric metric
 				int nb = 0;
 				for (std::set<VoterNode*>::iterator it = probe->nodeSet->begin(); it != probe->nodeSet->end(); ++it)
 					nb += (i >> (*it)->id) % 2;
-				partMap[nb]->addIndividual(i);
+				partMap[nb]->addIndividual(i,false,nb);
 			}
 			break;
 		}

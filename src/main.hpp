@@ -15,5 +15,6 @@
 
 void testMarkovProcess ();
 void testVoterGraph ();
+void testMeasuresWithAggregation ();
 
 #endif

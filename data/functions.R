@@ -1,9 +1,72 @@
 library(RColorBrewer)
 
 
+
+c <- brewer.pal(9,"Set1")
+
+color <- list("MACRO_MS" = c[2], "MICRO_MS" = c[1], "EMPTY_MS" = c[9], "AGENT_MS" = c[3], "MACRO_AND_AGENT" = c[4],
+              "MESO1_MS" = c[5], "MESO2_MS" = c[6], "MESO_MS" = c[7], "MESO_AND_AGENT" = "black",
+              "MACRO_AND_MESO" = c[7], "MACRO_MESO_AND_AGENT" = c[8])
+
+measurementLabel <- list("MACRO_MS" = "Macroscopic measurement", "MICRO_MS" = "Microscopic measurement",
+                         "EMPTY" = "Empty measurement", "AGENT1_MS" = "Agent measurement",
+                         "SIZE1_MS" = "1-agent measurement",
+                         "SIZE2_MS" = "2-agents measurement",
+                         "SIZE3_MS" = "3-agents measurement",
+                         "SIZE4_MS" = "4-agents measurement",
+                         "SIZE5_MS" = "5-agents measurement",
+                         "SIZE6_MS" = "6-agents measurement",
+                         "SIZE7_MS" = "7-agents measurement",
+                         "MACRO_AND_AGENT" = "Multilevel measurement", "MESO1" = "Mesoscopic", "MESO_AND_AGENT" = "Agent and Meso",
+                         "MESO2" = "Mesoscopic 2", "MESO" = "Two-mesoscopic", "MACRO_AND_MESO" = "Meso and Macro",
+                         "MACRO_MESO_AND_AGENT" = "Agent, Meso and Macro",
+                         "BETA_MACRO_EMPTY" = "IB-empty = IB-macro", "BETA_EMPTY_MACRO" = "IB-empty = IB-macro",
+                         "BETA_MACRO_AGENT" = "IB-agent = IB-macro", "BETA_AGENT_MACRO" = "IB-agent = IB-macro",
+                         "BETA_EMPTY_AGENT" = "IB-empty = IB-agent", "BETA_AGENT_EMPTY" = "IB-empty = IB-agent",
+                         "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
+                         "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
+                         "BETA_AGENT_MACRO_AND_AGENT" = "IB-agent = IB-multilevel",
+                         "BETA_MACRO_AND_AGENT_AGENT" = "IB-agent = IB-multilevel",
+                         "BETA_MACRO_MACRO_AND_AGENT" = "IB-macro = IB-multilevel",
+                         "BETA_MACRO_AND_AGENT_MACRO" = "IB-macro = IB-multilevel"
+)
+
+
+measurementText <- list(
+  "EMPTY" = c("EMPTY"),
+  "AGENT1_MS" = c("AGENT"),
+  "AGENT1_MESO2_MS" = c("AGENT","MESO2"),
+  "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO1","MESO2"),
+  "MACRO_MS" = c("MACRO"),
+  "AGENT1_MACRO_MS" = c("AGENT","MACRO"),
+  "AGENT1_MESO1_MS" = c("AGENT","MESO1"),
+  "MESO1_MS" = c("MESO1"),
+  "MESO1_MESO2_MS" = c("MESO1","MESO2"),
+  "MESO2_MS" = c("MESO2"),
+
+  "MACRO_10PC" = c("MACRO_10PC"), "AGENT1_MACRO_10PC" = c("AGENT","MACRO_10PC"),
+  "MACRO_20PC" = c(""), "AGENT1_MACRO_20PC" = c(""),
+  "MACRO_30PC" = c(""), "AGENT1_MACRO_30PC" = c(""),
+  "MACRO_40PC" = c(""), "AGENT1_MACRO_40PC" = c(""),
+  "MACRO_50PC" = c(""), "AGENT1_MACRO_50PC" = c(""),
+  "MACRO_60PC" = c(""), "AGENT1_MACRO_60PC" = c(""),
+  "MACRO_70PC" = c(""), "AGENT1_MACRO_70PC" = c(""),
+  "MACRO_80PC" = c(""), "AGENT1_MACRO_80PC" = c(""),
+  "MACRO_90PC" = c(""), "AGENT1_MACRO_90PC" = c(""),
+  
+  "MACRO_MAJ" = c("MACRO_MAJ"), "AGENT1_MACRO_MAJ" = c("AGENT","MACRO_MAJ"),
+  "MACRO_2B" = c("MACRO_2B"), "AGENT1_MACRO_2B" = c("AGENT","MACRO_2B"),
+  "MACRO_4B" = c("MACRO_4B"), "AGENT1_MACRO_4B" = c("AGENT","MACRO_4B"),
+  "MACRO_10B" = c("MACRO_10B"), "AGENT1_MACRO_10B" = c("AGENT","MACRO_10B"),
+  
+  "SIZE1_MS" = c(""), "SIZE2_MS" = c(""), "SIZE3_MS" = c(""), "SIZE4_MS" = c(""), "SIZE5_MS" = c(""), "SIZE6_MS" = c(""), "SIZE7_MS" = c(""),
+  "AGENT1_SIZE2_MS" = c(""), "AGENT1_SIZE3_MS" = c(""), "AGENT1_SIZE4_MS" = c(""), "AGENT1_SIZE5_MS" = c(""), "AGENT1_SIZE6_MS" = c(""), "AGENT1_SIZE7_MS" = c("")
+)
+
+
 plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasurement, xAxis = "CURRENT_I", yAxis = "MACRO_I",
                     var, varMin = NULL, varMax = NULL, varStep = NULL, varList = NULL, beta = 1, type = "GENERAL_MODEL",
-                    pointMin = NULL, pointMax = NULL, pointStep = NULL, pointList = NULL,
+                    pointMin = NULL, pointMax = NULL, pointStep = NULL, pointList = NULL, withAggregation = FALSE,
                     labelMin = NULL, labelMax = NULL, labelStep = NULL, labelList = NULL, noLabel = NULL, unicolor = FALSE,
                     size = NULL, time = NULL, delay = NULL, intraRate = NULL, interRate = NULL, contrarian = NULL,
                     xMin = NULL, xMax = NULL, yMin = NULL, yMax = NULL, noTitle = FALSE, phasesNames = FALSE,
@@ -33,27 +96,6 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
   contrarian1 <- contrarian[1]
   contrarian2 <- contrarian[2]
   
-  c <- brewer.pal(9,"Set1")
-  
-  color <- list("MACRO_MS" = c[2], "MICRO_MS" = c[1], "EMPTY_MS" = c[9], "AGENT_MS" = c[3], "MACRO_AND_AGENT" = c[4],
-                "MESO1_MS" = c[5], "MESO2_MS" = c[6], "MESO_MS" = c[7], "MESO_AND_AGENT" = "black",
-                "MACRO_AND_MESO" = c[7], "MACRO_MESO_AND_AGENT" = c[8])
-  
-  measurementLabel <- list("MACRO_MS" = "Macroscopic measurement", "MICRO_MS" = "Microscopic measurement",
-                           "EMPTY" = "Empty measurement", "AGENT1_MS" = "One-agent measurement",
-                           "MACRO_AND_AGENT" = "Multilevel measurement", "MESO1" = "Mesoscopic", "MESO_AND_AGENT" = "Agent and Meso",
-                           "MESO2" = "Mesoscopic 2", "MESO" = "Two-mesoscopic", "MACRO_AND_MESO" = "Meso and Macro",
-                           "MACRO_MESO_AND_AGENT" = "Agent, Meso and Macro",
-                           "BETA_MACRO_EMPTY" = "IB-empty = IB-macro", "BETA_EMPTY_MACRO" = "IB-empty = IB-macro",
-                           "BETA_MACRO_AGENT" = "IB-agent = IB-macro", "BETA_AGENT_MACRO" = "IB-agent = IB-macro",
-                           "BETA_EMPTY_AGENT" = "IB-empty = IB-agent", "BETA_AGENT_EMPTY" = "IB-empty = IB-agent",
-                           "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
-                           "BETA_EMPTY_MACRO_AND_AGENT" = "IB-empty = IB-multilevel",
-                           "BETA_AGENT_MACRO_AND_AGENT" = "IB-agent = IB-multilevel",
-                           "BETA_MACRO_AND_AGENT_AGENT" = "IB-agent = IB-multilevel",
-                           "BETA_MACRO_MACRO_AND_AGENT" = "IB-macro = IB-multilevel",
-                           "BETA_MACRO_AND_AGENT_MACRO" = "IB-macro = IB-multilevel"
-  )
   
   # MAKE TITLE AND SUBTITLE
   title <- ""
@@ -207,6 +249,20 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
     data$BETA <- NA
     data$PREM_INF <- NA
     data$PREM_SUP <- NA
+    
+    if (withAggregation) {
+      newPreM <- c()
+      mList <- as.character(unique(data$PREM))
+      for (m in mList) {
+        for (preM in preMeasurement) {
+          if (substr(m,1,nchar(preM)) == preM) {
+            newPreM <- c(newPreM,m)
+            break
+          }
+        }
+      }
+      preMeasurement <- newPreM
+    }
     
     if (phasesNames) {
       boxDisplay <- list()

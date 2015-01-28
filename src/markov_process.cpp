@@ -1,11 +1,17 @@
+/*!
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
 
-//#include <math.h>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
 #include <stdlib.h>
+#include <map>
+#include <limits>
 
 #include "markov_process.hpp"
+#include "csv_tools.hpp"
 
 
 MarkovProcess::MarkovProcess (int s)
@@ -278,6 +284,279 @@ double MarkovProcess::getNextEntropy (Partition *partition, bool micro, int time
 	
 	return entropy;
 }
+
+
+
+std::set<OrderedPartition*> *MarkovProcess::getOptimalOrderedPartition (Partition *nextPartition, Partition *currentPartition, int delay, int time, double threshold)
+{
+	int nextTime = time + delay;
+	if (time == -1) { nextTime = -1; }
+	
+	int microSize = currentPartition->size;
+	int macroSize = microSize * microSize;
+	int nextSize = nextPartition->size;
+
+	// Compute entropy of pre-measurement
+	double microProb [microSize];	
+	for (int i = 0; i < microSize; i++)
+		microProb[i] = getProbability(currentPartition->getPartFromValue(i),time);
+	
+	double macroProb [macroSize];
+	for (int i = 0; i < microSize; i++)
+		macroProb[i] = microProb[i];
+	for (int j = 1; j < microSize; j++)
+		for (int i = 0; i < microSize - j; i++)
+			macroProb[i+j*microSize] = macroProb[i+(j-1)*microSize] + macroProb[i+j];
+	
+	double macroEntropy [macroSize];
+	for (int j = 0; j < microSize; j++)
+		for (int i = 0; i < microSize - j; i++)
+		{
+			if (macroProb[i+j*microSize] > 0) { macroEntropy[i+j*microSize] = - macroProb[i+j*microSize] * log2(macroProb[i+j*microSize]); }
+			else { macroEntropy[i+j*microSize] = 0; }
+		}
+
+	// Compute mutual information between pre-measurement and post-measurement
+	double microCondProb [microSize*nextSize];
+	for (int i = 0; i < microSize; i++)
+		for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+			microCondProb[i+(*it)->id*microSize] = getNextProbability(*it,currentPartition->getPartFromValue(i),delay,time);
+
+	double macroCondProb [macroSize*nextSize];
+	for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+		for (int i = 0; i < microSize; i++)
+			macroCondProb[i+(*it)->id*macroSize] = microCondProb[i+(*it)->id*microSize] * microProb[i];			
+	for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+		for (int j = 1; j < microSize; j++)
+			for (int i = 0; i < microSize - j; i++)
+				macroCondProb[i+j*microSize+(*it)->id*macroSize] = macroCondProb[i+(j-1)*microSize+(*it)->id*macroSize] + macroCondProb[i+j+(*it)->id*macroSize];
+	for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+		for (int j = 0; j < microSize; j++)
+			for (int i = 0; i < microSize - j; i++)
+				macroCondProb[i+j*microSize+(*it)->id*macroSize] /= macroProb[i+j*microSize];
+
+	double nextEntropy = getEntropy(nextPartition,nextTime);
+	
+	double macroInformation [macroSize];
+	for (int j = 0; j < microSize; j++)
+		for (int i = 0; i < microSize - j; i++)
+		{
+			macroInformation[i+j*microSize] = 0;
+			for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+			{
+				if (macroCondProb[i+j*microSize+(*it)->id*macroSize] > 0) { macroInformation[i+j*microSize] += macroCondProb[i+j*microSize+(*it)->id*macroSize] * log2(macroCondProb[i+j*microSize+(*it)->id*macroSize]); }
+				else { macroInformation[i+j*microSize] = 0; }
+			}
+			macroInformation[i+j*microSize] = macroInformation[i+j*microSize] * macroProb[i+j*microSize] + nextEntropy;
+		}
+
+/*
+	// PRINT RESULTS
+	std::cout << "microProb" << std::endl;
+	for (int i = 0; i < microSize; i++) std::cout << microProb[i] << "\t";
+	std::cout << std::endl;
+	
+	std::cout << "macroProb" << std::endl;
+	for (int j = 0; j < microSize; j++)
+	{
+		for (int i = 0; i < microSize - j; i++)
+			std::cout << macroProb[i+j*microSize] << "\t";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+	
+	std::cout << "macroEntropy" << std::endl;
+	for (int j = 0; j < microSize; j++)
+	{
+		for (int i = 0; i < microSize - j; i++) std::cout << macroEntropy[i+j*microSize] << "\t";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+
+	std::cout << "microCondProb" << std::endl;
+	for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+	{
+		std::cout << "v = " << (*it)->id << " -> ";
+		for (int i = 0; i < microSize; i++) std::cout << microCondProb[i+(*it)->id*microSize] << "\t";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+
+	std::cout << "macroCondProb" << std::endl;
+	for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+	{
+		std::cout << "v = " << (*it)->id << " -> ";
+		for (int j = 0; j < microSize; j++)
+		{
+			for (int i = 0; i < microSize - j; i++) std::cout << macroCondProb[i+j*microSize+(*it)->id*macroSize] << "\t";
+			std::cout << std::endl;
+		}
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+
+	std::cout << "macroInformation" << std::endl;
+	for (int j = 0; j < microSize; j++)
+	{
+		for (int i = 0; i < microSize - j; i++) std::cout << macroInformation[i+j*microSize] << "\t";
+		std::cout << std::endl;
+	}
+	std::cout << std::endl;
+*/
+
+	// Ordered partitioning algorithm
+	std::map<double,OrderedPartition*> pMap;
+	
+	OrderedPartition *pInf = new OrderedPartition(microSize,0);
+	pInf->optimalCut = getOptimalCut(microSize,macroEntropy,macroInformation,pInf->beta);
+	pMap[pInf->param] = pInf;
+
+	OrderedPartition *pSup = new OrderedPartition(microSize,1);
+	pSup->optimalCut = getOptimalCut(microSize,macroEntropy,macroInformation,pSup->beta);
+	pMap[pSup->param] = pSup;
+
+	std::list< std::pair<OrderedPartition*,OrderedPartition*> > pList;	
+	pList.push_back(std::make_pair(pInf,pSup));
+
+	while (!pList.empty())
+	{
+		pInf = pList.front().first;
+		pSup = pList.front().second;
+		pList.pop_front();
+
+		int i = microSize;
+		while (i > 0 && pInf->optimalCut[i-1] == pSup->optimalCut[i-1]) { i = pInf->optimalCut[i-1]; }
+		
+		if (i > 0 && pSup->beta - pInf->beta > threshold)
+		{
+			OrderedPartition *pNew = new OrderedPartition(microSize,(pSup->param+pInf->param)/2);
+			pNew->optimalCut = getOptimalCut(microSize,macroEntropy,macroInformation,pNew->beta);
+			pMap[pNew->param] = pNew;
+			
+			pList.push_back(std::make_pair(pInf,pNew));
+			pList.push_back(std::make_pair(pNew,pSup));
+		}
+	}
+
+	/*
+	// PRINT
+	OrderedPartition *previous = 0;
+	for (std::map<double,OrderedPartition*>::iterator it = pMap.begin(); it != pMap.end(); it++)
+	{
+		OrderedPartition *next = it->second;
+
+		int i = 1;
+		if (previous != 0)
+		{
+			i = microSize;
+			while (i > 0 && previous->optimalCut[i-1] == next->optimalCut[i-1]) { i = previous->optimalCut[i-1]; }
+		}
+		if (i > 0)
+		{
+			next->print();
+			previous = next;
+		}
+	}
+	*/
+
+	// Get results
+	std::set<OrderedPartition*> *pSet = new std::set<OrderedPartition*>();
+
+	OrderedPartition *previous = 0;
+	for (std::map<double,OrderedPartition*>::iterator it = pMap.begin(); it != pMap.end(); it++)
+	{
+		OrderedPartition *current = it->second;
+
+		int i = 1;
+		if (previous != 0)
+		{
+			i = microSize;
+			while (i > 0 && previous->optimalCut[i-1] == current->optimalCut[i-1]) { i = previous->optimalCut[i-1]; }
+		}
+		
+		if (i > 0)
+		{
+			current->string = "|";
+			current->entropy = 0;
+			current->information = 0;
+
+			i = microSize;
+			while (i > 0)
+			{
+				int cut = current->optimalCut[i-1];
+
+				if (cut == i-1) { current->string = "|" + int2string(cut) + current->string; }
+				else { current->string = "|" + int2string(cut) + "-" + int2string(i-1) + current->string; }
+				current->entropy += macroEntropy[cut+(i-1-cut)*microSize];
+				current->information += macroInformation[cut+(i-1-cut)*microSize];
+
+				i = cut;
+			}
+			
+			pSet->insert(current);
+			previous = current;
+		}
+	}
+	return pSet;
+}
+
+
+int *MarkovProcess::getOptimalCut (int microSize, double *macroEntropy, double *macroInformation, double beta)
+{
+	int *optimalCut = new int [microSize];
+	double optimalValue [microSize];
+	
+	for (int j = 0; j < microSize; j++)
+	{
+		optimalCut[j] = 0;
+		if (beta == std::numeric_limits<double>::infinity()) { optimalValue[j] = - macroInformation[j*microSize]; }
+		else { optimalValue[j] = macroEntropy[j*microSize] - beta * macroInformation[j*microSize]; }
+
+		for (int cut = 1; cut <= j; cut++)
+		{
+			double value = optimalValue[cut-1];
+			if (beta == std::numeric_limits<double>::infinity()) { value += - macroInformation[cut+(j-cut)*microSize]; }
+			else { value += macroEntropy[cut+(j-cut)*microSize] - beta * macroInformation[cut+(j-cut)*microSize]; }
+		 
+			if (value < optimalValue[j])
+			{
+				optimalCut[j] = cut;
+				optimalValue[j] = value;
+			}
+		}		
+	}
+
+	return optimalCut;
+}
+
+	// Ordered partitioning algorithm
+	/*
+	double optimalEntropy [macroSize];
+	double optimalInformation [macroSize];
+	double beta [macroSize];
+
+	for (int j = 0; j < microSize; j++)
+		for (int i = 0; i < microSize - j; i++)
+		{
+			optimalEntropy[i+j*microSize] = macroEntropy[i];
+			optimalInformation[i+j*microSize] = optimalInformation[i];
+			beta[i+j*microSize] = INFINITY;
+			
+			for (int cut = 1; cut <= j; cut++)
+			{
+				double entropy = optimalEntropy[(cut-1)*microSize] + macroEntropy[cut+(j-cut)*microSize];
+				double
+				double beta = (macroEntropy[i+j*microSize] - ())
+					/ (macroInformation[i+j*microSize] - (optimalInformation[(cut-1)*microSize] + macroInformation[cut+(j-cut)*microSize]));
+				if (beta < beta[i+j*microSize])
+				{
+					beta[i+j*microSize] = beta;
+				}
+			}
+		}
+	}
+	*/
+	
 
 
 double MarkovProcess::getInformationFlow (Partition *partition, int time)

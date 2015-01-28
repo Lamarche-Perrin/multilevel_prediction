@@ -1,3 +1,8 @@
+/*!
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -215,3 +220,4 @@ time_t date2time (std::string date)
 	time.tm_mday = atoi(date.substr(8,2).c_str());
 	return mktime(&time);
 }
+

@@ -25,13 +25,17 @@ typedef std::list<Partition*> PartitionList;
 class Part
 {
 	public:
+		int id;
+		int size;
+		
+		int value;
 		std::list<int> *individuals;
 	
 		Part ();
 		Part (Part *part);
 		~Part ();
 	
-		void addIndividual (int i, bool front = false);
+		void addIndividual (int i, bool front = false, int value = -1);
 		virtual bool equal (Part *p);
 		
 		virtual void print (bool endl = false);
@@ -47,6 +51,7 @@ class Part
 class Partition
 {
 	public:
+		int size;
 		std::list<Part*> *parts;
 		
 		Partition ();
@@ -54,8 +59,33 @@ class Partition
 		~Partition ();
 		
 		void addPart (Part *p, bool front = false);
+		Part *getPartFromValue (int value);
+		
 		bool equal (Partition *p);
 		void print (bool endl = false);
+};
+
+
+class OrderedPartition
+{
+	public:
+		int microSize;
+		int *optimalCut;
+		double param;
+		double beta;
+	
+		std::string string;
+		double entropy;
+		double information;
+	
+		OrderedPartition (int s, double p) : microSize(s), param(p) { beta = param / (1 - param); };
+	
+		void print ()
+		{
+			std::cout << "beta = " << beta << " -> ";
+			for (int i = 0; i < microSize; i++) { std::cout << optimalCut[i] << "\t"; }
+			std::cout << std::endl;
+		}
 };
 
 #endif

@@ -125,6 +125,9 @@ class MarkovProcess
 		 * \brief Get the information flow at a given time (-1 for the stationary distribution) between the Markov chain lumped according to a given partition of the state space and the microscopic Markov chain
 		 */
 		double getInformationFlow (Partition *partition, int time);
+
+		int *getOptimalCut (int microSize, double *macroEntropy, double *macroInformation, double beta);
+		std::set<OrderedPartition*> *getOptimalOrderedPartition (Partition *nextPartition, Partition *currentPartition, int delay, int time, double threshold);
 };
 
 

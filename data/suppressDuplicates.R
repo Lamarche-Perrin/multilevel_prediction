@@ -1,20 +1,20 @@
 
-suppressDuplicates("DATA")
-suppressDuplicates("DATA",TRUE)
+suppressDuplicates("DATA","DATA_FORMATED_2")
+suppressDuplicates("DATA","DATA_FORMATED",TRUE)
 
 
 
 setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")
 data <- read.csv("DATA_FORMATED.CSV", sep = ",")
-data <- data[!data$PREM %in% c("MACRO_2B","MACRO_3B","MACRO_4B","MACRO_5B","AGENT1_2B","AGENT1_3B","AGENT1_4B","AGENT1_5B","AGENT1_MACRO_2B","AGENT1_MACRO_3B","AGENT1_MACRO_4B","AGENT1_MACRO_5B"),]
+data <- data[data$SIZE1 != 7,]
 write.csv(data,file="DATA_FORMATED.CSV",row.names=FALSE)
 
 
-suppressDuplicates <- function (file, force = FALSE) {
+suppressDuplicates <- function (file, outFile, force = FALSE) {
   
   setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")
   
-  data <- rbind(read.csv(paste(file,".CSV",sep=""), sep = ","), read.csv(paste(file,"_FORMATED.CSV",sep=""), sep = ","))
+  data <- rbind(read.csv(paste(file,".CSV",sep=""), sep = ","), read.csv(paste(outFile,".CSV",sep=""), sep = ","))
   
   duplicates <- duplicated(data)
   
@@ -25,7 +25,7 @@ suppressDuplicates <- function (file, force = FALSE) {
     
     data <- data[with(data, order(data$TYPE, data$UPDATE, data$SIZE1, data$SIZE2, data$INTRARATE1, data$INTRARATE2, data$INTERRATE1, data$INTERRATE2, data$CONTRARIAN1, data$CONTRARIAN2, data$TIME, data$DELAY, data$POSTM, data$PREM)), ]
     
-    write.csv(data,file=paste(file,"_FORMATED.CSV",sep=""),row.names=FALSE)
+    write.csv(data,file=paste(outFile,".CSV",sep=""),row.names=FALSE)
     write.csv(data[c(),],file=paste(file,".CSV",sep=""),row.names=FALSE)
     print("DONE!")
   } else {

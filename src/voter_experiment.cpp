@@ -1,3 +1,8 @@
+/*!
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -39,6 +44,8 @@ void voterExperiment (ExperimentSet *expSet, std::string fileName)
 		int update = exp->update;
 		double threshold = exp->threshold;
 		bool compactModel = exp->compactModel;
+		bool withAggregation = exp->withAggregation;
+		double aggregationThreshold = 1e-10;
 		
 		int size1Min = exp->size1Min;	int size1Max = exp->size1Max;	int size1Step = exp->size1Step;
 		int size2Min = exp->size2Min;	int size2Max = exp->size2Max;	int size2Step = exp->size2Step;
@@ -193,7 +200,8 @@ void voterExperiment (ExperimentSet *expSet, std::string fileName)
 									VoterMeasurement *postM = *it2;
 																			
 									// run experiment
-									addLineToCSV(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP);
+									if (withAggregation) { computeMeasuresWithAggregation(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,aggregationThreshold); }
+									else { computeMeasures(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP); }
 								}
 							}
 						}
@@ -349,7 +357,7 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 			break;
 		}
 		
-		case M_ALLSIZES1 :
+		case M_ALLSIZES1 : case M_SOMESIZES1 : case M_AGENT1_ALLSIZES1 : case M_AGENT1_SOMESIZES1 :
 		{
 			TwoCommunitiesVoterGraph *TCVG = (TwoCommunitiesVoterGraph*) VG;
 			int s1 = TCVG->size1;
@@ -359,25 +367,32 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 
 			for (int i = 1; i < s1; i++)
 			{
-				std::stringstream ss;
-				ss << i;
+				std::stringstream ss; ss << i;
 				std::string str = ss.str();
+
+				std::string prefix = "";
+				if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { prefix = "AGENT1_"; }
+				
 				prList[i-1] = new VoterProbe(TCVG);
-				mList[i-1] = new VoterMeasurement(TCVG,"SIZE" + str + postfix);
-				set->insert(mList[i-1]);
+				mList[i-1] = new VoterMeasurement(TCVG,prefix + "SIZE" + str + postfix);
+				mList[i-1]->addProbe(prList[i-1],metric);
+				
+				if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { mList[i-1]->addProbe(agent1Pr,metric); }
+				
+				switch (type)
+				{
+					case M_ALLSIZES1 : case M_AGENT1_ALLSIZES1 : set->insert(mList[i-1]); break;
+					case M_SOMESIZES1 : case M_AGENT1_SOMESIZES1 : if (i % (s1/5) == 0) { set->insert(mList[i-1]); } break;
+				}
 			}
 	
 			int j = 1;
 			
-			std::set<VoterNode*>::iterator it = TCVG->community1->begin();
-			it++;
-			for (; it != TCVG->community1->end(); ++it)
+			for (std::set<VoterNode*>::iterator it = TCVG->community1->begin(); it != TCVG->community1->end(); ++it)
 			{
 				for (int i = j; i < s1; i++) { prList[i-1]->addNode(*it); }
 				j++;
 			}
-	
-			for (int i = 1; i < s1; i++) { mList[i-1]->addProbe(prList[i-1],metric); }
 			break;
 		}
 			
@@ -433,7 +448,7 @@ void addHeaderToCSV (std::string fileName)
 }
 
 
-void addLineToCSV (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
+void computeMeasures (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
 	int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
 	VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, Partition *microP)
 {
@@ -493,6 +508,51 @@ void addLineToCSV (std::ofstream &csvFile, MarkovProcess *MP, std::string type, 
 }
 
 
+void computeMeasuresWithAggregation (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
+	int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
+	VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, double threshold)
+{
+	std::set<OrderedPartition*> *pSet = MP->getOptimalOrderedPartition(postM->partition,preM->partition,delay,time,threshold);
+	for (std::set<OrderedPartition*>::iterator it = pSet->begin(); it != pSet->end(); ++it)
+	{
+		OrderedPartition *p = *it;
+		addCSVField(csvFile,type);
+		
+		switch (update)
+		{
+			case UPDATE_NODES : addCSVField(csvFile,"NODES"); break;
+			case UPDATE_EDGES : addCSVField(csvFile,"EDGES"); break;
+			default : addCSVField(csvFile,"NA");
+		}
+	
+		addCSVField(csvFile,size1);
+		addCSVField(csvFile,size2);
+		addCSVField(csvFile,intraR1);
+		addCSVField(csvFile,intraR2);
+		addCSVField(csvFile,interR1);
+		addCSVField(csvFile,interR2);
+		addCSVField(csvFile,contrarian1);
+		addCSVField(csvFile,contrarian2);
+		
+		addCSVField(csvFile,preM->type + "_" + p->string);
+		addCSVField(csvFile,postM->type);
+		addCSVField(csvFile,time);
+		addCSVField(csvFile,delay);
+	
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,"NA",true);
+		
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,p->entropy,true,15);
+		addCSVField(csvFile,p->information,true,15);
+		addCSVField(csvFile,"NA",false);
+	
+		endCSVLine(csvFile);
+	}
+}
+
 
 
 VoterExperiment::VoterExperiment (int size1, int size2, double intraR1, double intraR2, double interR1, double interR2,
@@ -502,6 +562,7 @@ VoterExperiment::VoterExperiment (int size1, int size2, double intraR1, double i
 	update = UPDATE_EDGES;
 	threshold = 1.0e-10;
 	compactModel = false;
+	withAggregation = false;
 		
 	size1Min = size1;	size1Max = size1;	size1Step = 1;
 	size2Min = size2;	size2Max = size2;	size2Step = 1;

@@ -45,6 +45,9 @@ enum MeasurementType {
 	M_MACRO,				/*!< Aggregated state of nodes in both communities*/
 	M_EMPTY,				/*!< No observation*/
 	M_ALLSIZES1,			/*!< Aggregated state of node subsets of all sizes within community 1*/
+	M_SOMESIZES1,			/*!< Aggregated state of node subsets of some sizes within community 1*/
+	M_AGENT1_ALLSIZES1,		/*!< Join measurement (see above)*/
+	M_AGENT1_SOMESIZES1,	/*!< Join measurement (see above)*/
 	M_AGENT1_MESO1,			/*!< Join measurement (see above)*/
 	M_AGENT1_MESO2,			/*!< Join measurement (see above)*/
 	M_AGENT1_MACRO,			/*!< Join measurement (see above)*/

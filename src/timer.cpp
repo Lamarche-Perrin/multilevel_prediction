@@ -1,3 +1,7 @@
+/*!
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
 
 #include <iostream>
 #include <time.h>

@@ -1,3 +1,7 @@
+/*!
+ * \author Robin Lamarche-Perrin
+ * \date 22/01/2015
+ */
 
 #include <iostream>
 #include <iomanip>
@@ -7,6 +11,9 @@
 
 Part::Part ()
 {
+	id = -1;
+	size = 0;
+	value = -2;
 	individuals = new std::list<int>();
 }
 
@@ -24,8 +31,15 @@ Part::~Part ()
 }
 
 
-void Part::addIndividual (int i, bool front)
+void Part::addIndividual (int i, bool front, int v)
 {
+	size++;
+	if (v != -1)
+	{
+		if (value == -2) { value = v; }
+		else if (value != v) { value = -1; }
+	}
+	
 	if (front) { individuals->push_front(i); }
 	else { individuals->push_back(i); }
 }
@@ -73,6 +87,7 @@ int Part::printSize () { return 2*individuals->size()+1; }
 
 Partition::Partition ()
 {
+	size = 0;
 	parts = new std::list<Part*>();
 }
 
@@ -97,7 +112,27 @@ Partition::~Partition ()
 
 void Partition::addPart (Part *p, bool front)
 {
+	p->id = size++;
 	if (front) { parts->push_front(p); } else { parts->push_back(p); }
+}
+
+Part *Partition::getPartFromValue (int v)
+{
+	Part *rp = 0;
+	for (std::list<Part*>::iterator it = parts->begin(); it != parts->end(); ++it)
+	{
+		Part *p = *it;
+		if (p->value == v)
+		{
+			if (rp != 0)
+			{
+				std::cout << "ERROR: several parts with the same value!" << std::endl;
+				return 0;
+			}
+			rp = p;
+		}
+	}
+	return rp;
 }
 
 

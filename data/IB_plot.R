@@ -1,38 +1,260 @@
 library(RColorBrewer)
 
-print <- TRUE
+print <- FALSE
 pdf <- FALSE
-am <- FALSE
+
+yMax <- 200
+xMax <- 30
 width = 24
 height = 20
-xMax <- 100
-yMax <- 750
-size <- c(10,10)
 
-measurementText <- list(
-  "EMPTY" = c("EMPTY"),
-  "AGENT1_MS" = c("AGENT"),
-  "AGENT1_MESO2_MS" = c("AGENT","MESO2"),
-  "AGENT1_MESO1_MESO2_MS" = c("AGENT","MESO1","MESO2"),
-  "MACRO_MS" = c("MACRO"),
-  "AGENT1_MACRO_MS" = c("AGENT","MACRO"),
-  "AGENT1_MESO1_MS" = c("AGENT","MESO1"),
-  "MESO1_MS" = c("MESO1"),
-  "MESO1_MESO2_MS" = c("MESO1","MESO2"),
-  "MESO2_MS" = c("MESO2"),
-  "MACRO_MAJ" = c("MACRO_MAJ"), "AGENT1_MACRO_MAJ" = c("AGENT","MACRO_MAJ"),
-  "MACRO_10PC" = c("MACRO_10PC"), "AGENT1_MACRO_10PC" = c("AGENT","MACRO_10PC"),
-  "MACRO_20PC" = c(""), "AGENT1_MACRO_20PC" = c(""),
-  "MACRO_30PC" = c(""), "AGENT1_MACRO_30PC" = c(""),
-  "MACRO_40PC" = c(""), "AGENT1_MACRO_40PC" = c(""),
-  "MACRO_50PC" = c(""), "AGENT1_MACRO_50PC" = c(""),
-  "MACRO_60PC" = c(""), "AGENT1_MACRO_60PC" = c(""),
-  "MACRO_70PC" = c(""), "AGENT1_MACRO_70PC" = c(""),
-  "MACRO_80PC" = c(""), "AGENT1_MACRO_80PC" = c(""),
-  "MACRO_90PC" = c(""), "AGENT1_MACRO_90PC" = c(""),
-  "MACRO_4B" = c("MACRO_4B"), "AGENT1_MACRO_4B" = c("AGENT","MACRO_4B"),
-  "MACRO_10B" = c("MACRO_10B"), "AGENT1_MACRO_10B" = c("AGENT","MACRO_10B")
-)
+
+
+postMeasurement <- c("MACRO_MS")
+preMeasurement <- c("MACRO_MS")
+
+plotIB (inputFileName = "DATA_FORMATED_2", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 80, xMax = 100, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright", withAggregation = TRUE,
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+
+#PRELIMINARY
+#Prediction of the macro-state in the complete graph (classical in transient) -> time and delay
+
+postMeasurement <- c("MACRO_MS")
+preMeasurement <- c("MICRO_MS","EMPTY","AGENT1_MS","MACRO_MS")
+
+fileName <- "complete-macro_classical-transient_time"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", legendPos = "bottomright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
+        var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = NULL, delay = 1,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+fileName <- "complete-macro_classical-transient_delay"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", legendPos = "topright", yMax = 1.7, xMax = 9,
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL, varMin = 1,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+fileName <- "complete-macro_classical-transient_time-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "TIME", yAxis = "BETA", yMax = 2.3, yMin = 1, xMax = 200, xMin = 0, varMin = 0, varMax = 300, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = NULL, delay = 1,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+fileName <- "complete-macro_classical-transient_delay-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 80, xMax = 100, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 100, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+
+#Prediction of the macro-state in the complete graph (contrarian 1/N+1 in transient) -> time and delay
+
+postMeasurement <- c("MACRO_MS")
+preMeasurement <- c("MICRO_MS","EMPTY","AGENT1_MS","MACRO_MS")
+
+fileName <- "complete-macro_contrarian-transient_time"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", legendPos = "bottomright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
+        var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = NULL, delay = 1,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+fileName <- "complete-macro_contrarian-transient_delay"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", legendPos = "topright", yMax = 1.7, xMax = 9,
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = 0, delay = NULL, varMin = 1,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+fileName <- "complete-macro_contrarian-transient_time-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "TIME", yAxis = "BETA", yMax = 2.2, yMin = 1, xMax = 100, xMin = 0, varMin = 0, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = NULL, delay = 1,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+fileName <- "complete-macro_contrarian-transient_delay-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 80, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+
+#Prediction of the macro-state in the complete graph (contrarian 1/N+1 in stationnary)
+
+postMeasurement <- c("MACRO_MS")
+preMeasurement <- c("MICRO_MS","SIZE1_MS","EMPTY","MACRO_MS")
+fileName <- "macro_contrarian-stationary_delay"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", legendPos = "topright", yMax = 4, xMax = 9,
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+preMeasurement <- c("MICRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS","EMPTY","MACRO_MS")
+fileName <- "complete-macro_contrarian-stationary_delay-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 60, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+
+
+#REFERENCE MODEL
+#Prediction of one agent in the complete graph (classical in transient)
+
+postMeasurement <- c("AGENT1_MS")
+preMeasurement <- c("AGENT1_MS","EMPTY","MACRO_MS","AGENT1_MACRO_MS")
+
+fileName <- "complete-agent_classical-transient_delay-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 200, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+
+#Prediction of one agent in the complete graph (contrarian 1/N+1 in transient)
+
+postMeasurement <- c("AGENT1_MS")
+preMeasurement <- c("AGENT1_MS","EMPTY","MACRO_MS","AGENT1_MACRO_MS")
+
+fileName <- "complete-agent_contrarian-transient_delay-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 200, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+
+#Prediction of one agent in the complete graph (contrarian 1/N+1 in stationary)
+
+postMeasurement <- c("AGENT1_MS")
+preMeasurement <- c("AGENT1_MS","EMPTY","MACRO_MS","AGENT1_MACRO_MS")
+fileName <- "complete-agent_contrarian-stationary_delay-diagram"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 100, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+
+#Soft transition in the diagram
+preMeasurement <- c("AGENT1_MS","EMPTY","MACRO_MS","AGENT1_MACRO_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS",
+                    "AGENT1_SIZE2_MS","AGENT1_SIZE3_MS","AGENT1_SIZE4_MS","AGENT1_SIZE5_MS","AGENT1_SIZE6_MS","AGENT1_SIZE7_MS")
+fileName <- "complete-agent_contrarian_stationary_delay-diagram_soft-transitions"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 100, xMax = 30, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/9,1/9), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+
+
+
+#GENERALIZATION OF THE METRIC
+#Majority metric in the classical case (transient)
+
+postMeasurement <- c("AGENT1_MS")
+preMeasurement <- c("AGENT1_MS","EMPTY","AGENT1_MACRO_MS","MACRO_MS","AGENT1_MACRO_2B","MACRO_2B")
+
+fileName <- "complete-agent_classical-transient_majority"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMin = 0, xMax = 100, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")  
+
+
+#soft transition with the empty measurement
+preMeasurement <- c("AGENT1_MS","EMPTY","AGENT1_MACRO_MS","MACRO_MS",
+                    "AGENT1_MACRO_2B","MACRO_2B","AGENT1_MACRO_4B","MACRO_4B","AGENT1_MACRO_10B","MACRO_10B")
+fileName <- "complete-agent_classical-transient_majority-bins"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMin = 0, xMax = 100, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")  
+
+
+#Several resolutions
+preMeasurement <- c("AGENT1_MS","EMPTY","AGENT1_MACRO_MS","MACRO_MS",
+                    "AGENT1_MACRO_2B","MACRO_2B","AGENT1_MACRO_10PC","MACRO_10PC",
+                    "AGENT1_MACRO_20PC","MACRO_20PC","AGENT1_MACRO_30PC","MACRO_30PC",
+                    "AGENT1_MACRO_40PC","MACRO_40PC","AGENT1_MACRO_50PC","MACRO_50PC",
+                    "AGENT1_MACRO_60PC","MACRO_60PC","AGENT1_MACRO_70PC","MACRO_70PC")
+fileName <- "complete-agent_classical-transient_majority-resolutions"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMin = 0, xMax = 100, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")  
+
+
+#Majority metric in the contrarian case (stationary)
+
+postMeasurement <- c("AGENT1_MS")
+preMeasurement <- c("AGENT1_MS","EMPTY","AGENT1_MACRO_MS","MACRO_MS","AGENT1_MACRO_2B","MACRO_2B")
+
+fileName <- "complete-agent_contrarian-stationary_majority"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMin = 0, xMax = 100, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/21,1/21), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")  
+
+
+preMeasurement <- c("AGENT1_MS","EMPTY","AGENT1_MACRO_MS","MACRO_MS",
+                    "AGENT1_MACRO_2B","MACRO_2B","AGENT1_MACRO_4B","MACRO_4B","AGENT1_MACRO_10B","MACRO_10B")
+
+#soft transition with the empty measurement
+fileName <- "complete-agent_contrarian-stationary_majority-bins"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 400, xMin = 0, xMax = 100, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/21,1/21), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")  
+
+#Several resolutions
+preMeasurement <- c("AGENT1_MS","EMPTY","AGENT1_MACRO_MS","MACRO_MS",
+                    "AGENT1_MACRO_2B","MACRO_2B","AGENT1_MACRO_10PC","MACRO_10PC",
+                    "AGENT1_MACRO_20PC","MACRO_20PC","AGENT1_MACRO_30PC","MACRO_30PC",
+                    "AGENT1_MACRO_40PC","MACRO_40PC","AGENT1_MACRO_50PC","MACRO_50PC",
+                    "AGENT1_MACRO_60PC","MACRO_60PC","AGENT1_MACRO_70PC","MACRO_70PC")
+fileName <- "complete-agent_contrarian-stationary_majority_resolutions"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 400, xMin = 0, xMax = 100, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(1,1), contrarian = c(1/21,1/21), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")  
+
+
+
+
+
+
+
+
+
 
 display <- FALSE
 plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
@@ -61,56 +283,6 @@ plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = 
 
 
 
-plotExp <- function (id, r1, r2, display = FALSE, compact = TRUE, contrarian = c(0,0), time = 0, name = NULL,
-                     communityMeasurements = TRUE, majMeasurements = FALSE, pcMeasurements = FALSE, binMeasurements = FALSE) {
-
-  if (compact) { type <- "COMPACT_MODEL"} else { type <- "GENERAL_MODEL" }
-
-  if (!is.null(name)) { fileName <- name }
-  else {
-    fileName <- paste("exp.",id,"_param=",round(r1,2),"-",round(r2,2),sep="")
-    if (!identical(contrarian,c(0,0))) { fileName <- paste("c",fileName,sep="") }
-  }
-  
-  measurements <- c("EMPTY","AGENT1_MS","AGENT1_MACRO_MS","MACRO_MS")  
-  if (communityMeasurements) {
-    measurements <- c(measurements,c("AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS"))
-  }
-
-  if (majMeasurements) {
-    measurements <- c(measurements,c("AGENT1_MACRO_MAJ","MACRO_MAJ"))
-
-    if (communityMeasurements) {
-          measurements <- c(measurements,c("AGENT1_MESO1_MAJ","AGENT1_MESO2_MAJ","AGENT1_MESO1_MESO2_MAJ","MESO1_MAJ","MESO2_MAJ","MESO1_MESO2_MAJ"))
-    }
-  }
-
-  if (pcMeasurements) {
-    measurements <- c(measurements,c("AGENT1_MACRO_10PC","MACRO_10PC"))
-    measurements <- c(measurements,c("AGENT1_MACRO_20PC","MACRO_20PC"))
-    measurements <- c(measurements,c("AGENT1_MACRO_30PC","MACRO_30PC"))
-    measurements <- c(measurements,c("AGENT1_MACRO_40PC","MACRO_40PC"))
-    measurements <- c(measurements,c("AGENT1_MACRO_50PC","MACRO_50PC"))
-    measurements <- c(measurements,c("AGENT1_MACRO_60PC","MACRO_60PC"))
-    measurements <- c(measurements,c("AGENT1_MACRO_70PC","MACRO_70PC"))
-    #    measurements <- c(measurements,c("AGENT1_MACRO_80PC","MACRO_80PC"))
-    #    measurements <- c(measurements,c("AGENT1_MACRO_90PC","MACRO_90PC"))    
-  }
-
-  if (binMeasurements) {
-    measurements <- c(measurements,c("AGENT1_MACRO_2B","MACRO_2B"))
-    measurements <- c(measurements,c("AGENT1_MACRO_4B","MACRO_4B"))
-    measurements <- c(measurements,c("AGENT1_MACRO_10B","MACRO_10B"))
-#    measurements <- c(measurements,c("AGENT1_MACRO_20B","MACRO_20B"))
-  }
-
-  plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
-          xAxis = "DELAY", yAxis = "BETA", yMax = yMax, yMin = 0, xMax = xMax, xMin = 0, varMin = 1, noNegativeValue = TRUE,
-          suppressSubPhases = TRUE, suppressInterPhases = !display, unicolor = !display, legendPos = "topright",
-          postMeasurement = "AGENT1_MS", preMeasurement = measurements, phasesNames = TRUE, measurementText = measurementText,
-          var = "DELAY", size = size, intraRate = c(1,1), interRate = c(r1,r2), contrarian = contrarian, time = time, delay = NULL,
-          print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = type)  
-}
 
 time <- -1
 contrarian <- c(1/21,1/21)
@@ -121,6 +293,13 @@ plotExp(11, 1, 1, communityMeasurements = FALSE, majMeasurements = TRUE, pcMeasu
 
 
 plotExp(11, 1, 1, contrarian = contrarian, time = -1)
+plotExp(11, 1, 1, contrarian = c(1/9,1/9), time = -1, size = c(8,0), compact = FALSE)
+plotExp(11, 1, 1, contrarian = c(1/9,1/9), time = NULL, delay = 1, var = "TIME", size = c(8,0), compact = FALSE, postMacro = TRUE, sizeMeasurements = TRUE)
+plotExp(11, 1, 1, contrarian = c(1/9,1/9), time = 100, size = c(8,0), compact = FALSE, postMacro = TRUE, sizeMeasurements = TRUE)
+plotExp(11, 1, 1, contrarian = c(1/9,1/9), time = 0, size = c(8,0), compact = FALSE, postMacro = TRUE, sizeMeasurements = TRUE)
+plotExp(11, 1, 1, contrarian = c(1/9,1/9), time = -1, size = c(8,0), compact = FALSE, postMacro = TRUE, sizeMeasurements = TRUE)
+plotExp(11, 1, 1, contrarian = c(1/9,1/9), time = -1, size = c(8,0), compact = FALSE, sizeMeasurements = TRUE)
+xplotExp(11, 1, 1, contrarian = c(0,0), time = 0, size = c(8,0), compact = FALSE, sizeMeasurements = TRUE)
 
 plotExp(11, 1, 1, contrarian = contrarian, time = -1)
 plotExp(12, 2, 2, contrarian = contrarian, time = -1)
@@ -435,3 +614,61 @@ plotIB (inputFileName = "DATA_FORMATED", modelName = "Star Graph", update = "EDG
 #        preMeasurement = c("EMPTY","AGENT1_MESO2_MS","MESO2_MS","MACRO_MS"), postMeasurement = "MESO2_MS",
 #        var = "DELAY", size = c(1,9), intraRate = c(0,0), interRate = c(1,1), contrarian = 0, time = 0, delay = NULL,
 #        print = print, width = width, height = height, outputFileName = "macro_star_time")
+
+
+
+plotExp <- function (id, r1, r2, display = FALSE, compact = TRUE, contrarian = c(0,0), time = 0, name = NULL, size = c(10,10),
+                     postMacro = FALSE, var = "DELAY", delay = NULL,
+                     communityMeasurements = TRUE, majMeasurements = FALSE, pcMeasurements = FALSE, binMeasurements = FALSE,
+                     sizeMeasurements = FALSE) {
+  
+  if (size[2] == 0) { communityMeasurements = FALSE }
+  if (compact) { type <- "COMPACT_MODEL"} else { type <- "GENERAL_MODEL" }
+  
+  if (!is.null(name)) { fileName <- name }
+  else {
+    fileName <- paste("exp.",id,"_param=",round(r1,2),"-",round(r2,2),sep="")
+    if (!identical(contrarian,c(0,0))) { fileName <- paste("c",fileName,sep="") }
+  }
+  
+  measurements <- c("EMPTY","AGENT1_MS","AGENT1_MACRO_MS","MACRO_MS")  
+  if (communityMeasurements) {
+    measurements <- c(measurements,c("AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","MESO1_MS","MESO2_MS","MESO1_MESO2_MS"))
+  }
+  
+  if (majMeasurements) { measurements <- c(measurements,c("AGENT1_MACRO_MAJ","MACRO_MAJ")) }
+  
+  if (sizeMeasurements) {
+    measurements <- c(measurements,c("SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"))    
+    measurements <- c(measurements,c("AGENT1_SIZE2_MS","AGENT1_SIZE3_MS","AGENT1_SIZE4_MS","AGENT1_SIZE5_MS","AGENT1_SIZE6_MS","AGENT1_SIZE7_MS"))    
+  }
+  
+  if (pcMeasurements) {
+    measurements <- c(measurements,c("AGENT1_MACRO_10PC","MACRO_10PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_20PC","MACRO_20PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_30PC","MACRO_30PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_40PC","MACRO_40PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_50PC","MACRO_50PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_60PC","MACRO_60PC"))
+    measurements <- c(measurements,c("AGENT1_MACRO_70PC","MACRO_70PC"))
+    #    measurements <- c(measurements,c("AGENT1_MACRO_80PC","MACRO_80PC"))
+    #    measurements <- c(measurements,c("AGENT1_MACRO_90PC","MACRO_90PC"))    
+  }
+  
+  if (binMeasurements) {
+    measurements <- c(measurements,c("AGENT1_MACRO_2B","MACRO_2B"))
+    measurements <- c(measurements,c("AGENT1_MACRO_4B","MACRO_4B"))
+    measurements <- c(measurements,c("AGENT1_MACRO_10B","MACRO_10B"))
+    #    measurements <- c(measurements,c("AGENT1_MACRO_20B","MACRO_20B"))
+  }
+  
+  postMeasurement = "AGENT1_MS"
+  if (postMacro) { postMeasurement = "MACRO_MS" }
+  
+  plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = !display,
+          xAxis = var, yAxis = "BETA", yMax = yMax, yMin = 0, xMax = xMax, xMin = 0, varMin = 1, noNegativeValue = TRUE,
+          suppressSubPhases = TRUE, suppressInterPhases = !display, unicolor = !display, legendPos = "topright",
+          postMeasurement = postMeasurement, preMeasurement = measurements, phasesNames = TRUE, measurementText = measurementText,
+          var = var, size = size, intraRate = c(1,1), interRate = c(r1,r2), contrarian = contrarian, time = time, delay = delay,
+          print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = type)  
+}
