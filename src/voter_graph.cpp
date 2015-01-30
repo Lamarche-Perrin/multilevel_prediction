@@ -513,7 +513,7 @@ Partition *VoterGraph::getMarkovPartition (VoterMeasurement *m)
 		partition->addPart(part);
 
 		unsigned long int size = 1 << nodeNumber;
-		for (unsigned long int i = 0; i < size; i++) { part->addIndividual(i); }
+		for (unsigned long int i = 0; i < size; i++) { part->addIndividual(i,false,0); }
 
 		return partition;
 	}
@@ -967,7 +967,7 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *prob
 				for (unsigned long int i = 0; i < size; i++)
 				{
 					int a = i % 2;
-					partMap[a]->addIndividual(i);
+					partMap[a]->addIndividual(i,false,a);
 				}
 			}
 	
@@ -977,7 +977,7 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *prob
 				{
 					int a = i % 2;
 					int n1 = (i-a)/2 % size1;
-					partMap[a+n1]->addIndividual(i);
+					partMap[a+n1]->addIndividual(i,false,a+n1);
 				}
 			}
 	
@@ -988,7 +988,7 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *prob
 					int a = i % 2;
 					int n1 = (i-a)/2 % size1;
 					int n2 = (i-a-2*n1)/(2*size1);
-					partMap[n2]->addIndividual(i);
+					partMap[n2]->addIndividual(i,false,n2);
 				}
 			}
 	
@@ -999,7 +999,7 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *prob
 					int a = i % 2;
 					int n1 = (i-a)/2 % size1;
 					int n2 = (i-a-2*n1)/(2*size1);
-					partMap[a+n1+n2]->addIndividual(i);
+					partMap[a+n1+n2]->addIndividual(i,false,a+n1+n2);
 				}
 			}
 		
@@ -1224,7 +1224,7 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterMeasurement
 		partition->addPart(part);
 
 		unsigned long int size = 2 * size1 * (size2 + 1);
-		for (unsigned long int i = 0; i < size; i++) { part->addIndividual(i); }
+		for (unsigned long int i = 0; i < size; i++) { part->addIndividual(i,false,0); }
 
 		return partition;
 	}

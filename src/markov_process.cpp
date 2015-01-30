@@ -335,7 +335,9 @@ std::set<OrderedPartition*> *MarkovProcess::getOptimalOrderedPartition (Partitio
 			for (int i = 0; i < microSize - j; i++)
 				macroCondProb[i+j*microSize+(*it)->id*macroSize] /= macroProb[i+j*microSize];
 
-	double nextEntropy = getEntropy(nextPartition,nextTime);
+	double nextProb [nextSize];
+	for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+		nextProb[(*it)->id] = getProbability(*it,nextTime);
 	
 	double macroInformation [macroSize];
 	for (int j = 0; j < microSize; j++)
@@ -343,11 +345,10 @@ std::set<OrderedPartition*> *MarkovProcess::getOptimalOrderedPartition (Partitio
 		{
 			macroInformation[i+j*microSize] = 0;
 			for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
-			{
-				if (macroCondProb[i+j*microSize+(*it)->id*macroSize] > 0) { macroInformation[i+j*microSize] += macroCondProb[i+j*microSize+(*it)->id*macroSize] * log2(macroCondProb[i+j*microSize+(*it)->id*macroSize]); }
-				else { macroInformation[i+j*microSize] = 0; }
-			}
-			macroInformation[i+j*microSize] = macroInformation[i+j*microSize] * macroProb[i+j*microSize] + nextEntropy;
+				if (macroCondProb[i+j*microSize+(*it)->id*macroSize] > 0)
+					macroInformation[i+j*microSize] += macroCondProb[i+j*microSize+(*it)->id*macroSize]
+					* log2(macroCondProb[i+j*microSize+(*it)->id*macroSize] / nextProb[(*it)->id]);
+			macroInformation[i+j*microSize] = macroInformation[i+j*microSize] * macroProb[i+j*microSize];
 		}
 
 /*

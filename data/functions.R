@@ -66,14 +66,15 @@ measurementText <- list(
 
 plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasurement, xAxis = "CURRENT_I", yAxis = "MACRO_I",
                     var, varMin = NULL, varMax = NULL, varStep = NULL, varList = NULL, beta = 1, type = "GENERAL_MODEL",
-                    pointMin = NULL, pointMax = NULL, pointStep = NULL, pointList = NULL, withAggregation = FALSE,
+                    pointMin = NULL, pointMax = NULL, pointStep = NULL, pointList = NULL,
                     labelMin = NULL, labelMax = NULL, labelStep = NULL, labelList = NULL, noLabel = NULL, unicolor = FALSE,
                     size = NULL, time = NULL, delay = NULL, intraRate = NULL, interRate = NULL, contrarian = NULL,
-                    xMin = NULL, xMax = NULL, yMin = NULL, yMax = NULL, noTitle = FALSE, phasesNames = FALSE,
+                    xMin = NULL, xMax = NULL, yMin = NULL, yMax = NULL, noTitle = FALSE, onlyPoints = FALSE,
+                    phasesNames = FALSE, aggregatedNames = FALSE, minSizeForNames = NULL, boxVarMin = NULL, boxVarMax = NULL,
                     displayBinaryVariable = FALSE, displayMinXAxis = NULL, displayMaxXAxis = NULL,
                     displayMinYAxis = NULL, displayMaxYAxis = NULL, legendPos = "bottomright",
-                    addText = NULL, addTextX = NULL, addTextY = NULL, noNegativeValue = FALSE,
-                    position = NULL, noLegend = FALSE, phaseDiagram = FALSE, mainPhases = TRUE,
+                    addText = NULL, addTextX = NULL, addTextY = NULL, noNegativeValue = FALSE, phaseThreshold = NULL,
+                    position = NULL, noLegend = FALSE, phaseDiagram = FALSE, mainPhases = TRUE, withAggregation = FALSE,
                     suppressSubPhases = FALSE, suppressInterPhases = FALSE, measurementText = NULL,
                     print = FALSE, pdf = TRUE, outputFileName = NULL, width = 8, height = 6, res = 600,
                     expId = NULL) {
@@ -209,6 +210,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
   
   data <- read.csv(paste(inputFileName,".csv",sep=""), sep = ",")
   data <- data[data$TYPE == type & data$UPDATE == update & data$POSTM == postMeasurement,]
+  data$PREM <- as.character(data$PREM)
   
   if (!is.null(varMin)) { data <- data[data[,var] >= varMin,] }
   if (!is.null(varMax)) { data <- data[data[,var] <= varMax,] }
@@ -240,15 +242,12 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
     data$MACRO_COND_H <- data$NEXT_MACRO_H - data$MACRO_I
   }
   
-  data$MACRO_I <- round(data$MACRO_I,5)
-  data$CURRENT_I <- round(data$CURRENT_I,5)
+  data$MACRO_I <- round(data$MACRO_I,10)
+  data$CURRENT_I <- round(data$CURRENT_I,10)
   
   if (xAxis == "BETA" || yAxis == "BETA") {
     newPreMeasurement <- c()
-    data <- data[,c("PREM",var,"CURRENT_I","MACRO_I")]
-    data$BETA <- NA
-    data$PREM_INF <- NA
-    data$PREM_SUP <- NA
+    newData <- data[FALSE,c("PREM",var)]
     
     if (withAggregation) {
       newPreM <- c()
@@ -266,61 +265,59 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
     
     if (phasesNames) {
       boxDisplay <- list()
-      
-      boxLeft <- list()
-      boxRight <- list()
-      boxUp <- list()
-      boxDown <- list()
-      
       boxXPos <- list()
       boxXNorm <- list()
       boxYPos <- list()
       boxYNorm <- list()
+      boxSizeMax <- list()
       
       for (i in seq(1,length(preMeasurement))) {
         preM <- preMeasurement[i]
         boxDisplay[[preM]] <- TRUE
-        
-        boxLeft[[preM]] <- xMax
-        boxRight[[preM]] <- xMin
-        boxUp[[preM]] <- NA
-        boxDown[[preM]] <- NA
-        
         boxXPos[[preM]] <- 0
         boxXNorm[[preM]] <- 0
         boxYPos[[preM]] <- 0
         boxYNorm[[preM]] <- 0
+        boxSizeMax[[preM]] <- 0
       }      
     }
-    
-    for (i in seq(1,length(preMeasurement)-1)) {
-      for (j in seq((i+1),length(preMeasurement))) {
-        preM1 <- preMeasurement[i]
-        preM2 <- preMeasurement[j]
-        d1 <- data[data$PREM == preM1,]
-        d2 <- data[data$PREM == preM2,]
-        d <- merge(d1,d2,by=var)
-        
-        d$BETA <- ifelse(d$MACRO_I.x != d$MACRO_I.y,(d$CURRENT_I.x - d$CURRENT_I.y) / (d$MACRO_I.x - d$MACRO_I.y),Inf)
-        d$IB.x <- ifelse(d$MACRO_I.x != d$MACRO_I.y,d$CURRENT_I.x - (d$BETA-1) * d$MACRO_I.x,d$CURRENT_I.x)
-        d$IB.y <- ifelse(d$MACRO_I.x != d$MACRO_I.y,d$CURRENT_I.y - (d$BETA-1) * d$MACRO_I.y,d$CURRENT_I.y)
-        
-        newPreM <- paste("BETA_",preM1,"_",preM2,sep="")
-        d$PREM <- newPreM
-        d$PREM_INF <- ifelse(d$IB.x > d$IB.y,preM2,preM1)
-        d$PREM_SUP <- ifelse(d$IB.x > d$IB.y,preM1,preM2)
-        d$CURRENT_I <- NA
-        d$MACRO_I <- NA
-        data <- rbind(d[,c("PREM","PREM_INF","PREM_SUP",var,"BETA","CURRENT_I","MACRO_I")],data)
-        newPreMeasurement <- c(newPreMeasurement,newPreM)
-        noLabel <- c(noLabel,newPreM)
+
+    for (v in seq(max(varMin,xMin),min(varMax,xMax))) {
+      d <- data[data[,var] == v,]
+      pList <- d$PREM
+      print (paste(var,v))
+      
+      for (i in seq(1,length(pList)-1)) {
+        for (j in seq((i+1),length(pList))) {
+          preM1 <- pList[i]
+          preM2 <- pList[j]
+          
+          d1 <- d[d$PREM == preM1,]
+          d2 <- d[d$PREM == preM2,]
+          dm <- merge(d1,d2,by=var)
+          
+          dm$BETA <- ifelse(dm$MACRO_I.x != dm$MACRO_I.y,(dm$CURRENT_I.x - dm$CURRENT_I.y) / (dm$MACRO_I.x - dm$MACRO_I.y),Inf)
+          dm$IB.x <- ifelse(dm$MACRO_I.x != dm$MACRO_I.y,dm$CURRENT_I.x - (dm$BETA-1) * dm$MACRO_I.x,dm$CURRENT_I.x)
+          dm$IB.y <- ifelse(dm$MACRO_I.x != dm$MACRO_I.y,dm$CURRENT_I.y - (dm$BETA-1) * dm$MACRO_I.y,dm$CURRENT_I.y)
+            
+          newPreM <- paste("BETA_",preM1,"_",preM2,sep="")
+          dm$PREM <- newPreM
+          dm$PREM_INF <- ifelse(dm$IB.x > dm$IB.y,preM2,preM1)
+          dm$PREM_SUP <- ifelse(dm$IB.x > dm$IB.y,preM1,preM2)
+          newData <- rbind(dm[,c("PREM","PREM_INF","PREM_SUP",var,"BETA")],newData)
+          newPreMeasurement <- c(newPreMeasurement,newPreM)
+          noLabel <- c(noLabel,newPreM)          
+        }
       }
     }
+
     oldMeasurement <- preMeasurement
     preMeasurement <- newPreMeasurement
+    data <- newData
+    data <- data[data$BETA != Inf & data$BETA != -Inf,]
     data <- data[!is.na(data$BETA),]
-    data$DISPLAY <- TRUE
     
+    data$DISPLAY <- TRUE
     for (r in seq(1,nrow(data))) {
       v <- data[r,var]
       beta <- data[r,"BETA"]
@@ -329,19 +326,36 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
       
       if (min(data[data[,var] == v & data$PREM_INF == prem_inf,"BETA"]) < beta) { data[r,"DISPLAY"] <- FALSE }
       if (max(data[data[,var] == v & data$PREM_SUP == prem_sup,"BETA"]) > beta) { data[r,"DISPLAY"] <- FALSE }
-      
-      if (phasesNames && data[r,"DISPLAY"] && beta >= yMin && beta <= yMax && v <= xMax && v >= xMin) {
-        boxUp[[prem_inf]] <- max(boxUp[[prem_inf]],beta,na.rm=TRUE)
-        boxDown[[prem_sup]] <- min(boxDown[[prem_sup]],beta,na.rm=TRUE)
-        boxLeft[[prem_inf]] <- min(boxLeft[[prem_inf]],v)
-        boxLeft[[prem_sup]] <- min(boxLeft[[prem_sup]],v)
-        boxRight[[prem_inf]] <- max(boxRight[[prem_inf]],v)
-        boxRight[[prem_sup]] <- max(boxRight[[prem_sup]],v)
-      }
     }
+
+#    newData <- newDataBack
+#    if (!is.null(phaseThreshold)) {
+#      newData$NEW_DISPLAY <- newData$DISPLAY
+#      for (v in seq(max(varMin,xMin),min(varMax,xMax))) {
+#        d <- newData[newData[,var] == v & newData$DISPLAY,]
+#        mList <- unique(c(d$PREM_INF,d$PREM_SUP))
+#       
+#        for (m in mList) {
+#         d1 <- d[d$PREM_INF == m,]
+#         d2 <- d[d$PREM_SUP == m,]
+#         if (nrow(d1) != 0 & nrow(d2) != 0) {
+#           if (abs(d1$BETA - d2$BETA) < phaseThreshold) {
+#             newData[newData[,var] == v & newData$PREM_INF == d2$PREM_INF & newData$PREM_SUP == d1$PREM_SUP,"NEW_DISPLAY"] <- TRUE
+#             newData[newData[,var] == v & (newData$PREM_INF == m | newData$PREM_SUP == m),"NEW_DISPLAY"] <- FALSE
+#           }
+#         }
+#       }
+#     }
+#     newData$DISPLAY <- newData$NEW_DISPLAY
+#   }
     
     if (phasesNames) {
-      for (v in seq(max(varMin,xMin),min(varMax,xMax))) {
+      vMin <- max(varMin,xMin)
+      if (!is.null(boxVarMin)) { vMin <- max(vMin,boxVarMin) }
+      vMax <- min(varMax,xMax)
+      if (!is.null(boxVarMax)) { vMax <- min(vMax,boxVarMax) }
+      
+      for (v in seq(vMin,vMax)) {
         d <- data[data[,var] == v & data$BETA <= yMax & data$BETA >= yMin & data$DISPLAY,]
         mSeq <- unique(c(d$PREM_INF,d$PREM_SUP))
         for (preM in mSeq) {
@@ -356,26 +370,17 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
           boxXNorm[[preM]] <- boxXNorm[[preM]] + (bMax - bMin)
           boxYPos[[preM]] <- boxYPos[[preM]] + (bMax + bMin) / 2
           boxYNorm[[preM]] <- boxYNorm[[preM]] + 1
-        }
-      }
-      
-      for (i in seq(1,length(oldMeasurement))) {
-        preM <- oldMeasurement[i]
-        if (is.na(boxDown[[preM]]) && is.na(boxUp[[preM]])) {
-          boxDisplay[[preM]] <- FALSE
-        } else {
-          if (is.na(boxDown[[preM]])) { boxDown[[preM]] <- yMin }
-          if (is.na(boxUp[[preM]])) { boxUp[[preM]] <- yMax }          
+          boxSizeMax[[preM]] <- max(boxSizeMax[[preM]],bMax - bMin)
         }
       }
     }
-    
-    data <- data[data$BETA != Inf & data$BETA != -Inf,]
   }
   
   
   if (xAxis == "IB" || yAxis == "IB") { data$IB <- data$CURRENT_I - beta * data$MACRO_I }
   
+
+
   # PRINT PLOT
   
   if (nrow(data) == 0) {
@@ -431,14 +436,13 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
       c2 <- seq(1,length(preMeasurement),1)
     }
     
-    
-    for(preM in preMeasurement) {
+    displayMeasurement <- unique(data[data$DISPLAY,"PREM"])
+    for(preM in displayMeasurement) {
       print(preM)
       d <- data[data$PREM == preM,]
       
       if (suppressSubPhases && nrow(d[d$DISPLAY,]) == 0) next
       if (suppressInterPhases) { d <- d[d$DISPLAY,] }
-      #      if (suppressInterPhases) { d[d$DISPLAY,var] <- NA }
       
       if (noNegativeValue) { d <- d[d[,xAxis] >= 0 & d[,yAxis] >= 0,] }
       
@@ -457,7 +461,15 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
         if (mainPhases) { lwd <- 0.5 } else { lwd <- 4 }
       } else { lwd <- 1 }
       
-      lines(d[,xAxis], d[,yAxis], col=col, lwd=lwd)
+      od <- d[order(d[,var]),]
+      x <- od[,xAxis]
+      y <- od[,yAxis]
+      xd <- seq(x[1],x[length(x)])
+      yd <- rep(NA,length(xd))
+      yd[x-x[1]+1] <- y
+      
+      if (!onlyPoints) { lines(xd, yd, col=col, lwd=lwd) }
+      points(x, y, col=col, lwd=lwd, pch=20)
       
       if (!is.null(pointList)) { d <- d[d[,var] %in% pointList,] } else {
         if (!is.null(pointMin)) { d <- d[d[,var] >= pointMin,] }
@@ -472,8 +484,7 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
       }
       
       if (phaseDiagram) {
-        d <- d[d$DISPLAY,]
-        lines(d[,xAxis], d[,yAxis], col=col, lwd=4)
+        if (!onlyPoints) { lines(xd, yd, col=col, lwd=4) }
       } else { points(d[,xAxis], d[,yAxis], pch=19, lwd=2, col=col) }
       
       if (is.null(noLabel) || (noLabel != "ALL" && !(preM %in% noLabel))) {
@@ -524,14 +535,33 @@ plotIB <- function (inputFileName, modelName, update, preMeasurement, postMeasur
     if (phasesNames) {
       for (i in seq(1,length(oldMeasurement))) {
         preM <- oldMeasurement[i]
-        if (boxDisplay[[preM]]) {  
-          #x <- (boxRight[[preM]] + boxLeft[[preM]])/2
-          #y <- (boxUp[[preM]] + boxDown[[preM]])/2
-          x <- boxXPos[[preM]] / boxXNorm[[preM]]
-          y <- boxYPos[[preM]] / boxYNorm[[preM]]
-          txt <- c(preM)
-          if (!is.null(measurementText) && !is.null(measurementText[[preM]])) { txt <- measurementText[[preM]] }
-          text(x,y,labels=paste(txt,collapse="\n"),cex=1)
+        if (boxDisplay[[preM]]) {
+          if (is.null(minSizeForNames) || boxSizeMax[[preM]] > minSizeForNames) {
+            x <- boxXPos[[preM]] / boxXNorm[[preM]]
+            y <- boxYPos[[preM]] / boxYNorm[[preM]]
+            
+            p <- preM
+            add <- c()
+            cut <- regexpr("_|",preM,fixed=T)[1]
+            if (cut >= 0) {
+              p <- substr(preM,1,cut-1)
+              add <- c(substr(preM,cut+1,nchar(preM)))
+            }
+            if (aggregatedNames) {
+              if (add == paste("|0-",size1+size2,"|",sep="")) {
+                p <- "EMPTY"
+                add <- c()
+              } else if (add == paste("|",paste(paste(seq(0,size1+size2),"|",sep=""),collapse=""),sep="")) {
+                add <- c()
+              } else {
+                p <- add[1]
+                add <- c()
+              }
+            }
+            if (!is.null(measurementText) && !is.null(measurementText[[p]])) { p <- measurementText[[p]] }
+            txt <- c(p,add)
+            text(x,y,labels=paste(txt,collapse="\n"),cex=1)            
+          }
         }
       }
     }

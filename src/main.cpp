@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_20B));
 */
 
-/*
+/*	preM->insert(std::make_pair(M_MACRO,MAJORITY));
 	preM->insert(std::make_pair(M_MACRO,MAJ_10PC));
 	preM->insert(std::make_pair(M_MACRO,MAJ_20PC));
 	preM->insert(std::make_pair(M_MACRO,MAJ_30PC));
@@ -73,7 +73,10 @@ int main(int argc, char *argv[]) {
 	preM->insert(std::make_pair(M_MACRO,MAJ_70PC));
 	preM->insert(std::make_pair(M_MACRO,MAJ_80PC));
 	preM->insert(std::make_pair(M_MACRO,MAJ_90PC));
+	preM->insert(std::make_pair(M_EMPTY,MACRO_STATE));
+*/
 
+/*
 	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_10PC));
 	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_20PC));
 	preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_30PC));
@@ -91,7 +94,9 @@ int main(int argc, char *argv[]) {
 
 	VoterExperiment *exp;
 
-	exp = new VoterExperiment(8,0,1,1,1,1,0,0,0,1,preM,postM); exp->delayMax = 50; exp->withAggregation = true; expSet->insert(exp);
+//	exp = new VoterExperiment(20,0,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp->withAggregation = true; expSet->insert(exp);
+	exp = new VoterExperiment(8,0,1,1,1,1,0,0,0,101,preM,postM); exp->delayMax = 200; exp->withAggregation = true; expSet->insert(exp);
+	exp = new VoterExperiment(8,0,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 200; exp->compactModel = true; exp->withAggregation = true; expSet->insert(exp);
 
 //	exp = new VoterExperiment(10,10,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 2; exp->compactModel = true; expSet->insert(exp);
 //	exp = new VoterExperiment(10,0,1,1,1,1,1./11,1./11,-1,0,preM,postM); exp->delayMax = 40; exp->compactModel = false; expSet->insert(exp);

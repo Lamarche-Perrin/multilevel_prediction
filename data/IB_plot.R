@@ -10,16 +10,28 @@ height = 20
 
 
 
+# With aggregation
+
 postMeasurement <- c("MACRO_MS")
 preMeasurement <- c("MACRO_MS")
 
+fileName <- "file"
 plotIB (inputFileName = "DATA_FORMATED_2", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
-        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 80, xMax = 100, xMin = 0, varMin = 1, noNegativeValue = TRUE,
-        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright", withAggregation = TRUE,
-        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 100, xMin = 1, xMax = 200, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright", boxVarMin = 100,
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, measurementText = measurementText,
         var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL,
-        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")  
+        withAggregation = TRUE, phasesNames = TRUE, aggregatedNames = TRUE, minSizeForNames = 2, onlyPoints = TRUE,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
 
+
+plotIB (inputFileName = "DATA_FORMATED_2", modelName = "Complete Graph", update = "EDGES", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 8, yMax = 18, xMin = 15, xMax = 51, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, measurementText = measurementText,
+        var = "DELAY", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = 0, delay = NULL,
+        withAggregation = TRUE, phasesNames = TRUE, aggregatedNames = TRUE, onlyPoints = TRUE,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
 
 #PRELIMINARY
 #Prediction of the macro-state in the complete graph (classical in transient) -> time and delay

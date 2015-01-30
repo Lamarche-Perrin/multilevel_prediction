@@ -545,8 +545,8 @@ void computeMeasuresWithAggregation (std::ofstream &csvFile, MarkovProcess *MP, 
 		addCSVField(csvFile,"NA",true);
 		
 		addCSVField(csvFile,"NA",true);
-		addCSVField(csvFile,p->entropy,true,15);
 		addCSVField(csvFile,p->information,true,15);
+		addCSVField(csvFile,p->entropy,true,15);
 		addCSVField(csvFile,"NA",false);
 	
 		endCSVLine(csvFile);
