@@ -87,8 +87,8 @@ CompleteVoterGraph::CompleteVoterGraph (int size, int update, double contrarian)
 
 
 TwoCommunitiesVoterGraph::TwoCommunitiesVoterGraph (int s1, int s2,
-	double intraR1, double intraR2, double interR1, double interR2,
-	double c1, double c2, int update) : VoterGraph (update)
+						    double intraR1, double intraR2, double interR1, double interR2,
+						    double c1, double c2, int update) : VoterGraph (update)
 {
 	size1 = s1;
 	size2 = s2;
@@ -177,12 +177,12 @@ void VoterGraph::fillEdges ()
 {
 	for (std::set<VoterNode*>::iterator it1 = nodeSet->begin(); it1 != nodeSet->end(); ++it1)
 	{
-	    VoterNode *n1 = *it1;
+		VoterNode *n1 = *it1;
 	    
 		for (std::set<VoterNode*>::iterator it2 = it1; it2 != nodeSet->end(); ++it2)
 		{
-		    VoterNode *n2 = *it2;
-		    if (n1 != n2)
+			VoterNode *n2 = *it2;
+			if (n1 != n2)
 			{
 				addEdge(n1,n2);
 				addEdge(n2,n1);
@@ -196,13 +196,13 @@ void VoterGraph::print ()
 {
 	for (std::set<VoterNode*>::iterator it1 = nodeSet->begin(); it1 != nodeSet->end(); ++it1)
 	{
-	    VoterNode *n1 = *it1;
+		VoterNode *n1 = *it1;
 	    
-	    std::cout << "node " << n1->id << " connected to nodes ";
+		std::cout << "node " << n1->id << " connected to nodes ";
 		for (std::set<VoterEdge*>::iterator it2 = n1->outEdgeSet->begin(); it2 != n1->outEdgeSet->end(); ++it2)
 		{
-		    VoterNode *n2 = (*it2)->node2;
-		    std::cout << n2->id << ", ";
+			VoterNode *n2 = (*it2)->node2;
+			std::cout << n2->id << ", ";
 		}
 		std::cout << std::endl;
 	}
@@ -327,177 +327,178 @@ Partition *VoterGraph::getMarkovPartition (VoterProbe *probe, VoterMetric metric
 	
 	switch (metric)
 	{
-		case MACRO_STATE :
+	case MACRO_STATE :
+	{
+		std::map<int,Part*> partMap;
+		for (int nb = 0; nb <= probe->nodeNumber; nb++)
 		{
-			std::map<int,Part*> partMap;
-			for (int nb = 0; nb <= probe->nodeNumber; nb++)
-			{
-				Part *part = new Part();
-				partition->addPart(part);
-				partMap[nb] = part;
-			}
-				
-			for (unsigned long int i = 0; i < size; i++)
-			{
-				int nb = 0;
-				for (std::set<VoterNode*>::iterator it = probe->nodeSet->begin(); it != probe->nodeSet->end(); ++it)
-					nb += (i >> (*it)->id) % 2;
-				partMap[nb]->addIndividual(i,false,nb);
-			}
-			break;
+			Part *part = new Part();
+			partition->addPart(part);
+			partMap[nb] = part;
 		}
+				
+		for (unsigned long int i = 0; i < size; i++)
+		{
+			int nb = 0;
+			for (std::set<VoterNode*>::iterator it = probe->nodeSet->begin(); it != probe->nodeSet->end(); ++it)
+				nb += (i >> (*it)->id) % 2;
+			partMap[nb]->addIndividual(i,false,nb);
+		}
+		break;
+	}
 	
-		case MAJORITY : case MAJ_10PC : case MAJ_20PC : case MAJ_30PC : case MAJ_40PC : case MAJ_50PC : case MAJ_60PC :
-			 case MAJ_70PC : case MAJ_80PC : case MAJ_90PC :
+	case MAJORITY : case MAJ_10PC : case MAJ_20PC : case MAJ_30PC : case MAJ_40PC : case MAJ_50PC : case MAJ_60PC :
+	case MAJ_70PC : case MAJ_80PC : case MAJ_90PC :
+	{
+		Part *part0 = new Part();
+		Part *part1 = new Part();
+		Part *partNA = new Part();
+
+		partition->addPart(part0);
+		partition->addPart(part1);
+		partition->addPart(partNA);
+
+		double pc = 0;
+		switch (metric)
 		{
-			Part *part0 = new Part();
-			Part *part1 = new Part();
-			Part *partNA = new Part();
-
-			partition->addPart(part0);
-			partition->addPart(part1);
-			partition->addPart(partNA);
-
-			double pc = 0;
-			switch (metric)
-			{
-				case MAJORITY : pc = 0; break;
-				case MAJ_10PC : pc = 0.1; break;
-				case MAJ_20PC : pc = 0.2; break;
-				case MAJ_30PC : pc = 0.3; break;
-				case MAJ_40PC : pc = 0.4; break;
-				case MAJ_50PC : pc = 0.5; break;
-				case MAJ_60PC : pc = 0.6; break;
-				case MAJ_70PC : pc = 0.7; break;
-				case MAJ_80PC : pc = 0.8; break;
-				case MAJ_90PC : pc = 0.9; break;
-			}
-				
-			for (unsigned long int i = 0; i < size; i++)
-			{
-				int nb = 0;
-				for (std::set<VoterNode*>::iterator it = probe->nodeSet->begin(); it != probe->nodeSet->end(); ++it)
-					nb += (i >> (*it)->id) % 2;
-
-				if (2*nb - size < pc * probe->nodeNumber) { part0->addIndividual(i); }
-				else if (2*nb - size > pc * probe->nodeNumber) { part1->addIndividual(i); }
-				else { partNA->addIndividual(i); }
-			}
-			break;
+		case MAJORITY : pc = 0; break;
+		case MAJ_10PC : pc = 0.1; break;
+		case MAJ_20PC : pc = 0.2; break;
+		case MAJ_30PC : pc = 0.3; break;
+		case MAJ_40PC : pc = 0.4; break;
+		case MAJ_50PC : pc = 0.5; break;
+		case MAJ_60PC : pc = 0.6; break;
+		case MAJ_70PC : pc = 0.7; break;
+		case MAJ_80PC : pc = 0.8; break;
+		case MAJ_90PC : pc = 0.9; break;
+		default : break;
 		}
-		
-		/*
-		case MAJ_2BINS : case MAJ_3BINS : case MAJ_4BINS : case MAJ_5BINS :
+				
+		for (unsigned long int i = 0; i < size; i++)
 		{
-			int partNumber;
-			switch (metric)
-			{
-				case MAJ_2BINS : partNumber = std::min(2,probe->nodeNumber+1); break;
-				case MAJ_3BINS : partNumber = std::min(3,probe->nodeNumber+1); break;
-				case MAJ_4BINS : partNumber = std::min(4,probe->nodeNumber+1); break;
-				case MAJ_5BINS : partNumber = std::min(5,probe->nodeNumber+1); break;
-			}
-			
-			int partVector [partNumber*2];
-			for (int i = 0; i < partNumber; i++) { partVector[2*i] = 0; partVector[2*i+1] = 0; }
+			int nb = 0;
+			for (std::set<VoterNode*>::iterator it = probe->nodeSet->begin(); it != probe->nodeSet->end(); ++it)
+				nb += (i >> (*it)->id) % 2;
+
+			if (2*nb - size < pc * probe->nodeNumber) { part0->addIndividual(i); }
+			else if (2*nb - size > pc * probe->nodeNumber) { part1->addIndividual(i); }
+			else { partNA->addIndividual(i); }
+		}
+		break;
+	}
 		
-			int nb1 = 0;
-			double c = pow(2.,-probe->nodeNumber);
-			for (int i = 0; i < partNumber/2; i++)
-			{
-				int nb2 = nb1;
-				double add = nChoosekProb(probe->nodeNumber,nb2+1);
-				while (c + add < ((double)i+1)/partNumber) { c += add; nb2++; add = nChoosekProb(probe->nodeNumber,nb2+1); }
+	/*
+	  case MAJ_2BINS : case MAJ_3BINS : case MAJ_4BINS : case MAJ_5BINS :
+	  {
+	  int partNumber;
+	  switch (metric)
+	  {
+	  case MAJ_2BINS : partNumber = std::min(2,probe->nodeNumber+1); break;
+	  case MAJ_3BINS : partNumber = std::min(3,probe->nodeNumber+1); break;
+	  case MAJ_4BINS : partNumber = std::min(4,probe->nodeNumber+1); break;
+	  case MAJ_5BINS : partNumber = std::min(5,probe->nodeNumber+1); break;
+	  }
 			
-				partVector[2*i] = nb1;
-				partVector[2*i+1] = nb2;
-				partVector[2*(partNumber-1-i)] = probe->nodeNumber-nb2;
-				partVector[2*(partNumber-1-i)+1] = probe->nodeNumber-nb1;
+	  int partVector [partNumber*2];
+	  for (int i = 0; i < partNumber; i++) { partVector[2*i] = 0; partVector[2*i+1] = 0; }
 		
-				nb1 = nb2+1;
-				c += nChoosekProb(probe->nodeNumber,nb1);
-			}
+	  int nb1 = 0;
+	  double c = pow(2.,-probe->nodeNumber);
+	  for (int i = 0; i < partNumber/2; i++)
+	  {
+	  int nb2 = nb1;
+	  double add = nChoosekProb(probe->nodeNumber,nb2+1);
+	  while (c + add < ((double)i+1)/partNumber) { c += add; nb2++; add = nChoosekProb(probe->nodeNumber,nb2+1); }
 			
-			if (partNumber % 2)
-			{
-				int i = partNumber/2;
-				partVector[2*(partNumber-1-i)] = partVector[2*(partNumber-1-i)-1]+1;
-				partVector[2*(partNumber-1-i)+1] = partVector[2*(partNumber-1-i)+2]-1;
-			}
+	  partVector[2*i] = nb1;
+	  partVector[2*i+1] = nb2;
+	  partVector[2*(partNumber-1-i)] = probe->nodeNumber-nb2;
+	  partVector[2*(partNumber-1-i)+1] = probe->nodeNumber-nb1;
+		
+	  nb1 = nb2+1;
+	  c += nChoosekProb(probe->nodeNumber,nb1);
+	  }
+			
+	  if (partNumber % 2)
+	  {
+	  int i = partNumber/2;
+	  partVector[2*(partNumber-1-i)] = partVector[2*(partNumber-1-i)-1]+1;
+	  partVector[2*(partNumber-1-i)+1] = partVector[2*(partNumber-1-i)+2]-1;
+	  }
 		
 //			for (int i = 0; i < partNumber; i++)
 //				std::cout << partVector[2*i] << " - " << partVector[2*i+1] << "\t" << std::endl;
 
-			std::map<int,Part*> partMap;
-			for (int n = 0; n < partNumber; n++)
-			{
-				Part *part = new Part();
-				partition->addPart(part);
-				partMap[n] = part;
-			}
+std::map<int,Part*> partMap;
+for (int n = 0; n < partNumber; n++)
+{
+Part *part = new Part();
+partition->addPart(part);
+partMap[n] = part;
+}
 				
-			Part *partNA = new Part();
-			partition->addPart(partNA);
+Part *partNA = new Part();
+partition->addPart(partNA);
 
+for (unsigned long int i = 0; i < size; i++)
+{
+int nb = 0;
+for (std::set<VoterNode*>::iterator it = probe->nodeSet->begin(); it != probe->nodeSet->end(); ++it)
+nb += (i >> (*it)->id) % 2;
+
+bool found = false;
+for (int n = 0; !found && n < partNumber; n++)
+if (nb >= partVector[2*n] && nb <= partVector[2*n+1] ) { partMap[n]->addIndividual(i); found = true; }
+if (!found) { partNA->addIndividual(i); }
+}
+break;
+}
+	*/
+		
+	case ACTIVE_EDGES :
+	{
+		if (probe->nodeNumber == 0)
+		{
+			Part *part = new Part();
+			partition->addPart(part);
+			for (unsigned long int i = 0; i < size; i++) { part->addIndividual(i); }
+		}
+			
+		else {
+			std::map<int,Part*> partMap;
+		
 			for (unsigned long int i = 0; i < size; i++)
 			{
 				int nb = 0;
-				for (std::set<VoterNode*>::iterator it = probe->nodeSet->begin(); it != probe->nodeSet->end(); ++it)
-					nb += (i >> (*it)->id) % 2;
-
-				bool found = false;
-				for (int n = 0; !found && n < partNumber; n++)
-					if (nb >= partVector[2*n] && nb <= partVector[2*n+1] ) { partMap[n]->addIndividual(i); found = true; }
-				if (!found) { partNA->addIndividual(i); }
-			}
-			break;
-		}
-		*/
-		
-		case ACTIVE_EDGES :
-		{
-			if (probe->nodeNumber == 0)
-			{
-				Part *part = new Part();
-				partition->addPart(part);
-				for (unsigned long int i = 0; i < size; i++) { part->addIndividual(i); }
-			}
-			
-			else {
-				std::map<int,Part*> partMap;
-		
-				for (unsigned long int i = 0; i < size; i++)
+				for (std::set<VoterNode*>::iterator it1 = probe->nodeSet->begin(); it1 != probe->nodeSet->end(); ++it1)
 				{
-					int nb = 0;
-					for (std::set<VoterNode*>::iterator it1 = probe->nodeSet->begin(); it1 != probe->nodeSet->end(); ++it1)
-					{
-						VoterNode *n2 = *it1;
-						int s2 = (i >> n2->id) % 2;
+					VoterNode *n2 = *it1;
+					int s2 = (i >> n2->id) % 2;
 						
-						for (std::set<VoterEdge*>::iterator it2 = n2->inEdgeSet->begin(); it2 != n2->inEdgeSet->end(); ++it2)
-						{
-							VoterEdge *e = *it2;
-							VoterNode *n1 = e->node1;
-							int s1 = (i >> n1->id) % 2;
-							
-							if (s1 != s2) { nb += e->weight; }
-						}
-					}
-				
-					if (partMap.find(nb) == partMap.end())
+					for (std::set<VoterEdge*>::iterator it2 = n2->inEdgeSet->begin(); it2 != n2->inEdgeSet->end(); ++it2)
 					{
-						Part *part = new Part();
-						partition->addPart(part);
-						partMap[nb] = part;
+						VoterEdge *e = *it2;
+						VoterNode *n1 = e->node1;
+						int s1 = (i >> n1->id) % 2;
+							
+						if (s1 != s2) { nb += e->weight; }
 					}
-								
-					partMap[nb]->addIndividual(i);
 				}
+				
+				if (partMap.find(nb) == partMap.end())
+				{
+					Part *part = new Part();
+					partition->addPart(part);
+					partMap[nb] = part;
+				}
+								
+				partMap[nb]->addIndividual(i);
 			}
-			break;
 		}
+		break;
+	}
 			
-		default : std::cout << "ERROR: unimplemented metric!" << std::endl;
+	default : std::cout << "ERROR: unimplemented metric!" << std::endl;
 	}
 	
 	return partition;
@@ -952,197 +953,199 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *prob
 	
 	switch (metric)
 	{
-		case MACRO_STATE :
+	case MACRO_STATE :
+	{
+		std::map<int,Part*> partMap;
+		for (int nb = 0; nb <= probe->nodeNumber; nb++)
 		{
-			std::map<int,Part*> partMap;
-			for (int nb = 0; nb <= probe->nodeNumber; nb++)
-			{
-				Part *part = new Part();
-				partition->addPart(part);
-				partMap[nb] = part;
-			}
-	
-			if (probe->nodeNumber == 1 && *probe->nodeSet->begin() == *community1->begin())
-			{
-				for (unsigned long int i = 0; i < size; i++)
-				{
-					int a = i % 2;
-					partMap[a]->addIndividual(i,false,a);
-				}
-			}
-	
-			else if (*probe->nodeSet == *community1)
-			{
-				for (unsigned long int i = 0; i < size; i++)
-				{
-					int a = i % 2;
-					int n1 = (i-a)/2 % size1;
-					partMap[a+n1]->addIndividual(i,false,a+n1);
-				}
-			}
-	
-			else if (*probe->nodeSet == *community2)
-			{
-				for (unsigned long int i = 0; i < size; i++)
-				{
-					int a = i % 2;
-					int n1 = (i-a)/2 % size1;
-					int n2 = (i-a-2*n1)/(2*size1);
-					partMap[n2]->addIndividual(i,false,n2);
-				}
-			}
-	
-			else if (*probe->nodeSet == *nodeSet)
-			{
-				for (unsigned long int i = 0; i < size; i++)
-				{
-					int a = i % 2;
-					int n1 = (i-a)/2 % size1;
-					int n2 = (i-a-2*n1)/(2*size1);
-					partMap[a+n1+n2]->addIndividual(i,false,a+n1+n2);
-				}
-			}
-		
-			else { std::cout << "ERROR: incompatible probe!" << std::endl; probe->print(true); }
-			break;
+			Part *part = new Part();
+			partition->addPart(part);
+			partMap[nb] = part;
 		}
-		
-		case MAJORITY : case MAJ_10PC : case MAJ_20PC : case MAJ_30PC : case MAJ_40PC : case MAJ_50PC : case MAJ_60PC :
-			 case MAJ_70PC : case MAJ_80PC : case MAJ_90PC :
+	
+		if (probe->nodeNumber == 1 && *probe->nodeSet->begin() == *community1->begin())
 		{
-			Part *part0 = new Part();
-			Part *part1 = new Part();
-			Part *partNA = new Part();
-
-			partition->addPart(part0);
-			partition->addPart(part1);
-			partition->addPart(partNA);
-
-			double pc = 0;
-			switch (metric)
+			for (unsigned long int i = 0; i < size; i++)
 			{
-				case MAJORITY : pc = 0; break;
-				case MAJ_10PC : pc = 0.1; break;
-				case MAJ_20PC : pc = 0.2; break;
-				case MAJ_30PC : pc = 0.3; break;
-				case MAJ_40PC : pc = 0.4; break;
-				case MAJ_50PC : pc = 0.5; break;
-				case MAJ_60PC : pc = 0.6; break;
-				case MAJ_70PC : pc = 0.7; break;
-				case MAJ_80PC : pc = 0.8; break;
-				case MAJ_90PC : pc = 0.9; break;
+				int a = i % 2;
+				partMap[a]->addIndividual(i,false,a);
 			}
-			
+		}
+	
+		else if (*probe->nodeSet == *community1)
+		{
+			for (unsigned long int i = 0; i < size; i++)
+			{
+				int a = i % 2;
+				int n1 = (i-a)/2 % size1;
+				partMap[a+n1]->addIndividual(i,false,a+n1);
+			}
+		}
+	
+		else if (*probe->nodeSet == *community2)
+		{
 			for (unsigned long int i = 0; i < size; i++)
 			{
 				int a = i % 2;
 				int n1 = (i-a)/2 % size1;
 				int n2 = (i-a-2*n1)/(2*size1);
-
-				int nb = -1; int s = -1;
-				if (probe->nodeNumber == 1 && *probe->nodeSet->begin() == *community1->begin()) { nb = a; s = 1; }
-				else if (*probe->nodeSet == *community1) { nb = a+n1; s = size1; }
-				else if (*probe->nodeSet == *community2) { nb = n2; s = size2; }
-				else if (*probe->nodeSet == *nodeSet) { nb = a+n1+n2; s = size1+size2; }
-				else { std::cout << "ERROR: incompatible probe!" << std::endl; probe->print(true); }
-				
-				if (nb >= 0)
-				{
-					if (2*nb - s < pc * probe->nodeNumber) { part0->addIndividual(i); }
-					else if (2*nb - s > pc * probe->nodeNumber) { part1->addIndividual(i); }
-					else { partNA->addIndividual(i); }
-				}	
+				partMap[n2]->addIndividual(i,false,n2);
 			}
-			break;
 		}
-
-		case MAJ_2B : case MAJ_4B : case MAJ_8B : case MAJ_10B : case MAJ_20B : case MAJ_40B :
+	
+		else if (*probe->nodeSet == *nodeSet)
 		{
-			int partNumber;
-			switch (metric)
+			for (unsigned long int i = 0; i < size; i++)
 			{
-				case MAJ_2B : partNumber = 2; break;
-				case MAJ_4B : partNumber = 4; break;
-				case MAJ_8B : partNumber = 8; break;
-				case MAJ_10B : partNumber = 10; break;
-				case MAJ_20B : partNumber = 20; break;
-				case MAJ_40B : partNumber = 40; break;
+				int a = i % 2;
+				int n1 = (i-a)/2 % size1;
+				int n2 = (i-a-2*n1)/(2*size1);
+				partMap[a+n1+n2]->addIndividual(i,false,a+n1+n2);
 			}
+		}
+		
+		else { std::cout << "ERROR: incompatible probe!" << std::endl; probe->print(true); }
+		break;
+	}
+		
+	case MAJORITY : case MAJ_10PC : case MAJ_20PC : case MAJ_30PC : case MAJ_40PC : case MAJ_50PC : case MAJ_60PC :
+	case MAJ_70PC : case MAJ_80PC : case MAJ_90PC :
+	{
+		Part *part0 = new Part();
+		Part *part1 = new Part();
+		Part *partNA = new Part();
+
+		partition->addPart(part0);
+		partition->addPart(part1);
+		partition->addPart(partNA);
+
+		double pc = 0;
+		switch (metric)
+		{
+		case MAJORITY : pc = 0; break;
+		case MAJ_10PC : pc = 0.1; break;
+		case MAJ_20PC : pc = 0.2; break;
+		case MAJ_30PC : pc = 0.3; break;
+		case MAJ_40PC : pc = 0.4; break;
+		case MAJ_50PC : pc = 0.5; break;
+		case MAJ_60PC : pc = 0.6; break;
+		case MAJ_70PC : pc = 0.7; break;
+		case MAJ_80PC : pc = 0.8; break;
+		case MAJ_90PC : pc = 0.9; break;
+		default : break;
+		}
+			
+		for (unsigned long int i = 0; i < size; i++)
+		{
+			int a = i % 2;
+			int n1 = (i-a)/2 % size1;
+			int n2 = (i-a-2*n1)/(2*size1);
+
+			int nb = -1; int s = -1;
+			if (probe->nodeNumber == 1 && *probe->nodeSet->begin() == *community1->begin()) { nb = a; s = 1; }
+			else if (*probe->nodeSet == *community1) { nb = a+n1; s = size1; }
+			else if (*probe->nodeSet == *community2) { nb = n2; s = size2; }
+			else if (*probe->nodeSet == *nodeSet) { nb = a+n1+n2; s = size1+size2; }
+			else { std::cout << "ERROR: incompatible probe!" << std::endl; probe->print(true); }
+				
+			if (nb >= 0)
+			{
+				if (2*nb - s < pc * probe->nodeNumber) { part0->addIndividual(i); }
+				else if (2*nb - s > pc * probe->nodeNumber) { part1->addIndividual(i); }
+				else { partNA->addIndividual(i); }
+			}	
+		}
+		break;
+	}
+
+	case MAJ_2B : case MAJ_4B : case MAJ_8B : case MAJ_10B : case MAJ_20B : case MAJ_40B :
+	{
+		int partNumber;
+		switch (metric)
+		{
+		case MAJ_2B : partNumber = 2; break;
+		case MAJ_4B : partNumber = 4; break;
+		case MAJ_8B : partNumber = 8; break;
+		case MAJ_10B : partNumber = 10; break;
+		case MAJ_20B : partNumber = 20; break;
+		case MAJ_40B : partNumber = 40; break;
+		default : break;
+		}
 			
 //			std::cout << "\n node nb = " << probe->nodeNumber << " / probe nb = " << partNumber << std::endl;
-			partNumber = std::min(partNumber,(probe->nodeNumber+1) - ((probe->nodeNumber+1) % 2));
+		partNumber = std::min(partNumber,(probe->nodeNumber+1) - ((probe->nodeNumber+1) % 2));
 
-			std::map<int,Part*> partMap;
-			for (int n = 0; n < partNumber; n++)
-			{
-				Part *part = new Part();
-				partition->addPart(part);
-				partMap[n] = part;
-			}
+		std::map<int,Part*> partMap;
+		for (int n = 0; n < partNumber; n++)
+		{
+			Part *part = new Part();
+			partition->addPart(part);
+			partMap[n] = part;
+		}
 				
-			Part *partNA = new Part();
-			partition->addPart(partNA);
+		Part *partNA = new Part();
+		partition->addPart(partNA);
 
-			for (unsigned long int i = 0; i < size; i++)
-			{
-				int a = i % 2;
-				int n1 = (i-a)/2 % size1;
-				int n2 = (i-a-2*n1)/(2*size1);
+		for (unsigned long int i = 0; i < size; i++)
+		{
+			int a = i % 2;
+			int n1 = (i-a)/2 % size1;
+			int n2 = (i-a-2*n1)/(2*size1);
 
-				int nb = -1; int s = -1;
-				if (probe->nodeNumber == 1 && *probe->nodeSet->begin() == *community1->begin()) { nb = a; s = 1; }
-				else if (*probe->nodeSet == *community1) { nb = a+n1; s = size1; }
-				else if (*probe->nodeSet == *community2) { nb = n2; s = size2; }
-				else if (*probe->nodeSet == *nodeSet) { nb = a+n1+n2; s = size1+size2; }
-				else { std::cout << "ERROR: incompatible probe!" << std::endl; probe->print(true); }
+			int nb = -1;
+			if (probe->nodeNumber == 1 && *probe->nodeSet->begin() == *community1->begin()) { nb = a; }
+			else if (*probe->nodeSet == *community1) { nb = a+n1; }
+			else if (*probe->nodeSet == *community2) { nb = n2; }
+			else if (*probe->nodeSet == *nodeSet) { nb = a+n1+n2; }
+			else { std::cout << "ERROR: incompatible probe!" << std::endl; probe->print(true); }
 				
 //				std::cout << "nb = " << nb << " -> ";
-				if (nb >= 0)
+			if (nb >= 0)
+			{
+				int lim = ((probe->nodeNumber+1) - ((probe->nodeNumber+1) % 2))/2;
+				if (nb < lim)
 				{
-					int lim = ((probe->nodeNumber+1) - ((probe->nodeNumber+1) % 2))/2;
-					if (nb < lim)
-					{
-						int n = (nb - (nb % (2*lim/partNumber))) / (2*lim/partNumber);
-						partMap[n]->addIndividual(i);
+					int n = (nb - (nb % (2*lim/partNumber))) / (2*lim/partNumber);
+					partMap[n]->addIndividual(i);
 //						std::cout << "bin = " << n << std::endl;
-					}
+				}
 
-					else if (probe->nodeNumber - nb < lim)
-					{
-						int n = ((probe->nodeNumber - nb) - ((probe->nodeNumber - nb) % (2*lim/partNumber))) / (2*lim/partNumber);
-						partMap[partNumber-n-1]->addIndividual(i);						
+				else if (probe->nodeNumber - nb < lim)
+				{
+					int n = ((probe->nodeNumber - nb) - ((probe->nodeNumber - nb) % (2*lim/partNumber))) / (2*lim/partNumber);
+					partMap[partNumber-n-1]->addIndividual(i);						
 //						std::cout << "bin = " << (partNumber-n-1) << std::endl;
-					}
+				}
 					
-					else {
-						partNA->addIndividual(i);
+				else {
+					partNA->addIndividual(i);
 //						std::cout << "bin = NA" << std::endl;
-					}
 				}
 			}
-		
-			break;
 		}
 		
-		/*			
-		case MAJ_2BINS : case MAJ_3BINS : case MAJ_4BINS : case MAJ_5BINS :
-		{
-			int partNumber;
-			switch (metric)
-			{
+		break;
+	}
+		
+	/*			
+				case MAJ_2BINS : case MAJ_3BINS : case MAJ_4BINS : case MAJ_5BINS :
+				{
+				int partNumber;
+				switch (metric)
+				{
 				case MAJ_2BINS : partNumber = std::min(2,probe->nodeNumber+1); break;
 				case MAJ_3BINS : partNumber = std::min(3,probe->nodeNumber+1); break;
 				case MAJ_4BINS : partNumber = std::min(4,probe->nodeNumber+1); break;
 				case MAJ_5BINS : partNumber = std::min(5,probe->nodeNumber+1); break;
-			}
+				}
 			
-			int partVector [partNumber*2];
-			for (int i = 0; i < partNumber; i++) { partVector[2*i] = 0; partVector[2*i+1] = 0; }
+				int partVector [partNumber*2];
+				for (int i = 0; i < partNumber; i++) { partVector[2*i] = 0; partVector[2*i+1] = 0; }
 		
-			int nb1 = 0;
-			double c = pow(2.,-probe->nodeNumber);
-			for (int i = 0; i < partNumber/2; i++)
-			{
+				int nb1 = 0;
+				double c = pow(2.,-probe->nodeNumber);
+				for (int i = 0; i < partNumber/2; i++)
+				{
 				int nb2 = nb1;
 				double add = nChoosekProb(probe->nodeNumber,nb2+1);
 				while (c + add < ((double)i+1)/partNumber) { c += add; nb2++; add = nChoosekProb(probe->nodeNumber,nb2+1); }
@@ -1154,36 +1157,36 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *prob
 		
 				nb1 = nb2+1;
 				c += nChoosekProb(probe->nodeNumber,nb1);
-			}
+				}
 			
-			if (partNumber % 2)
-			{
+				if (partNumber % 2)
+				{
 				int i = partNumber/2;
 				partVector[2*(partNumber-1-i)] = partVector[2*(partNumber-1-i)-1]+1;
 				partVector[2*(partNumber-1-i)+1] = partVector[2*(partNumber-1-i)+2]-1;
-			}
+				}
 		
 			
-			std::cout << partNumber << "/" << probe->nodeNumber << std::endl;
-			for (int i = 0; i < partNumber; i++)
+				std::cout << partNumber << "/" << probe->nodeNumber << std::endl;
+				for (int i = 0; i < partNumber; i++)
 				std::cout << partVector[2*i] << " - " << partVector[2*i+1] << "\t" << std::endl;
-			std::cout << std::endl;
+				std::cout << std::endl;
 			
 
-			std::map<int,Part*> partMap;
-			for (int n = 0; n < partNumber; n++)
-			{
+				std::map<int,Part*> partMap;
+				for (int n = 0; n < partNumber; n++)
+				{
 				Part *part = new Part();
 				partition->addPart(part);
 				partMap[n] = part;
-			}
+				}
 				
-			Part *partNA = new Part();
-			partition->addPart(partNA);
+				Part *partNA = new Part();
+				partition->addPart(partNA);
 
 
-			for (unsigned long int i = 0; i < size; i++)
-			{
+				for (unsigned long int i = 0; i < size; i++)
+				{
 				int a = i % 2;
 				int n1 = (i-a)/2 % size1;
 				int n2 = (i-a-2*n1)/(2*size1);
@@ -1197,18 +1200,18 @@ Partition *TwoCommunitiesVoterGraph::getCompactMarkovPartition (VoterProbe *prob
 				
 				if (nb >= 0)
 				{
-					bool found = false;
-					for (int n = 0; !found && n < partNumber; n++)
-						if (nb >= partVector[2*n] && nb <= partVector[2*n+1] ) { partMap[n]->addIndividual(i); found = true; }
-					if (!found) { partNA->addIndividual(i); }
+				bool found = false;
+				for (int n = 0; !found && n < partNumber; n++)
+				if (nb >= partVector[2*n] && nb <= partVector[2*n+1] ) { partMap[n]->addIndividual(i); found = true; }
+				if (!found) { partNA->addIndividual(i); }
 				}
-			}
+				}
 		
-			break;
-		}
-		*/
+				break;
+				}
+	*/
 
-		default : std::cout << "ERROR: unimplemented metric!" << std::endl;			
+	default : std::cout << "ERROR: unimplemented metric!" << std::endl;			
 	}
 		
 	return partition;
@@ -1317,10 +1320,10 @@ void VoterProbe::print (bool endl)
 	bool first = true;
 	for (std::set<VoterNode*>::iterator it = nodeSet->begin(); it != nodeSet->end(); ++it)
 	{
-	    VoterNode *n = *it;
-	    if (!first) { std::cout << ", "; }
-	    std::cout << n->id;
-	    first = false;
+		VoterNode *n = *it;
+		if (!first) { std::cout << ", "; }
+		std::cout << n->id;
+		first = false;
 	}
 	std::cout << "}";
 	if (endl) { std::cout << std::endl; }

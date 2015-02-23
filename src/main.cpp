@@ -95,8 +95,8 @@ int main(int argc, char *argv[]) {
 	VoterExperiment *exp;
 
 //	exp = new VoterExperiment(20,0,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp->withAggregation = true; expSet->insert(exp);
-	exp = new VoterExperiment(8,0,1,1,1,1,0,0,0,101,preM,postM); exp->delayMax = 200; exp->withAggregation = true; expSet->insert(exp);
-	exp = new VoterExperiment(8,0,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 200; exp->compactModel = true; exp->withAggregation = true; expSet->insert(exp);
+	exp = new VoterExperiment(8,0,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+//	exp = new VoterExperiment(8,0,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 200; exp->compactModel = true; exp->withAggregation = true; expSet->insert(exp);
 
 //	exp = new VoterExperiment(10,10,1,1,1,1,0,0,0,0,preM,postM); exp->delayMax = 2; exp->compactModel = true; expSet->insert(exp);
 //	exp = new VoterExperiment(10,0,1,1,1,1,1./11,1./11,-1,0,preM,postM); exp->delayMax = 40; exp->compactModel = false; expSet->insert(exp);

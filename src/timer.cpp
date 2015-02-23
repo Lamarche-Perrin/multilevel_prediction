@@ -7,8 +7,8 @@
 #include <time.h>
 #include <cstdio>
 #include <stdio.h>
-#include <Windows.h>
-#include <Psapi.h>
+//#include <Psapi.h>
+//#include <Windows.h>
 
 #include "timer.hpp"
 
@@ -106,11 +106,12 @@ void Timer::step (std::string text)
 	iMemory = getMemory();
 }
 
+
 int getMemory ()
 {
-	PROCESS_MEMORY_COUNTERS memCounter;
-	bool result = GetProcessMemoryInfo(GetCurrentProcess(), &memCounter, sizeof(memCounter));
-	//std::cout << memCounter.WorkingSetSize << std::endl;
-	return memCounter.WorkingSetSize;
+//	PROCESS_MEMORY_COUNTERS memCounter;
+//	bool result = GetProcessMemoryInfo(GetCurrentProcess(), &memCounter, sizeof(memCounter));
+//	return memCounter.WorkingSetSize;
+	return 0;
 }
 
