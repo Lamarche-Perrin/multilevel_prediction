@@ -1,6 +1,6 @@
 
-suppressDuplicates("DATA","DATA_FORMATED_2")
-suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+suppressDuplicates("DATA","DATA_FORMATED")
+suppressDuplicates("DATA","DATA_MAJ_BINS",TRUE)
 
 
 
@@ -11,8 +11,6 @@ write.csv(data,file="DATA_FORMATED.CSV",row.names=FALSE)
 
 
 suppressDuplicates <- function (file, outFile, force = FALSE) {
-  
-  setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")
   
   data <- rbind(read.csv(paste(file,".CSV",sep=""), sep = ","), read.csv(paste(outFile,".CSV",sep=""), sep = ","))
   

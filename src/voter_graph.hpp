@@ -20,8 +20,9 @@
 enum VoterMetric {
 	MACRO_STATE,		/*!< The probe returns the number of observed nodes in state 1*/
 	MAJORITY,			/*!< The probe returns 0 (resp. 1) if the majority of agents are in state 0 (resp. 1), and NA if there is a strict equality*/
+	MAJ_1PC, MAJ_2PC, MAJ_3PC, MAJ_4PC, MAJ_5PC, MAJ_6PC, MAJ_7PC, MAJ_8PC, MAJ_9PC,
 	MAJ_10PC, MAJ_20PC, MAJ_30PC, MAJ_40PC, MAJ_50PC, MAJ_60PC, MAJ_70PC, MAJ_80PC, MAJ_90PC,
-	MAJ_2B, MAJ_4B, MAJ_8B, MAJ_10B, MAJ_20B, MAJ_40B,
+	MAJ_2B, MAJ_3B, MAJ_4B, MAJ_6B, MAJ_8B, MAJ_10B, MAJ_12B, MAJ_20B, MAJ_40B,
 	ACTIVE_EDGES		/*!< The probe returns the probability that one of the observed nodes will change during the next simulation step*/
 };
 
