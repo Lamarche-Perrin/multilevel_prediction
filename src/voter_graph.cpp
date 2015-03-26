@@ -86,6 +86,25 @@ CompleteVoterGraph::CompleteVoterGraph (int size, int update, double contrarian)
 }
 
 
+ChainVoterGraph::ChainVoterGraph (int s, double c, bool r, int update) : VoterGraph (update)
+{
+    size = s;
+    contrarian = c;
+    ring = r;
+    nodeArray = new VoterNode* [size];
+
+    for (int i = 0; i < size; i++) { nodeArray[i] = addNode(1,contrarian); }
+    for (int i = 1; i < size; i++) { addEdge(nodeArray[i-1],nodeArray[i]); addEdge(nodeArray[i],nodeArray[i-1]); }
+    if (ring) { addEdge(nodeArray[0],nodeArray[size-1]); addEdge(nodeArray[size-1],nodeArray[0]); }
+}
+
+
+ChainVoterGraph::~ChainVoterGraph ()
+{
+    delete [] nodeArray;
+}
+
+
 TwoCommunitiesVoterGraph::TwoCommunitiesVoterGraph (int s1, int s2,
 						    double intraR1, double intraR2, double interR1, double interR2,
 						    double c1, double c2, int update) : VoterGraph (update)
@@ -131,6 +150,7 @@ TwoCommunitiesVoterGraph::~TwoCommunitiesVoterGraph ()
     delete community1;
     delete community2;
 }
+
 
 
 VoterNode *VoterGraph::addNode (double weight, double contrarian)

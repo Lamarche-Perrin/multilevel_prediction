@@ -1,13 +1,13 @@
 
-suppressDuplicates("DATA","DATA_FORMATED")
-suppressDuplicates("DATA","DATA_MAJ_BINS",TRUE)
+#suppressDuplicates("DATA","DATA_FORMATED")
+#suppressDuplicates("DATA","DATA_MAJ_BINS",TRUE)
 
 
 
-setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")
-data <- read.csv("DATA_FORMATED.CSV", sep = ",")
-data <- data[data$SIZE1 != 7,]
-write.csv(data,file="DATA_FORMATED.CSV",row.names=FALSE)
+#setwd("C:/Users/Robin/Mes projets/programming/multilevel_prediction/data")
+#data <- read.csv("DATA_FORMATED.CSV", sep = ",")
+#data <- data[data$SIZE1 != 7,]
+#write.csv(data,file="DATA_FORMATED.CSV",row.names=FALSE)
 
 
 suppressDuplicates <- function (file, outFile, force = FALSE) {

@@ -21,13 +21,19 @@ VoterProbe *meso1Pr;
 VoterProbe *meso2Pr;
 
 
-int VoterExperiment::id_number = 0;
+int TwoCommunitiesExperiment::id_number = 0;
+int ChainExperiment::id_number = 0;
 
-void voterExperiment (ExperimentSet *expSet, std::string fileName)
+
+void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string fileName)
 {
-    for (ExperimentSet::iterator it = expSet->begin(); it != expSet->end(); ++it)
+    addTwoCommunitiesHeaderToCSV(fileName);
+    std::ofstream csvFile;
+    openOutputCSV(csvFile,fileName);
+
+    for (TwoCommunitiesExperimentSet::iterator it = expSet->begin(); it != expSet->end(); ++it)
     {
-	VoterExperiment *exp = *it;
+	TwoCommunitiesExperiment *exp = *it;
 		
 
 	// initialization
@@ -35,10 +41,6 @@ void voterExperiment (ExperimentSet *expSet, std::string fileName)
 	Timer timer;
 	std::cout << "===== EXP " << exp->id << " =====" << std::endl;
 		
-	addHeaderToCSV(fileName);
-	std::ofstream csvFile;
-	openOutputCSV(csvFile,fileName);
-	
 
 	// set the local variables according to the programmed experiment
 
@@ -201,8 +203,8 @@ void voterExperiment (ExperimentSet *expSet, std::string fileName)
 							VoterMeasurement *postM = *it2;
 
 							// Run experiment
-							if (withAggregation) { computeMeasuresWithAggregation(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,aggregationThreshold); }
-							else { computeMeasures(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP); }
+							if (withAggregation) { computeTwoCommunitiesMeasuresWithAggregation(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,aggregationThreshold); }
+							else { computeTwoCommunitiesMeasures(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP); }
 						    }
 						}
 					    }
@@ -225,11 +227,165 @@ void voterExperiment (ExperimentSet *expSet, std::string fileName)
 					timer.stop();
 				    }
 		    }
-	    }
-		
-	closeOutputCSV(csvFile);
+	    }	       
     }
+
+    closeOutputCSV(csvFile);
 }
+
+
+
+void chainExperiment (ChainExperimentSet *expSet, std::string fileName)
+{		
+    addTwoCommunitiesHeaderToCSV(fileName);
+    std::ofstream csvFile;
+    openOutputCSV(csvFile,fileName);
+
+    for (ChainExperimentSet::iterator it = expSet->begin(); it != expSet->end(); ++it)
+    {
+	ChainExperiment *exp = *it;
+		
+	// initialization
+
+	Timer timer;
+	std::cout << "===== EXP " << exp->id << " =====" << std::endl;
+	
+
+	// set the local variables according to the programmed experiment
+
+	int update = exp->update;
+	bool ring = exp->ring;
+	double threshold = exp->threshold;
+	//bool withAggregation = exp->withAggregation;
+	//double aggregationThreshold = 1e-10;
+		
+	int sizeMin = exp->sizeMin;	int sizeMax = exp->sizeMax;	int sizeStep = exp->sizeStep;
+
+	double contrarianMin = exp->contrarianMin; double contrarianMax = exp->contrarianMax; double contrarianStep = exp->contrarianStep;
+	
+	int timeMin = exp->timeMin;		int timeMax = exp->timeMax;		int timeStep = exp->timeStep;
+	int delayMin = exp->delayMin;	int delayMax = exp->delayMax;	int delayStep = exp->delayStep;
+						
+	std::string type = "CHAIN";
+	if (ring) { type = "RING"; }
+	
+
+	// loop over model parameters
+			
+	for (int size = sizeMin; size <= sizeMax; size += sizeStep)
+	    for (double c = contrarianMin; c <= contrarianMax; c += contrarianStep)
+	    {	
+	
+		// build the Voter Model and its Markov chain
+		
+		timer.start(size,"BUILDING MODEL");
+		timer.startTime();
+		timer.startMemory();
+
+		ChainVoterGraph *VG = new ChainVoterGraph (size,c,ring,update);
+
+		MarkovProcess *MP = VG->getMarkovProcess();
+		MP->getDistribution(timeMax);
+		MP->getTransition(delayMax);
+		if (timeMin == -1) { MP->computeStationaryDistribution(threshold); }
+
+
+		// build the observation probes
+		
+		agent1Pr = new VoterProbe(VG);
+		agent1Pr->addNode(VG->nodeArray[0]);
+		
+		macroPr = new VoterProbe(VG);
+		for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it) { macroPr->addNode(*it); }
+		
+
+		// build the pre- and post-measurements
+		
+		MeasurementSet *preMSet = new MeasurementSet();
+		for (SpecMeasurementSet::iterator it = exp->preMeasurements->begin(); it != exp->preMeasurements->end(); ++it)
+		{
+		    MeasurementType type = (*it).first;
+		    VoterMetric metric = (*it).second;
+		    addMeasurement (type,metric,preMSet,VG);
+		}
+		
+		for (MeasurementSet::iterator it = preMSet->begin(); it != preMSet->end(); ++it)
+		{
+		    VoterMeasurement *m = *it;
+		    m->partition = VG->getMarkovPartition(m);
+		}
+
+		MeasurementSet *postMSet = new MeasurementSet();
+		for (SpecMeasurementSet::iterator it = exp->postMeasurements->begin(); it != exp->postMeasurements->end(); ++it)
+		{
+		    MeasurementType type = (*it).first;
+		    VoterMetric metric = (*it).second;
+		    addMeasurement (type,metric,postMSet,VG);
+		}
+					
+		for (MeasurementSet::iterator it = postMSet->begin(); it != postMSet->end(); ++it)
+		{
+		    VoterMeasurement *m = *it;
+		    m->partition = VG->getMarkovPartition(m);
+		}
+	
+
+		// build the microscopic partition
+		
+		VoterMeasurement *m = new VoterMeasurement(VG,"MICRO_PARTITION");
+		for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it)
+		{
+		    VoterProbe *probe = new VoterProbe(VG);
+		    probe->addNode(*it);
+		    m->addProbe(probe,MACRO_STATE);
+		}
+		
+		Partition *microP = VG->getMarkovPartition(m);
+
+
+		// loop over the prediction parameters
+					
+		for (int t = timeMin; t <= timeMax; t += timeStep)
+		{	
+		    for (int d = delayMin; d <= delayMax; d += delayStep)
+		    {
+			timer.step("COMPUTING " + int2string(t) + " + " + int2string(d));
+			
+			for (MeasurementSet::iterator it1 = preMSet->begin(); it1 != preMSet->end(); ++it1)
+			{
+			    VoterMeasurement *preM = *it1;
+			    for (MeasurementSet::iterator it2 = postMSet->begin(); it2 != postMSet->end(); ++it2)
+			    {
+				VoterMeasurement *postM = *it2;
+				
+				// Run experiment
+				computeTwoCommunitiesMeasures(csvFile,MP,type,update,size,0,0,0,0,0,c,0,preM,postM,t,d,microP);
+			    }
+			}
+		    }
+		}
+		
+		
+		// free memory
+		
+		delete VG;
+		delete MP;
+		delete microP;
+		
+		preMSet->clear();
+		postMSet->clear();
+		delete preMSet;
+		delete postMSet;
+		
+		timer.stopTime();
+		timer.stopMemory();
+		timer.stop();
+	    }
+    }
+    closeOutputCSV(csvFile);
+}
+
+
 
 
 void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG)
@@ -237,7 +393,7 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
     std::string postfix = "";
     switch (metric)
     {
-    case MACRO_STATE :	postfix = "_MS";	break;
+    case MACRO_STATE :          postfix = "_MS";	break;
     case MAJORITY :		postfix = "_MAJ";	break;
     case MAJ_1PC :		postfix = "_1PC";	break;
     case MAJ_2PC :		postfix = "_2PC";	break;
@@ -266,10 +422,10 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
     case MAJ_12B :		postfix = "_12B";	break;
     case MAJ_20B :		postfix = "_20B";	break;
     case MAJ_40B :		postfix = "_40B";	break;
-    case ACTIVE_EDGES :	postfix = "_AE";	break;
+    case ACTIVE_EDGES :	        postfix = "_AE";	break;
     default :			postfix = "_NA";	break;
     }
-	
+    
     switch (type)
     {
     case M_MACRO :
@@ -369,16 +525,18 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	set->insert(m);
 	break;
     }
-		
+    
     case M_ALLSIZES1 : case M_SOMESIZES1 : case M_AGENT1_ALLSIZES1 : case M_AGENT1_SOMESIZES1 :
     {
-	TwoCommunitiesVoterGraph *TCVG = (TwoCommunitiesVoterGraph*) VG;
-	int s1 = TCVG->size1;
-			
-	VoterProbe **prList = new VoterProbe *[s1-1];
-	VoterMeasurement **mList = new VoterMeasurement *[s1-1];
+	std::set<VoterNode*> *nodeSet = VG->nodeSet;
+	TwoCommunitiesVoterGraph *TCVG = dynamic_cast<TwoCommunitiesVoterGraph*>(VG);
+	if (TCVG != NULL) { nodeSet = TCVG->community1; }
+	int size = VG->nodeSet->size();
+	
+	VoterProbe **prList = new VoterProbe *[size-1];
+	VoterMeasurement **mList = new VoterMeasurement *[size-1];
 
-	for (int i = 1; i < s1; i++)
+	for (int i = 1; i < size; i++)
 	{
 	    std::stringstream ss; ss << i;
 	    std::string str = ss.str();
@@ -386,8 +544,8 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	    std::string prefix = "";
 	    if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { prefix = "AGENT1_"; }
 				
-	    prList[i-1] = new VoterProbe(TCVG);
-	    mList[i-1] = new VoterMeasurement(TCVG,prefix + "SIZE" + str + postfix);
+	    prList[i-1] = new VoterProbe(VG);
+	    mList[i-1] = new VoterMeasurement(VG,prefix + "SIZE" + str + postfix);
 	    mList[i-1]->addProbe(prList[i-1],metric);
 				
 	    if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { mList[i-1]->addProbe(agent1Pr,metric); }
@@ -395,7 +553,7 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	    switch (type)
 	    {
 	    case M_ALLSIZES1 : case M_AGENT1_ALLSIZES1 : set->insert(mList[i-1]); break;
-	    case M_SOMESIZES1 : case M_AGENT1_SOMESIZES1 : if (i % (s1/5) == 0) { set->insert(mList[i-1]); } break;
+	    case M_SOMESIZES1 : case M_AGENT1_SOMESIZES1 : if (i % (size/5) == 0) { set->insert(mList[i-1]); } break;
 		
 	    default : break;
 	    }
@@ -403,21 +561,61 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	
 	int j = 1;
 			
-	for (std::set<VoterNode*>::iterator it = TCVG->community1->begin(); it != TCVG->community1->end(); ++it)
+	for (std::set<VoterNode*>::iterator it = nodeSet->begin(); it != nodeSet->end(); ++it)
 	{
-	    for (int i = j; i < s1; i++) { prList[i-1]->addNode(*it); }
+	    for (int i = j; i < size; i++) { prList[i-1]->addNode(*it); }
 	    j++;
+	}
+
+	delete [] prList;
+	delete [] mList;
+	break;
+    }
+
+
+    case M_ALLNEIGHBORHOODS :
+    {
+	ChainVoterGraph *CVG = dynamic_cast<ChainVoterGraph*>(VG);
+	if (CVG != NULL)
+	{
+	    if (CVG->ring)
+	    {
+		int size = CVG->size;
+		VoterProbe **prList = new VoterProbe *[size/2];
+		VoterMeasurement **mList = new VoterMeasurement *[size/2];
+		
+		for (int i = 1; i <= size/2; i++)
+		{
+		    std::stringstream ss; ss << i;
+		    std::string str = ss.str();
+		
+		    prList[i-1] = new VoterProbe(VG);
+		    prList[i-1]->addNode(CVG->nodeArray[0]);
+		    for (int j = 1; j <= i; j++)
+		    {
+			prList[i-1]->addNode(CVG->nodeArray[j]);
+			prList[i-1]->addNode(CVG->nodeArray[size-j]);
+		    }
+
+		    mList[i-1] = new VoterMeasurement(VG,"NEIGHBORHOOD" + str + postfix);
+		    mList[i-1]->addProbe(prList[i-1],metric);
+		    set->insert(mList[i-1]);
+		}
+	    
+		delete [] prList;
+		delete [] mList;
+	    }
 	}
 	break;
     }
-			
+	    
     default : std::cout << "ERROR: unknown measurement!" << std::endl;
     }
 }
 
+		
 
-
-void addHeaderToCSV (std::string fileName)
+void addTwoCommunitiesHeaderToCSV (std::string fileName)
 {
     std::ifstream testFile;
     openInputCSV(testFile,fileName);
@@ -463,9 +661,9 @@ void addHeaderToCSV (std::string fileName)
 }
 
 
-void computeMeasures (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
-		      int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
-		      VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, Partition *microP)
+void computeTwoCommunitiesMeasures (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
+				    int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
+				    VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, Partition *microP)
 {
     addCSVField(csvFile,type);
 
@@ -523,9 +721,9 @@ void computeMeasures (std::ofstream &csvFile, MarkovProcess *MP, std::string typ
 }
 
 
-void computeMeasuresWithAggregation (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
-				     int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
-				     VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, double threshold)
+void computeTwoCommunitiesMeasuresWithAggregation (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
+						   int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
+						   VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, double threshold)
 {
     std::set<OrderedPartition*> *pSet = MP->getOptimalOrderedPartition(postM->partition,preM->partition,delay,time,threshold);
     for (std::set<OrderedPartition*>::iterator it = pSet->begin(); it != pSet->end(); ++it)
@@ -570,8 +768,10 @@ void computeMeasuresWithAggregation (std::ofstream &csvFile, MarkovProcess *MP, 
 
 
 
-VoterExperiment::VoterExperiment (int size1, int size2, double intraR1, double intraR2, double interR1, double interR2,
-				  double contrarian1, double contrarian2, double time, double delay, SpecMeasurementSet *preM, SpecMeasurementSet *postM)
+
+
+TwoCommunitiesExperiment::TwoCommunitiesExperiment (int size1, int size2, double intraR1, double intraR2, double interR1, double interR2,
+						    double contrarian1, double contrarian2, double time, double delay, SpecMeasurementSet *preM, SpecMeasurementSet *postM)
 {
     id = ++id_number;
     update = UPDATE_EDGES;
@@ -594,6 +794,26 @@ VoterExperiment::VoterExperiment (int size1, int size2, double intraR1, double i
     contrarian1Min = contrarian1; contrarian1Max = contrarian1;	contrarian1Step = 0.1;
     contrarian2Min = contrarian2; contrarian2Max = contrarian2;	contrarian2Step = 0.1;
     equalContrarian = false;
+	
+    timeMin = time;		timeMax = time;		timeStep = 1;
+    delayMin = delay;	delayMax = delay;	delayStep = 1;
+	
+    preMeasurements = preM;
+    postMeasurements = postM;
+}
+
+
+
+ChainExperiment::ChainExperiment (int size, double contrarian, bool r, double time, double delay, SpecMeasurementSet *preM, SpecMeasurementSet *postM)
+{
+    id = ++id_number;
+    update = UPDATE_EDGES;
+    threshold = 1.0e-10;
+    withAggregation = false;
+    ring = r;
+		
+    sizeMin = size;	sizeMax = size;	sizeStep = 1;
+    contrarianMin = contrarian; contrarianMax = contrarian;	contrarianStep = 0.1;
 	
     timeMin = time;		timeMax = time;		timeStep = 1;
     delayMin = delay;	delayMax = delay;	delayStep = 1;
