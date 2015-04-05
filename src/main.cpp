@@ -21,28 +21,54 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
-    std::string fileName = "DATA_CHAIN.CSV";
+    std::string fileName = "DATA.CSV";
 
-    ChainExperimentSet *expSet = new ChainExperimentSet();
-    //TwoCommunitiesExperimentSet *expSet = new TwoCommunitiesExperimentSet();
+    bool compactModel = false;
+    bool chain = false;
+    bool partDecomposition = false;
+
+    bool basicMeasures = true;
+    bool allSizes = true;
+    bool twoCommunitiesMeasures = false;
+
+    ChainExperimentSet *expChainSet = new ChainExperimentSet();
+    TwoCommunitiesExperimentSet *exp2CSet = new TwoCommunitiesExperimentSet();
 
     SpecMeasurementSet* preM = new SpecMeasurementSet();
     SpecMeasurementSet* postM = new SpecMeasurementSet();
 
-    postM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
-    //postM->insert(std::make_pair(M_MACRO,MACRO_STATE));
+    //postM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
+    postM->insert(std::make_pair(M_MACRO,MACRO_STATE));
 
 
+    /*
     ChainExperiment *exp;
-    exp = new ChainExperiment(9,0,true,0,0,preM,postM); exp->delayMax = 100; expSet->insert(exp);
+    exp = new ChainExperiment(9,0,true,0,0,preM,postM); exp->delayMax = 100; expChainSet->insert(exp);
+    exp = new ChainExperiment(9,0.1,true,0,0,preM,postM); exp->delayMax = 100; expChainSet->insert(exp);
+    exp = new ChainExperiment(9,0.1,true,-1,0,preM,postM); exp->delayMax = 100; expChainSet->insert(exp);
     preM->insert(std::make_pair(M_EMPTY,MACRO_STATE));
     preM->insert(std::make_pair(M_MICRO,MACRO_STATE));
     preM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
     preM->insert(std::make_pair(M_ALLNEIGHBORHOODS,MACRO_STATE));
+    */
 
 
-//    TwoCommunitiesExperiment *exp;
-//    exp = new TwoCommunitiesExperiment(9,0,1,0,0,0,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp->withAggregation = true; expSet->insert(exp);
+    TwoCommunitiesExperiment *exp;
+
+    /*
+    exp = new TwoCommunitiesExperiment(10,10,1,1,0,0,0,0,0,0,preM,postM);
+    exp->delayMax = 100;
+    exp->interR1Min = 0;
+    exp->interR1Step = 0.01;
+    exp->interR1Max = 1.05;
+    exp->equalInterRate = false;
+    exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);
+    */
+
+    //exp = new TwoCommunitiesExperiment(2,1,1,1,1,1,0,0,0,1,preM,postM); exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);<w
+    exp = new TwoCommunitiesExperiment(7,0,1,0,0,0,0,0,0,3,preM,postM); exp->timeMax = 200; exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);
+
+    //preM->insert(std::make_pair(M_AGENT1_MESO1_MESO2,MACRO_STATE));
 
 /*    
 
@@ -54,38 +80,43 @@ int main(int argc, char *argv[])
     double b12 = 1./(N1*N2);       double s12 = f*b12;
     double b21 = 1./(N2*N1);       double s21 = f*b21;
 
-    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,b12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
-    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,s12,s21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
-    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,s12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
-    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,b12,s21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
-    exp = new TwoCommunitiesExperiment(N1,N2,s11,b22,s12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
-    exp = new TwoCommunitiesExperiment(N1,N2,b11,s22,b12,s21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
-    exp = new TwoCommunitiesExperiment(N1,N2,s11,b22,b12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
-    exp = new TwoCommunitiesExperiment(N1,N2,b11,s22,b12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; expSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,b12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,s12,s21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,s12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,b11,b22,b12,s21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,s11,b22,s12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,b11,s22,b12,s21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,s11,b22,b12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(N1,N2,b11,s22,b12,b21,0,0,0,0,preM,postM); exp->delayMax = 100; exp->compactModel = true; exp2CSet->insert(exp);
 */
 
-    //preM->insert(std::make_pair(M_EMPTY,MACRO_STATE));
-    //preM->insert(std::make_pair(M_MACRO,MACRO_STATE));
-
-    //preM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
-    //preM->insert(std::make_pair(M_AGENT1_MACRO,MACRO_STATE));
-    
-    //preM->insert(std::make_pair(M_MICRO,MACRO_STATE));
-    //preM->insert(std::make_pair(M_ALLSIZES1,MACRO_STATE));
     //preM->insert(std::make_pair(M_SOMESIZES1,MACRO_STATE));
-    //preM->insert(std::make_pair(M_AGENT1_ALLSIZES1,MACRO_STATE));
+    //preM->insert(std::make_pair(M_AGENT1_ALLSIZES1,MACRO_STATE));    
 
+    if (basicMeasures)
+    {
+	preM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
+	preM->insert(std::make_pair(M_EMPTY,MACRO_STATE));
+	preM->insert(std::make_pair(M_MACRO,MACRO_STATE));
+	if (!compactModel) { preM->insert(std::make_pair(M_MICRO,MACRO_STATE)); }
+    }
 
-    /*
-    preM->insert(std::make_pair(M_MESO1,MACRO_STATE));
-    preM->insert(std::make_pair(M_MESO2,MACRO_STATE));
-    preM->insert(std::make_pair(M_AGENT1_MESO1,MACRO_STATE));
-    preM->insert(std::make_pair(M_AGENT1_MESO2,MACRO_STATE));
-    preM->insert(std::make_pair(M_AGENT1_MESO1_MESO2,MACRO_STATE));
-    preM->insert(std::make_pair(M_MESO1,MACRO_STATE));
-    preM->insert(std::make_pair(M_MESO2,MACRO_STATE));
-    preM->insert(std::make_pair(M_MESO1_MESO2,MACRO_STATE));
-    */
+    if (allSizes)
+    {
+	preM->insert(std::make_pair(M_ALLSIZES1,MACRO_STATE));
+    }
+
+    if (twoCommunitiesMeasures)
+    {
+	preM->insert(std::make_pair(M_MESO1,MACRO_STATE));
+	preM->insert(std::make_pair(M_MESO2,MACRO_STATE));
+
+	preM->insert(std::make_pair(M_AGENT1_MACRO,MACRO_STATE));
+	preM->insert(std::make_pair(M_AGENT1_MESO1,MACRO_STATE));
+	preM->insert(std::make_pair(M_AGENT1_MESO2,MACRO_STATE));
+	preM->insert(std::make_pair(M_AGENT1_MESO1_MESO2,MACRO_STATE));
+	preM->insert(std::make_pair(M_MESO1_MESO2,MACRO_STATE));
+    }
     
     //preM->insert(std::make_pair(M_MACRO,MAJORITY));
     //preM->insert(std::make_pair(M_AGENT1_MACRO,MAJORITY));
@@ -146,9 +177,8 @@ int main(int argc, char *argv[])
     preM->insert(std::make_pair(M_AGENT1_MACRO,MAJ_90PC));
     */
 
- 
-    chainExperiment(expSet,"/home/lamarche/programming/multilevel_prediction/data/" + fileName);
-    //twoCommunitiesExperiment(expSet,"/home/lamarche/programming/multilevel_prediction/data/" + fileName);
+    if (chain) { chainExperiment(expChainSet,"/home/lamarche/programming/multilevel_prediction/data/" + fileName); }
+    else { twoCommunitiesExperiment(exp2CSet,"/home/lamarche/programming/multilevel_prediction/data/" + fileName); }
 
     return EXIT_SUCCESS;
 }

@@ -196,18 +196,18 @@ std::string int2string (int value)
 	return strValue.str();
 }
 
-std::string float2string (float value)
+std::string float2string (float value, int prec)
 {
 	std::ostringstream strValue;
-	strValue.precision(10);
+	strValue.precision(prec);
 	strValue << std::fixed <<  value;
 	return strValue.str();
 }
 
-std::string double2string (double value)
+std::string double2string (double value, int prec)
 {
 	std::ostringstream strValue;
-	strValue.precision(10);
+	strValue.precision(prec);
 	strValue << std::fixed << value;
 	return strValue.str();
 }

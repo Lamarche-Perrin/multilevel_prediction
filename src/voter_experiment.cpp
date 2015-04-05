@@ -7,6 +7,7 @@
 #include <string>
 #include <stdlib.h>
 #include <sstream>
+#include <math.h>
 
 #include "voter_experiment.hpp"
 #include "voter_graph.hpp"
@@ -48,6 +49,8 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 	double threshold = exp->threshold;
 	bool compactModel = exp->compactModel;
 	bool withAggregation = exp->withAggregation;
+	bool partDecomposition = exp->partDecomposition;
+
 	double aggregationThreshold = 1e-10;
 		
 	int size1Min = exp->size1Min;	int size1Max = exp->size1Max;	int size1Step = exp->size1Step;
@@ -103,8 +106,10 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 					timer.startTime();
 					timer.startMemory();
 
+
 					TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,update);
-	
+
+
 					MarkovProcess *MP;
 					if (compactModel) { MP = VG->getCompactMarkovProcess(); } else { MP = VG->getMarkovProcess(); }
 					MP->getDistribution(timeMax);
@@ -129,7 +134,8 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 					meso2Pr = new VoterProbe(VG);							
 					for (std::set<VoterNode*>::iterator it = VG->community2->begin(); it != VG->community2->end(); ++it) { meso2Pr->addNode(*it); }
 
-					
+
+
 					// build the pre- and post-measurements
 
 					MeasurementSet *preMSet = new MeasurementSet();
@@ -139,6 +145,7 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 					    VoterMetric metric = (*it).second;
 					    addMeasurement (type,metric,preMSet,VG);
 					}
+
 					
 					for (MeasurementSet::iterator it = preMSet->begin(); it != preMSet->end(); ++it)
 					{
@@ -161,8 +168,8 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 					    if (compactModel) { m->partition = VG->getCompactMarkovPartition(m); }
 					    else { m->partition = VG->getMarkovPartition(m); }
 					}
-	
 
+	
 					// build the microscopic partition
 						
 					Partition *microP;
@@ -203,8 +210,33 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 							VoterMeasurement *postM = *it2;
 
 							// Run experiment
-							if (withAggregation) { computeTwoCommunitiesMeasuresWithAggregation(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,aggregationThreshold); }
-							else { computeTwoCommunitiesMeasures(csvFile,MP,type,update,s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP); }
+							if (partDecomposition)
+							{
+							    std::string name = type + "_size_" + int2string(s1) + "+" + int2string(s2)
+								+ "_rate_" + double2string(interR1,2)
+								+ "," + double2string(interR2,2)
+								+ "_time_" + int2string(t) + "_delay_" + int2string(d) + "_" + preM->type + ".csv";
+							    addTwoCommunitiesPartHeaderToCSV(name);
+							    std::ofstream file;
+							    openOutputCSV(file,name);
+    
+							    computeTwoCommunitiesPartMeasures(file,MP,s1,s2,preM,postM,t,d);
+
+							    closeOutputCSV(file);
+							}
+
+							else if (withAggregation)
+							{
+							    computeTwoCommunitiesMeasuresWithAggregation(csvFile,MP,type,update,s1,s2,
+													 intraR1,intraR2,interR1,interR2,c1,c2,
+													 preM,postM,t,d,aggregationThreshold);
+							}
+
+							else
+							{
+							    computeTwoCommunitiesMeasures(csvFile,MP,type,update,s1,s2,
+											  intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP);
+							}
 						    }
 						}
 					    }
@@ -536,14 +568,13 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	VoterProbe **prList = new VoterProbe *[size-1];
 	VoterMeasurement **mList = new VoterMeasurement *[size-1];
 
-	for (int i = 1; i < size; i++)
+	for (int i = 1; i <= size; i++)
 	{
-	    std::stringstream ss; ss << i;
-	    std::string str = ss.str();
+	    std::string str = int2string(i);
 
 	    std::string prefix = "";
-	    if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { prefix = "AGENT1_"; }
-				
+	    if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { prefix = "AGENT1_"; }	    
+	    
 	    prList[i-1] = new VoterProbe(VG);
 	    mList[i-1] = new VoterMeasurement(VG,prefix + "SIZE" + str + postfix);
 	    mList[i-1]->addProbe(prList[i-1],metric);
@@ -553,22 +584,22 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	    switch (type)
 	    {
 	    case M_ALLSIZES1 : case M_AGENT1_ALLSIZES1 : set->insert(mList[i-1]); break;
-	    case M_SOMESIZES1 : case M_AGENT1_SOMESIZES1 : if (i % (size/5) == 0) { set->insert(mList[i-1]); } break;
-		
+	    case M_SOMESIZES1 : case M_AGENT1_SOMESIZES1 : if (i % (size/5) == 0) { set->insert(mList[i-1]); } break;	
 	    default : break;
 	    }
 	}
 	
 	int j = 1;
-			
+	
 	for (std::set<VoterNode*>::iterator it = nodeSet->begin(); it != nodeSet->end(); ++it)
 	{
-	    for (int i = j; i < size; i++) { prList[i-1]->addNode(*it); }
+	    for (int i = j; i <= size; i++) { prList[i-1]->addNode(*it); }
 	    j++;
 	}
 
-	delete [] prList;
-	delete [] mList;
+	//delete [] prList;
+	//delete [] mList;
+
 	break;
     }
 
@@ -768,6 +799,59 @@ void computeTwoCommunitiesMeasuresWithAggregation (std::ofstream &csvFile, Marko
 
 
 
+void addTwoCommunitiesPartHeaderToCSV (std::string fileName)
+{
+    std::ifstream testFile;
+    openInputCSV(testFile,fileName);
+    bool emptyFile = isInputCSVEmpty(testFile);
+    closeInputCSV(testFile);
+	
+    if (emptyFile)
+    {
+	std::ofstream csvFile;
+	openOutputCSV(csvFile,fileName);
+
+	CSVLine line;
+	line.push_back("AGENT");
+	line.push_back("MESO1");
+	line.push_back("MESO2");
+
+	line.push_back("PROBABILITY");
+	line.push_back("INFORMATION");
+
+	addCSVLine(csvFile,line);
+
+	closeOutputCSV(csvFile);
+    }
+}
+
+
+void computeTwoCommunitiesPartMeasures (std::ofstream &csvFile, MarkovProcess *MP, int size1, int size2,
+					VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay)
+{
+    for (std::list<Part*>::iterator it = preM->partition->parts->begin(); it != preM->partition->parts->end(); ++it)
+    {
+	Part *part = *it;
+	int i = part->individuals->front();
+
+	int a = i % 2;
+	int n1 = (i-a)/2 % size1;
+	int n2 = (i-a-2*n1)/(2*size1);
+
+	addCSVField(csvFile,a);
+	addCSVField(csvFile,n1);
+	addCSVField(csvFile,n2);
+
+	double probability = MP->getProbability(part,time);
+	double information = MP->getPartMutualInformation(postM->partition,part,delay,time);
+
+	addCSVField(csvFile,probability,true,15);
+	addCSVField(csvFile,information,false,15);
+	
+	endCSVLine(csvFile);
+    }
+}
+
 
 
 TwoCommunitiesExperiment::TwoCommunitiesExperiment (int size1, int size2, double intraR1, double intraR2, double interR1, double interR2,
@@ -778,6 +862,7 @@ TwoCommunitiesExperiment::TwoCommunitiesExperiment (int size1, int size2, double
     threshold = 1.0e-10;
     compactModel = false;
     withAggregation = false;
+    partDecomposition = false;
 		
     size1Min = size1;	size1Max = size1;	size1Step = 1;
     size2Min = size2;	size2Max = size2;	size2Step = 1;

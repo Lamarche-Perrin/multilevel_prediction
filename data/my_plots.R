@@ -1,5 +1,4 @@
-library(RColorBrewer)
-
+suppressDuplicates("DATA","DATA_FORMATED",TRUE)
 suppressDuplicates("DATA","DATA_AGG")
 suppressDuplicates("DATA_CHAIN","FDATA_CHAIN")
 #suppressDuplicates("DATA","DATA_MAJ_BINS",TRUE)
@@ -29,29 +28,105 @@ plotIB (inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE, 
 
 
 postMeasurement <- c("AGENT1_MS")
-preMeasurement <- c("EMPTY","MICRO_MS","AGENT1_MS","NEIGHBORHOOD1_MS","NEIGHBORHOOD2_MS","NEIGHBORHOOD3_MS","NEIGHBORHOOD4_MS")
+preMeasurement <- c("AGENT1_MS","NEIGHBORHOOD1_MS","NEIGHBORHOOD2_MS","NEIGHBORHOOD3_MS","NEIGHBORHOOD4_MS","EMPTY") #,"MICRO_MS"
 
 fileName <- "ring_experiment_size9"
 plotIB (inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE, noLegend = TRUE,
-        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 200, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
         suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
         postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
         var = "DELAY", size = c(9,0), intraRate = c(0,0), interRate = c(0,0), contrarian = c(0,0), time = 0, delay = NULL,
         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "RING")
 
 
+fileName <- "ring_experiment_size9_transient-contrarian"
+plotIB (inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 10000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(9,0), intraRate = c(0,0), interRate = c(0,0), contrarian = c(0.1,0), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "RING")
 
-# two-community tests
+
+fileName <- "ring_experiment_size9_stationary-contrarian"
+plotIB (inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 10000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(9,0), intraRate = c(0,0), interRate = c(0,0), contrarian = c(0.1,0), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "RING")
+
+
+
+
+
+# two-community experiments
 postMeasurement <- c("AGENT1_MS")
 preMeasurement <- c("EMPTY","AGENT1_MS","AGENT1_MESO1_MS","AGENT1_MESO2_MS","AGENT1_MESO1_MESO2_MS","AGENT1_MACRO_MS","MESO1_MS","MESO1_MESO2_MS","MESO2_MS","MACRO_MS")
 
-fileName <- "two-community_test"
-plotIB (inputFileName = "DATA_F2", modelName = "Complete Graph", phaseDiagram = TRUE, noLegend = TRUE,
+fileName <- "two-community_experiment"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Two-community Graph", phaseDiagram = TRUE, noLegend = TRUE,
         xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
         suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
         postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
-        var = "DELAY", size = c(10,10), intraRate = c(1,0.5), interRate = c(1,0.5), contrarian = c(0,0), time = 0, delay = NULL,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(0.2,0.2), contrarian = c(0,0), time = 0, delay = NULL,
         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")
+
+fileName <- "two-community_experiment_time50"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Two-community Graph", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(0.2,0.2), contrarian = c(0,0), time = 50, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")
+
+fileName <- "two-community_experiment_delay50"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Two-community Graph", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "TIME", yAxis = "BETA", yMin = 0, yMax = 1000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "TIME", size = c(10,10), intraRate = c(1,1), interRate = c(0.2,0.2), contrarian = c(0,0), time = NULL, delay = 50,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")
+
+fileName <- "two-community_experiment_transient-contrarian"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Two-community Graph", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(0.2,0.2), contrarian = c(0.047619,0.047619), time = 0, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")
+
+fileName <- "two-community_experiment_stationary-contrarian"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Two-community Graph", phaseDiagram = TRUE, noLegend = TRUE,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 1000, xMax = 100, xMin = 1, varMin = 1, noNegativeValue = TRUE,
+        suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(10,10), intraRate = c(1,1), interRate = c(0.2,0.2), contrarian = c(0.047619,0.047619), time = -1, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "COMPACT_MODEL")
+
+
+# sampling experiment
+postMeasurement <- c("MACRO_MS")
+preMeasurement <- c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS")
+
+bool <- TRUE
+fileName <- "sampling_experiment_time"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", phaseDiagram = TRUE, noLegend = bool,
+        xAxis = "TIME", yAxis = "BETA", yMin = 1, yMax = 6, xMax = 100, xMin = 0, varMin = 0, noNegativeValue = TRUE,
+        suppressSubPhases = bool, suppressInterPhases = bool, unicolor = bool, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+
+bool <- TRUE
+fileName <- "sampling_experiment_delay"
+plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", phaseDiagram = TRUE, noLegend = bool,
+        xAxis = "DELAY", yAxis = "BETA", yMin = 1, yMax = 8, xMax = 100, xMin = 1, varMin = 0, noNegativeValue = TRUE,
+        suppressSubPhases = bool, suppressInterPhases = bool, unicolor = bool, legendPos = "topright",
+        postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
+        var = "DELAY", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = 100, delay = NULL,
+        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+
 
 
 

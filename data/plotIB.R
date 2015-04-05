@@ -3,19 +3,31 @@ library(RColorBrewer)
 
 colorSet <- brewer.pal(9,"Set1")
 
+colorHide <- "darkgrey"
+pchHide <- 21
+
 color <- list(
     "MACRO_MS" = colorSet[2],
     "MICRO_MS" = colorSet[1],
-    "EMPTY_MS" = colorSet[9],
-    "AGENT_MS" = colorSet[3],
+    "EMPTY" = "black",
+    "AGENT1_MS" = colorSet[3],
     "MESO1_MS" = colorSet[5],
     "MESO2_MS" = colorSet[6]
     )
 
+pchList <- list(
+    "MACRO_MS" = 25,
+    "MICRO_MS" = 24,
+    "EMPTY" = 23,
+    "AGENT_MS" = 22,
+    "MESO1_MS" = 4,
+    "MESO2_MS" = 5
+    )
+
 measurementLabel <- list(
-    "EMPTY" = "Empty measurement",
-    "MACRO_MS" = "Macroscopic measurement",
-    "MICRO_MS" = "Microscopic measurement",
+    "EMPTY" = "EMPTY",
+    "MACRO_MS" = "MACRO",
+    "MICRO_MS" = "MICRO",
     "AGENT1_MS" = "Agent measurement",
     "MESO1" = "Mesoscopic measurement",
     "MESO2" = "Mesoscopic measurement",
@@ -106,13 +118,13 @@ measurementText <- list(
     "AGENT1_MACRO_10B" = c("AGENT","MACRO_10B"),
     "AGENT1_MACRO_12B" = c("AGENT","MACRO_12B"),
     
-    "SIZE1_MS" = c(""),
-    "SIZE2_MS" = c(""),
-    "SIZE3_MS" = c(""),
-    "SIZE4_MS" = c(""),
-    "SIZE5_MS" = c(""),
-    "SIZE6_MS" = c(""),
-    "SIZE7_MS" = c(""),
+    "SIZE1_MS" = c("S1"),
+    "SIZE2_MS" = c("S2"),
+    "SIZE3_MS" = c("S3"),
+    "SIZE4_MS" = c("S4"),
+    "SIZE5_MS" = c("S5"),
+    "SIZE6_MS" = c("S6"),
+    "SIZE7_MS" = c("S7"),
 
     "AGENT1_SIZE2_MS" = c(""),
     "AGENT1_SIZE3_MS" = c(""),
@@ -136,10 +148,10 @@ plotIB <- function (
     xMin = NULL, xMax = NULL, yMin = NULL, yMax = NULL,
     pointMin = NULL, pointMax = NULL, pointStep = NULL, pointList = NULL,
     labelMin = NULL, labelMax = NULL, labelStep = NULL, labelList = NULL,
-    labelPos = NULL, noLabel = NULL,
+    labelPos = NULL, noLabel = NULL, hide = NULL, addLabel = NULL,
 
     modelName = NULL, noTitle = FALSE,
-    noLegend = FALSE, legendPos = "bottomright",
+    noLegend = NULL, legendPos = "bottomright",
     measurementText = NULL, displayMinYAxis = NULL, displayMaxYAxis = NULL,
     displayBinaryVariable = FALSE, displayMinXAxis = NULL, displayMaxXAxis = NULL,
     addText = NULL, addTextX = NULL, addTextY = NULL,
@@ -174,6 +186,7 @@ plotIB <- function (
     contrarian2 <- contrarian[2]
 
     if (is.null(varStep)) { varStep <- 1 }
+    preMeasurement <- rev(preMeasurement)
     
                                         # MAKE TITLE AND SUBTITLE
     title <- ""
@@ -183,50 +196,50 @@ plotIB <- function (
     postMTxt <- bquote(Phi)
     
     if (postMeasurement == "MACRO_MS") {
-        title <- bquote("Predicting the " ~ bold("Macroscopic Measurement"))
+        title <- bquote("Predicting the Macroscopic Measurement")
         postMTxt <- bquote(phi[T])
     }
     
     if (postMeasurement == "MICRO_MS") {
-        title <- bquote("Predicting the " ~ bold("Microscopic Measurement"))
+        title <- bquote("Predicting the Microscopic Measurement")
     }
     
     if (postMeasurement == "AGENT1_MS" || postMeasurement == "AGENT2_MS") {
-        title <- bquote("Predicting a " ~ bold("One-agent Measurement"))
+        title <- bquote("Predicting the Agent Measurement")
         postMTxt <- bquote(phi[group("{",omega,"}")])
     }
     
-    title <- bquote(.(title) ~ " of the " ~ bold(.(modelName)))
+    title <- bquote(bold(.(title) ~ " in the " ~ .(modelName)))
     
     tTxt <- time
     if (!is.null(time) && time == -1) { tTxt <- bquote(infinity) }
     
-    timeTxt <- bquote("time: " ~ t == .(tTxt) ~ ", ")
+    timeTxt <- bquote("time " ~ t == .(tTxt) ~ ", ")
     
-    delayTxt <- bquote("delay: " ~ tau == .(delay) ~ ", ")
+    delayTxt <- bquote("horizon " ~ tau == .(delay) ~ ", ")
     rateTxt <- bquote("")
     sizeTxt <- bquote("")
     
     contTxt <- bquote("")
     if (contrarian1 > 0 && (contrarian1 == contrarian2 || contrarian2 == 0)) {
-        contTxt <- bquote("contrarian: " ~ c == .(round(contrarian1,2)) ~ ", ")
+        contTxt <- bquote("contrarian rate " ~ c == .(round(contrarian1,2)) ~ ", ")
     }
     if (contrarian1 > 0 && contrarian2 > 0 && contrarian2 != contrarian1) {
-        contTxt <- bquote("contrarian: " ~ group("(",list(.(round(contrarian1,2)),.(round(contrarian2,2))),")") ~ ", ")
+        contTxt <- bquote("contrarian rate " ~ group("(",list(.(round(contrarian1,2)),.(round(contrarian2,2))),")") ~ ", ")
     }
     
     if (size2 == 0) {
-        sizeTxt <- bquote("size: " ~ group("|",X,"|") == .(size) ~ ", ")
+        sizeTxt <- bquote("size " ~ N == .(size) ~ ", ")
     } else {
-        sizeTxt <- bquote("size: " ~ group("|",X,"|") == .(size1) + .(size2) ~ ", ")
-        rateTxt <- bquote("interaction rates: " ~ omega[1] == .(round(interRate1,2))
+        sizeTxt <- bquote("size " ~ N == .(size1) + .(size2) ~ ", ")
+        rateTxt <- bquote("interaction rates " ~ omega[1] == .(round(interRate1,2))
                           ~ " and " ~  omega[2] == .(round(interRate2,2)) ~ ", ")
     }
     
     if (var == "DELAY") {
-        subtitle <- bquote("(" ~ .(sizeTxt) ~ .(timeTxt) ~ .(rateTxt) ~ .(contTxt)
-                           ~ "and variable delay:" ~ tau %in%
-                           ~ group("[",list(0,infinity),"[") ~ ")")
+        subtitle <- bquote(.(sizeTxt) ~ .(timeTxt) ~ .(rateTxt) ~ .(contTxt)
+                           ~ "variable horizon" ~ tau %in%
+                           ~ group("[",list(0,infinity),"["))
         currentStateTxt <- bquote(X^.(tTxt))
         if (time != 0) {
             nextStateTxt <- bquote(X^{.(tTxt)+tau})
@@ -240,9 +253,9 @@ plotIB <- function (
     }  
     
     if (var == "TIME") {
-        subtitle <- bquote("(" ~ .(sizeTxt) ~ .(delayTxt) ~ .(rateTxt) ~ .(contTxt)
-                           ~ "and variable time:" ~ t %in%
-                           ~ group("[",list(0,infinity),"[") ~ ")")
+        subtitle <- bquote(.(sizeTxt) ~ .(delayTxt) ~ .(rateTxt) ~ .(contTxt)
+                           ~ "variable time" ~ t %in%
+                           ~ group("[",list(0,infinity),"["))
         currentStateTxt <- bquote(X^t)
         if (delay > 0) { nextStateTxt <- bquote(X^{t+.(delay)}) } else { nextStateTxt <- bquote(X^t) }
         if (xAxis != var && yAxis != var) {
@@ -252,9 +265,9 @@ plotIB <- function (
     }
     
     if (var == "SIZE") {
-        subtitle <- bquote("(" ~ .(timeTxt) ~ .(delayTxt) ~ .(rateTxt) ~ .(contTxt)
-                           ~ "and variable size:" ~ group("|",X,"|") %in%
-                           ~ group("[",list(2,infinity),"[") ~ ")")
+        subtitle <- bquote(.(timeTxt) ~ .(delayTxt) ~ .(rateTxt) ~ .(contTxt)
+                           ~ "variable size" ~ group("|",X,"|") %in%
+                           ~ group("[",list(2,infinity),"["))
         currentStateTxt <- bquote(X^.(tTxt))
         nextStateTxt <- bquote(X^.(time+delay))
         if (time == -1) { nextStateTxt <- bquote(X^(.(tTxt)+.(delay))) }
@@ -266,9 +279,9 @@ plotIB <- function (
     
     
     if (var == "CONTRARIAN1") {
-        subtitle <- bquote("(" ~ .(sizeTxt) ~ .(timeTxt) ~ .(delayTxt) ~ .(rateTxt)
-                           ~ "and variable contrarian rate:" ~ c %in%
-                           ~ group("[",list(0,1),"]") ~ ")")
+        subtitle <- bquote(.(sizeTxt) ~ .(timeTxt) ~ .(delayTxt) ~ .(rateTxt)
+                           ~ "variable contrarian rate" ~ c %in%
+                           ~ group("[",list(0,1),"]"))
         currentStateTxt <- bquote(X^.(tTxt))
         nextStateTxt <- bquote(X^.(time+delay))
         if (time == -1) { nextStateTxt <- bquote(X^(.(tTxt)+.(delay))) }
@@ -278,22 +291,30 @@ plotIB <- function (
         }
     }
     
+#    axisLabel <- list(
+#        "CURRENT_I" = bquote("Model Complexity   " ~ H
+#            ~ bgroup("(",phi ~ group("(",.(currentStateTxt),")"),")")),
+#        "MACRO_I" = bquote("Predictive Capacity   " ~ I
+#            ~ bgroup("(",phi ~ group("(",.(currentStateTxt),")") ~ ";"
+#                     ~ .(postMTxt) ~ group("(",.(nextStateTxt),")"),")")),
+#        "MACRO_COND_H" = bquote("Non-predicted Complexity   " ~ H
+#            ~ bgroup("(",.(postMTxt) ~ group("(",.(nextStateTxt),")") ~ "|"
+#                     ~ phi ~ group("(",.(currentStateTxt),")"),")")),
+#        "TIME" = bquote("Time   " ~ t),
+#        "DELAY" = bquote("Delay   " ~ tau),
+#        "BETA" = bquote("Trade-off Parameter   " ~ beta),
+#        "IB" = bquote("Information Bottleneck with" ~ beta == .(beta)),
+#        "CONTRARIAN1" = bquote("Contrarian rate   " ~ c)
+#        )
+
     axisLabel <- list(
-        "CURRENT_I" = bquote("Model Complexity   " ~ H
-            ~ bgroup("(",phi ~ group("(",.(currentStateTxt),")"),")")),
-        "MACRO_I" = bquote("Anticipatory Capacity   " ~ I
-            ~ bgroup("(",phi ~ group("(",.(currentStateTxt),")") ~ ";"
-                     ~ .(postMTxt) ~ group("(",.(nextStateTxt),")"),")")),
-        "MACRO_COND_H" = bquote("Non-predicted Complexity   " ~ H
-            ~ bgroup("(",.(postMTxt) ~ group("(",.(nextStateTxt),")") ~ "|"
-                     ~ phi ~ group("(",.(currentStateTxt),")"),")")),
-        "TIME" = bquote("Time   " ~ t),
-        "DELAY" = bquote("Delay   " ~ tau),
-        "BETA" = bquote("Trade-off Parameter   " ~ beta),
-        "IB" = bquote("Information Bottleneck with" ~ beta == .(beta)),
-        "CONTRARIAN1" = bquote("Contrarian rate   " ~ c)
+        "CURRENT_I" = bquote("Model Complexity (in bits)"),
+        "MACRO_I" = bquote("Predictive Capacity (in bits)"),
+        "TIME" = bquote("Time " ~ t),
+        "DELAY" = bquote("Horizon " ~ tau),
+        "BETA" = bquote("Trade-off Parameter " ~ beta)
         )
-    
+
     xlab <- xAxis
     ylab <- yAxis
     
@@ -349,7 +370,7 @@ plotIB <- function (
 
     
                                         # COMPUTE IB-DIAGRAM
-    
+   
     data$DISPLAY <- TRUE
     if (xAxis == "BETA" || yAxis == "BETA") {
         newPreMeasurement <- c()
@@ -480,18 +501,22 @@ plotIB <- function (
         }
     }
     
-    if (noTitle) { par(mar=c(4,4,1,1)+.1) } else { par(mar=c(4,4,4,1)+.1) }
+    if (noTitle) { par(mar=c(3,3,0,0)+.1) } else { par(mar=c(4,4,4,1)+.1) }
     
     if (is.null(xMin)) { xMin <- min(data[,xAxis]) }
     if (is.null(xMax)) { xMax <- max(data[,xAxis]) }
     if (is.null(yMin)) { yMin <- min(data[,yAxis]) }
     if (is.null(yMax)) { yMax <- max(data[,yAxis]) }
     
-    plot(0, type = "n", xlab = "", ylab = "", xlim = c(xMin,xMax), ylim = c(yMin,yMax))
+    plot(0, type = "n", axes = F, xlab = NA, ylab = NA, xlim = c(xMin,xMax), ylim = c(yMin,yMax))
     
-    title(xlab = xlab, line = 2.5)
-    title(ylab = ylab, line = 2)
-    
+    title(xlab = xlab, line = 1.7, cex.lab = 1.3)
+    title(ylab = ylab, line = 1.7, cex.lab = 1.3)
+    axis(side = 1, tck = -.01, labels = NA)
+    axis(side = 2, tck = -.01, labels = NA)
+    axis(side = 1, lwd = 0, line = -0.5)
+    axis(side = 2, lwd = 0, line = -0.5)
+
     if (!noTitle) {
         title(main = title, line = 2.5)
         title(main = subtitle, line = 1.2)      
@@ -520,8 +545,12 @@ plotIB <- function (
     } else {
         colorSet <- seq(1,length(preMeasurement),1)
     }
-    
-    displayMeasurement <- unique(data[data$DISPLAY,"PREM"])
+
+    if (xAxis == "BETA" || yAxis == "BETA") {
+        if (suppressSubPhases) { displayMeasurement <- unique(data[data$DISPLAY,"PREM"]) }
+        else { displayMeasurement <- unique(data[,"PREM"]) }
+    } else { displayMeasurement <- preMeasurement }
+
     for(preM in displayMeasurement) {
         print(preM)
         d <- data[data$PREM == preM,]
@@ -536,14 +565,24 @@ plotIB <- function (
         if (var == "TIME") { labels <- d$TIME }
         if (var == "SIZE") { labels <- d$SIZE }
         if (var == "CONTRARIAN1") { labels <- d$CONTRARIAN1 }
-        
-        if (!is.null(color) && !is.null(color[[preM]])) {
-            col <- color[[preM]]
+
+        if (!is.null(hide) && preM %in% hide) {
+            col <- colorHide
         } else {
-            col <- colorSet[i]
+            if (!is.null(color) && !is.null(color[[preM]])) {
+                col <- color[[preM]]
+            } else {
+                col <- colorSet[i]
+            }
+            if (unicolor) { col <- 1 }
         }
-        if (unicolor) { col <- 1 }
-        
+
+        if (!is.null(pchList) && !is.null(pchList[[preM]])) {
+            pch <- pchList[[preM]]
+        } else {
+            pch <- pchHide
+        }
+
         if (!is.null(labelPos) && !is.null(labelPos[[preM]])) {
             pos <- labelPos[[preM]]
         } else {
@@ -595,45 +634,57 @@ plotIB <- function (
             }        
         }
         
-        points(d[,xAxis], d[,yAxis], pch=19, lwd=2, col=col)
+        points(d[,xAxis], d[,yAxis], pch=pch, lwd=2, col=col, bg=col)
 
                                         # draw labels
-        if (is.null(noLabel) || (noLabel != "ALL" && !(preM %in% noLabel))) {
-            if (!is.null(labelList) && !is.null(labelList[[preM]])) {
-                d <- d[d[,var] %in% labelList[[preM]],]
-            } else if (!is.null(labelList) && !is.null(labelList[["ALL"]])) {
-                d <- d[d[,var] %in% labelList[["ALL"]],]                
-            } else {
-                if (!is.null(labelMin)) { d <- d[d[,var] >= labelMin,] }
+        if (!is.null(addLabel) && !is.null(addLabel[[preM]])) {
+            addL <- addLabel[[preM]]
+            text(d[as.integer(addL[1]),xAxis], d[as.integer(addL[1]),yAxis], labels=bquote(bold(.(addL[3]))), cex=1, pos=as.integer(addL[2]), col=col)
+        }
+
+        if (!is.null(labelList) && !is.null(labelList[[preM]])) {
+            d <- d[d[,var] %in% labelList[[preM]],]
+        } else if (!is.null(labelList) && !is.null(labelList[["ALL"]])) {
+            d <- d[d[,var] %in% labelList[["ALL"]],]                
+        } else {
+            if (!is.null(labelMin)) { d <- d[d[,var] >= labelMin,] }
                 if (!is.null(labelMax)) { d <- d[d[,var] <= labelMax,] }
-                if (!is.null(labelStep)) {
-                    if (var == "CONTRARIAN1") {
-                        d <- d[round(d[,var]*10000) %% round(labelStep*10000) == 0,]              
-                    } else {
-                        d <- d[d[,var] %% labelStep == 0,]
-                    }
+            if (!is.null(labelStep)) {
+                if (var == "CONTRARIAN1") {
+                    d <- d[round(d[,var]*10000) %% round(labelStep*10000) == 0,]              
+                } else {
+                    d <- d[d[,var] %% labelStep == 0,]
                 }
             }
-            
-            text(d[,xAxis], d[,yAxis], labels=d[,var], cex=1, pos=pos)
         }
-        
-        legendLabel[i] <- lab
-        legendColor[i] <- col
-        if (phaseDiagram) { legendPch[i] <- NA } else { legendPch[i] <- 19 }
-        if (phaseDiagram) { legendLwd[i] <- 3 } else { legendLwd[i] <- 1 }
-        legendLty[i] <- 1
-        i <- i+1
+
+        if (is.null(noLabel) || (noLabel != "ALL" && !(preM %in% noLabel))) {
+            lArray <- d[,var]
+            if (var == "TIME") { lArray <- paste(bquote(t),"=",lArray,sep="") }
+            text(d[,xAxis], d[,yAxis], labels=lArray, cex=1, pos=pos)
+        }
+
+        if (is.null(noLegend) || (noLegend != "ALL" && !(preM %in% noLegend))) {
+            legendLabel[i] <- lab
+            legendColor[i] <- col
+            if (phaseDiagram) { legendPch[i] <- NA } else { legendPch[i] <- pch }
+            if (phaseDiagram) { legendLwd[i] <- 3 } else { legendLwd[i] <- 1 }
+            legendLty[i] <- 1
+            i <- i+1
+        }
     }
     
     test <- 0
+
     
-    if (!noLegend) {
+                                        # PRINT LEGEND
+    
+    if (is.null(noLegend) || noLegend != "ALL") {
         if (legendtitle == "") {
-            legend(x=legendPos, legend=legendLabel, col=legendColor, pch=legendPch, lwd=legendLwd, bg="white")
+            legend(x=legendPos, legend=rev(legendLabel), col=rev(legendColor), pt.bg=c(1,rev(legendColor)), pch=rev(legendPch), lwd=rev(legendLwd), bg="white")
         } else {
-            legend(x=legendPos, legend=as.expression(c(legendtitle,legendLabel)), col=c(1,legendColor),
-                   pch=c(legendvalue,legendPch), lwd=c(0,legendLwd), lty=c(0,legendLty), bg="white")
+            legend(x=legendPos, legend=as.expression(c(legendtitle,rev(legendLabel))), col=c(1,rev(legendColor)), pt.bg=c(1,rev(legendColor)),
+                   pch=c(legendvalue,rev(legendPch)), lwd=c(0,rev(legendLwd)), lty=c(0,rev(legendLty)), bg="white")
         }
     }
     

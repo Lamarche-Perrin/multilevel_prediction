@@ -35,6 +35,7 @@ void chainExperiment (ChainExperimentSet *expSet, std::string fileName);
 void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG);
 
 void addTwoCommunitiesHeaderToCSV (std::string fileName);
+void addTwoCommunitiesPartHeaderToCSV (std::string fileName);
 
 void computeTwoCommunitiesMeasures (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
 				    int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
@@ -43,6 +44,9 @@ void computeTwoCommunitiesMeasures (std::ofstream &csvFile, MarkovProcess *MP, s
 void computeTwoCommunitiesMeasuresWithAggregation (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
 						   int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
 						   VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, double threshold);
+
+void computeTwoCommunitiesPartMeasures (std::ofstream &csvFile, MarkovProcess *MP, int size1, int size2,
+					VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay);
 
 
 /*!
@@ -59,6 +63,7 @@ public:
     double threshold;		/*!< The precision threshold to compute the stationary distribution of the Markov chain (see computeStationaryDistribution method in MarkovProcess class)*/
     bool compactModel;		/*!< If true, the computed microscopic Markov chain is lumped according to the macro-state of community 1, the macro-state of community 2, and the state of the first agent in community 1*/
     bool withAggregation;
+    bool partDecomposition;
 		
     int size1Min;			/*!< The size of community 1 in the first experiment*/
     int size1Max;			/*!< The size of community 1 in the last experiment*/

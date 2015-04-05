@@ -1,0 +1,2141 @@
+
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> options(STERM='iESS', str.dendrogram.last="'", editor='emacsclient', show.error.locations=TRUE)
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> print <- FALSE
+> pdf <- FALSE
+> yMax <- 200
+> xMax <- 30
+> width = 24
+> height = 20
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("MICRO_MS","EMPTY","AGENT1_MS","MACRO_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "AGENT1_MS"
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:195:60: unexpected ')'
+194:     if (postMeasurement == "AGENT1_MS" || postMeasurement == "AGENT2_MS") {
+195:         title <- bquote("Predicting the Agent Measurement"))
+                                                                ^
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:195:60: unexpected ')'
+194:     if (postMeasurement == "AGENT1_MS" || postMeasurement == "AGENT2_MS") {
+195:         title <- bquote("Predicting the Agent Measurement"))
+                                                                ^
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","AGENT1_MS","MACRO_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "AGENT1_MS"
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "AGENT1_MS"
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(8,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "AGENT1_MS"
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,1), interRate = c(1,1), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+Error in plotIB(inputFileName = "DATA_FORMATED", modelName = "Complete Graph",  (from plotIB.R#339) : 
+  NO RESULT!
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","MACRO_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = c(0,1,10,100)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:631:62: unexpected 'in'
+630: 
+631:         if (is.null(noLegend) || (noLegend != "ALL" && preM &in
+                                                                  ^
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:631:63: unexpected 'in'
+630: 
+631:         if (is.null(noLegend) || (noLegend != "ALL" && (preM &in
+                                                                   ^
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:631:62: unexpected 'in'
+630: 
+631:         if (is.null(noLegend) || (noLegend != "ALL" & (preM &in
+                                                                  ^
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegent = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = seq(0,150,50)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+Error in plotIB(inputFileName = "DATA_FORMATED", modelName = "Complete Graph",  : 
+  unused argument (noLegent = c("SIZE1_MS", "SIZE2_MS", "SIZE3_MS", "SIZE4_MS", "SIZE5_MS", "SIZE6_MS"))
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = seq(0,150,50)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = seq(0,150,50)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = seq(0,200,10)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+> seq(0,200,10)
+ [1]   0  10  20  30  40  50  60  70  80  90 100 110 120 130 140 150 160 170 180
+[20] 190 200
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/suppressDuplicates.R'
+> suppressDuplicates("DATA","DATA_FORMATED")
+[1] "ERROR!"
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS","MACRO_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = seq(0,200,10)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = seq(0,200,10)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+Error in plotIB(inputFileName = "DATA_FORMATED", modelName = "Complete Graph",  (from plotIB.R#339) : 
+  NO RESULT!
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, labelList = list("ALL" = seq(0,200,10)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1, pointList = list("ALL" = c(0,1,10,100)),
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(7,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+> suppressDuplicates("DATA","DATA_FORMATED")
+[1] "ERROR!"
+> suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+[1] "ERROR!"
+[1] "DONE!"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+Error in plotIB(inputFileName = "DATA_FORMATED", modelName = "Complete Graph",  : 
+  unused argument (hide = c("SIZE2_MS", "SIZE3_MS", "SIZE4_MS", "SIZE5_MS", "SIZE6_MS", "SIZE7_MS"))
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> postMeasurement <- c("AGENT1_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","AGENT1_MS","NEIGHBORHOOD1_MS","NEIGHBORHOOD2_MS","NEIGHBORHOOD3_MS")
+> fileName <- "ring_experiment_size7"
+> plotIB (inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE, noLegend = TRUE,
++         xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 400, xMax = 40, xMin = 1, varMin = 1, noNegativeValue = TRUE,
++         suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
++         var = "DELAY", size = c(7,0), intraRate = c(0,0), interRate = c(0,0), contrarian = c(0,0), time = 0, delay = NULL,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "RING")
+[1] "DELAY 1"
+[1] "DELAY 2"
+[1] "DELAY 3"
+[1] "DELAY 4"
+[1] "DELAY 5"
+[1] "DELAY 6"
+[1] "DELAY 7"
+[1] "DELAY 8"
+[1] "DELAY 9"
+[1] "DELAY 10"
+[1] "DELAY 11"
+[1] "DELAY 12"
+[1] "DELAY 13"
+[1] "DELAY 14"
+[1] "DELAY 15"
+[1] "DELAY 16"
+[1] "DELAY 17"
+[1] "DELAY 18"
+[1] "DELAY 19"
+[1] "DELAY 20"
+[1] "DELAY 21"
+[1] "DELAY 22"
+[1] "DELAY 23"
+[1] "DELAY 24"
+[1] "DELAY 25"
+[1] "DELAY 26"
+[1] "DELAY 27"
+[1] "DELAY 28"
+[1] "DELAY 29"
+[1] "DELAY 30"
+[1] "DELAY 31"
+[1] "DELAY 32"
+[1] "DELAY 33"
+[1] "DELAY 34"
+[1] "DELAY 35"
+[1] "DELAY 36"
+[1] "DELAY 37"
+[1] "DELAY 38"
+[1] "DELAY 39"
+[1] "DELAY 40"
+[1] "BETA_MICRO_MS_NEIGHBORHOOD3_MS"
+[1] "BETA_EMPTY_NEIGHBORHOOD3_MS"
+[1] "BETA_NEIGHBORHOOD2_MS_NEIGHBORHOOD3_MS"
+[1] "BETA_EMPTY_NEIGHBORHOOD2_MS"
+[1] "BETA_NEIGHBORHOOD1_MS_NEIGHBORHOOD2_MS"
+[1] "BETA_MICRO_MS_NEIGHBORHOOD2_MS"
+[1] "BETA_EMPTY_NEIGHBORHOOD1_MS"
+[1] "BETA_MICRO_MS_NEIGHBORHOOD1_MS"
+[1] "BETA_AGENT1_MS_NEIGHBORHOOD1_MS"
+[1] "BETA_AGENT1_MS_EMPTY"
+[1] "BETA_AGENT1_MS_MICRO_MS"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MICRO_MS"
+[1] "AGENT1_MS"
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 1,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+Error in plotIB(inputFileName = "DATA_FORMATED", modelName = "Complete Graph",  (from plotIB.R#339) : 
+  NO RESULT!
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+Error in plotIB(inputFileName = "DATA_FORMATED", modelName = "Complete Graph",  (from plotIB.R#339) : 
+  NO RESULT!
+> print <- FALSE
+> pdf <- FALSE
+> yMax <- 200
+> xMax <- 30
+> width = 24
+> height = 20
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+Error in plotIB(inputFileName = "DATA_FORMATED", modelName = "Complete Graph",  (from plotIB.R#339) : 
+  NO RESULT!
+> suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+[1] "DONE!"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+> rev(c(4,3,2,1))
+[1] 1 2 3 4
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> fileName <- "ring_experiment_size7"
+> plotIB (inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE, noLegend = TRUE,
++         xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 400, xMax = 40, xMin = 1, varMin = 1, noNegativeValue = TRUE,
++         suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
++         var = "DELAY", size = c(7,0), intraRate = c(0,0), interRate = c(0,0), contrarian = c(0,0), time = 0, delay = NULL,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "RING")
+Error in plotIB(inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE,  (from plotIB.R#340) : 
+  NO RESULT!
+> fileName <- "complete-macro_classical-transient_time"
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "EMPTY"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE, noLegend = TRUE,
++         xAxis = "DELAY", yAxis = "BETA", yMin = 0, yMax = 400, xMax = 40, xMin = 1, varMin = 1, noNegativeValue = TRUE,
++         suppressSubPhases = TRUE, suppressInterPhases = TRUE, unicolor = TRUE, legendPos = "topright",
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement, phasesNames = TRUE, measurementText = measurementText,
++         var = "DELAY", size = c(7,0), intraRate = c(0,0), interRate = c(0,0), contrarian = c(0,0), time = 0, delay = NULL,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "RING")
+Error in plotIB(inputFileName = "FDATA_CHAIN", modelName = "Ring", phaseDiagram = TRUE,  (from plotIB.R#340) : 
+  NO RESULT!
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 1),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 2, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 2, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 1),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("ALL" = seq(0,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 1, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,100,10), "MACRO_MS" = c(0,10,seq(30,100,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 1, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
++ s
+Error: unexpected symbol in:
+"        print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+s"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,100,10), "MACRO_MS" = c(0,10,seq(30,100,10))), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 1, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,80,10), "MACRO_MS" = c(0,10,seq(30,80,10))), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 1, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,80,10), "MACRO_MS" = c(0,10,20,seq(40,80,10))), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 1, "MACRO_MS" = 1),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 1, "MACRO_MS" = 1),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+Error: object 'hideColor' not found
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:677:9: unexpected '}'
+676:                    pch=c(legendvalue,rev(legendPch)), lwd=c(0,rev(legendLwd)), lty=c(0,rev(legendLty)))
+677:         }
+             ^
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:673:89: unexpected '='
+672:         if (legendtitle == "") {
+673:             legend(x=legendPos, legend=rev(legendLabel), col=rev(legendColor), pt.bg=col=
+                                                                                             ^
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,50,10), "MACRO_MS" = seq(0,50,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 3, "MACRO_MS" = 3),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1" = c(0,1,"S1"), "SIZE2" = c(0,1,"S2"), "SIZE3" = c(0,1,"S3"), "SIZE4" = c(0,1,"S4"), "SIZE5" = c(0,1,"S5"), "SIZE6" = c(0,1,"S6"), "SIZE7" = c(0,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 2, "MACRO_MS" = 2),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(0,1,"S1"), "SIZE2_MS" = c(0,1,"S2"), "SIZE3_MS" = c(0,1,"S3"), "SIZE4_MS" = c(0,1,"S4"), "SIZE5_MS" = c(0,1,"S5"), "SIZE6_MS" = c(0,1,"S6"), "SIZE7_MS" = c(0,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 2, "MACRO_MS" = 2),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(0,1,"S1"), "SIZE2_MS" = c(0,1,"S2"), "SIZE3_MS" = c(0,1,"S3"), "SIZE4_MS" = c(0,1,"S4"), "SIZE5_MS" = c(0,1,"S5"), "SIZE6_MS" = c(0,1,"S6"), "SIZE7_MS" = c(0,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(0,1,"S1"), "SIZE2_MS" = c(0,1,"S2"), "SIZE3_MS" = c(0,1,"S3"), "SIZE4_MS" = c(0,1,"S4"), "SIZE5_MS" = c(0,1,"S5"), "SIZE6_MS" = c(0,1,"S6"), "SIZE7_MS" = c(0,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "0"  "1"  "S7"
+[1] "SIZE6_MS"
+[1] "0"  "1"  "S6"
+[1] "SIZE5_MS"
+[1] "0"  "1"  "S5"
+[1] "SIZE4_MS"
+[1] "0"  "1"  "S4"
+[1] "SIZE3_MS"
+[1] "0"  "1"  "S3"
+[1] "SIZE2_MS"
+[1] "0"  "1"  "S2"
+[1] "SIZE1_MS"
+[1] "0"  "1"  "S1"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> a <- c(0,1,"S2")
+> a[1] + 1
+[1] "0"
+> a[1] + 1
+Error in a[1] + 1 : non-numeric argument to binary operator
+> as.integer(a[2])
+[1] 0
+> as.integer(a[2])
+[1] 1
+> 
+> + Error in source(file = "/home/lamarche/programming/multilevel_prediction/data/plotIB.R") (from #1) : 
+  /home/lamarche/programming/multilevel_prediction/data/plotIB.R:659:38: unexpected ')'
+658:             print(addL)
+659:             text(as.integer(d[addL[1])
+                                          ^
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(0,1,"S1"), "SIZE2_MS" = c(0,1,"S2"), "SIZE3_MS" = c(0,1,"S3"), "SIZE4_MS" = c(0,1,"S4"), "SIZE5_MS" = c(0,1,"S5"), "SIZE6_MS" = c(0,1,"S6"), "SIZE7_MS" = c(0,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "0"  "1"  "S7"
+Error in `[.data.frame`(d, as.interger(addL[1]), yAxis) (from plotIB.R#659) : 
+  could not find function "as.interger"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(0,1,"S1"), "SIZE2_MS" = c(0,1,"S2"), "SIZE3_MS" = c(0,1,"S3"), "SIZE4_MS" = c(0,1,"S4"), "SIZE5_MS" = c(0,1,"S5"), "SIZE6_MS" = c(0,1,"S6"), "SIZE7_MS" = c(0,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "0"  "1"  "S7"
+Error in `[.data.frame`(d, as.interger(addL[1]), yAxis) (from plotIB.R#659) : 
+  could not find function "as.interger"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(0,1,"S1"), "SIZE2_MS" = c(0,1,"S2"), "SIZE3_MS" = c(0,1,"S3"), "SIZE4_MS" = c(0,1,"S4"), "SIZE5_MS" = c(0,1,"S5"), "SIZE6_MS" = c(0,1,"S6"), "SIZE7_MS" = c(0,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "0"  "1"  "S7"
+Error in text.default(d[as.integer(addL[1]), xAxis], d[as.integer(addL[1]),  (from plotIB.R#659) : 
+  no coordinates were supplied
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"S1"), "SIZE2_MS" = c(1,1,"S2"), "SIZE3_MS" = c(1,1,"S3"), "SIZE4_MS" = c(1,1,"S4"), "SIZE5_MS" = c(1,1,"S5"), "SIZE6_MS" = c(1,1,"S6"), "SIZE7_MS" = c(1,1,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "1"  "1"  "S7"
+[1] "SIZE6_MS"
+[1] "1"  "1"  "S6"
+[1] "SIZE5_MS"
+[1] "1"  "1"  "S5"
+[1] "SIZE4_MS"
+[1] "1"  "1"  "S4"
+[1] "SIZE3_MS"
+[1] "1"  "1"  "S3"
+[1] "SIZE2_MS"
+[1] "1"  "1"  "S2"
+[1] "SIZE1_MS"
+[1] "1"  "1"  "S1"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,4,"S1"), "SIZE2_MS" = c(1,4,"S2"), "SIZE3_MS" = c(1,4,"S3"), "SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "1"  "4"  "S7"
+[1] "SIZE6_MS"
+[1] "1"  "4"  "S6"
+[1] "SIZE5_MS"
+[1] "1"  "4"  "S5"
+[1] "SIZE4_MS"
+[1] "1"  "4"  "S4"
+[1] "SIZE3_MS"
+[1] "1"  "4"  "S3"
+[1] "SIZE2_MS"
+[1] "1"  "4"  "S2"
+[1] "SIZE1_MS"
+[1] "1"  "4"  "S1"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"S1"), "SIZE2_MS" = c(1,1,"S2"), "SIZE3_MS" = c(1,1,"S3"), "SIZE4_MS" = c(1,1,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"S1"), "SIZE2_MS" = c(1,1,"S2"), "SIZE3_MS" = c(1,1,"S3"), "SIZE4_MS" = c(1,1,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,30,10), "MACRO_MS" = seq(0,30,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"S1"), "SIZE2_MS" = c(1,1,"S2"), "SIZE3_MS" = c(1,1,"S3"), "SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
++ . + 
+> suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+[1] "DONE!"
+
+> print <- FALSE
+
+> pdf <- FALSE
+
+> yMax <- 200
+
+> xMax <- 30
+
+> width = 24
+
+> height = 20
+
+> postMeasurement <- c("MACRO_MS")
+
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS")
+
+> fileName <- "complete-macro_classical-transient_time"
+
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("AL ..." ... [TRUNCATED] 
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,20,10), "MACRO_MS" = seq(0,20,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE3_MS" = c(1,1,"SIZE3"), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,1,"MICRO"), "MACRO_MS" = c(1,1,"MACRO"), "EMPTY" = c(1,1,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,20,10), "MACRO_MS" = seq(0,20,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE3_MS" = c(1,1,"SIZE3"), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,1,"MICRO"), "MACRO_MS" = c(1,2,"MACRO"), "EMPTY" = c(1,4,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> > fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,20,10), "MACRO_MS" = seq(0,20,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE3_MS" = c(1,1,"SIZE3"), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,20,10), "MACRO_MS" = seq(0,20,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,4,"SIZE3"), #"SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,2,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE7_MS"
+[1] "SIZE6_MS"
+[1] "SIZE5_MS"
+[1] "SIZE4_MS"
+[1] "SIZE3_MS"
+[1] "SIZE2_MS"
+[1] "SIZE1_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,20,10), "MACRO_MS" = seq(10,20,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), #"SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,10)),
++         labelList = list("MICRO_MS" = seq(0,20,10), "MACRO_MS" = seq(10,20,10)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,1,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> print <- TRUE
+> pdf <- TRUE
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> 
++ . + 
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- TRUE
+
+> print <- FALSE
+
+> pdf <- TRUE
+
+> yMax <- 200
+
+> xMax <- 30
+
+> width = 10
+
+> height = 10
+
+> postMeasurement <- c("MACRO_MS")
+
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+
+> fileName <- "complete-macro_classical-transient_time"
+
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList =  .... [TRUNCATED] 
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- TRUE
+> print <- FALSE
+> pdf <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 10
+> height = 10
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 10
+> height = 10
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 5
+> height = 5
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 5
+> height = 5
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,200,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 5
+> height = 5
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("ALL" = seq(0,20,5)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5), "ALL" = c()),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 5
+> height = 5
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 5
+> height = 5
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+X11cairo 
+       2 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + [1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+Sourced file '/home/lamarche/programming/multilevel_prediction/data/ACS_plots.R'
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 8
+> height = 6
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
+> + Sourced file '/home/lamarche/programming/multilevel_prediction/data/plotIB.R'
+> #suppressDuplicates("DATA","DATA_FORMATED",TRUE)
+> 
+> print <- FALSE
+> print <- TRUE
+> pdf <- TRUE
+> noTitle <- TRUE
+> 
+> yMax <- 200
+> xMax <- 30
+> width = 6.5
+> height = 5
+> 
+> 
+> 
+> postMeasurement <- c("MACRO_MS")
+> preMeasurement <- c("EMPTY","MICRO_MS","MACRO_MS","SIZE7_MS","SIZE6_MS","SIZE5_MS","SIZE4_MS","SIZE3_MS","SIZE2_MS","SIZE1_MS")
+> 
+> fileName <- "complete-macro_classical-transient_time"
+> plotIB (inputFileName = "DATA_FORMATED", modelName = "Complete Graph", legendPos = "bottomright", noLegend = "ALL", #c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         noTitle = noTitle,
++         postMeasurement = postMeasurement, preMeasurement = preMeasurement,
++         pointList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(0,20,5), "ALL" = c(0)),
++         labelList = list("MICRO_MS" = seq(0,20,5), "MACRO_MS" = seq(5,20,5)), noLabel = c("EMPTY","SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         addLabel = list("SIZE1_MS" = c(1,1,"SIZE1"), "SIZE3_MS" = c(1,1,"SIZE3"), "SIZE2_MS" = c(1,1,"SIZE2"), "SIZE4_MS" = c(1,4,"etc."), #"SIZE4_MS" = c(1,4,"S4"), "SIZE5_MS" = c(1,4,"S5"), "SIZE6_MS" = c(1,4,"S6"), "SIZE7_MS" = c(1,4,"S7")),
++             "MICRO_MS" = c(1,2,"MICRO"), "MACRO_MS" = c(1,4,"MACRO"), "EMPTY" = c(1,3,"EMPTY")),
++         hide = c("SIZE1_MS","SIZE2_MS","SIZE3_MS","SIZE4_MS","SIZE5_MS","SIZE6_MS","SIZE7_MS"),
++         labelPos = list("MICRO_MS" = 4, "MACRO_MS" = 4),
++         var = "TIME", size = c(8,0), intraRate = c(1,0), interRate = c(0,0), contrarian = c(0,0), time = NULL, delay = 10,
++         print = print, pdf = pdf, width = width, height = height, outputFileName = fileName, type = "GENERAL_MODEL")
+[1] "SIZE1_MS"
+[1] "SIZE2_MS"
+[1] "SIZE3_MS"
+[1] "SIZE4_MS"
+[1] "SIZE5_MS"
+[1] "SIZE6_MS"
+[1] "SIZE7_MS"
+[1] "MACRO_MS"
+[1] "MICRO_MS"
+[1] "EMPTY"
+null device 
+          1 
+> 
