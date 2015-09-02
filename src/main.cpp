@@ -23,12 +23,12 @@ int main(int argc, char *argv[])
 
     std::string fileName = "DATA.CSV";
 
-    bool compactModel = false;
+    bool compactModel = true;
     bool chain = false;
-    bool partDecomposition = false;
+    bool partDecomposition = true;
 
-    bool basicMeasures = true;
-    bool allSizes = true;
+    bool basicMeasures = false;
+    bool allSizes = false;
     bool twoCommunitiesMeasures = false;
 
     ChainExperimentSet *expChainSet = new ChainExperimentSet();
@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
     SpecMeasurementSet* preM = new SpecMeasurementSet();
     SpecMeasurementSet* postM = new SpecMeasurementSet();
 
-    //postM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
-    postM->insert(std::make_pair(M_MACRO,MACRO_STATE));
+    postM->insert(std::make_pair(M_AGENT1,MACRO_STATE));
+    //postM->insert(std::make_pair(M_MACRO,MACRO_STATE));
 
 
     /*
@@ -65,10 +65,12 @@ int main(int argc, char *argv[])
     exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);
     */
 
-    //exp = new TwoCommunitiesExperiment(2,1,1,1,1,1,0,0,0,1,preM,postM); exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);<w
-    exp = new TwoCommunitiesExperiment(7,0,1,0,0,0,0,0,0,3,preM,postM); exp->timeMax = 200; exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);
+    //exp = new TwoCommunitiesExperiment(2,1,1,1,1,1,0,0,0,1,preM,postM); exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);
+    exp = new TwoCommunitiesExperiment(10,10,1,1,0.2,0.2,0,0,0,50,preM,postM); exp->compactModel = compactModel; exp->partDecomposition = partDecomposition; exp2CSet->insert(exp);
 
-    //preM->insert(std::make_pair(M_AGENT1_MESO1_MESO2,MACRO_STATE));
+    //preM->insert(std::make_pair(M_AGENT1_MACRO,MACRO_STATE));
+    preM->insert(std::make_pair(M_AGENT1_MACRO,MACRO_STATE));
+    preM->insert(std::make_pair(M_MESO1,MACRO_STATE));
 
 /*    
 
@@ -104,6 +106,7 @@ int main(int argc, char *argv[])
     if (allSizes)
     {
 	preM->insert(std::make_pair(M_ALLSIZES1,MACRO_STATE));
+	//preM->insert(std::make_pair(M_AGENT1_ALLSIZES1,MACRO_STATE));
     }
 
     if (twoCommunitiesMeasures)

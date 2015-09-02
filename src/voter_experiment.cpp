@@ -216,7 +216,7 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 								+ "_rate_" + double2string(interR1,2)
 								+ "," + double2string(interR2,2)
 								+ "_time_" + int2string(t) + "_delay_" + int2string(d) + "_" + preM->type + ".csv";
-							    addTwoCommunitiesPartHeaderToCSV(name);
+							    addTwoCommunitiesPartHeaderToCSV(name,preM->type);
 							    std::ofstream file;
 							    openOutputCSV(file,name);
     
@@ -799,7 +799,7 @@ void computeTwoCommunitiesMeasuresWithAggregation (std::ofstream &csvFile, Marko
 
 
 
-void addTwoCommunitiesPartHeaderToCSV (std::string fileName)
+void addTwoCommunitiesPartHeaderToCSV (std::string fileName, std::string type)
 {
     std::ifstream testFile;
     openInputCSV(testFile,fileName);
@@ -812,9 +812,23 @@ void addTwoCommunitiesPartHeaderToCSV (std::string fileName)
 	openOutputCSV(csvFile,fileName);
 
 	CSVLine line;
-	line.push_back("AGENT");
-	line.push_back("MESO1");
-	line.push_back("MESO2");
+	if (type == "AGENT1_MESO1_MESO2_MS")
+	{
+	    line.push_back("AGENT");
+	    line.push_back("MESO1");
+	    line.push_back("MESO2");
+	}
+
+	if (type == "MESO1_MS")
+	{
+	    line.push_back("MESO1");
+	}
+
+	if (type == "AGENT1_MACRO_MS")
+	{
+	    line.push_back("AGENT");
+	    line.push_back("MACRO");
+	}
 
 	line.push_back("PROBABILITY");
 	line.push_back("INFORMATION");
@@ -838,9 +852,23 @@ void computeTwoCommunitiesPartMeasures (std::ofstream &csvFile, MarkovProcess *M
 	int n1 = (i-a)/2 % size1;
 	int n2 = (i-a-2*n1)/(2*size1);
 
-	addCSVField(csvFile,a);
-	addCSVField(csvFile,n1);
-	addCSVField(csvFile,n2);
+	if (preM->type == "AGENT1_MESO1_MESO2_MS")
+	{
+	    addCSVField(csvFile,a);
+	    addCSVField(csvFile,a+n1);
+	    addCSVField(csvFile,n2);
+	}
+
+	if (preM->type == "MESO1_MS")
+	{
+	    addCSVField(csvFile,a+n1);
+	}
+
+	if (preM->type == "AGENT1_MACRO_MS")
+	{
+	    addCSVField(csvFile,a);
+	    addCSVField(csvFile,a+n1+n2);
+	}
 
 	double probability = MP->getProbability(part,time);
 	double information = MP->getPartMutualInformation(postM->partition,part,delay,time);

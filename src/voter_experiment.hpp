@@ -35,7 +35,7 @@ void chainExperiment (ChainExperimentSet *expSet, std::string fileName);
 void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG);
 
 void addTwoCommunitiesHeaderToCSV (std::string fileName);
-void addTwoCommunitiesPartHeaderToCSV (std::string fileName);
+void addTwoCommunitiesPartHeaderToCSV (std::string fileName, std::string type);
 
 void computeTwoCommunitiesMeasures (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
 				    int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
