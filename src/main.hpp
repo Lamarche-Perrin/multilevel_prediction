@@ -13,6 +13,8 @@
 #include "voter_graph.hpp"
 #include "markov_process.hpp"
 
+void computeInformationMeasures ();
+
 void testMarkovProcess ();
 void testVoterGraph ();
 void testMeasuresWithAggregation ();

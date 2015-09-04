@@ -16,11 +16,6 @@
 #include "csv_tools.hpp"
 
 
-VoterProbe *macroPr;
-VoterProbe *agent1Pr;
-VoterProbe *meso1Pr;
-VoterProbe *meso2Pr;
-
 
 int TwoCommunitiesExperiment::id_number = 0;
 int ChainExperiment::id_number = 0;
@@ -120,21 +115,6 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 					//					for (int i = 0; i < MP->size; i++) { std::cout << sd[i] << "   "; }
 
 
-					// build the observation probes
-					
-					agent1Pr = new VoterProbe(VG);
-					agent1Pr->addNode(*VG->community1->begin());
-
-					macroPr = new VoterProbe(VG);
-					for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it) { macroPr->addNode(*it); }
-
-					meso1Pr = new VoterProbe(VG);
-					for (std::set<VoterNode*>::iterator it = VG->community1->begin(); it != VG->community1->end(); ++it) { meso1Pr->addNode(*it); }
-
-					meso2Pr = new VoterProbe(VG);							
-					for (std::set<VoterNode*>::iterator it = VG->community2->begin(); it != VG->community2->end(); ++it) { meso2Pr->addNode(*it); }
-
-
 
 					// build the pre- and post-measurements
 
@@ -175,21 +155,14 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 					Partition *microP;
 					if (compactModel)
 					{
-					    VoterMeasurement *m = new VoterMeasurement(VG,"MICRO_PARTITION");
-					    m->addProbe(meso1Pr,MACRO_STATE);
-					    m->addProbe(meso2Pr,MACRO_STATE);
-					    m->addProbe(agent1Pr,MACRO_STATE);
+					    VoterMeasurement *m = getMeasurement(M_AGENT1_MESO1_MESO2, MACRO_STATE, VG);
+					    m->type = "MICRO_PARTITION";
 					    microP = VG->getCompactMarkovPartition(m);
 					}
 					
 					else {
-					    VoterMeasurement *m = new VoterMeasurement(VG,"MICRO_PARTITION");
-					    for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it)
-					    {
-						VoterProbe *probe = new VoterProbe(VG);
-						probe->addNode(*it);
-						m->addProbe(probe,MACRO_STATE);
-					    }
+					    VoterMeasurement *m = getMeasurement(M_MICRO, MACRO_STATE, VG);
+					    m->type = "MICRO_PARTITION";
 					    microP = VG->getMarkovPartition(m);
 					}
 
@@ -320,15 +293,6 @@ void chainExperiment (ChainExperimentSet *expSet, std::string fileName)
 		MP->getDistribution(timeMax);
 		MP->getTransition(delayMax);
 		if (timeMin == -1) { MP->computeStationaryDistribution(threshold); }
-
-
-		// build the observation probes
-		
-		agent1Pr = new VoterProbe(VG);
-		agent1Pr->addNode(VG->nodeArray[0]);
-		
-		macroPr = new VoterProbe(VG);
-		for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it) { macroPr->addNode(*it); }
 		
 
 		// build the pre- and post-measurements
@@ -419,8 +383,30 @@ void chainExperiment (ChainExperimentSet *expSet, std::string fileName)
 
 
 
-
 void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG)
+{
+    switch (type)
+    {
+    case M_MACRO :
+    case M_EMPTY :
+    case M_AGENT1 :		
+    case M_AGENT1_MACRO :
+    case M_MICRO:
+    case M_MESO1 :
+    case M_MESO2 :
+    case M_MESO1_MESO2 :
+    case M_AGENT1_MESO1 :
+    case M_AGENT1_MESO2 :
+    case M_AGENT1_MESO1_MESO2 :
+	set->insert(getMeasurement (type, metric, VG));
+	break;
+
+    default : addMultiMeasurement (type, metric, set, VG);
+    }
+}
+
+
+VoterMeasurement *getMeasurement (MeasurementType type, VoterMetric metric, VoterGraph *VG)
 {
     std::string postfix = "";
     switch (metric)
@@ -457,6 +443,24 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
     case ACTIVE_EDGES :	        postfix = "_AE";	break;
     default :			postfix = "_NA";	break;
     }
+
+    // build probes
+    TwoCommunitiesVoterGraph *TCVG = dynamic_cast<TwoCommunitiesVoterGraph*>(VG);
+    ChainVoterGraph *CVG = dynamic_cast<ChainVoterGraph*>(VG);
+
+    VoterProbe *macroPr = new VoterProbe(VG);
+    for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it) { macroPr->addNode(*it); }
+
+    VoterProbe *agent1Pr = new VoterProbe(VG);
+    if (TCVG != NULL) { agent1Pr->addNode(*TCVG->community1->begin()); }
+    if (CVG != NULL) { agent1Pr->addNode(CVG->nodeArray[0]); }
+
+    VoterProbe *meso1Pr = new VoterProbe(VG);
+    for (std::set<VoterNode*>::iterator it = TCVG->community1->begin(); it != TCVG->community1->end(); ++it) { meso1Pr->addNode(*it); }
+
+    VoterProbe *meso2Pr = new VoterProbe(VG);							
+    for (std::set<VoterNode*>::iterator it = TCVG->community2->begin(); it != TCVG->community2->end(); ++it) { meso2Pr->addNode(*it); }
+
     
     switch (type)
     {
@@ -464,23 +468,20 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
     {
 	VoterMeasurement *m = new VoterMeasurement(VG,"MACRO" + postfix);
 	m->addProbe(macroPr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 		
     case M_EMPTY :
     {
 	VoterMeasurement *m = new VoterMeasurement(VG,"EMPTY");
-	set->insert(m);
-	break;
+	return m;
     }
 		
     case M_AGENT1 :		
     {
 	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1" + postfix);
 	m->addProbe(agent1Pr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 
     case M_AGENT1_MACRO :
@@ -488,8 +489,7 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MACRO" + postfix);
 	m->addProbe(agent1Pr,metric);
 	m->addProbe(macroPr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 		
     case M_MICRO:
@@ -501,24 +501,21 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	    probe->addNode(*it);
 	    m->addProbe(probe,metric);
 	}
-	set->insert(m);
-	break;
+	return m;
     }
 		
     case M_MESO1 :
     {
 	VoterMeasurement *m = new VoterMeasurement(VG,"MESO1" + postfix);
 	m->addProbe(meso1Pr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 
     case M_MESO2 :
     {
 	VoterMeasurement *m = new VoterMeasurement(VG,"MESO2" + postfix);
 	m->addProbe(meso2Pr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 
     case M_MESO1_MESO2 :
@@ -526,8 +523,7 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	VoterMeasurement *m = new VoterMeasurement(VG,"MESO1_MESO2" + postfix);
 	m->addProbe(meso1Pr,metric);
 	m->addProbe(meso2Pr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 			
     case M_AGENT1_MESO1 :
@@ -535,8 +531,7 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1" + postfix);
 	m->addProbe(agent1Pr,metric);
 	m->addProbe(meso1Pr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 
     case M_AGENT1_MESO2 :
@@ -544,8 +539,7 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO2" + postfix);
 	m->addProbe(agent1Pr,metric);
 	m->addProbe(meso2Pr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
 			
     case M_AGENT1_MESO1_MESO2 :
@@ -554,10 +548,74 @@ void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *s
 	m->addProbe(meso1Pr,metric);
 	m->addProbe(meso2Pr,metric);
 	m->addProbe(agent1Pr,metric);
-	set->insert(m);
-	break;
+	return m;
     }
+    	    
+    default : std::cout << "ERROR: unknown measurement!" << std::endl;
+    }
+
+    return 0;
+}
+
+
+void addMultiMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG)
+{
+    std::string postfix = "";
+    switch (metric)
+    {
+    case MACRO_STATE :          postfix = "_MS";	break;
+    case MAJORITY :		postfix = "_MAJ";	break;
+    case MAJ_1PC :		postfix = "_1PC";	break;
+    case MAJ_2PC :		postfix = "_2PC";	break;
+    case MAJ_3PC :		postfix = "_3PC";	break;
+    case MAJ_4PC :		postfix = "_4PC";	break;
+    case MAJ_5PC :		postfix = "_5PC";	break;
+    case MAJ_6PC :		postfix = "_6PC";	break;
+    case MAJ_7PC :		postfix = "_7PC";	break;
+    case MAJ_8PC :		postfix = "_8PC";	break;
+    case MAJ_9PC :		postfix = "_9PC";	break;
+    case MAJ_10PC :		postfix = "_10PC";	break;
+    case MAJ_20PC :		postfix = "_20PC";	break;
+    case MAJ_30PC :		postfix = "_30PC";	break;
+    case MAJ_40PC :		postfix = "_40PC";	break;
+    case MAJ_50PC :		postfix = "_50PC";	break;
+    case MAJ_60PC :		postfix = "_60PC";	break;
+    case MAJ_70PC :		postfix = "_70PC";	break;
+    case MAJ_80PC :		postfix = "_80PC";	break;
+    case MAJ_90PC :		postfix = "_90PC";	break;
+    case MAJ_2B :		postfix = "_2B";	break;
+    case MAJ_3B :		postfix = "_3B";	break;
+    case MAJ_4B :		postfix = "_4B";	break;
+    case MAJ_6B :		postfix = "_6B";	break;
+    case MAJ_8B :		postfix = "_8B";	break;
+    case MAJ_10B :		postfix = "_10B";	break;
+    case MAJ_12B :		postfix = "_12B";	break;
+    case MAJ_20B :		postfix = "_20B";	break;
+    case MAJ_40B :		postfix = "_40B";	break;
+    case ACTIVE_EDGES :	        postfix = "_AE";	break;
+    default :			postfix = "_NA";	break;
+    }
+
+    // build probes
+    TwoCommunitiesVoterGraph *TCVG = dynamic_cast<TwoCommunitiesVoterGraph*>(VG);
+    ChainVoterGraph *CVG = dynamic_cast<ChainVoterGraph*>(VG);
+
+    VoterProbe *macroPr = new VoterProbe(VG);
+    for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it) { macroPr->addNode(*it); }
+
+    VoterProbe *agent1Pr = new VoterProbe(VG);
+    if (TCVG != NULL) { agent1Pr->addNode(*TCVG->community1->begin()); }
+    if (CVG != NULL) { agent1Pr->addNode(CVG->nodeArray[0]); }
+
+    VoterProbe *meso1Pr = new VoterProbe(VG);
+    for (std::set<VoterNode*>::iterator it = TCVG->community1->begin(); it != TCVG->community1->end(); ++it) { meso1Pr->addNode(*it); }
+
+    VoterProbe *meso2Pr = new VoterProbe(VG);							
+    for (std::set<VoterNode*>::iterator it = TCVG->community2->begin(); it != TCVG->community2->end(); ++it) { meso2Pr->addNode(*it); }
+
     
+    switch (type)
+    {
     case M_ALLSIZES1 : case M_SOMESIZES1 : case M_AGENT1_ALLSIZES1 : case M_AGENT1_SOMESIZES1 :
     {
 	std::set<VoterNode*> *nodeSet = VG->nodeSet;

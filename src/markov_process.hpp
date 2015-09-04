@@ -12,6 +12,40 @@
 
 #include "partition.hpp"
 
+class MarkovProcess;
+
+class Trajectory
+{
+public:
+    MarkovProcess *process;
+    int length;
+    int *states;
+
+    Trajectory (MarkovProcess *process, int length);
+    ~Trajectory ();
+    
+    void print (int binary = 0);
+};
+
+
+class DataSet
+{
+public:
+    MarkovProcess *process;
+
+    int size;
+    int length;
+    Trajectory **trajectories;
+
+    DataSet (MarkovProcess *process, int size, int length);
+    ~DataSet ();
+
+    void computeScore (Partition *preP, Partition *postP, int delay, int trainingLength);
+};
+
+
+
+
 /*!
  * \class MarkovProcess
  * \brief A finite Markov chain described by a discrete state space, an initial distribution, and a transition kernel
@@ -19,7 +53,7 @@
 class MarkovProcess
 {
 public:
-    int size;								/*!< The size of the Markov chain state space*/
+    int size;							/*!< The size of the Markov chain state space*/
 
     double *distribution;					/*!< The initial probability distribution of the system state (time 0)*/
     std::vector<double*> *distributions;	/*!< A vector of probability distributions through time (from 0 to lastTime)*/
@@ -80,6 +114,12 @@ public:
      * \warning Will endlessly loop for periodic Markov chains
      */
     void computeStationaryDistribution (double threshold);
+
+    /*!
+     * \brief Compute a possible trajectory of the Markov chain
+     * \param length : Length of the trajectory
+     */
+    Trajectory *computeTrajectory (int length);
 
     /*!
      * \brief Get the probability to be in a given state at a given time (-1 for the stationary distribution)

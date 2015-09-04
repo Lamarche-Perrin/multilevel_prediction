@@ -21,6 +21,33 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
 
+    int size = 3;
+
+    int delay = 1;
+    int dataSize = 10000;
+    int dataLength = 20;
+    int trainingLength = 19;
+
+    TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (size,0,1,0,0,0,0,0);
+    MarkovProcess *MP = VG->getMarkovProcess();
+    MP->getDistribution(0);
+    MP->getTransition(1);
+
+    VoterMeasurement *preM = getMeasurement (M_MICRO, MACRO_STATE, VG);
+    VoterMeasurement *postM = getMeasurement (M_MICRO, MACRO_STATE, VG);
+    Partition *preP = VG->getMarkovPartition(preM);
+    Partition *postP = VG->getMarkovPartition(postM);
+
+    DataSet *DS = new DataSet (MP, dataSize, dataLength);
+    DS->computeScore (preP, postP, delay, trainingLength);
+
+    return EXIT_SUCCESS;
+}
+
+
+
+void computeInformationMeasures ()
+{
     std::string fileName = "DATA.CSV";
 
     bool compactModel = true;
@@ -182,11 +209,7 @@ int main(int argc, char *argv[])
 
     if (chain) { chainExperiment(expChainSet,"/home/lamarche/programming/multilevel_prediction/data/" + fileName); }
     else { twoCommunitiesExperiment(exp2CSet,"/home/lamarche/programming/multilevel_prediction/data/" + fileName); }
-
-    return EXIT_SUCCESS;
 }
-
-
 
 
 

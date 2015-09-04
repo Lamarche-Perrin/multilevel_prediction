@@ -33,6 +33,8 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 void chainExperiment (ChainExperimentSet *expSet, std::string fileName);
 
 void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG);
+void addMultiMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG);
+VoterMeasurement *getMeasurement (MeasurementType type, VoterMetric metric, VoterGraph *VG);
 
 void addTwoCommunitiesHeaderToCSV (std::string fileName);
 void addTwoCommunitiesPartHeaderToCSV (std::string fileName, std::string type);

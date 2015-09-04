@@ -25,21 +25,22 @@ typedef std::list<Partition*> PartitionList;
 class Part
 {
 public:
-	int id;
-	int size;
+    int id;
+    int size;
 		
-	int value;
-	std::list<int> *individuals;
+    int value;
+    std::list<int> *individuals;
 	
-	Part ();
-	Part (Part *part);
-	~Part ();
+    Part ();
+    Part (Part *part);
+    ~Part ();
 	
-	void addIndividual (int i, bool front = false, int value = -1);
-	bool equal (Part *p);
+    void addIndividual (int i, bool front = false, int value = -1);
+    bool contains (int i);
+    bool equal (Part *p);
 		
-	void print (bool endl = false);
-	int printSize ();
+    void print (bool endl = false);
+    int printSize ();
 };
 
 
@@ -51,41 +52,42 @@ public:
 class Partition
 {
 public:
-	int size;
-	std::list<Part*> *parts;
+    int size;
+    std::list<Part*> *parts;
+    
+    Partition ();
+    Partition (Partition *partition);
+    ~Partition ();
 		
-	Partition ();
-	Partition (Partition *partition);
-	~Partition ();
+    void addPart (Part *p, bool front = false);
+    Part *findPart (int individual);
+    Part *getPartFromValue (int value);
 		
-	void addPart (Part *p, bool front = false);
-	Part *getPartFromValue (int value);
-		
-	bool equal (Partition *p);
-	void print (bool endl = false);
+    bool equal (Partition *p);
+    void print (bool endl = false);
 };
 
 
 class OrderedPartition
 {
 public:
-	int microSize;
-	int *optimalCut;
-	double param;
-	double beta;
+    int microSize;
+    int *optimalCut;
+    double param;
+    double beta;
 	
-	std::string string;
-	double entropy;
-	double information;
+    std::string string;
+    double entropy;
+    double information;
 	
-	OrderedPartition (int s, double p) : microSize(s), param(p) { beta = param / (1 - param); };
+    OrderedPartition (int s, double p) : microSize(s), param(p) { beta = param / (1 - param); };
 	
-	void print ()
-		{
-			std::cout << "beta = " << beta << " -> ";
-			for (int i = 0; i < microSize; i++) { std::cout << optimalCut[i] << "\t"; }
-			std::cout << std::endl;
-		}
+    void print ()
+	{
+	    std::cout << "beta = " << beta << " -> ";
+	    for (int i = 0; i < microSize; i++) { std::cout << optimalCut[i] << "\t"; }
+	    std::cout << std::endl;
+	}
 };
 
 #endif
