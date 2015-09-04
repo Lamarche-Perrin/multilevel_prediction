@@ -12,3 +12,15 @@ multilevel_prediction
 # Temp files
 *~
 \#*\#
+\*R\*
+*.backup
+
+# Data files
+data/*
+!data/*.R
+
+# Source files
+src/*
+!src/*.cpp
+!src/*.hpp
+!src/Makefile*
