@@ -10,6 +10,7 @@
  
 
 #include <map>
+#include <cstdlib>
 
 #include "markov_process.hpp"
 #include "partition.hpp"
@@ -62,12 +63,19 @@ class VoterNode;
 class VoterEdge;
 class VoterGraph;
 class VoterProbe;
+class VoterState;
+class VoterTrajectory;
 class VoterMeasurement;
+class VoterMeasurementState;
+class VoterMeasurementTrajectory;
 
 long unsigned int nChoosek (int n, int k);
 
 typedef std::set<VoterMeasurement*> MeasurementSet;
 typedef std::set< std::pair<MeasurementType,VoterMetric> > SpecMeasurementSet;
+
+typedef std::map<VoterMeasurementState,double> ProbabilityMap;
+typedef std::map<VoterMeasurementState,ProbabilityMap*> TransitionMap;
 
 /*!
  * \class VoterNode
@@ -88,18 +96,20 @@ public:
     int outEdgeNumber;		/*!< Sum of the weight of outcoming edges*/
     std::set<VoterEdge*> *outEdgeSet;	/*!< Set of outcoming edges*/
 
-    /*!
-     * \brief Constructor
-     * \param id : Unique id within the graph
-     * \param weight : Determines the probability to select this node (relatively to other nodes) at each simulation step when the updateProcess variable of the graph is set to UPDATE_NODES
-     * \param contrarian : Contrarian rate of the node
-     */
+/*!
+ * \brief Constructor
+ * \param id : Unique id within the graph
+ * \param weight : Determines the probability to select this node (relatively to other nodes) at each simulation step when the updateProcess variable of the graph is set to UPDATE_NODES
+ * \param contrarian : Contrarian rate of the node
+ */
     VoterNode (int id, double weight = 1, double contrarian = 0);
 
-    /*!
-     * \brief Destructor
-     */
+/*!
+ * \brief Destructor
+ */
     ~VoterNode ();
+
+    VoterEdge *getRandomEdge();
 };
 
 
@@ -114,17 +124,17 @@ public:
     VoterNode *node2;		/*!< Outcoming node*/
     double weight;			/*!< Determines the probability to select this edge (relatively to other edges) at each simulation step when the updateProcess variable of the graph is set to UPDATE_EDGES*/
 
-    /*!
-     * \brief Constructor
-     * \param node1 : Incoming node
-     * \param node2 : Outcoming node
-     * \param weight : Determines the probability to select this edge (relatively to other edges) at each simulation step when the updateProcess variable of the graph is set to UPDATE_EDGES
-     */
+/*!
+ * \brief Constructor
+ * \param node1 : Incoming node
+ * \param node2 : Outcoming node
+ * \param weight : Determines the probability to select this edge (relatively to other edges) at each simulation step when the updateProcess variable of the graph is set to UPDATE_EDGES
+ */
     VoterEdge (VoterNode *node1, VoterNode *node2, double weight = 1);
 
-    /*!
-     * \brief Destructor
-     */
+/*!
+ * \brief Destructor
+ */
     ~VoterEdge ();		
 };
 
@@ -187,6 +197,9 @@ public:
      * \brief Add an edge between each pair of nodes in the graph (in both direction, with equal weight for each edge)
      */
     void fillEdges ();
+
+    
+    VoterNode *getRandomNode ();
 		
     /*!
      * \brief Build the Markov chain associated to the described Voter Model
@@ -352,6 +365,8 @@ public:
      */
     void addNodes (unsigned long int i);
 
+	int getState (VoterState *state, VoterMetric metric);
+
     /*!
      * \brief Print the probe details
      * \param endl : Line break after printing if true
@@ -394,6 +409,8 @@ public:
      */
     void addProbe (VoterProbe *probe, VoterMetric metric);
 
+	VoterMeasurementState *getState (VoterState *state);
+	
     /*!
      * \brief Print the measurement details
      * \param endl : Line break after printing if true
@@ -449,5 +466,91 @@ public :
 };
 
 
+
+class VoterState
+{
+public:
+    VoterGraph *graph;
+
+    int size;
+    bool *agentStates;
+
+    VoterState (VoterGraph *graph);
+    VoterState (VoterState *state);
+    ~VoterState ();
+
+    void print ();
+
+    void setFromMicroUniform();
+    void setFromMacroUniform();
+
+    VoterState *getNextState();
+};
+
+
+class VoterMeasurementState
+{
+public:
+	VoterMeasurement *measurement;
+	int size;
+	int *probeStates;
+
+	VoterMeasurementState (VoterMeasurement *measurement);
+	VoterMeasurementState (const VoterMeasurementState& state);
+	~VoterMeasurementState ();
+
+	void init (int value);
+	void computeId ();
+	
+	void print ();
+};
+
+	
+class VoterTrajectory
+{
+public:
+    VoterGraph *graph;
+
+    int length;
+    VoterState **states;
+
+    VoterTrajectory (VoterGraph *graph, int length);
+    ~VoterTrajectory ();
+
+    void print ();
+};
+
+
+class VoterMeasurementTrajectory
+{
+public:
+	VoterMeasurement *measurement;
+    VoterGraph *graph;
+
+    int length;
+    VoterMeasurementState **states;
+
+    VoterMeasurementTrajectory (VoterMeasurement *measurement, VoterTrajectory *trajectory);
+    ~VoterMeasurementTrajectory ();
+
+    void print ();
+};
+
+
+class VoterDataSet
+{
+public:
+	VoterGraph *graph;
+
+    int size;
+	int time;
+    int length;
+    VoterTrajectory **trajectories;
+
+    VoterDataSet (VoterGraph *graph, int size, int time, int length);
+    ~VoterDataSet ();
+
+    double computeScore (VoterMeasurement *preM, VoterMeasurement *postM, int delay, int trainingLength);
+};
 
 #endif

@@ -15,120 +15,6 @@
 
 
 
-Trajectory::Trajectory (MarkovProcess *p, int l)
-{
-    process = p;
-    length = l;
-    states = new int [length];
-}
-
-
-Trajectory::~Trajectory ()
-{
-    delete[] states;
-}
-
-
-void Trajectory::print (const int binary)
-{
-    if (binary > 0)
-    {
-	if (length > 0) {
-	    std::cout << "START:  ";
-	    for (int i = binary-1; i >= 0; i--) { std::cout << ((states[0] >> i) & 1); }
-	}
-	
-	for (int l = 1; l < length; l++)
-	{
-	    std::cout << "  ->  ";
-	    for (int i = binary-1; i >= 0; i--) { std::cout << ((states[l] >> i) & 1); }
-	}
-    }
-
-    else {
-	if (length > 0) { std::cout << "START:  " << states[0]; }
-	for (int l = 1; l < length; l++) { std::cout << "  ->  " << states[l]; }
-    }
-
-    std::cout << std::endl;
-}
-
-
-
-DataSet::DataSet (MarkovProcess *p, int s, int l)
-{
-    process = p;
-    size = s;
-    length = l;
-
-    trajectories = new Trajectory *[size];
-    for (int t = 0; t < size; t++) { trajectories[t] = p->computeTrajectory(length); }
-}
-
-
-DataSet::~DataSet ()
-{
-    for (int t = 0; t < size; t++) { delete trajectories[t]; }
-    delete[] trajectories;
-}
-
-
-void DataSet::computeScore (Partition *preP, Partition *postP, int delay, int trainingLength)
-{
-    if (trainingLength + delay > length) { std::cout << "ERROR: the size of the training set is inconsistent!" << std::endl; return; }
-
-
-    // Estimate the transition matrix by the empirical distribution on the training set
-
-    // initialise
-    double *trainDist = new double [preP->size * postP->size];
-    for (int i = 0; i < preP->size; i++)
-	for (int j = 0; j < postP->size; j++)
-	    trainDist[j * preP->size + i] = 0;
-
-    // count occurrences
-    for (int t = 0; t < size; t++)
-    {
-	Trajectory *traj = trajectories[t];
-	for (int time = 0; time < trainingLength; time++)
-	{
-	    Part *prePart = preP->findPart(traj->states[time]);
-	    Part *postPart = postP->findPart(traj->states[time+delay]);
-	    trainDist[postPart->id * preP->size + prePart->id]++;
-	}
-    }
-
-    // normalise
-    for (int i = 0; i < preP->size; i++)
-    {
-	double sum = 0;
-	for (int j = 0; j < postP->size; j++)
-	    sum += trainDist[j * preP->size + i];
-	for (int j = 0; j < postP->size; j++)
-	    trainDist[j * preP->size + i] /= sum;
-    }
-
-    // print
-    int width = 10; int prec = 4;
-
-    std::cout << "        ";
-    for (int j = 0; j < postP->size; j++) { std::cout << std::setw(width+2) << j; }
-    std::cout << std::endl;
-
-    for (int i = 0; i < preP->size; i++)
-    {
-	std::cout << "p(.|" << i << ") = {";
-	if (postP->size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << trainDist[0 * preP->size + i]; }
-	if (postP->size > 1)
-	{
-	    for (int j = 1; j < postP->size; j++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << trainDist[j * preP->size + i]; }
-	}
-	std::cout << "}" << std::endl;
-    }
-    std::cout << std::endl;
-}
-
-
 
 MarkovProcess::MarkovProcess (int s)
 {
@@ -234,19 +120,20 @@ void MarkovProcess::computeStationaryDistribution (double threshold)
 }
 
 
-Trajectory *MarkovProcess::computeTrajectory (int length)
+MarkovTrajectory *MarkovProcess::computeTrajectory (int time, int length)
 {
-    Trajectory *traj = new Trajectory(this,length);
+    MarkovTrajectory *traj = new MarkovTrajectory(this,time,length);
 
     if (length > 0)
     {
 	int state = 0;
-	double currentProb = distribution[state];
+	double *dist = getDistribution(time);
+	double currentProb = dist[state];
 	double r = ((double) rand() / (RAND_MAX));
 	while (r > currentProb) {
 	    r -= currentProb;
 	    state++;
-	    currentProb = distribution[state];
+	    currentProb = dist[state];
 	}
 	traj->states[0] = state;
 
@@ -773,4 +660,143 @@ void MarkovProcess::print ()
     }
 }
 
+
+
+MarkovTrajectory::MarkovTrajectory (MarkovProcess *pr, int ti, int le)
+{
+    process = pr;
+    time = ti;
+    length = le;
+    states = new int [length];
+}
+
+
+MarkovTrajectory::~MarkovTrajectory ()
+{
+    delete[] states;
+}
+
+
+void MarkovTrajectory::print (const int binary)
+{
+    if (binary > 0)
+    {
+	if (length > 0) {
+	    std::cout << "START:  ";
+	    for (int i = binary-1; i >= 0; i--) { std::cout << ((states[0] >> i) & 1); }
+	}
+	
+	for (int l = 1; l < length; l++)
+	{
+	    std::cout << "  ->  ";
+	    for (int i = binary-1; i >= 0; i--) { std::cout << ((states[l] >> i) & 1); }
+	}
+    }
+
+    else {
+	if (length > 0) { std::cout << "START:  " << states[0]; }
+	for (int l = 1; l < length; l++) { std::cout << "  ->  " << states[l]; }
+    }
+
+    std::cout << std::endl;
+}
+
+
+
+MarkovDataSet::MarkovDataSet (MarkovProcess *pr, int si, int ti, int le)
+{
+    process = pr;
+    size = si;
+    time = ti;
+    length = le;
+
+    trajectories = new MarkovTrajectory *[size];
+    for (int t = 0; t < size; t++) { trajectories[t] = process->computeTrajectory(time,length); }
+}
+
+
+MarkovDataSet::~MarkovDataSet ()
+{
+    for (int t = 0; t < size; t++) { delete trajectories[t]; }
+    delete[] trajectories;
+}
+
+
+double MarkovDataSet::computeScore (Partition *preP, Partition *postP, int delay, int trainingLength)
+{
+    if (trainingLength + delay > length) { std::cout << "ERROR: the size of the training set is inconsistent!" << std::endl; return -1; }
+
+
+    // Estimate the transition matrix by the empirical distribution on the training set
+
+    // initialise
+    double *trainDist = new double [preP->size * postP->size];
+    for (int i = 0; i < preP->size; i++)
+	for (int j = 0; j < postP->size; j++)
+	    trainDist[j * preP->size + i] = 0;
+
+    // count occurrences
+    for (int t = 0; t < size; t++)
+    {
+	MarkovTrajectory *traj = trajectories[t];
+	for (int time = 0; time < trainingLength; time++)
+	{
+	    Part *prePart = preP->findPart(traj->states[time]);
+	    Part *postPart = postP->findPart(traj->states[time+delay]);
+	    trainDist[postPart->id * preP->size + prePart->id]++;
+	}
+    }
+
+    // normalise
+    for (int i = 0; i < preP->size; i++)
+    {
+	double sum = 0;
+	for (int j = 0; j < postP->size; j++)
+	    sum += trainDist[j * preP->size + i];
+	if (sum > 0)
+	    for (int j = 0; j < postP->size; j++)
+		trainDist[j * preP->size + i] /= sum;
+    }
+
+    // print
+    /*
+    int width = 10; int prec = 4;
+
+    std::cout << "        ";
+    for (int j = 0; j < postP->size; j++) { std::cout << std::setw(width+2) << j; }
+    std::cout << std::endl;
+
+    for (int i = 0; i < preP->size; i++)
+    {
+	std::cout << "p(.|" << i << ") = {";
+	if (postP->size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << trainDist[0 * preP->size + i]; }
+	if (postP->size > 1)
+	{
+	    for (int j = 1; j < postP->size; j++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << trainDist[j * preP->size + i]; }
+	}
+	std::cout << "}" << std::endl;
+    }
+    std::cout << std::endl;
+    */
+
+    // compute score
+    int count = 0;
+    double score = 0;
+    for (int t = 0; t < size; t++)
+    {
+	MarkovTrajectory *traj = trajectories[t];
+	for (int time = trainingLength; time < length - delay; time++)
+	{
+	    Part *prePart = preP->findPart(traj->states[time]);
+	    Part *postPart = postP->findPart(traj->states[time+delay]);
+	    double prob = trainDist[postPart->id * preP->size + prePart->id];
+	    if (prob == 0) { return -1; }
+
+	    score += -log(prob);
+	    count++;
+	}
+    }
+    if (count > 0) { return score/count; }
+    else { return 0; }
+}
 

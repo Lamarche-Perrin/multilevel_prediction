@@ -20,26 +20,58 @@ bool VERBOSE = false;
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
+    //srand(3);
 
     int size = 3;
+    double contrarian = 0;
 
+    int time = 0;
     int delay = 1;
-    int dataSize = 10000;
-    int dataLength = 20;
-    int trainingLength = 19;
+    int dataSize = 100000;
+    int dataLength = 2;
+    int trainingLength = 1;
 
-    TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (size,0,1,0,0,0,0,0);
+    TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (size,0, 1,0,0,0, contrarian,0);
+
+	VoterMeasurement *preM = getMeasurement (M_MICRO, MACRO_STATE, VG);
+	VoterMeasurement *postM = getMeasurement (M_MICRO, MACRO_STATE, VG);
+
+/*
+	VoterTrajectory *traj = new VoterTrajectory (VG, dataLength);
+    traj->print();
+	
+	VoterMeasurementTrajectory *mTraj = new VoterMeasurementTrajectory(preM,traj);
+	mTraj->print();
+*/
+	
+	VoterDataSet *DS = new VoterDataSet (VG, dataSize, time, dataLength);
+	DS->computeScore (preM, postM, delay, trainingLength);
+
+    /*
+    int size = 7;
+    double contrarian = 1./(size+1);
+
+    int time = -1;
+    int delay = 1;
+    int dataSize = 100;
+    int dataLength = 101;
+    int trainingLength = 95;
+
+    TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (size,0, 1,0,0,0, contrarian,0);
     MarkovProcess *MP = VG->getMarkovProcess();
-    MP->getDistribution(0);
-    MP->getTransition(1);
+    MP->computeStationaryDistribution(0.0001);
 
     VoterMeasurement *preM = getMeasurement (M_MICRO, MACRO_STATE, VG);
     VoterMeasurement *postM = getMeasurement (M_MICRO, MACRO_STATE, VG);
     Partition *preP = VG->getMarkovPartition(preM);
     Partition *postP = VG->getMarkovPartition(postM);
 
-    DataSet *DS = new DataSet (MP, dataSize, dataLength);
-    DS->computeScore (preP, postP, delay, trainingLength);
+    for (int ds = 100; ds <= 1000; ds += 100)
+    {
+	MarkovDataSet *DS = new MarkovDataSet (MP, ds, time, dataLength);
+	std::cout << DS->computeScore (preP, postP, delay, trainingLength) << std::endl;
+    }
+    */
 
     return EXIT_SUCCESS;
 }

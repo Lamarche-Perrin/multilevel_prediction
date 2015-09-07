@@ -12,39 +12,7 @@
 
 #include "partition.hpp"
 
-class MarkovProcess;
-
-class Trajectory
-{
-public:
-    MarkovProcess *process;
-    int length;
-    int *states;
-
-    Trajectory (MarkovProcess *process, int length);
-    ~Trajectory ();
-    
-    void print (int binary = 0);
-};
-
-
-class DataSet
-{
-public:
-    MarkovProcess *process;
-
-    int size;
-    int length;
-    Trajectory **trajectories;
-
-    DataSet (MarkovProcess *process, int size, int length);
-    ~DataSet ();
-
-    void computeScore (Partition *preP, Partition *postP, int delay, int trainingLength);
-};
-
-
-
+class MarkovTrajectory;
 
 /*!
  * \class MarkovProcess
@@ -119,7 +87,7 @@ public:
      * \brief Compute a possible trajectory of the Markov chain
      * \param length : Length of the trajectory
      */
-    Trajectory *computeTrajectory (int length);
+    MarkovTrajectory *computeTrajectory (int time, int length);
 
     /*!
      * \brief Get the probability to be in a given state at a given time (-1 for the stationary distribution)
@@ -170,6 +138,38 @@ public:
 
     int *getOptimalCut (int microSize, double *macroEntropy, double *macroInformation, double beta);
     std::set<OrderedPartition*> *getOptimalOrderedPartition (Partition *nextPartition, Partition *currentPartition, int delay, int time, double threshold);
+};
+
+
+class MarkovTrajectory
+{
+public:
+    MarkovProcess *process;
+    int time;
+    int length;
+    int *states;
+
+    MarkovTrajectory (MarkovProcess *process, int time, int length);
+    ~MarkovTrajectory ();
+    
+    void print (int binary = 0);
+};
+
+
+class MarkovDataSet
+{
+public:
+    MarkovProcess *process;
+
+    int size;
+    int time;
+    int length;
+    MarkovTrajectory **trajectories;
+
+    MarkovDataSet (MarkovProcess *process, int size, int time, int length);
+    ~MarkovDataSet ();
+
+    double computeScore (Partition *preP, Partition *postP, int delay, int trainingLength);
 };
 
 
