@@ -20,16 +20,16 @@ bool VERBOSE = false;
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
-    //srand(3);
+    //srand(4);
 
-    int size = 3;
-    double contrarian = 0;
+    int size = 8;
+    double contrarian = 1./(size+1);
 
-    int time = 0;
+    int time = 10000;
     int delay = 1;
-    int dataSize = 100000;
-    int dataLength = 2;
-    int trainingLength = 1;
+    int dataSize = 1000;
+    int dataLength = 100;
+    int trainingLength = 95;
 
     TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (size,0, 1,0,0,0, contrarian,0);
 
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 */
 	
 	VoterDataSet *DS = new VoterDataSet (VG, dataSize, time, dataLength);
-	DS->computeScore (preM, postM, delay, trainingLength);
+	std::cout << "SCORE = " << DS->computeScore (preM, postM, delay, trainingLength, false) << std::endl;
 
     /*
     int size = 7;

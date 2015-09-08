@@ -74,8 +74,8 @@ long unsigned int nChoosek (int n, int k);
 typedef std::set<VoterMeasurement*> MeasurementSet;
 typedef std::set< std::pair<MeasurementType,VoterMetric> > SpecMeasurementSet;
 
-typedef std::map<VoterMeasurementState,double> ProbabilityMap;
-typedef std::map<VoterMeasurementState,ProbabilityMap*> TransitionMap;
+typedef std::map<VoterMeasurementState*,double*> ProbabilityMap;
+typedef std::map<VoterMeasurementState*,ProbabilityMap*> TransitionMap;
 
 /*!
  * \class VoterNode
@@ -108,8 +108,6 @@ public:
  * \brief Destructor
  */
     ~VoterNode ();
-
-    VoterEdge *getRandomEdge();
 };
 
 
@@ -200,6 +198,7 @@ public:
 
     
     VoterNode *getRandomNode ();
+    VoterEdge *getRandomEdge (VoterNode *node);
 		
     /*!
      * \brief Build the Markov chain associated to the described Voter Model
@@ -365,6 +364,7 @@ public:
      */
     void addNodes (unsigned long int i);
 
+	int getCardinality (VoterMetric metric);
 	int getState (VoterState *state, VoterMetric metric);
 
     /*!
@@ -409,6 +409,7 @@ public:
      */
     void addProbe (VoterProbe *probe, VoterMetric metric);
 
+	int getCardinality ();
 	VoterMeasurementState *getState (VoterState *state);
 	
     /*!
@@ -496,11 +497,12 @@ public:
 	int *probeStates;
 
 	VoterMeasurementState (VoterMeasurement *measurement);
-	VoterMeasurementState (const VoterMeasurementState& state);
+//	VoterMeasurementState (const VoterMeasurementState& state);
+//	VoterMeasurementState &operator= (const VoterMeasurementState &state);
 	~VoterMeasurementState ();
 
 	void init (int value);
-	void computeId ();
+	bool isEqual (VoterMeasurementState *state);
 	
 	void print ();
 };
@@ -511,10 +513,11 @@ class VoterTrajectory
 public:
     VoterGraph *graph;
 
+	int time;
     int length;
     VoterState **states;
 
-    VoterTrajectory (VoterGraph *graph, int length);
+    VoterTrajectory (VoterGraph *graph, int time, int length);
     ~VoterTrajectory ();
 
     void print ();
@@ -550,7 +553,12 @@ public:
     VoterDataSet (VoterGraph *graph, int size, int time, int length);
     ~VoterDataSet ();
 
-    double computeScore (VoterMeasurement *preM, VoterMeasurement *postM, int delay, int trainingLength);
+    double computeScore (VoterMeasurement *preM, VoterMeasurement *postM, int delay, int trainingLength, bool verbose = false);
+
+private:
+	ProbabilityMap *findInTransitionMap (TransitionMap *transMap, VoterMeasurementState *preState);
+	double *findInProbabilityMap (ProbabilityMap *probMap, VoterMeasurementState *postState);
+
 };
 
 #endif
