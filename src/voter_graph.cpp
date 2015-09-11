@@ -4,6 +4,7 @@
  */
 
 #include <iostream>
+#include <iomanip>
 #include <set>
 #include <map>
 #include <math.h>
@@ -15,32 +16,32 @@
 
 VoterNode::VoterNode (int i, double w, double c)
 {
-    id = i;
-    weight = w;
-    contrarian = c;
+	id = i;
+	weight = w;
+	contrarian = c;
 	
-    inEdgeWeight = 0;
-    inEdgeNumber = 0;
-    inEdgeSet = new std::set<VoterEdge*>();
+	inEdgeWeight = 0;
+	inEdgeNumber = 0;
+	inEdgeSet = new std::set<VoterEdge*>();
 
-    outEdgeWeight = 0;
-    outEdgeNumber = 0;	
-    outEdgeSet = new std::set<VoterEdge*>();
+	outEdgeWeight = 0;
+	outEdgeNumber = 0;	
+	outEdgeSet = new std::set<VoterEdge*>();
 }
 
 
 VoterNode::~VoterNode ()
 {
-    delete inEdgeSet;
-    delete outEdgeSet;
+	delete inEdgeSet;
+	delete outEdgeSet;
 }
 
 
 VoterEdge::VoterEdge (VoterNode *n1, VoterNode *n2, double w)
 {
-    node1 = n1;
-    node2 = n2;
-    weight = w;
+	node1 = n1;
+	node2 = n2;
+	weight = w;
 }
 
 
@@ -49,59 +50,59 @@ VoterEdge::~VoterEdge () {}
 
 VoterGraph::VoterGraph (int update)
 {
-    updateProcess = update;
-    nodeNumber = 0;
-    edgeNumber = 0;
-    nodeWeight = 0;
-    edgeWeight = 0;
-    nodeMap = new std::map<int,VoterNode*>();
-    nodeSet = new std::set<VoterNode*>();
-    edgeSet = new std::set<VoterEdge*>();
+	updateProcess = update;
+	nodeNumber = 0;
+	edgeNumber = 0;
+	nodeWeight = 0;
+	edgeWeight = 0;
+	nodeMap = new std::map<int,VoterNode*>();
+	nodeSet = new std::set<VoterNode*>();
+	edgeSet = new std::set<VoterEdge*>();
 	
-    process = 0;
+	process = 0;
 }
 
 
 VoterGraph::~VoterGraph ()
 {
-    delete nodeMap;
-    delete nodeSet;
-    delete edgeSet;
+	delete nodeMap;
+	delete nodeSet;
+	delete edgeSet;
 }
 
 
 CompleteVoterGraph::CompleteVoterGraph (int size, int update, double contrarian) : VoterGraph (update)
 {
-    for (int i = 0; i < size; i++) { addNode(1,contrarian); }
+	for (int i = 0; i < size; i++) { addNode(1,contrarian); }
 
-    for (std::set<VoterNode*>::iterator it1 = nodeSet->begin(); it1 != nodeSet->end(); ++it1)
-    {
+	for (std::set<VoterNode*>::iterator it1 = nodeSet->begin(); it1 != nodeSet->end(); ++it1)
+	{
 		VoterNode *n1 = *it1;
 		for (std::set<VoterNode*>::iterator it2 = nodeSet->begin(); it2 != nodeSet->end(); ++it2)
 		{
 			VoterNode *n2 = *it2;
 			if (n1 != n2) { addEdge(n1,n2); }
 		}
-    }
+	}
 }
 
 
 ChainVoterGraph::ChainVoterGraph (int s, double c, bool r, int update) : VoterGraph (update)
 {
-    size = s;
-    contrarian = c;
-    ring = r;
-    nodeArray = new VoterNode* [size];
+	size = s;
+	contrarian = c;
+	ring = r;
+	nodeArray = new VoterNode* [size];
 
-    for (int i = 0; i < size; i++) { nodeArray[i] = addNode(1,contrarian); }
-    for (int i = 1; i < size; i++) { addEdge(nodeArray[i-1],nodeArray[i]); addEdge(nodeArray[i],nodeArray[i-1]); }
-    if (ring) { addEdge(nodeArray[0],nodeArray[size-1]); addEdge(nodeArray[size-1],nodeArray[0]); }
+	for (int i = 0; i < size; i++) { nodeArray[i] = addNode(1,contrarian); }
+	for (int i = 1; i < size; i++) { addEdge(nodeArray[i-1],nodeArray[i]); addEdge(nodeArray[i],nodeArray[i-1]); }
+	if (ring) { addEdge(nodeArray[0],nodeArray[size-1]); addEdge(nodeArray[size-1],nodeArray[0]); }
 }
 
 
 ChainVoterGraph::~ChainVoterGraph ()
 {
-    delete [] nodeArray;
+	delete [] nodeArray;
 }
 
 
@@ -109,53 +110,53 @@ TwoCommunitiesVoterGraph::TwoCommunitiesVoterGraph (int s1, int s2,
 													double intraR1, double intraR2, double interR1, double interR2,
 													double c1, double c2, int update) : VoterGraph (update)
 {
-    size1 = s1;
-    size2 = s2;
+	size1 = s1;
+	size2 = s2;
 
-    intraRate1 = intraR1;
-    intraRate2 = intraR2;
-    interRate1 = interR1;
-    interRate2 = interR2;
+	intraRate1 = intraR1;
+	intraRate2 = intraR2;
+	interRate1 = interR1;
+	interRate2 = interR2;
 	
-    contrarian1 = c1;
-    contrarian2 = c2;
+	contrarian1 = c1;
+	contrarian2 = c2;
 	
-    community1 = new std::set<VoterNode*>();
-    community2 = new std::set<VoterNode*>();
+	community1 = new std::set<VoterNode*>();
+	community2 = new std::set<VoterNode*>();
 
-    for (int i = 0; i < size1; i++) { community1->insert(addNode(1,c1)); }
-    for (int i = 0; i < size2; i++) { community2->insert(addNode(1,c2)); }
+	for (int i = 0; i < size1; i++) { community1->insert(addNode(1,c1)); }
+	for (int i = 0; i < size2; i++) { community2->insert(addNode(1,c2)); }
 
-    for (std::set<VoterNode*>::iterator it1 = community1->begin(); it1 != community1->end(); ++it1)
+	for (std::set<VoterNode*>::iterator it1 = community1->begin(); it1 != community1->end(); ++it1)
 		for (std::set<VoterNode*>::iterator it2 = community1->begin(); it2 != community1->end(); ++it2)
 			if (*it1 != *it2) { addEdge(*it1,*it2,intraR1); }
 
-    for (std::set<VoterNode*>::iterator it1 = community2->begin(); it1 != community2->end(); ++it1)
+	for (std::set<VoterNode*>::iterator it1 = community2->begin(); it1 != community2->end(); ++it1)
 		for (std::set<VoterNode*>::iterator it2 = community2->begin(); it2 != community2->end(); ++it2)
 			if (*it1 != *it2) { addEdge(*it1,*it2,intraR2); }
 
-    for (std::set<VoterNode*>::iterator it1 = community1->begin(); it1 != community1->end(); ++it1)
-    {
+	for (std::set<VoterNode*>::iterator it1 = community1->begin(); it1 != community1->end(); ++it1)
+	{
 		for (std::set<VoterNode*>::iterator it2 = community2->begin(); it2 != community2->end(); ++it2)
 		{
 			addEdge(*it1,*it2,interR1);
 			addEdge(*it2,*it1,interR2);
 		}
-    }
+	}
 }
 
 
 TwoCommunitiesVoterGraph::~TwoCommunitiesVoterGraph ()
 {
-    delete community1;
-    delete community2;
+	delete community1;
+	delete community2;
 }
 
 
 
 VoterNode *VoterGraph::addNode (double weight, double contrarian)
 {
-    if (weight > 0) {		
+	if (weight > 0) {		
 		VoterNode *node = new VoterNode(nodeNumber,weight,contrarian);
 		nodeSet->insert(node);
 		nodeMap->insert(std::make_pair(node->id,node));
@@ -163,15 +164,15 @@ VoterNode *VoterGraph::addNode (double weight, double contrarian)
 		nodeWeight += weight;
 
 		return node;
-    }
+	}
 	
-    else { return 0; }
+	else { return 0; }
 }
 
 
 VoterEdge *VoterGraph::addEdge (VoterNode *n1, VoterNode *n2, double weight)
 {
-    if (weight > 0) {
+	if (weight > 0) {
 		edgeNumber++;
 		edgeWeight += weight;
 		
@@ -187,16 +188,16 @@ VoterEdge *VoterGraph::addEdge (VoterNode *n1, VoterNode *n2, double weight)
 		n2->inEdgeNumber++;	
 		
 		return e;
-    }
+	}
 	
-    else { return 0; }
+	else { return 0; }
 }
 
 
 void VoterGraph::fillEdges ()
 {
-    for (std::set<VoterNode*>::iterator it1 = nodeSet->begin(); it1 != nodeSet->end(); ++it1)
-    {
+	for (std::set<VoterNode*>::iterator it1 = nodeSet->begin(); it1 != nodeSet->end(); ++it1)
+	{
 		VoterNode *n1 = *it1;
 	    
 		for (std::set<VoterNode*>::iterator it2 = it1; it2 != nodeSet->end(); ++it2)
@@ -208,35 +209,35 @@ void VoterGraph::fillEdges ()
 				addEdge(n2,n1);
 			}
 		}
-    }
+	}
 }
 
 
 VoterNode *VoterGraph::getRandomNode ()
 {
-    double r = ((double) rand() / (RAND_MAX));
-    for (std::set<VoterNode*>::iterator it = nodeSet->begin(); it != nodeSet->end(); ++it)
-    {
+	double r = ((double) rand() / (RAND_MAX));
+	for (std::set<VoterNode*>::iterator it = nodeSet->begin(); it != nodeSet->end(); ++it)
+	{
 		VoterNode *n = *it;
 		double p = n->weight/nodeWeight;
 		if (r < p) { return n; }
 		r -= p;
-    }
-    return 0;
+	}
+	return 0;
 }
 
 
 VoterEdge *VoterGraph::getRandomEdge (VoterNode *node)
 {
 	double r = ((double) rand() / (RAND_MAX));
-    for (std::set<VoterEdge*>::iterator it = node->outEdgeSet->begin(); it != node->outEdgeSet->end(); ++it)
-    {
+	for (std::set<VoterEdge*>::iterator it = node->outEdgeSet->begin(); it != node->outEdgeSet->end(); ++it)
+	{
 		VoterEdge *e = *it;
 		double p = e->weight/node->outEdgeWeight;
 		if (r < p) { return e; }
 		r -= p;
-    }
-    return 0;
+	}
+	return 0;
 }
 
 
@@ -1307,11 +1308,13 @@ void VoterProbe::addNodes (unsigned long int i)
 }
 
 
-int VoterProbe::getCardinality (VoterMetric metric)
+int VoterProbe::getCardinality (VoterMetric metric, int binning)
 {
 	switch (metric)
 	{
-	case MACRO_STATE : return nodeNumber+1;
+	case MACRO_STATE :
+		if (binning > 0) { return binning; }
+		return nodeNumber+1;
 		
 	default :
 		std::cout << "ERROR: this metric has not been implemented!" << std::endl;
@@ -1320,7 +1323,7 @@ int VoterProbe::getCardinality (VoterMetric metric)
 }
 
 
-int VoterProbe::getState (VoterState *state, VoterMetric metric)
+int VoterProbe::getState (VoterState *state, VoterMetric metric, int binning)
 {
 	switch (metric)
 	{
@@ -1332,6 +1335,13 @@ int VoterProbe::getState (VoterState *state, VoterMetric metric)
 			VoterNode *n = *it;
 			probeState += state->agentStates[n->id];
 		}
+		
+		if (binning > 0)
+		{
+			double binningSize = (nodeNumber+1) / binning;
+			return floor(probeState/binningSize);
+		}
+		
 		return probeState;
 	}
 		
@@ -1367,6 +1377,7 @@ VoterMeasurement::VoterMeasurement (VoterGraph *g, std::string t)
     probeNumber = 0;
     probeMap = new std::map<int,VoterProbe*>();
     metricMap = new std::map<int,VoterMetric>();
+    binningMap = new std::map<int,int>();
 }
 
 
@@ -1375,13 +1386,15 @@ VoterMeasurement::~VoterMeasurement ()
     if (partition != 0) { delete partition; }
     delete probeMap;
     delete metricMap;
+	delete binningMap;
 }
 
 
-void VoterMeasurement::addProbe (VoterProbe *p, VoterMetric metric)
+void VoterMeasurement::addProbe (VoterProbe *p, VoterMetric metric, int binning)
 {
     probeMap->insert(std::make_pair(probeNumber,p));
     metricMap->insert(std::make_pair(probeNumber,metric));
+	binningMap->insert(std::make_pair(probeNumber,binning));
     probeNumber++;
 }
 
@@ -1389,7 +1402,7 @@ void VoterMeasurement::addProbe (VoterProbe *p, VoterMetric metric)
 int VoterMeasurement::getCardinality ()
 {
 	int card = 1;
-	for (int num = 0; num < probeNumber; num++) { card *= probeMap->at(num)->getCardinality(metricMap->at(num)); }
+	for (int num = 0; num < probeNumber; num++) { card *= probeMap->at(num)->getCardinality(metricMap->at(num),binningMap->at(num)); }
 	return card;
 }
 
@@ -1402,7 +1415,8 @@ VoterMeasurementState *VoterMeasurement::getState (VoterState *state)
 	{
 		VoterProbe *probe = probeMap->at(num);
 		VoterMetric metric = metricMap->at(num);
-		measurementState->probeStates[num] = probe->getState(state,metric);
+		int binning = binningMap->at(num);
+		measurementState->probeStates[num] = probe->getState(state,metric,binning);
 	}
 	return measurementState;
 }
@@ -1500,29 +1514,29 @@ VoterMeasurementState::VoterMeasurementState (VoterMeasurement *m)
 
 
 /*
-VoterMeasurementState::VoterMeasurementState (const VoterMeasurementState &state){
-	std::cout << "(";
-	if (state.size > 0)
-	{
-		std::cout << state.probeStates[0];
-		for (int i = 1; i < state.size; i++) { std::cout << "," << state.probeStates[i]; }
-	}
-	std::cout << ")" << measurement << "OK" << std::endl;
+  VoterMeasurementState::VoterMeasurementState (const VoterMeasurementState &state){
+  std::cout << "(";
+  if (state.size > 0)
+  {
+  std::cout << state.probeStates[0];
+  for (int i = 1; i < state.size; i++) { std::cout << "," << state.probeStates[i]; }
+  }
+  std::cout << ")" << measurement << "OK" << std::endl;
 
-	measurement = state.measurement;
-	size = state.size;
-    probeStates = new int [size];
-	for (int i = 0; i < size; i++) { probeStates[i] = state.probeStates[i]; };
-}
+  measurement = state.measurement;
+  size = state.size;
+  probeStates = new int [size];
+  for (int i = 0; i < size; i++) { probeStates[i] = state.probeStates[i]; };
+  }
 
 
-VoterMeasurementState &VoterMeasurementState::operator= (const VoterMeasurementState &state)
-{
-	measurement = state.measurement;
-	size = state.size;
-	for (int i = 0; i < size; i++) { probeStates[i] = state.probeStates[i]; };
-	return *this;
-}
+  VoterMeasurementState &VoterMeasurementState::operator= (const VoterMeasurementState &state)
+  {
+  measurement = state.measurement;
+  size = state.size;
+  for (int i = 0; i < size; i++) { probeStates[i] = state.probeStates[i]; };
+  return *this;
+  }
 */
 
 
@@ -1533,21 +1547,21 @@ VoterMeasurementState::~VoterMeasurementState ()
 
 
 /*
-bool operator< (const VoterMeasurementState& s1, const VoterMeasurementState& s2)
-{
-	if (s1.size != s2.size) { std::cout << "ERROR: measurement states are not comparable!" << std::cout; return false; }
-	for (int i = 0; i < s1.size; i++) {
-		//std::cout << "COMPARE " << s1.probeStates[i] << " AND "<< s2.probeStates[i] << std::endl;
-		if (s1.probeStates[i] < s2.probeStates[i])
-		{
-			//std::cout << "RETURN TRUE" << std::endl;
-			return true;
-		}
-	}
+  bool operator< (const VoterMeasurementState& s1, const VoterMeasurementState& s2)
+  {
+  if (s1.size != s2.size) { std::cout << "ERROR: measurement states are not comparable!" << std::cout; return false; }
+  for (int i = 0; i < s1.size; i++) {
+  //std::cout << "COMPARE " << s1.probeStates[i] << " AND "<< s2.probeStates[i] << std::endl;
+  if (s1.probeStates[i] < s2.probeStates[i])
+  {
+  //std::cout << "RETURN TRUE" << std::endl;
+  return true;
+  }
+  }
 	
-	//std::cout << "RETURN FALSE" << std::endl;
-	return false;
-}
+  //std::cout << "RETURN FALSE" << std::endl;
+  return false;
+  }
 */
 
 
@@ -1680,138 +1694,523 @@ void VoterMeasurementTrajectory::print ()
 }
 
 
-VoterDataSet::VoterDataSet (VoterGraph *g, int s, int t, int l)
+VoterDataSet::VoterDataSet (VoterGraph *g, int t, int d, int trainS, int testS, int trainL, int testL)
 {
     graph = g;
-    size = s;
     time = t;
-    length = l;
+	delay = d;
+	trainSize = trainS;
+    testSize = testS;
+	trainLength = trainL;
+	testLength = testL;
 
-    trajectories = new VoterTrajectory *[size];
-    for (int tr = 0; tr < size; tr++) { trajectories[tr] = new VoterTrajectory(graph, time, length); }
+    trajectories = new VoterTrajectory *[trainSize + testSize];
+    for (int t = 0; t < trainSize + testSize; t++) { trajectories[t] = new VoterTrajectory(graph, time, trainLength + testLength + delay); }
+
+	transMap = new TransitionMap ();
 }
 
 
 VoterDataSet::~VoterDataSet ()
 {
-    for (int t = 0; t < size; t++) { delete trajectories[t]; }
+    for (int t = 0; t < trainSize + testSize; t++) { delete trajectories[t]; }
     delete[] trajectories;
+	deleteTransitionMap();
 }
 
 
-
-double VoterDataSet::computeScore (VoterMeasurement *preM, VoterMeasurement *postM, int delay, int trainingLength, bool verbose)
+void VoterDataSet::deleteTransitionMap ()
 {
-    if (trainingLength + delay > length) { std::cout << "ERROR: the size of the training set is inconsistent!" << std::endl; return 1; }
+	for (TransitionMap::iterator it1 = transMap->begin(); it1 != transMap->end(); ++it1)
+	{
+		ProbabilityMap *probMap = it1->second->first;
+		for (ProbabilityMap::iterator it2 = probMap->begin(); it2 != probMap->end(); ++it2)
+		{
+			delete it2->first;
+			delete it2->second;
+		}
+		delete it1->first;
+		delete it1->second->first;
+		delete it1->second->second;
+		delete it1->second;
+	}
+	delete transMap;
+}
 
 
-    // Estimate the transition matrix by the empirical distribution on the training set
+void VoterDataSet::estimateTransitionMap (VoterMeasurement *preM, VoterMeasurement *postM)
+{
+	// initialise
+	deleteTransitionMap();
+	transMap = new TransitionMap();
 
-    // initialise
-	TransitionMap *trainMap = new TransitionMap();
-	
     // count occurrences
-    for (int t = 0; t < size; t++)
+    for (int t = 0; t < trainSize; t++)
     {
 		VoterTrajectory *traj = trajectories[t];
-		for (int l = 0; l < trainingLength; l++)
+		for (int l = 0; l < trainLength; l++)
 		{
 			VoterMeasurementState *preS = preM->getState(traj->states[l]);
 			VoterMeasurementState *postS = postM->getState(traj->states[l+delay]);
 
 			//preS->print(); postS->print(); std::cout << std::endl;
 
-			ProbabilityMap *probMap = findInTransitionMap (trainMap, preS);
-			if (probMap != 0)
+			ProbabilityPair *result1 = findInTransitionMap (transMap, preS);
+			if (result1 != 0)
 			{
-				double *prob = findInProbabilityMap (probMap, postS);
-				if (prob != 0)
-				{
-					*prob = (*prob)+1;
-					//std::cout << "INCR" << std::endl;
-				}
-						
-				else {
-					probMap->insert(std::pair<VoterMeasurementState*,double*>(postS,new double(1)));
-					//std::cout << "ADD 2" << std::endl;
-				}
+				ProbabilityMap *probMap = result1->first;
+				int *marginCount = result1->second;
+				*marginCount = (*marginCount)+1;
+
+				int *count = findInProbabilityMap (probMap, postS);
+				if (count != 0) { *count = (*count)+1; }						
+				else { probMap->insert(std::pair<VoterMeasurementState*,int*>(postS, new int(1))); }
 			}
 
 			else {
 				ProbabilityMap *probMap = new ProbabilityMap();
-				trainMap->insert(std::pair<VoterMeasurementState*,ProbabilityMap*>(preS,probMap));
-				probMap->insert(std::pair<VoterMeasurementState*,double*>(postS,new double(1)));
-				//std::cout << "ADD 1" << std::endl;
+				ProbabilityPair *probPair = new ProbabilityPair(probMap, new int(1));
+				transMap->insert(std::pair<VoterMeasurementState*,ProbabilityPair*>(preS, probPair));
+				probMap->insert(std::pair<VoterMeasurementState*,int*>(postS, new int(1)));
 			}
 		}
 	}
 
     // normalise
-	
-	for (TransitionMap::iterator it1 = trainMap->begin(); it1 != trainMap->end(); ++it1)
+/*	
+	int cardinality = postM->getCardinality();
+	for (TransitionMap::iterator it1 = transMap->begin(); it1 != transMap->end(); ++it1)
 	{
-		ProbabilityMap *probMap = it1->second;
-		double total = 0;
-		for (ProbabilityMap::iterator it2 = probMap->begin(); it2 != probMap->end(); ++it2) { total += *(it2->second); }
-		for (ProbabilityMap::iterator it2 = probMap->begin(); it2 != probMap->end(); ++it2) { *(it2->second) /= total; }
+	ProbabilityMap *probMap = it1->second;
+	double total = 0;
+	for (ProbabilityMap::iterator it2 = probMap->begin(); it2 != probMap->end(); ++it2) { total += *(it2->second); }
+	total += cardinality*prior;
+	for (ProbabilityMap::iterator it2 = probMap->begin(); it2 != probMap->end(); ++it2) { *(it2->second) = (*(it2->second) + prior)/total; }
 	}
-	
-	
-	// print
-	if (verbose)
-	{
-		for (TransitionMap::iterator it1 = trainMap->begin(); it1 != trainMap->end(); ++it1)
-		{
-			VoterMeasurementState *preS = it1->first;
-			ProbabilityMap *probMap = it1->second;
-			for (ProbabilityMap::iterator it2 = probMap->begin(); it2 != probMap->end(); ++it2)
-			{
-				VoterMeasurementState *postS = it2->first;
-				double *prob = it2->second;
+*/
+}
 
-				std::cout << "from ";
-				preS->print();
-				std::cout << " to ";
-				postS->print();
-				std::cout << " with probability " << *prob << std::endl;
-			}
+void VoterDataSet::printTransitionMap ()
+{
+	for (TransitionMap::iterator it1 = transMap->begin(); it1 != transMap->end(); ++it1)
+	{
+		VoterMeasurementState *preS = it1->first;
+		ProbabilityMap *probMap = it1->second->first;
+		int *marginCount = it1->second->second;
+		
+		for (ProbabilityMap::iterator it2 = probMap->begin(); it2 != probMap->end(); ++it2)
+		{
+			VoterMeasurementState *postS = it2->first;
+			int *count = it2->second;
+
+			std::cout << "from ";
+			preS->print();
+			std::cout << " to ";
+			postS->print();
+			std::cout << " with probability " << *count << " / " << *marginCount << " = " << (*count)/((double)*marginCount) << std::endl;
 		}
-	}
-	
-	// compute score
-	int count = 0;
+	}	
+}
+
+
+double VoterDataSet::getLogScore (VoterMeasurement *preM, VoterMeasurement *postM, int prior)
+{
+	int newCount = 0;
 	double score = 0;
 	int cardinality = postM->getCardinality();
 	
-	for (int t = 0; t < size; t++)
+	for (int t = 0; t < trainSize + testSize; t++)
 	{
 		VoterTrajectory *traj = trajectories[t];
-		for (int l = trainingLength; l < length - delay; l++)
+
+		int start = 0;
+		if (t < trainSize) { start = trainLength; }
+		for (int l = start; l < trainLength + testLength; l++)
 		{
-			count++;
+			newCount++;
 			VoterMeasurementState *preS = preM->getState(traj->states[l]);
 			VoterMeasurementState *postS = postM->getState(traj->states[l+delay]);
 
 			//preS->print(); postS->print(); std::cout << std::endl;
 
-			ProbabilityMap *probMap = findInTransitionMap (trainMap, preS);
-			if (probMap != 0)
+			ProbabilityPair *result1 = findInTransitionMap (transMap, preS);
+			if (result1 != 0)
 			{
-				double *prob = findInProbabilityMap (probMap, postS);
-				if (prob != 0) { score += log(*prob); }
-				else { return 1; }
+				ProbabilityMap *probMap = result1->first;
+				int *marginCount = result1->second;
+				int *count = findInProbabilityMap (probMap, postS);
+
+				//std::cout << *count << "/" << *marginCount << " = " << log((double)(*count)/(double)(*marginCount)) << std::endl;
+				if (count != 0) { score +=  log10(*marginCount + prior*cardinality) - log10(*count + prior); }
+				else if (prior > 0) { score += log10(*marginCount + prior*cardinality) - log10(prior); }
+				else { return -1; }
 			}
 
-			else { score += -log(cardinality); }
+			else { score += log10(cardinality); }
 		}
 	}
-	if (count > 0) { return score/count; }
+	if (newCount > 0) { return score/newCount; }
 	else { return 0; }
 }
 
 
+double VoterDataSet::getQuadScore (VoterMeasurement *preM, VoterMeasurement *postM, int prior)
+{
+	int newCount = 0;
+	double score = 0;
+	int cardinality = postM->getCardinality();
 
-ProbabilityMap *VoterDataSet::findInTransitionMap (TransitionMap *transMap, VoterMeasurementState *preState)
+	ProbabilityMap quadMap;
+	
+	for (int t = 0; t < trainSize + testSize; t++)
+	{
+		VoterTrajectory *traj = trajectories[t];
+
+		int start = 0;
+		if (t < trainSize) { start = trainLength; }
+		for (int l = start; l < trainLength + testLength; l++)
+		{
+			newCount++;
+			VoterMeasurementState *preS = preM->getState(traj->states[l]);
+			VoterMeasurementState *postS = postM->getState(traj->states[l+delay]);
+
+			ProbabilityPair *result1 = findInTransitionMap (transMap, preS);
+			if (result1 != 0)
+			{
+				ProbabilityMap *probMap = result1->first;
+				int *marginCount = result1->second;
+
+				int *quad = findInProbabilityMap (&quadMap, preS);
+				if (quad == 0)
+				{
+					int c = 0; int q = 0;
+
+					for (ProbabilityMap::iterator it = probMap->begin(); it != probMap->end(); ++it)
+					{ c++; q += pow(*it->second + prior,2); }
+					q += (cardinality-c) * pow(prior,2);
+
+					quad = new int(q);
+					quadMap.insert(std::pair<VoterMeasurementState*,int*>(preS,quad));
+				}
+
+				int *count = findInProbabilityMap (probMap, postS);
+
+				int r = *marginCount + prior * cardinality;
+				if (count != 0) { score += 2 * (double)(*count + prior) / r - (double)(*quad) / pow(r,2); }
+				else { score += 2 * (double)(prior)/(*marginCount + prior*cardinality) - (double)(*quad) / pow(r,2); }
+			}
+
+			else { score += 1. / cardinality; }
+		}
+	}
+
+	if (newCount > 0) { return score/newCount; }
+	else { return 0; }
+}
+
+
+VoterBinning *VoterDataSet::getOptimalBinning (VoterMeasurement *preM, VoterMeasurement *postM, int prior, int realTrainSize, bool verbose)
+{
+	// Define variables
+	
+	if (preM->probeNumber > 1) { std::cout << "ERROR: cannot compute optimal binning on multi-probe pre-measurement!" << std::endl; return 0; }
+	if (postM->probeNumber > 1) { std::cout << "ERROR: cannot compute optimal binning on multi-probe post-measurement!" << std::endl; return 0; }
+
+	int preSize = preM->getCardinality();
+	int postSize = postM->getCardinality();
+	int preSizeSquare = pow(preSize,2);
+	
+	int trainNb = prior * preSize * postSize;
+	int *trainKL = new int [preSize * preSize * postSize];
+	int *trainK = new int [preSize * preSize];
+	int *trainL = new int [postSize];
+
+	int testNb = 0;
+	int *testKL = new int [preSize * preSize * postSize];
+	int *testK = new int [preSize * preSize];
+	int *testL = new int [postSize];
+
+
+	// Initialise variables
+	
+	for (int i = 0; i < preSize; i++)
+		for (int k = 0; k < postSize; k++)
+		{
+			trainKL[i + k * preSizeSquare] = prior;
+			testKL[i + k * preSizeSquare] = 0;
+		}
+
+	for (int i = 0; i < preSize; i++)
+	{
+		trainK[i] = prior * postSize;
+		testK[i] = 0;
+	}
+	
+	for (int k = 0; k < postSize; k++)
+	{
+		trainL[k] = prior * preSize;
+		testL[k] = 0;
+	}
+	
+
+	// Compute variables at the micro-level
+	
+    for (int t = 0; t < trainSize + testSize; t++)
+    {
+		VoterTrajectory *traj = trajectories[t];
+
+		bool realTrain = (realTrainSize < 0 && t < trainSize) || (realTrainSize >= 0 && t < realTrainSize);
+		if (realTrain)
+		{
+			for (int l = 0; l < trainLength; l++)
+			{
+				int preS = preM->getState(traj->states[l])->probeStates[0];
+				int postS = postM->getState(traj->states[l+delay])->probeStates[0];
+
+				trainNb++;
+				trainKL[preS + postS * preSizeSquare]++;
+				trainK[preS]++;
+				trainL[postS]++;
+			}
+		}
+
+		if (realTrain || t >= trainSize)
+		{
+			int start = 0;
+			if (realTrain) { start = trainLength; }
+			for (int l = start; l < trainLength + testLength; l++)
+			{
+				int preS = preM->getState(traj->states[l])->probeStates[0];
+				int postS = postM->getState(traj->states[l+delay])->probeStates[0];
+
+				testNb++;
+				testKL[preS + postS * preSizeSquare]++;
+				testK[preS]++;
+				testL[postS]++;
+			}
+		}
+	}
+
+	
+	// Compute variables at the other levels
+	
+	for (int j = 1; j < preSize; j++)
+		for (int i = 0; i < preSize - j; i++)
+			for (int k = 0; k < postSize; k++)
+			{
+				trainKL[i + j * preSize + k * preSizeSquare] = trainKL[i + (j-1) * preSize + k * preSizeSquare] + trainKL[(i+j) + k * preSizeSquare];
+				testKL[i + j * preSize + k * preSizeSquare] = testKL[i + (j-1) * preSize + k * preSizeSquare] + testKL[(i+j) + k * preSizeSquare];
+			}
+
+	for (int j = 1; j < preSize; j++)
+		for (int i = 0; i < preSize - j; i++)
+		{
+			trainK[i + j * preSize] = trainK[i + (j-1) * preSize] + trainK[(i+j)];
+			testK[i + j * preSize] = testK[i + (j-1) * preSize] + testK[(i+j)];
+		}
+
+
+	// Compute the score function at all levels
+	
+	double *score = new double [preSize * preSize];
+
+	for (int j = 0; j < preSize; j++)
+		for (int i = 0; i < preSize - j; i++)
+		{
+			int index = i + j * preSize;
+
+			if (trainK[index] > 0)
+			{
+				score[index] = testK[index] * log10(trainK[index]);
+				for (int k = 0; k < postSize; k++)
+					score[index] -= testKL[index + k * preSizeSquare] * log10(trainKL[index + k * preSizeSquare]);
+			}
+
+			else {
+				score[index] = testK[index] * log10(trainNb);
+				for (int k = 0; k < postSize; k++)
+					score[index] -= testKL[index + k * preSizeSquare] * log10(trainL[k]);
+			}
+		}
+
+
+	// Compute the optimal cut
+	
+	int *optimalCut = new int [preSize];
+    double *optimalValue = new double [preSize];
+	
+    for (int j = 0; j < preSize; j++)
+    {
+		optimalCut[j] = 0;
+		optimalValue[j] = score[j * preSize];
+
+		for (int cut = 1; cut <= j; cut++)
+		{
+			double value = optimalValue[cut-1] + score[cut + (j-cut) * preSize];
+			if (isnan(optimalValue[j]) || (!isnan(value) && value < optimalValue[j]))
+			{
+				optimalCut[j] = cut;
+				optimalValue[j] = value;
+			}
+		}		
+    }
+
+
+	
+	// Compute results
+
+	VoterBinning *result = new VoterBinning (this);
+	result->size = preSize;
+	result->score = optimalValue[preSize-1] / testNb;
+
+	int j = preSize;
+	while (j > 0)
+	{
+		j = optimalCut[j-1];
+		result->binNumber++;
+	}
+
+	result->cuts = new int [result->binNumber];
+
+	int n = result->binNumber-1;
+	j = preSize;
+	while (j > 0)
+	{
+		int cut = optimalCut[j-1];
+		result->cuts[n--] = cut;
+		j = cut;
+	}
+
+	
+	// Print results
+
+	if (verbose)
+	{
+		std::cout << std::endl;
+		std::cout << "trainNb   " << trainNb << std::endl;
+		
+		std::cout << std::endl;
+		std::cout << "trainKL" << std::endl;
+		for (int j = 0; j < preSize; j++)
+		{
+			for (int i = 0; i < preSize - j; i++)
+			{
+				std::cout << "(";
+				for (int k = 0; k < postSize; k++)
+				{
+					if (k > 0) { std::cout << ","; }
+					std::cout << trainKL[i + j * preSize + k * preSizeSquare];
+				}
+				std::cout << ")   ";
+			}
+			std::cout << std::endl;
+		}
+
+		std::cout << std::endl;
+		std::cout << "trainK" << std::endl;
+		for (int j = 0; j < preSize; j++)
+		{
+			for (int i = 0; i < preSize - j; i++)
+				std::cout << trainK[i + j * preSize] << "   ";
+			std::cout << std::endl;
+		}
+
+		std::cout << std::endl;
+		std::cout << "trainL" << std::endl;
+		for (int k = 0; k < postSize; k++)
+			std::cout << trainL[k] << "   ";
+		std::cout << std::endl;
+		
+		std::cout << std::endl;
+		std::cout << "testKL" << std::endl;
+		for (int j = 0; j < preSize; j++)
+		{
+			for (int i = 0; i < preSize - j; i++)
+			{
+				std::cout << "(";
+				for (int k = 0; k < postSize; k++)
+				{
+					if (k > 0) { std::cout << ","; }
+					std::cout << testKL[i + j * preSize + k * preSizeSquare];
+				}
+				std::cout << ")   ";
+			}
+			std::cout << std::endl;
+		}
+
+		
+		std::cout << std::endl;
+		std::cout << "testNb   " << testNb << std::endl;
+		
+		std::cout << std::endl;
+		std::cout << "testK" << std::endl;
+		for (int j = 0; j < preSize; j++)
+		{
+			for (int i = 0; i < preSize - j; i++)
+				std::cout << testK[i + j * preSize] << "   ";
+			std::cout << std::endl;
+		}
+
+		std::cout << std::endl;
+		std::cout << "testL" << std::endl;
+		for (int k = 0; k < postSize; k++)
+			std::cout << testL[k] << "   ";		
+		std::cout << std::endl;
+
+		std::cout << std::endl;
+		std::cout << "score" << std::endl;
+		for (int j = 0; j < preSize; j++)
+		{
+			for (int i = 0; i < preSize - j; i++)
+			{
+				if (isnan(score[i + j * preSize])) { std::cout << "infinite   "; }
+				else { std::cout << std::setprecision(5) << score[i + j * preSize] << "   "; }
+			}
+			std::cout << std::endl;
+		}
+
+		
+		std::cout << std::endl;
+		std::cout << "optimalCut" << std::endl;
+		for (int j = 0; j < preSize; j++)
+			std::cout << optimalCut[j] << "   ";
+		std::cout << std::endl;
+
+		std::cout << std::endl;
+		std::cout << "optimalValue" << std::endl;
+		for (int j = 0; j < preSize; j++)
+		{
+			if (isnan(optimalValue[j])) { std::cout << "infinite   "; }
+			else { std::cout << std::setprecision(5) << optimalValue[j] << "   "; }
+		}
+		std::cout << std::endl;
+
+		std::cout << std::endl;
+		result->print();
+	}
+
+		
+	// Free memory
+	
+	delete [] trainKL;
+	delete [] trainK;
+	delete [] trainL;
+	delete [] testKL;
+	delete [] testK;
+	delete [] testL;
+
+	delete [] score;
+	delete [] optimalCut;
+	delete [] optimalValue;
+
+	
+	// Return result
+
+	return result;
+}
+
+
+ProbabilityPair *VoterDataSet::findInTransitionMap (TransitionMap *transMap, VoterMeasurementState *preState)
 {
 	bool found = false;
 	TransitionMap::iterator it;
@@ -1825,7 +2224,7 @@ ProbabilityMap *VoterDataSet::findInTransitionMap (TransitionMap *transMap, Vote
 }
 
 
-double *VoterDataSet::findInProbabilityMap (ProbabilityMap *probMap, VoterMeasurementState *postState)
+int *VoterDataSet::findInProbabilityMap (ProbabilityMap *probMap, VoterMeasurementState *postState)
 {
 	bool found = false;
 	ProbabilityMap::iterator it;
@@ -1836,4 +2235,49 @@ double *VoterDataSet::findInProbabilityMap (ProbabilityMap *probMap, VoterMeasur
 	}
 
 	if (found) { return it->second; } else { return 0; }
+}
+
+
+VoterBinning::VoterBinning (VoterDataSet *d)
+{
+	data = d;
+	size = 0;
+	binNumber = 0;
+	cuts = 0;
+	score = 0;
+}
+
+
+VoterBinning::~VoterBinning ()
+{
+	if (cuts != 0) { delete [] cuts; }
+}
+
+
+void VoterBinning::print (bool verbose)
+{
+ 	std::cout << "SCORE = " << score << std::endl;
+	std::cout << "BINS  = " << binNumber << std::endl;
+
+	if (verbose)
+	{
+		int n = 0;
+		std::cout << "CUTS  = ";
+		for (int j = 0; j < size; j++)
+			if (cuts[n] == j) { std::cout << "|" << j; n++; } else { std::cout << " " << j; }
+		std::cout << "|" << std::endl;
+
+		/*
+		std::cout << "CUTS  = ";
+		for (int n = 0; n < binNumber; n++)
+		{
+			int c1 = cuts[n];
+			int c2 = size-1;
+			if (n+1 < binNumber) { c2 = cuts[n+1]-1; }
+			if (c1 == c2) { std::cout << "[" << c1 << "] "; }
+			else { std::cout << "[" << c1 << "," << c2 << "] "; }
+		}
+		std::cout << std::endl;
+		*/
+	}
 }

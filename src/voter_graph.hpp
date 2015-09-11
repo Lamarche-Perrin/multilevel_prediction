@@ -65,6 +65,7 @@ class VoterGraph;
 class VoterProbe;
 class VoterState;
 class VoterTrajectory;
+class VoterBinning;
 class VoterMeasurement;
 class VoterMeasurementState;
 class VoterMeasurementTrajectory;
@@ -74,8 +75,9 @@ long unsigned int nChoosek (int n, int k);
 typedef std::set<VoterMeasurement*> MeasurementSet;
 typedef std::set< std::pair<MeasurementType,VoterMetric> > SpecMeasurementSet;
 
-typedef std::map<VoterMeasurementState*,double*> ProbabilityMap;
-typedef std::map<VoterMeasurementState*,ProbabilityMap*> TransitionMap;
+typedef std::map<VoterMeasurementState*, int*> ProbabilityMap;
+typedef std::pair<ProbabilityMap*,int*> ProbabilityPair;
+typedef std::map<VoterMeasurementState*, ProbabilityPair*> TransitionMap;
 
 /*!
  * \class VoterNode
@@ -364,8 +366,8 @@ public:
      */
     void addNodes (unsigned long int i);
 
-	int getCardinality (VoterMetric metric);
-	int getState (VoterState *state, VoterMetric metric);
+	int getCardinality (VoterMetric metric, int binning = 0);
+	int getState (VoterState *state, VoterMetric metric, int binning = 0);
 
     /*!
      * \brief Print the probe details
@@ -389,6 +391,7 @@ public:
     int probeNumber;		/*!< The number of probes constituting the measurement*/
     std::map<int,VoterProbe*> *probeMap;	/*!< The map of constituting probes organized by probe numbers*/
     std::map<int,VoterMetric> *metricMap;	/*!< The map of metrics (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES) associated to each constituting probe organized by probe numbers*/
+	std::map<int,int> *binningMap;
 		
     /*!
      * \brief Constructor
@@ -407,7 +410,7 @@ public:
      * \param node : The probe to be added
      * \param metric : The metric associated to the added probe (e.g., METRIC_MACRO_STATE of METRIC_ACTIVE_EDGES)
      */
-    void addProbe (VoterProbe *probe, VoterMetric metric);
+    void addProbe (VoterProbe *probe, VoterMetric metric, int binning = 0);
 
 	int getCardinality ();
 	VoterMeasurementState *getState (VoterState *state);
@@ -545,20 +548,50 @@ class VoterDataSet
 public:
 	VoterGraph *graph;
 
-    int size;
 	int time;
-    int length;
+	int delay;
+	
+    int trainSize;
+    int testSize;
+	int trainLength;
+    int testLength;
+
     VoterTrajectory **trajectories;
 
-    VoterDataSet (VoterGraph *graph, int size, int time, int length);
+	TransitionMap *transMap;
+
+    VoterDataSet (VoterGraph *graph, int time, int delay, int trainSize, int testSize, int trainLength, int testLength);
     ~VoterDataSet ();
 
-    double computeScore (VoterMeasurement *preM, VoterMeasurement *postM, int delay, int trainingLength, bool verbose = false);
+	void estimateTransitionMap (VoterMeasurement *preM, VoterMeasurement *postM);
+	void printTransitionMap ();
 
+    double getLogScore (VoterMeasurement *preM, VoterMeasurement *postM, int prior = 0);
+    double getQuadScore (VoterMeasurement *preM, VoterMeasurement *postM, int prior = 0);
+	VoterBinning *getOptimalBinning (VoterMeasurement *preM, VoterMeasurement *postM, int prior = 0, int realTrainSize = -1, bool verbose = false);
+	
 private:
-	ProbabilityMap *findInTransitionMap (TransitionMap *transMap, VoterMeasurementState *preState);
-	double *findInProbabilityMap (ProbabilityMap *probMap, VoterMeasurementState *postState);
+	void deleteTransitionMap ();
+	ProbabilityPair *findInTransitionMap (TransitionMap *transMap, VoterMeasurementState *preState);
+	int *findInProbabilityMap (ProbabilityMap *probMap, VoterMeasurementState *postState);
 
+};
+
+
+class VoterBinning
+{
+public:
+	VoterDataSet *data;
+
+	int size;
+	int binNumber;
+	int *cuts;
+	double score;
+	
+	VoterBinning (VoterDataSet *data);
+	~VoterBinning ();
+
+	void print (bool verbose = false);
 };
 
 #endif

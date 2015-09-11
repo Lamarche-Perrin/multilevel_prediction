@@ -32,8 +32,8 @@ MarkovProcess::MarkovProcess (int s)
 	
     double *trivialTransition = new double [size*size];
     for (int i = 0; i < size; i++)
-	for (int j = 0; j < size; j++)
-	    if (i == j) { trivialTransition[j*size+i] = 1; } else { trivialTransition[j*size+i] = 0; }
+		for (int j = 0; j < size; j++)
+			if (i == j) { trivialTransition[j*size+i] = 1; } else { trivialTransition[j*size+i] = 0; }
     transitions->at(0) = trivialTransition;
 }
 
@@ -60,7 +60,7 @@ void MarkovProcess::setTransition (double *array)
 {
     for (int j = 0; j < size; j++)
     { 
-	for (int i = 0; i < size; i++) { transition[j*size+i] = array[j*size+i]; }
+		for (int i = 0; i < size; i++) { transition[j*size+i] = array[j*size+i]; }
     }
 }
 
@@ -77,22 +77,22 @@ double *MarkovProcess::getDistribution (int time)
 	
     if (lastTime < time)
     {
-	distributions->resize(time+1);
+		distributions->resize(time+1);
 		
-	double *currentDist = getDistribution(lastTime);
-	for (int t = lastTime + 1; t <= time; t++)
-	{
-	    std::cout << "Distribution " << t << std::endl;
-	    double *newDist = new double [size];
-	    for (int i = 0; i < size; i++)
-	    {
-		newDist[i] = 0;
-		for (int j = 0; j < size; j++) { newDist[i] += currentDist[j] * getNextProbability(i,j,1); }
-	    }
-	    distributions->at(t) = newDist;
-	    currentDist = newDist;
-	}
-	lastTime = time;
+		double *currentDist = getDistribution(lastTime);
+		for (int t = lastTime + 1; t <= time; t++)
+		{
+			std::cout << "Distribution " << t << std::endl;
+			double *newDist = new double [size];
+			for (int i = 0; i < size; i++)
+			{
+				newDist[i] = 0;
+				for (int j = 0; j < size; j++) { newDist[i] += currentDist[j] * getNextProbability(i,j,1); }
+			}
+			distributions->at(t) = newDist;
+			currentDist = newDist;
+		}
+		lastTime = time;
     }
 	
     return distributions->at(time);
@@ -111,11 +111,11 @@ void MarkovProcess::computeStationaryDistribution (double threshold)
 	
     while (!stationary)
     {
-	dist1 = dist2;
-	dist2 = getDistribution(lastTime+1);
+		dist1 = dist2;
+		dist2 = getDistribution(lastTime+1);
 		
-	stationary = true;
-	for (int i = 0; i < size && stationary; i++) { stationary = std::abs(dist1[i] - dist2[i]) < threshold; }
+		stationary = true;
+		for (int i = 0; i < size && stationary; i++) { stationary = std::abs(dist1[i] - dist2[i]) < threshold; }
     }
 }
 
@@ -126,30 +126,30 @@ MarkovTrajectory *MarkovProcess::computeTrajectory (int time, int length)
 
     if (length > 0)
     {
-	int state = 0;
-	double *dist = getDistribution(time);
-	double currentProb = dist[state];
-	double r = ((double) rand() / (RAND_MAX));
-	while (r > currentProb) {
-	    r -= currentProb;
-	    state++;
-	    currentProb = dist[state];
-	}
-	traj->states[0] = state;
+		int state = 0;
+		double *dist = getDistribution(time);
+		double currentProb = dist[state];
+		double r = ((double) rand() / (RAND_MAX));
+		while (r > currentProb) {
+			r -= currentProb;
+			state++;
+			currentProb = dist[state];
+		}
+		traj->states[0] = state;
 
-	for (int l = 1; l < length; l++)
-	{
-	    int nextState = 0;
-	    currentProb = transitions->at(1)[nextState*size+state];
-	    r = ((double) rand() / (RAND_MAX));
-	    while (r > currentProb) {
-		r -= currentProb;
-		nextState++;
-		currentProb = transitions->at(1)[nextState*size+state];
-	    }
-	    state = nextState;
-	    traj->states[l] = state;
-	}
+		for (int l = 1; l < length; l++)
+		{
+			int nextState = 0;
+			currentProb = transitions->at(1)[nextState*size+state];
+			r = ((double) rand() / (RAND_MAX));
+			while (r > currentProb) {
+				r -= currentProb;
+				nextState++;
+				currentProb = transitions->at(1)[nextState*size+state];
+			}
+			state = nextState;
+			traj->states[l] = state;
+		}
     }
 
     return traj;
@@ -160,29 +160,29 @@ double *MarkovProcess::getTransition (int delay)
 {
     if (lastDelay < delay)
     {
-	transitions->resize(delay+1);
+		transitions->resize(delay+1);
 		
-	double *currentTrans = getTransition(lastDelay);
-	for (int d = lastDelay + 1; d <= delay; d++)
-	{
-	    std::cout << "Transition " << d << " (size " << size << ")" << std::endl;
-	    double *newTrans = new double [size*size];
-
-	    for (int i = 0; i < size; i++)
-	    {
-		for (int j = 0; j < size; j++)
+		double *currentTrans = getTransition(lastDelay);
+		for (int d = lastDelay + 1; d <= delay; d++)
 		{
-		    newTrans[j*size+i] = 0;
-		    for (int k = 0; k < size; k++)
-			newTrans[j*size+i] += transition[j*size+k] * currentTrans[k*size+i];
+			std::cout << "Transition " << d << " (size " << size << ")" << std::endl;
+			double *newTrans = new double [size*size];
+
+			for (int i = 0; i < size; i++)
+			{
+				for (int j = 0; j < size; j++)
+				{
+					newTrans[j*size+i] = 0;
+					for (int k = 0; k < size; k++)
+						newTrans[j*size+i] += transition[j*size+k] * currentTrans[k*size+i];
+				}
+			}
+
+			transitions->at(d) = newTrans;
+			currentTrans = newTrans;
+
 		}
-	    }
-
-	    transitions->at(d) = newTrans;
-	    currentTrans = newTrans;
-
-	}
-	lastDelay = delay;
+		lastDelay = delay;
     }
 	
     return transitions->at(delay);
@@ -201,8 +201,8 @@ double MarkovProcess::getProbability (Part *part, int time)
     double probability = 0;
     for (std::list<int>::iterator it = part->individuals->begin(); it != part->individuals->end(); ++it)
     {
-	int individual = *it;
-	probability += getProbability(individual,time);
+		int individual = *it;
+		probability += getProbability(individual,time);
     }
     return probability;
 }
@@ -220,8 +220,8 @@ double MarkovProcess::getNextProbability (Part *nextPart, int currentIndividual,
     double probability = 0;
     for (std::list<int>::iterator it = nextPart->individuals->begin(); it != nextPart->individuals->end(); ++it)
     {
-	int nextIndividual = *it;
-	probability += getNextProbability(nextIndividual,currentIndividual,delay);
+		int nextIndividual = *it;
+		probability += getNextProbability(nextIndividual,currentIndividual,delay);
     }
     return probability;
 }
@@ -233,16 +233,16 @@ double MarkovProcess::getNextProbability (Part *nextPart, Part *currentPart, int
     double condProbability = 0;
 	
     for (std::list<int>::iterator currentIt = currentPart->individuals->begin(); currentIt != currentPart->individuals->end(); ++currentIt)
-	condProbability += getProbability(*currentIt,time);
+		condProbability += getProbability(*currentIt,time);
 
     for (std::list<int>::iterator currentIt = currentPart->individuals->begin(); currentIt != currentPart->individuals->end(); ++currentIt)
     {
-	int currentIndividual = *currentIt;
-	for (std::list<int>::iterator nextIt = nextPart->individuals->begin(); nextIt != nextPart->individuals->end(); ++nextIt)
-	{
-	    int nextIndividual = *nextIt;
-	    probability += getProbability(currentIndividual,time) / condProbability * getNextProbability(nextIndividual,currentIndividual,delay);
-	}
+		int currentIndividual = *currentIt;
+		for (std::list<int>::iterator nextIt = nextPart->individuals->begin(); nextIt != nextPart->individuals->end(); ++nextIt)
+		{
+			int nextIndividual = *nextIt;
+			probability += getProbability(currentIndividual,time) / condProbability * getNextProbability(nextIndividual,currentIndividual,delay);
+		}
     }
     return probability;
 }
@@ -254,8 +254,8 @@ double MarkovProcess::getEntropy (Partition *partition, int time)
 	
     for (std::list<Part*>::iterator it1 = partition->parts->begin(); it1 != partition->parts->end(); ++it1)
     {
-	double prob = getProbability(*it1,time);
-	if (prob > 0) { entropy += - prob * log2(prob); }
+		double prob = getProbability(*it1,time);
+		if (prob > 0) { entropy += - prob * log2(prob); }
     }
 	
     return entropy;
@@ -271,17 +271,17 @@ double MarkovProcess::getMutualInformation (Partition *nextPartition, Partition 
 	
     for (std::list<Part*>::iterator it1 = currentPartition->parts->begin(); it1 != currentPartition->parts->end(); ++it1)
     {
-	Part *currentPart = *it1;
-	double probCurrentPart = getProbability(currentPart,time);
+		Part *currentPart = *it1;
+		double probCurrentPart = getProbability(currentPart,time);
 		
-	for (std::list<Part*>::iterator it2 = nextPartition->parts->begin(); it2 != nextPartition->parts->end(); ++it2)
-	{
-	    Part *nextPart = *it2;
-	    double probNextPart = getProbability(nextPart,nextTime);
+		for (std::list<Part*>::iterator it2 = nextPartition->parts->begin(); it2 != nextPartition->parts->end(); ++it2)
+		{
+			Part *nextPart = *it2;
+			double probNextPart = getProbability(nextPart,nextTime);
 			
-	    double condProb = getNextProbability(nextPart,currentPart,delay,time);
-	    if (condProb > 0 && probNextPart > 0) { information += probCurrentPart * condProb * log2(condProb / probNextPart); }
-	}
+			double condProb = getNextProbability(nextPart,currentPart,delay,time);
+			if (condProb > 0 && probNextPart > 0) { information += probCurrentPart * condProb * log2(condProb / probNextPart); }
+		}
     }
 	
     return information;
@@ -297,11 +297,11 @@ double MarkovProcess::getPartMutualInformation (Partition *nextPartition, Part *
 	
     for (std::list<Part*>::iterator it2 = nextPartition->parts->begin(); it2 != nextPartition->parts->end(); ++it2)
     {
-	Part *nextPart = *it2;
-	double probNextPart = getProbability(nextPart,nextTime);
+		Part *nextPart = *it2;
+		double probNextPart = getProbability(nextPart,nextTime);
 			
-	double condProb = getNextProbability(nextPart,currentPart,delay,time);
-	if (condProb > 0 && probNextPart > 0) { information += condProb * log2(condProb / probNextPart); }
+		double condProb = getNextProbability(nextPart,currentPart,delay,time);
+		if (condProb > 0 && probNextPart > 0) { information += condProb * log2(condProb / probNextPart); }
     }
 	
     return information;
@@ -314,30 +314,30 @@ double MarkovProcess::getNextEntropy (Partition *partition, bool micro, int time
 	
     if (micro)
     {
-	for (int currentIndividual = 0; currentIndividual < size; currentIndividual++)
-	{
-	    for (std::list<Part*>::iterator nextIt = partition->parts->begin(); nextIt != partition->parts->end(); ++nextIt)
-	    {
-		Part *nextPart = *nextIt;
-		double nextProbability = getNextProbability(nextPart,currentIndividual,0);
-		if (nextProbability > 0)
-		    entropy += - getProbability(currentIndividual,time) * nextProbability * log2(nextProbability);
-	    }
-	}		
+		for (int currentIndividual = 0; currentIndividual < size; currentIndividual++)
+		{
+			for (std::list<Part*>::iterator nextIt = partition->parts->begin(); nextIt != partition->parts->end(); ++nextIt)
+			{
+				Part *nextPart = *nextIt;
+				double nextProbability = getNextProbability(nextPart,currentIndividual,0);
+				if (nextProbability > 0)
+					entropy += - getProbability(currentIndividual,time) * nextProbability * log2(nextProbability);
+			}
+		}		
     }
 	
     else {
-	for (std::list<Part*>::iterator currentIt = partition->parts->begin(); currentIt != partition->parts->end(); ++currentIt)
-	{
-	    Part *currentPart = *currentIt;
-	    for (std::list<Part*>::iterator nextIt = partition->parts->begin(); nextIt != partition->parts->end(); ++nextIt)
-	    {
-		Part *nextPart = *nextIt;
-		double nextProbability = getNextProbability(nextPart,currentPart,0,time);
-		if (nextProbability > 0)
-		    entropy += - getProbability(currentPart,time) * nextProbability * log2(nextProbability);
-	    }
-	}
+		for (std::list<Part*>::iterator currentIt = partition->parts->begin(); currentIt != partition->parts->end(); ++currentIt)
+		{
+			Part *currentPart = *currentIt;
+			for (std::list<Part*>::iterator nextIt = partition->parts->begin(); nextIt != partition->parts->end(); ++nextIt)
+			{
+				Part *nextPart = *nextIt;
+				double nextProbability = getNextProbability(nextPart,currentPart,0,time);
+				if (nextProbability > 0)
+					entropy += - getProbability(currentPart,time) * nextProbability * log2(nextProbability);
+			}
+		}
     }
 	
     return entropy;
@@ -357,57 +357,57 @@ std::set<OrderedPartition*> *MarkovProcess::getOptimalOrderedPartition (Partitio
     // Compute entropy of pre-measurement
     double microProb [microSize];	
     for (int i = 0; i < microSize; i++)
-	microProb[i] = getProbability(currentPartition->getPartFromValue(i),time);
+		microProb[i] = getProbability(currentPartition->getPartFromValue(i),time);
 	
     double macroProb [macroSize];
     for (int i = 0; i < microSize; i++)
-	macroProb[i] = microProb[i];
+		macroProb[i] = microProb[i];
     for (int j = 1; j < microSize; j++)
-	for (int i = 0; i < microSize - j; i++)
-	    macroProb[i+j*microSize] = macroProb[i+(j-1)*microSize] + macroProb[i+j];
+		for (int i = 0; i < microSize - j; i++)
+			macroProb[i+j*microSize] = macroProb[i+(j-1)*microSize] + macroProb[i+j];
 	
     double macroEntropy [macroSize];
     for (int j = 0; j < microSize; j++)
-	for (int i = 0; i < microSize - j; i++)
-	{
-	    if (macroProb[i+j*microSize] > 0) { macroEntropy[i+j*microSize] = - macroProb[i+j*microSize] * log2(macroProb[i+j*microSize]); }
-	    else { macroEntropy[i+j*microSize] = 0; }
-	}
+		for (int i = 0; i < microSize - j; i++)
+		{
+			if (macroProb[i+j*microSize] > 0) { macroEntropy[i+j*microSize] = - macroProb[i+j*microSize] * log2(macroProb[i+j*microSize]); }
+			else { macroEntropy[i+j*microSize] = 0; }
+		}
 
     // Compute mutual information between pre-measurement and post-measurement
     double microCondProb [microSize*nextSize];
     for (int i = 0; i < microSize; i++)
-	for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
-	    microCondProb[i+(*it)->id*microSize] = getNextProbability(*it,currentPartition->getPartFromValue(i),delay,time);
+		for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+			microCondProb[i+(*it)->id*microSize] = getNextProbability(*it,currentPartition->getPartFromValue(i),delay,time);
 
     double macroCondProb [macroSize*nextSize];
     for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
-	for (int i = 0; i < microSize; i++)
-	    macroCondProb[i+(*it)->id*macroSize] = microCondProb[i+(*it)->id*microSize] * microProb[i];			
+		for (int i = 0; i < microSize; i++)
+			macroCondProb[i+(*it)->id*macroSize] = microCondProb[i+(*it)->id*microSize] * microProb[i];			
     for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
-	for (int j = 1; j < microSize; j++)
-	    for (int i = 0; i < microSize - j; i++)
-		macroCondProb[i+j*microSize+(*it)->id*macroSize] = macroCondProb[i+(j-1)*microSize+(*it)->id*macroSize] + macroCondProb[i+j+(*it)->id*macroSize];
+		for (int j = 1; j < microSize; j++)
+			for (int i = 0; i < microSize - j; i++)
+				macroCondProb[i+j*microSize+(*it)->id*macroSize] = macroCondProb[i+(j-1)*microSize+(*it)->id*macroSize] + macroCondProb[i+j+(*it)->id*macroSize];
     for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
-	for (int j = 0; j < microSize; j++)
-	    for (int i = 0; i < microSize - j; i++)
-		macroCondProb[i+j*microSize+(*it)->id*macroSize] /= macroProb[i+j*microSize];
+		for (int j = 0; j < microSize; j++)
+			for (int i = 0; i < microSize - j; i++)
+				macroCondProb[i+j*microSize+(*it)->id*macroSize] /= macroProb[i+j*microSize];
 
     double nextProb [nextSize];
     for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
-	nextProb[(*it)->id] = getProbability(*it,nextTime);
+		nextProb[(*it)->id] = getProbability(*it,nextTime);
 	
     double macroInformation [macroSize];
     for (int j = 0; j < microSize; j++)
-	for (int i = 0; i < microSize - j; i++)
-	{
-	    macroInformation[i+j*microSize] = 0;
-	    for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
-		if (macroCondProb[i+j*microSize+(*it)->id*macroSize] > 0)
-		    macroInformation[i+j*microSize] += macroCondProb[i+j*microSize+(*it)->id*macroSize]
-			* log2(macroCondProb[i+j*microSize+(*it)->id*macroSize] / nextProb[(*it)->id]);
-	    macroInformation[i+j*microSize] = macroInformation[i+j*microSize] * macroProb[i+j*microSize];
-	}
+		for (int i = 0; i < microSize - j; i++)
+		{
+			macroInformation[i+j*microSize] = 0;
+			for (std::list<Part*>::iterator it = nextPartition->parts->begin(); it != nextPartition->parts->end(); ++it)
+				if (macroCondProb[i+j*microSize+(*it)->id*macroSize] > 0)
+					macroInformation[i+j*microSize] += macroCondProb[i+j*microSize+(*it)->id*macroSize]
+						* log2(macroCondProb[i+j*microSize+(*it)->id*macroSize] / nextProb[(*it)->id]);
+			macroInformation[i+j*microSize] = macroInformation[i+j*microSize] * macroProb[i+j*microSize];
+		}
 
 /*
 // PRINT RESULTS
@@ -479,22 +479,22 @@ std::cout << std::endl;
 
     while (!pList.empty())
     {
-	pInf = pList.front().first;
-	pSup = pList.front().second;
-	pList.pop_front();
+		pInf = pList.front().first;
+		pSup = pList.front().second;
+		pList.pop_front();
 
-	int i = microSize;
-	while (i > 0 && pInf->optimalCut[i-1] == pSup->optimalCut[i-1]) { i = pInf->optimalCut[i-1]; }
+		int i = microSize;
+		while (i > 0 && pInf->optimalCut[i-1] == pSup->optimalCut[i-1]) { i = pInf->optimalCut[i-1]; }
 		
-	if (i > 0 && pSup->beta - pInf->beta > threshold)
-	{
-	    OrderedPartition *pNew = new OrderedPartition(microSize,(pSup->param+pInf->param)/2);
-	    pNew->optimalCut = getOptimalCut(microSize,macroEntropy,macroInformation,pNew->beta);
-	    pMap[pNew->param] = pNew;
+		if (i > 0 && pSup->beta - pInf->beta > threshold)
+		{
+			OrderedPartition *pNew = new OrderedPartition(microSize,(pSup->param+pInf->param)/2);
+			pNew->optimalCut = getOptimalCut(microSize,macroEntropy,macroInformation,pNew->beta);
+			pMap[pNew->param] = pNew;
 			
-	    pList.push_back(std::make_pair(pInf,pNew));
-	    pList.push_back(std::make_pair(pNew,pSup));
-	}
+			pList.push_back(std::make_pair(pInf,pNew));
+			pList.push_back(std::make_pair(pNew,pSup));
+		}
     }
 
     /*
@@ -524,37 +524,37 @@ std::cout << std::endl;
     OrderedPartition *previous = 0;
     for (std::map<double,OrderedPartition*>::iterator it = pMap.begin(); it != pMap.end(); it++)
     {
-	OrderedPartition *current = it->second;
+		OrderedPartition *current = it->second;
 
-	int i = 1;
-	if (previous != 0)
-	{
-	    i = microSize;
-	    while (i > 0 && previous->optimalCut[i-1] == current->optimalCut[i-1]) { i = previous->optimalCut[i-1]; }
-	}
+		int i = 1;
+		if (previous != 0)
+		{
+			i = microSize;
+			while (i > 0 && previous->optimalCut[i-1] == current->optimalCut[i-1]) { i = previous->optimalCut[i-1]; }
+		}
 		
-	if (i > 0)
-	{
-	    current->string = "|";
-	    current->entropy = 0;
-	    current->information = 0;
+		if (i > 0)
+		{
+			current->string = "|";
+			current->entropy = 0;
+			current->information = 0;
 
-	    i = microSize;
-	    while (i > 0)
-	    {
-		int cut = current->optimalCut[i-1];
+			i = microSize;
+			while (i > 0)
+			{
+				int cut = current->optimalCut[i-1];
 
-		if (cut == i-1) { current->string = "|" + int2string(cut) + current->string; }
-		else { current->string = "|" + int2string(cut) + "-" + int2string(i-1) + current->string; }
-		current->entropy += macroEntropy[cut+(i-1-cut)*microSize];
-		current->information += macroInformation[cut+(i-1-cut)*microSize];
+				if (cut == i-1) { current->string = "|" + int2string(cut) + current->string; }
+				else { current->string = "|" + int2string(cut) + "-" + int2string(i-1) + current->string; }
+				current->entropy += macroEntropy[cut+(i-1-cut)*microSize];
+				current->information += macroInformation[cut+(i-1-cut)*microSize];
 
-		i = cut;
-	    }
+				i = cut;
+			}
 			
-	    pSet->insert(current);
-	    previous = current;
-	}
+			pSet->insert(current);
+			previous = current;
+		}
     }
     return pSet;
 }
@@ -567,55 +567,26 @@ int *MarkovProcess::getOptimalCut (int microSize, double *macroEntropy, double *
 	
     for (int j = 0; j < microSize; j++)
     {
-	optimalCut[j] = 0;
-	if (beta == std::numeric_limits<double>::infinity()) { optimalValue[j] = - macroInformation[j*microSize]; }
-	else { optimalValue[j] = macroEntropy[j*microSize] - beta * macroInformation[j*microSize]; }
+		optimalCut[j] = 0;
+		if (beta == std::numeric_limits<double>::infinity()) { optimalValue[j] = - macroInformation[j*microSize]; }
+		else { optimalValue[j] = macroEntropy[j*microSize] - beta * macroInformation[j*microSize]; }
 
-	for (int cut = 1; cut <= j; cut++)
-	{
-	    double value = optimalValue[cut-1];
-	    if (beta == std::numeric_limits<double>::infinity()) { value += - macroInformation[cut+(j-cut)*microSize]; }
-	    else { value += macroEntropy[cut+(j-cut)*microSize] - beta * macroInformation[cut+(j-cut)*microSize]; }
+		for (int cut = 1; cut <= j; cut++)
+		{
+			double value = optimalValue[cut-1];
+			if (beta == std::numeric_limits<double>::infinity()) { value += - macroInformation[cut+(j-cut)*microSize]; }
+			else { value += macroEntropy[cut+(j-cut)*microSize] - beta * macroInformation[cut+(j-cut)*microSize]; }
 		 
-	    if (value < optimalValue[j])
-	    {
-		optimalCut[j] = cut;
-		optimalValue[j] = value;
-	    }
-	}		
+			if (value < optimalValue[j])
+			{
+				optimalCut[j] = cut;
+				optimalValue[j] = value;
+			}
+		}		
     }
 
     return optimalCut;
-}
-
-// Ordered partitioning algorithm
-/*
-  double optimalEntropy [macroSize];
-  double optimalInformation [macroSize];
-  double beta [macroSize];
-
-  for (int j = 0; j < microSize; j++)
-  for (int i = 0; i < microSize - j; i++)
-  {
-  optimalEntropy[i+j*microSize] = macroEntropy[i];
-  optimalInformation[i+j*microSize] = optimalInformation[i];
-  beta[i+j*microSize] = INFINITY;
-			
-  for (int cut = 1; cut <= j; cut++)
-  {
-  double entropy = optimalEntropy[(cut-1)*microSize] + macroEntropy[cut+(j-cut)*microSize];
-  double
-  double beta = (macroEntropy[i+j*microSize] - ())
-  / (macroInformation[i+j*microSize] - (optimalInformation[(cut-1)*microSize] + macroInformation[cut+(j-cut)*microSize]));
-  if (beta < beta[i+j*microSize])
-  {
-  beta[i+j*microSize] = beta;
-  }
-  }
-  }
-  }
-*/
-	
+}	
 
 
 double MarkovProcess::getInformationFlow (Partition *partition, int time)
@@ -631,32 +602,32 @@ void MarkovProcess::print ()
 	
     for (int t = 0; t <= lastTime; t++)
     {
-	double *dist = getDistribution(t);
+		double *dist = getDistribution(t);
 
-	std::cout << "p(X" << t << ") = {";
-	if (size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << dist[0]; }
-	if (size > 1)
-	{
-	    for (int i = 1; i < size; i++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << dist[i]; }
-	}
-	std::cout << "}" << std::endl << std::endl;
+		std::cout << "p(X" << t << ") = {";
+		if (size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << dist[0]; }
+		if (size > 1)
+		{
+			for (int i = 1; i < size; i++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << dist[i]; }
+		}
+		std::cout << "}" << std::endl << std::endl;
     }
 
     for (int t = 0; t <= lastDelay; t++)
     {
-	double *trans = getTransition(t);
+		double *trans = getTransition(t);
 
-	for (int i = 0; i < size; i++)
-	{
-	    std::cout << "p(X" << (t+1) << "|x" << i << ") = {";
-	    if (size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << trans[0*size+i]; }
-	    if (size > 1)
-	    {
-		for (int j = 1; j < size; j++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << trans[j*size+i]; }
-	    }
-	    std::cout << "}" << std::endl;
-	}
-	std::cout << std::endl;
+		for (int i = 0; i < size; i++)
+		{
+			std::cout << "p(X" << (t+1) << "|x" << i << ") = {";
+			if (size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << trans[0*size+i]; }
+			if (size > 1)
+			{
+				for (int j = 1; j < size; j++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << trans[j*size+i]; }
+			}
+			std::cout << "}" << std::endl;
+		}
+		std::cout << std::endl;
     }
 }
 
@@ -681,21 +652,21 @@ void MarkovTrajectory::print (const int binary)
 {
     if (binary > 0)
     {
-	if (length > 0) {
-	    std::cout << "START:  ";
-	    for (int i = binary-1; i >= 0; i--) { std::cout << ((states[0] >> i) & 1); }
-	}
+		if (length > 0) {
+			std::cout << "START:  ";
+			for (int i = binary-1; i >= 0; i--) { std::cout << ((states[0] >> i) & 1); }
+		}
 	
-	for (int l = 1; l < length; l++)
-	{
-	    std::cout << "  ->  ";
-	    for (int i = binary-1; i >= 0; i--) { std::cout << ((states[l] >> i) & 1); }
-	}
+		for (int l = 1; l < length; l++)
+		{
+			std::cout << "  ->  ";
+			for (int i = binary-1; i >= 0; i--) { std::cout << ((states[l] >> i) & 1); }
+		}
     }
 
     else {
-	if (length > 0) { std::cout << "START:  " << states[0]; }
-	for (int l = 1; l < length; l++) { std::cout << "  ->  " << states[l]; }
+		if (length > 0) { std::cout << "START:  " << states[0]; }
+		for (int l = 1; l < length; l++) { std::cout << "  ->  " << states[l]; }
     }
 
     std::cout << std::endl;
@@ -732,51 +703,51 @@ double MarkovDataSet::computeScore (Partition *preP, Partition *postP, int delay
     // initialise
     double *trainDist = new double [preP->size * postP->size];
     for (int i = 0; i < preP->size; i++)
-	for (int j = 0; j < postP->size; j++)
-	    trainDist[j * preP->size + i] = 0;
+		for (int j = 0; j < postP->size; j++)
+			trainDist[j * preP->size + i] = 0;
 
     // count occurrences
     for (int t = 0; t < size; t++)
     {
-	MarkovTrajectory *traj = trajectories[t];
-	for (int time = 0; time < trainingLength; time++)
-	{
-	    Part *prePart = preP->findPart(traj->states[time]);
-	    Part *postPart = postP->findPart(traj->states[time+delay]);
-	    trainDist[postPart->id * preP->size + prePart->id]++;
-	}
+		MarkovTrajectory *traj = trajectories[t];
+		for (int time = 0; time < trainingLength; time++)
+		{
+			Part *prePart = preP->findPart(traj->states[time]);
+			Part *postPart = postP->findPart(traj->states[time+delay]);
+			trainDist[postPart->id * preP->size + prePart->id]++;
+		}
     }
 
     // normalise
     for (int i = 0; i < preP->size; i++)
     {
-	double sum = 0;
-	for (int j = 0; j < postP->size; j++)
-	    sum += trainDist[j * preP->size + i];
-	if (sum > 0)
-	    for (int j = 0; j < postP->size; j++)
-		trainDist[j * preP->size + i] /= sum;
+		double sum = 0;
+		for (int j = 0; j < postP->size; j++)
+			sum += trainDist[j * preP->size + i];
+		if (sum > 0)
+			for (int j = 0; j < postP->size; j++)
+				trainDist[j * preP->size + i] /= sum;
     }
 
     // print
     /*
-    int width = 10; int prec = 4;
+	  int width = 10; int prec = 4;
 
-    std::cout << "        ";
-    for (int j = 0; j < postP->size; j++) { std::cout << std::setw(width+2) << j; }
-    std::cout << std::endl;
+	  std::cout << "        ";
+	  for (int j = 0; j < postP->size; j++) { std::cout << std::setw(width+2) << j; }
+	  std::cout << std::endl;
 
-    for (int i = 0; i < preP->size; i++)
-    {
-	std::cout << "p(.|" << i << ") = {";
-	if (postP->size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << trainDist[0 * preP->size + i]; }
-	if (postP->size > 1)
-	{
-	    for (int j = 1; j < postP->size; j++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << trainDist[j * preP->size + i]; }
-	}
-	std::cout << "}" << std::endl;
-    }
-    std::cout << std::endl;
+	  for (int i = 0; i < preP->size; i++)
+	  {
+	  std::cout << "p(.|" << i << ") = {";
+	  if (postP->size > 0) { std::cout << std::setw(width) << std::setprecision(prec) << trainDist[0 * preP->size + i]; }
+	  if (postP->size > 1)
+	  {
+	  for (int j = 1; j < postP->size; j++) { std::cout << ", " << std::setw(width) << std::setprecision(prec) << trainDist[j * preP->size + i]; }
+	  }
+	  std::cout << "}" << std::endl;
+	  }
+	  std::cout << std::endl;
     */
 
     // compute score
@@ -784,17 +755,17 @@ double MarkovDataSet::computeScore (Partition *preP, Partition *postP, int delay
     double score = 0;
     for (int t = 0; t < size; t++)
     {
-	MarkovTrajectory *traj = trajectories[t];
-	for (int time = trainingLength; time < length - delay; time++)
-	{
-	    Part *prePart = preP->findPart(traj->states[time]);
-	    Part *postPart = postP->findPart(traj->states[time+delay]);
-	    double prob = trainDist[postPart->id * preP->size + prePart->id];
-	    if (prob == 0) { return -1; }
+		MarkovTrajectory *traj = trajectories[t];
+		for (int time = trainingLength; time < length - delay; time++)
+		{
+			Part *prePart = preP->findPart(traj->states[time]);
+			Part *postPart = postP->findPart(traj->states[time+delay]);
+			double prob = trainDist[postPart->id * preP->size + prePart->id];
+			if (prob == 0) { return -1; }
 
-	    score += -log(prob);
-	    count++;
-	}
+			score += -log(prob);
+			count++;
+		}
     }
     if (count > 0) { return score/count; }
     else { return 0; }

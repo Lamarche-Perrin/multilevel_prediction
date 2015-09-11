@@ -22,31 +22,36 @@ int main(int argc, char *argv[])
     srand(time(NULL));
     //srand(4);
 
-    int size = 8;
+	//testScoreFunctions();
+	
+    int size = 100;
     double contrarian = 1./(size+1);
 
-    int time = 10000;
-    int delay = 1;
-    int dataSize = 1000;
-    int dataLength = 100;
-    int trainingLength = 95;
+    int time = 1000;
+    int delay = 10;
+	int prior = 1;
 
-    TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (size,0, 1,0,0,0, contrarian,0);
+	int trainSize = 100;
+	int testSize = 100;
+	int trainLength = 100;
+	int testLength = 0;
 
-	VoterMeasurement *preM = getMeasurement (M_MICRO, MACRO_STATE, VG);
-	VoterMeasurement *postM = getMeasurement (M_MICRO, MACRO_STATE, VG);
-
-/*
-	VoterTrajectory *traj = new VoterTrajectory (VG, dataLength);
-    traj->print();
 	
-	VoterMeasurementTrajectory *mTraj = new VoterMeasurementTrajectory(preM,traj);
-	mTraj->print();
-*/
-	
-	VoterDataSet *DS = new VoterDataSet (VG, dataSize, time, dataLength);
-	std::cout << "SCORE = " << DS->computeScore (preM, postM, delay, trainingLength, false) << std::endl;
+    CompleteVoterGraph *VG = new CompleteVoterGraph (size,UPDATE_EDGES,contrarian);
+	VoterDataSet *DS = new VoterDataSet (VG, time, delay, trainSize, testSize, trainLength, testLength);
 
+	VoterMeasurement *preM = getMeasurement (VG, M_MACRO, MACRO_STATE);
+	VoterMeasurement *postM = getMeasurement (VG, M_MACRO, MACRO_STATE);
+
+	for (int t = 5; t <= trainSize; t += 5)
+	{
+		VoterBinning *binning = DS->getOptimalBinning(preM, postM, prior, t);
+		std::cout << "OPTIMAL BINNING FOR " << t << " TRAJECTORIES" << std::endl;
+		binning->print(false);
+	}
+	
+
+	
     /*
     int size = 7;
     double contrarian = 1./(size+1);
@@ -76,6 +81,160 @@ int main(int argc, char *argv[])
     return EXIT_SUCCESS;
 }
 
+
+void testScoreFunctions ()
+{
+	int size = 4;
+	int time = 0;
+    int delay = 1;
+
+	int trainSize = 17;
+	int testSize = 10;
+	int trainLength = 1;
+	int testLength = 0;
+
+    CompleteVoterGraph *VG = new CompleteVoterGraph (size);
+	VoterDataSet *DS = new VoterDataSet (VG, time, delay, trainSize, testSize, trainLength, testLength);
+
+	int t = 0; bool *s0; bool *s1;
+	
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 1; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 1; s1[2] = 0; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 1; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 1; s1[1] = 0; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 1; s1[1] = 1; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 1; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 1; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+	
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 0; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 1; s0[2] = 1; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 1; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 0; s0[1] = 0; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 0; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 1; s0[1] = 0; s0[2] = 0; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 0; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 1; s0[1] = 1; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 1; s1[1] = 0; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 1; s0[1] = 1; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 0; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 1; s0[1] = 1; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 1; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 1; s0[1] = 1; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 1; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;     s0[0] = 1; s0[1] = 1; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;   s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+
+	VoterMeasurement *preM = getMeasurement (VG, M_MACRO, MACRO_STATE);
+	VoterMeasurement *postM = getMeasurement (VG, M_MACRO, MACRO_STATE);
+
+	DS->estimateTransitionMap (preM, postM);
+	DS->printTransitionMap ();
+
+
+	DS->testSize = 1;
+	
+	s0 = DS->trajectories[t]->states[0]->agentStates;    s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 1;
+	
+	std::cout << std::endl;
+	std::cout << "FIRST CASE" << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 0) << " / " << DS->getQuadScore (preM, postM, 0) << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 1) << " / " << DS->getQuadScore (preM, postM, 1) << std::endl;
+
+	
+	s0 = DS->trajectories[t]->states[0]->agentStates;    s0[0] = 1; s0[1] = 0; s0[2] = 1; s0[3] = 0;
+	s1 = DS->trajectories[t]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 1; s1[3] = 1;
+	
+	std::cout << std::endl;
+	std::cout << "SECOND CASE" << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 0) << " / " << DS->getQuadScore (preM, postM, 0) << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 1) << " / " << DS->getQuadScore (preM, postM, 1) << std::endl;
+
+	
+	s0 = DS->trajectories[t]->states[0]->agentStates;    s0[0] = 0; s0[1] = 0; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t]->states[1]->agentStates;    s1[0] = 0; s1[1] = 1; s1[2] = 1; s1[3] = 1;
+	
+	std::cout << std::endl;
+	std::cout << "THIRD CASE" << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 0) << " / " << DS->getQuadScore (preM, postM, 0) << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 1) << " / " << DS->getQuadScore (preM, postM, 1) << std::endl;
+
+	
+	s0 = DS->trajectories[t]->states[0]->agentStates;    s0[0] = 1; s0[1] = 1; s0[2] = 1; s0[3] = 0;
+	s1 = DS->trajectories[t]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+	
+	std::cout << std::endl;
+	std::cout << "FOURTH CASE" << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 0) << " / " << DS->getQuadScore (preM, postM, 0) << std::endl;
+	std::cout << DS->getLogScore (preM, postM, 1) << " / " << DS->getQuadScore (preM, postM, 1) << std::endl;
+
+
+	DS->testSize = testSize;
+	
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 0; s0[1] = 0; s0[2] = 0; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 1; s0[1] = 0; s0[2] = 1; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 1; s0[1] = 0; s0[2] = 1; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 0; s0[1] = 0; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 1; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 0; s0[1] = 0; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 1; s1[1] = 0; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 0; s0[1] = 1; s0[2] = 0; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 1; s1[1] = 1; s1[2] = 1; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 1; s0[1] = 0; s0[2] = 0; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 1; s1[2] = 1; s1[3] = 1;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 1; s0[1] = 1; s0[2] = 1; s0[3] = 0;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 1; s0[1] = 0; s0[2] = 1; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+	s0 = DS->trajectories[t]->states[0]->agentStates;      s0[0] = 1; s0[1] = 1; s0[2] = 0; s0[3] = 1;
+	s1 = DS->trajectories[t++]->states[1]->agentStates;    s1[0] = 0; s1[1] = 0; s1[2] = 0; s1[3] = 0;
+
+	std::cout << std::endl;
+	std::cout << "BEST CUT WITH NO PRIOR" << std::endl;
+	DS->getOptimalBinning(preM, postM, 0, true);
+
+	std::cout << std::endl;
+	std::cout << "BEST CUT WITH PRIOR" << std::endl;
+	DS->getOptimalBinning(preM, postM, 1, true);
+}
 
 
 void computeInformationMeasures ()

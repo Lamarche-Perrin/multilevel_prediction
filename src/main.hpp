@@ -15,6 +15,7 @@
 
 void computeInformationMeasures ();
 
+void testScoreFunctions ();
 void testMarkovProcess ();
 void testVoterGraph ();
 void testMeasuresWithAggregation ();

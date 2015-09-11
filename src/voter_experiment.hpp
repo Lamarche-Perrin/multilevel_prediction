@@ -32,9 +32,9 @@ typedef std::set<ChainExperiment*> ChainExperimentSet;
 void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string fileName);
 void chainExperiment (ChainExperimentSet *expSet, std::string fileName);
 
-void addMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG);
-void addMultiMeasurement (MeasurementType type, VoterMetric metric, MeasurementSet *set, VoterGraph *VG);
-VoterMeasurement *getMeasurement (MeasurementType type, VoterMetric metric, VoterGraph *VG);
+void addMeasurement (MeasurementSet *set, VoterGraph *VG, MeasurementType type, VoterMetric metric);
+void addMultiMeasurement (MeasurementSet *set, VoterGraph *VG, MeasurementType type, VoterMetric metric);
+VoterMeasurement *getMeasurement (VoterGraph *VG, MeasurementType type, VoterMetric metric = MACRO_STATE, int binning = 0);
 
 void addTwoCommunitiesHeaderToCSV (std::string fileName);
 void addTwoCommunitiesPartHeaderToCSV (std::string fileName, std::string type);
