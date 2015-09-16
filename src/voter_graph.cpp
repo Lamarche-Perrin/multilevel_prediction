@@ -51,6 +51,7 @@ VoterEdge::~VoterEdge () {}
 VoterGraph::VoterGraph (int update)
 {
 	updateProcess = update;
+	complete = false;
 	nodeNumber = 0;
 	edgeNumber = 0;
 	nodeWeight = 0;
@@ -73,6 +74,7 @@ VoterGraph::~VoterGraph ()
 
 CompleteVoterGraph::CompleteVoterGraph (int size, int update, double contrarian) : VoterGraph (update)
 {
+	complete = true;
 	for (int i = 0; i < size; i++) { addNode(1,contrarian); }
 
 	for (std::set<VoterNode*>::iterator it1 = nodeSet->begin(); it1 != nodeSet->end(); ++it1)
@@ -227,6 +229,12 @@ VoterNode *VoterGraph::getRandomNode ()
 }
 
 
+VoterNode *VoterGraph::getUniformRandomNode ()
+{
+	return nodeMap->at(rand() % nodeNumber);
+}
+
+
 VoterEdge *VoterGraph::getRandomEdge (VoterNode *node)
 {
 	double r = ((double) rand() / (RAND_MAX));
@@ -353,21 +361,21 @@ long unsigned int nChoosek (int n, int k)
     return result;
 }
 
-
-double nChoosekProb (int n, int k)
+/*
+double nChoosekProb (int n, int k, double p)
 {
     if (k > n) return 0;
     if (k * 2 > n) k = n-k;
-    if (k == 0) return 1 * pow(2.,-n);
+    if (k == 0) return pow(p,n);
 	
-    double result = n * pow(2.,-n);
+    double result = n * pow(p,n);
     for (int i = 2; i <= k; ++i) {
 		result *= (n-i+1);
 		result /= i;
     }
     return result;
 }
-
+*/
 
 Partition *VoterGraph::getMarkovPartition (VoterProbe *probe, VoterMetric metric)
 {
@@ -1596,12 +1604,25 @@ void VoterMeasurementState::print ()
 VoterState *VoterState::getNextState()
 {
     VoterState *state = new VoterState(this);
-    VoterNode *n = graph->getRandomNode();
-    VoterEdge *e = graph->getRandomEdge(n);
+
+    VoterNode *n1;
+	VoterNode *n2;
+	if (graph->complete)
+	{
+		n1 = graph->getUniformRandomNode();
+		n2 = graph->getUniformRandomNode();
+		while (n1->id == n2->id) { n2 = graph->getUniformRandomNode(); }
+	}
+
+	else {
+		n1 = graph->getRandomNode();
+		n2 = graph->getRandomEdge(n1)->node2;
+	}
 
     double r = ((double) rand() / (RAND_MAX));
-	if (r < n->contrarian) { state->agentStates[e->node2->id] = (state->agentStates[e->node1->id] + 1) % 2; }
-    else { state->agentStates[e->node2->id] = state->agentStates[e->node1->id]; }
+	if (r < n1->contrarian) { state->agentStates[n2->id] = (state->agentStates[n1->id] + 1) % 2; }
+    else { state->agentStates[n2->id] = state->agentStates[n1->id]; }
+
     return state;
 }
 
@@ -1704,8 +1725,14 @@ VoterDataSet::VoterDataSet (VoterGraph *g, int t, int d, int trainS, int testS, 
 	trainLength = trainL;
 	testLength = testL;
 
+	std::cout << "BUILDING DATA SET: ";
     trajectories = new VoterTrajectory *[trainSize + testSize];
-    for (int t = 0; t < trainSize + testSize; t++) { trajectories[t] = new VoterTrajectory(graph, time, trainLength + testLength + delay); }
+    for (int t = 0; t < trainSize + testSize; t++)
+	{
+		std::cout << floor(t*100/(trainSize+testSize)) << "% ";
+		trajectories[t] = new VoterTrajectory(graph, time, trainLength + testLength + delay);
+	}
+	std::cout << std::endl;
 
 	transMap = new TransitionMap ();
 }

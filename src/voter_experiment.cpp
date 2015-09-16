@@ -29,210 +29,210 @@ void twoCommunitiesExperiment (TwoCommunitiesExperimentSet *expSet, std::string 
 
     for (TwoCommunitiesExperimentSet::iterator it = expSet->begin(); it != expSet->end(); ++it)
     {
-	TwoCommunitiesExperiment *exp = *it;
+		TwoCommunitiesExperiment *exp = *it;
 		
 
-	// initialization
+		// initialization
 
-	Timer timer;
-	std::cout << "===== EXP " << exp->id << " =====" << std::endl;
+		Timer timer;
+		std::cout << "===== EXP " << exp->id << " =====" << std::endl;
 		
 
-	// set the local variables according to the programmed experiment
+		// set the local variables according to the programmed experiment
 
-	int update = exp->update;
-	double threshold = exp->threshold;
-	bool compactModel = exp->compactModel;
-	bool withAggregation = exp->withAggregation;
-	bool partDecomposition = exp->partDecomposition;
+		int update = exp->update;
+		double threshold = exp->threshold;
+		bool compactModel = exp->compactModel;
+		bool withAggregation = exp->withAggregation;
+		bool partDecomposition = exp->partDecomposition;
 
-	double aggregationThreshold = 1e-10;
+		double aggregationThreshold = 1e-10;
 		
-	int size1Min = exp->size1Min;	int size1Max = exp->size1Max;	int size1Step = exp->size1Step;
-	int size2Min = exp->size2Min;	int size2Max = exp->size2Max;	int size2Step = exp->size2Step;
-	bool equalSize = exp->equalSize;
+		int size1Min = exp->size1Min;	int size1Max = exp->size1Max;	int size1Step = exp->size1Step;
+		int size2Min = exp->size2Min;	int size2Max = exp->size2Max;	int size2Step = exp->size2Step;
+		bool equalSize = exp->equalSize;
 	
-	double intraR1Min = exp->intraR1Min;	double intraR1Max = exp->intraR1Max;	double intraR1Step = exp->intraR1Step;
-	double intraR2Min = exp->intraR2Min;	double intraR2Max = exp->intraR2Max;	double intraR2Step = exp->intraR2Step;
-	double interR1Min = exp->interR1Min;	double interR1Max = exp->interR1Max;	double interR1Step = exp->interR1Step;
-	double interR2Min = exp->interR2Min;	double interR2Max = exp->interR2Max;	double interR2Step = exp->interR2Step;		
-	bool equalIntraRate = exp->equalIntraRate;
-	bool equalInterRate = exp->equalInterRate;
-	bool oppositeInterRate = exp->oppositeInterRate;
+		double intraR1Min = exp->intraR1Min;	double intraR1Max = exp->intraR1Max;	double intraR1Step = exp->intraR1Step;
+		double intraR2Min = exp->intraR2Min;	double intraR2Max = exp->intraR2Max;	double intraR2Step = exp->intraR2Step;
+		double interR1Min = exp->interR1Min;	double interR1Max = exp->interR1Max;	double interR1Step = exp->interR1Step;
+		double interR2Min = exp->interR2Min;	double interR2Max = exp->interR2Max;	double interR2Step = exp->interR2Step;		
+		bool equalIntraRate = exp->equalIntraRate;
+		bool equalInterRate = exp->equalInterRate;
+		bool oppositeInterRate = exp->oppositeInterRate;
 	
-	double contrarian1Min = exp->contrarian1Min; double contrarian1Max = exp->contrarian1Max; double contrarian1Step = exp->contrarian1Step;
-	double contrarian2Min = exp->contrarian2Min; double contrarian2Max = exp->contrarian2Max; double contrarian2Step = exp->contrarian2Step;
-	bool equalContrarian = exp->equalContrarian;
+		double contrarian1Min = exp->contrarian1Min; double contrarian1Max = exp->contrarian1Max; double contrarian1Step = exp->contrarian1Step;
+		double contrarian2Min = exp->contrarian2Min; double contrarian2Max = exp->contrarian2Max; double contrarian2Step = exp->contrarian2Step;
+		bool equalContrarian = exp->equalContrarian;
 	
-	int timeMin = exp->timeMin;		int timeMax = exp->timeMax;		int timeStep = exp->timeStep;
-	int delayMin = exp->delayMin;	int delayMax = exp->delayMax;	int delayStep = exp->delayStep;
+		int timeMin = exp->timeMin;		int timeMax = exp->timeMax;		int timeStep = exp->timeStep;
+		int delayMin = exp->delayMin;	int delayMax = exp->delayMax;	int delayStep = exp->delayStep;
 						
-	std::string type = "GENERAL_MODEL";
-	if (compactModel) { type = "COMPACT_MODEL"; }
+		std::string type = "GENERAL_MODEL";
+		if (compactModel) { type = "COMPACT_MODEL"; }
 	
 
-	// loop over model parameters
+		// loop over model parameters
 			
-	for (int size1 = size1Min; size1 <= size1Max; size1 += size1Step)
-	    for (int size2 = size2Min; size2 <= size2Max; size2 += size2Step)
-	    {
-		for (double c1 = contrarian1Min; c1 <= contrarian1Max; c1 += contrarian1Step)
-		    for (double c2 = contrarian2Min; c2 <= contrarian2Max; c2 += contrarian2Step)
-		    {
-			for (double intraRate1 = intraR1Min; intraRate1 <= intraR1Max; intraRate1 += intraR1Step)
-			    for (double intraRate2 = intraR2Min; intraRate2 <= intraR2Max; intraRate2 += intraR2Step)
-				for (double interRate1 = interR1Min; interRate1 <= interR1Max; interRate1 += interR1Step)
-				    for (double interRate2 = interR2Min; interRate2 <= interR2Max; interRate2 += interR2Step)
-				    {
-					int s1 = size1; int s2 = size2;
-					double intraR1 = intraRate1; double intraR2 = intraRate2;
-					double interR1 = interRate1; double interR2 = interRate2;
+		for (int size1 = size1Min; size1 <= size1Max; size1 += size1Step)
+			for (int size2 = size2Min; size2 <= size2Max; size2 += size2Step)
+			{
+				for (double c1 = contrarian1Min; c1 <= contrarian1Max; c1 += contrarian1Step)
+					for (double c2 = contrarian2Min; c2 <= contrarian2Max; c2 += contrarian2Step)
+					{
+						for (double intraRate1 = intraR1Min; intraRate1 <= intraR1Max; intraRate1 += intraR1Step)
+							for (double intraRate2 = intraR2Min; intraRate2 <= intraR2Max; intraRate2 += intraR2Step)
+								for (double interRate1 = interR1Min; interRate1 <= interR1Max; interRate1 += interR1Step)
+									for (double interRate2 = interR2Min; interRate2 <= interR2Max; interRate2 += interR2Step)
+									{
+										int s1 = size1; int s2 = size2;
+										double intraR1 = intraRate1; double intraR2 = intraRate2;
+										double interR1 = interRate1; double interR2 = interRate2;
 					
-					if (equalSize) { s2 = s1; }
-					if (equalIntraRate) { intraR2 = intraR1; }
-					if (equalInterRate) { interR2 = interR1; }
-					if (oppositeInterRate) { interR2 = 1 - interR1; }
-					if (equalContrarian) { c2 = c1; }
+										if (equalSize) { s2 = s1; }
+										if (equalIntraRate) { intraR2 = intraR1; }
+										if (equalInterRate) { interR2 = interR1; }
+										if (oppositeInterRate) { interR2 = 1 - interR1; }
+										if (equalContrarian) { c2 = c1; }
 	
 	
-					// build the Voter Model and its Markov chain
+										// build the Voter Model and its Markov chain
 					
-					timer.start(s1+s2,"BUILDING MODEL");
-					timer.startTime();
-					timer.startMemory();
+										timer.start(s1+s2,"BUILDING MODEL");
+										timer.startTime();
+										timer.startMemory();
 
 
-					TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,update);
+										TwoCommunitiesVoterGraph *VG = new TwoCommunitiesVoterGraph (s1,s2,intraR1,intraR2,interR1,interR2,c1,c2,update);
 
 
-					MarkovProcess *MP;
-					if (compactModel) { MP = VG->getCompactMarkovProcess(); } else { MP = VG->getMarkovProcess(); }
-					MP->getDistribution(timeMax);
-					MP->getTransition(delayMax);
-					if (timeMin == -1) { MP->computeStationaryDistribution(threshold); }
+										MarkovProcess *MP;
+										if (compactModel) { MP = VG->getCompactMarkovProcess(); } else { MP = VG->getMarkovProcess(); }
+										MP->getDistribution(timeMax);
+										MP->getTransition(delayMax);
+										if (timeMin == -1) { MP->computeStationaryDistribution(threshold); }
 					
-					//					double *sd = MP->getDistribution(-1);
-					//					for (int i = 0; i < MP->size; i++) { std::cout << sd[i] << "   "; }
+										//					double *sd = MP->getDistribution(-1);
+										//					for (int i = 0; i < MP->size; i++) { std::cout << sd[i] << "   "; }
 
 
 
-					// build the pre- and post-measurements
+										// build the pre- and post-measurements
 
-					MeasurementSet *preMSet = new MeasurementSet();
-					for (SpecMeasurementSet::iterator it = exp->preMeasurements->begin(); it != exp->preMeasurements->end(); ++it)
-					{
-					    MeasurementType type = (*it).first;
-					    VoterMetric metric = (*it).second;
-					    addMeasurement (preMSet,VG,type,metric);
-					}
+										MeasurementSet *preMSet = new MeasurementSet();
+										for (SpecMeasurementSet::iterator it = exp->preMeasurements->begin(); it != exp->preMeasurements->end(); ++it)
+										{
+											MeasurementType type = (*it).first;
+											VoterMetric metric = (*it).second;
+											addMeasurement (preMSet,VG,type,metric);
+										}
 
 					
-					for (MeasurementSet::iterator it = preMSet->begin(); it != preMSet->end(); ++it)
-					{
-					    VoterMeasurement *m = *it;
-					    if (compactModel) { m->partition = VG->getCompactMarkovPartition(m); }
-					    else { m->partition = VG->getMarkovPartition(m); }
-					}
+										for (MeasurementSet::iterator it = preMSet->begin(); it != preMSet->end(); ++it)
+										{
+											VoterMeasurement *m = *it;
+											if (compactModel) { m->partition = VG->getCompactMarkovPartition(m); }
+											else { m->partition = VG->getMarkovPartition(m); }
+										}
 
-					MeasurementSet *postMSet = new MeasurementSet();
-					for (SpecMeasurementSet::iterator it = exp->postMeasurements->begin(); it != exp->postMeasurements->end(); ++it)
-					{
-					    MeasurementType type = (*it).first;
-					    VoterMetric metric = (*it).second;
-					    addMeasurement (postMSet,VG,type,metric);
-					}
+										MeasurementSet *postMSet = new MeasurementSet();
+										for (SpecMeasurementSet::iterator it = exp->postMeasurements->begin(); it != exp->postMeasurements->end(); ++it)
+										{
+											MeasurementType type = (*it).first;
+											VoterMetric metric = (*it).second;
+											addMeasurement (postMSet,VG,type,metric);
+										}
 					
-					for (MeasurementSet::iterator it = postMSet->begin(); it != postMSet->end(); ++it)
-					{
-					    VoterMeasurement *m = *it;
-					    if (compactModel) { m->partition = VG->getCompactMarkovPartition(m); }
-					    else { m->partition = VG->getMarkovPartition(m); }
-					}
+										for (MeasurementSet::iterator it = postMSet->begin(); it != postMSet->end(); ++it)
+										{
+											VoterMeasurement *m = *it;
+											if (compactModel) { m->partition = VG->getCompactMarkovPartition(m); }
+											else { m->partition = VG->getMarkovPartition(m); }
+										}
 
 	
-					// build the microscopic partition
+										// build the microscopic partition
 						
-					Partition *microP;
-					if (compactModel)
-					{
-					    VoterMeasurement *m = getMeasurement(VG, M_AGENT1_MESO1_MESO2, MACRO_STATE);
-					    m->type = "MICRO_PARTITION";
-					    microP = VG->getCompactMarkovPartition(m);
-					}
+										Partition *microP;
+										if (compactModel)
+										{
+											VoterMeasurement *m = getMeasurement(VG, M_AGENT1_MESO1_MESO2, MACRO_STATE);
+											m->type = "MICRO_PARTITION";
+											microP = VG->getCompactMarkovPartition(m);
+										}
 					
-					else {
-					    VoterMeasurement *m = getMeasurement(VG, M_MICRO, MACRO_STATE);
-					    m->type = "MICRO_PARTITION";
-					    microP = VG->getMarkovPartition(m);
-					}
+										else {
+											VoterMeasurement *m = getMeasurement(VG, M_MICRO, MACRO_STATE);
+											m->type = "MICRO_PARTITION";
+											microP = VG->getMarkovPartition(m);
+										}
 
 
-					// loop over the prediction parameters
+										// loop over the prediction parameters
 					
-					for (int t = timeMin; t <= timeMax; t += timeStep)
-					{	
-					    for (int d = delayMin; d <= delayMax; d += delayStep)
-					    {
-						timer.step("COMPUTING " + int2string(t) + " + " + int2string(d));
+										for (int t = timeMin; t <= timeMax; t += timeStep)
+										{	
+											for (int d = delayMin; d <= delayMax; d += delayStep)
+											{
+												timer.step("COMPUTING " + int2string(t) + " + " + int2string(d));
 
-						for (MeasurementSet::iterator it1 = preMSet->begin(); it1 != preMSet->end(); ++it1)
-						{
-						    VoterMeasurement *preM = *it1;
-						    for (MeasurementSet::iterator it2 = postMSet->begin(); it2 != postMSet->end(); ++it2)
-						    {
-							VoterMeasurement *postM = *it2;
+												for (MeasurementSet::iterator it1 = preMSet->begin(); it1 != preMSet->end(); ++it1)
+												{
+													VoterMeasurement *preM = *it1;
+													for (MeasurementSet::iterator it2 = postMSet->begin(); it2 != postMSet->end(); ++it2)
+													{
+														VoterMeasurement *postM = *it2;
 
-							// Run experiment
-							if (partDecomposition)
-							{
-							    std::string name = type + "_size_" + int2string(s1) + "+" + int2string(s2)
-								+ "_rate_" + double2string(interR1,2)
-								+ "," + double2string(interR2,2)
-								+ "_time_" + int2string(t) + "_delay_" + int2string(d) + "_" + preM->type + ".csv";
-							    addTwoCommunitiesPartHeaderToCSV(name,preM->type);
-							    std::ofstream file;
-							    openOutputCSV(file,name);
+														// Run experiment
+														if (partDecomposition)
+														{
+															std::string name = type + "_size_" + int2string(s1) + "+" + int2string(s2)
+																+ "_rate_" + double2string(interR1,2)
+																+ "," + double2string(interR2,2)
+																+ "_time_" + int2string(t) + "_delay_" + int2string(d) + "_" + preM->type + ".csv";
+															addTwoCommunitiesPartHeaderToCSV(name,preM->type);
+															std::ofstream file;
+															openOutputCSV(file,name);
     
-							    computeTwoCommunitiesPartMeasures(file,MP,s1,s2,preM,postM,t,d);
+															computeTwoCommunitiesPartMeasures(file,MP,s1,s2,preM,postM,t,d);
 
-							    closeOutputCSV(file);
-							}
+															closeOutputCSV(file);
+														}
 
-							else if (withAggregation)
-							{
-							    computeTwoCommunitiesMeasuresWithAggregation(csvFile,MP,type,update,s1,s2,
-													 intraR1,intraR2,interR1,interR2,c1,c2,
-													 preM,postM,t,d,aggregationThreshold);
-							}
+														else if (withAggregation)
+														{
+															computeTwoCommunitiesMeasuresWithAggregation(csvFile,MP,type,update,s1,s2,
+																										 intraR1,intraR2,interR1,interR2,c1,c2,
+																										 preM,postM,t,d,aggregationThreshold);
+														}
 
-							else
-							{
-							    computeTwoCommunitiesMeasures(csvFile,MP,type,update,s1,s2,
-											  intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP);
-							}
-						    }
-						}
-					    }
-					}
+														else
+														{
+															computeTwoCommunitiesMeasures(csvFile,MP,type,update,s1,s2,
+																						  intraR1,intraR2,interR1,interR2,c1,c2,preM,postM,t,d,microP);
+														}
+													}
+												}
+											}
+										}
 		
 		
-					// free memory
+										// free memory
 					 
-					delete VG;
-					delete MP;
-					delete microP;
+										delete VG;
+										delete MP;
+										delete microP;
 					
-					preMSet->clear();
-					postMSet->clear();
-					delete preMSet;
-					delete postMSet;
+										preMSet->clear();
+										postMSet->clear();
+										delete preMSet;
+										delete postMSet;
 					
-					timer.stopTime();
-					timer.stopMemory();
-					timer.stop();
-				    }
-		    }
-	    }	       
+										timer.stopTime();
+										timer.stopMemory();
+										timer.stop();
+									}
+					}
+			}	       
     }
 
     closeOutputCSV(csvFile);
@@ -248,135 +248,135 @@ void chainExperiment (ChainExperimentSet *expSet, std::string fileName)
 
     for (ChainExperimentSet::iterator it = expSet->begin(); it != expSet->end(); ++it)
     {
-	ChainExperiment *exp = *it;
+		ChainExperiment *exp = *it;
 		
-	// initialization
+		// initialization
 
-	Timer timer;
-	std::cout << "===== EXP " << exp->id << " =====" << std::endl;
+		Timer timer;
+		std::cout << "===== EXP " << exp->id << " =====" << std::endl;
 	
 
-	// set the local variables according to the programmed experiment
+		// set the local variables according to the programmed experiment
 
-	int update = exp->update;
-	bool ring = exp->ring;
-	double threshold = exp->threshold;
-	//bool withAggregation = exp->withAggregation;
-	//double aggregationThreshold = 1e-10;
+		int update = exp->update;
+		bool ring = exp->ring;
+		double threshold = exp->threshold;
+		//bool withAggregation = exp->withAggregation;
+		//double aggregationThreshold = 1e-10;
 		
-	int sizeMin = exp->sizeMin;	int sizeMax = exp->sizeMax;	int sizeStep = exp->sizeStep;
+		int sizeMin = exp->sizeMin;	int sizeMax = exp->sizeMax;	int sizeStep = exp->sizeStep;
 
-	double contrarianMin = exp->contrarianMin; double contrarianMax = exp->contrarianMax; double contrarianStep = exp->contrarianStep;
+		double contrarianMin = exp->contrarianMin; double contrarianMax = exp->contrarianMax; double contrarianStep = exp->contrarianStep;
 	
-	int timeMin = exp->timeMin;		int timeMax = exp->timeMax;		int timeStep = exp->timeStep;
-	int delayMin = exp->delayMin;	int delayMax = exp->delayMax;	int delayStep = exp->delayStep;
+		int timeMin = exp->timeMin;		int timeMax = exp->timeMax;		int timeStep = exp->timeStep;
+		int delayMin = exp->delayMin;	int delayMax = exp->delayMax;	int delayStep = exp->delayStep;
 						
-	std::string type = "CHAIN";
-	if (ring) { type = "RING"; }
+		std::string type = "CHAIN";
+		if (ring) { type = "RING"; }
 	
 
-	// loop over model parameters
+		// loop over model parameters
 			
-	for (int size = sizeMin; size <= sizeMax; size += sizeStep)
-	    for (double c = contrarianMin; c <= contrarianMax; c += contrarianStep)
-	    {	
+		for (int size = sizeMin; size <= sizeMax; size += sizeStep)
+			for (double c = contrarianMin; c <= contrarianMax; c += contrarianStep)
+			{	
 	
-		// build the Voter Model and its Markov chain
+				// build the Voter Model and its Markov chain
 		
-		timer.start(size,"BUILDING MODEL");
-		timer.startTime();
-		timer.startMemory();
+				timer.start(size,"BUILDING MODEL");
+				timer.startTime();
+				timer.startMemory();
 
-		ChainVoterGraph *VG = new ChainVoterGraph (size,c,ring,update);
+				ChainVoterGraph *VG = new ChainVoterGraph (size,c,ring,update);
 
-		MarkovProcess *MP = VG->getMarkovProcess();
-		MP->getDistribution(timeMax);
-		MP->getTransition(delayMax);
-		if (timeMin == -1) { MP->computeStationaryDistribution(threshold); }
+				MarkovProcess *MP = VG->getMarkovProcess();
+				MP->getDistribution(timeMax);
+				MP->getTransition(delayMax);
+				if (timeMin == -1) { MP->computeStationaryDistribution(threshold); }
 		
 
-		// build the pre- and post-measurements
+				// build the pre- and post-measurements
 		
-		MeasurementSet *preMSet = new MeasurementSet();
-		for (SpecMeasurementSet::iterator it = exp->preMeasurements->begin(); it != exp->preMeasurements->end(); ++it)
-		{
-		    MeasurementType type = (*it).first;
-		    VoterMetric metric = (*it).second;
-		    addMeasurement (preMSet,VG,type,metric);
-		}
+				MeasurementSet *preMSet = new MeasurementSet();
+				for (SpecMeasurementSet::iterator it = exp->preMeasurements->begin(); it != exp->preMeasurements->end(); ++it)
+				{
+					MeasurementType type = (*it).first;
+					VoterMetric metric = (*it).second;
+					addMeasurement (preMSet,VG,type,metric);
+				}
 		
-		for (MeasurementSet::iterator it = preMSet->begin(); it != preMSet->end(); ++it)
-		{
-		    VoterMeasurement *m = *it;
-		    m->partition = VG->getMarkovPartition(m);
-		}
+				for (MeasurementSet::iterator it = preMSet->begin(); it != preMSet->end(); ++it)
+				{
+					VoterMeasurement *m = *it;
+					m->partition = VG->getMarkovPartition(m);
+				}
 
-		MeasurementSet *postMSet = new MeasurementSet();
-		for (SpecMeasurementSet::iterator it = exp->postMeasurements->begin(); it != exp->postMeasurements->end(); ++it)
-		{
-		    MeasurementType type = (*it).first;
-		    VoterMetric metric = (*it).second;
-		    addMeasurement (postMSet,VG,type,metric);
-		}
+				MeasurementSet *postMSet = new MeasurementSet();
+				for (SpecMeasurementSet::iterator it = exp->postMeasurements->begin(); it != exp->postMeasurements->end(); ++it)
+				{
+					MeasurementType type = (*it).first;
+					VoterMetric metric = (*it).second;
+					addMeasurement (postMSet,VG,type,metric);
+				}
 					
-		for (MeasurementSet::iterator it = postMSet->begin(); it != postMSet->end(); ++it)
-		{
-		    VoterMeasurement *m = *it;
-		    m->partition = VG->getMarkovPartition(m);
-		}
+				for (MeasurementSet::iterator it = postMSet->begin(); it != postMSet->end(); ++it)
+				{
+					VoterMeasurement *m = *it;
+					m->partition = VG->getMarkovPartition(m);
+				}
 	
 
-		// build the microscopic partition
+				// build the microscopic partition
 		
-		VoterMeasurement *m = new VoterMeasurement(VG,"MICRO_PARTITION");
-		for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it)
-		{
-		    VoterProbe *probe = new VoterProbe(VG);
-		    probe->addNode(*it);
-		    m->addProbe(probe,MACRO_STATE);
-		}
+				VoterMeasurement *m = new VoterMeasurement(VG,"MICRO_PARTITION");
+				for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it)
+				{
+					VoterProbe *probe = new VoterProbe(VG);
+					probe->addNode(*it);
+					m->addProbe(probe,MACRO_STATE);
+				}
 		
-		Partition *microP = VG->getMarkovPartition(m);
+				Partition *microP = VG->getMarkovPartition(m);
 
 
-		// loop over the prediction parameters
+				// loop over the prediction parameters
 					
-		for (int t = timeMin; t <= timeMax; t += timeStep)
-		{	
-		    for (int d = delayMin; d <= delayMax; d += delayStep)
-		    {
-			timer.step("COMPUTING " + int2string(t) + " + " + int2string(d));
+				for (int t = timeMin; t <= timeMax; t += timeStep)
+				{	
+					for (int d = delayMin; d <= delayMax; d += delayStep)
+					{
+						timer.step("COMPUTING " + int2string(t) + " + " + int2string(d));
 			
-			for (MeasurementSet::iterator it1 = preMSet->begin(); it1 != preMSet->end(); ++it1)
-			{
-			    VoterMeasurement *preM = *it1;
-			    for (MeasurementSet::iterator it2 = postMSet->begin(); it2 != postMSet->end(); ++it2)
-			    {
-				VoterMeasurement *postM = *it2;
+						for (MeasurementSet::iterator it1 = preMSet->begin(); it1 != preMSet->end(); ++it1)
+						{
+							VoterMeasurement *preM = *it1;
+							for (MeasurementSet::iterator it2 = postMSet->begin(); it2 != postMSet->end(); ++it2)
+							{
+								VoterMeasurement *postM = *it2;
 				
-				// Run experiment
-				computeTwoCommunitiesMeasures(csvFile,MP,type,update,size,0,0,0,0,0,c,0,preM,postM,t,d,microP);
-			    }
+								// Run experiment
+								computeTwoCommunitiesMeasures(csvFile,MP,type,update,size,0,0,0,0,0,c,0,preM,postM,t,d,microP);
+							}
+						}
+					}
+				}
+		
+		
+				// free memory
+		
+				delete VG;
+				delete MP;
+				delete microP;
+		
+				preMSet->clear();
+				postMSet->clear();
+				delete preMSet;
+				delete postMSet;
+		
+				timer.stopTime();
+				timer.stopMemory();
+				timer.stop();
 			}
-		    }
-		}
-		
-		
-		// free memory
-		
-		delete VG;
-		delete MP;
-		delete microP;
-		
-		preMSet->clear();
-		postMSet->clear();
-		delete preMSet;
-		delete postMSet;
-		
-		timer.stopTime();
-		timer.stopMemory();
-		timer.stop();
-	    }
     }
     closeOutputCSV(csvFile);
 }
@@ -399,7 +399,7 @@ void addMeasurement (MeasurementSet *set, VoterGraph *VG, MeasurementType type, 
     case M_AGENT1_MESO2 :
     case M_AGENT1_MESO1_MESO2 :
 		set->insert(getMeasurement (VG, type, metric));
-	break;
+		break;
 
     default : addMultiMeasurement (set, VG, type, metric);
     }
@@ -467,89 +467,89 @@ VoterMeasurement *getMeasurement (VoterGraph *VG, MeasurementType type, VoterMet
     {
     case M_MACRO :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"MACRO" + postfix);
-	m->addProbe(macroPr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"MACRO" + postfix);
+		m->addProbe(macroPr,metric,binning);
+		return m;
     }
 		
     case M_EMPTY :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"EMPTY");
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"EMPTY");
+		return m;
     }
 		
     case M_AGENT1 :		
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1" + postfix);
-	m->addProbe(agent1Pr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1" + postfix);
+		m->addProbe(agent1Pr,metric,binning);
+		return m;
     }
 
     case M_AGENT1_MACRO :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MACRO" + postfix);
-	m->addProbe(agent1Pr,metric,binning);
-	m->addProbe(macroPr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MACRO" + postfix);
+		m->addProbe(agent1Pr,metric,binning);
+		m->addProbe(macroPr,metric,binning);
+		return m;
     }
 		
     case M_MICRO:
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"MICRO" + postfix);
-	for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it)
-	{
-	    VoterProbe *probe = new VoterProbe(VG);
-	    probe->addNode(*it);
-	    m->addProbe(probe,metric,binning);
-	}
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"MICRO" + postfix);
+		for (std::set<VoterNode*>::iterator it = VG->nodeSet->begin(); it != VG->nodeSet->end(); ++it)
+		{
+			VoterProbe *probe = new VoterProbe(VG);
+			probe->addNode(*it);
+			m->addProbe(probe,metric,binning);
+		}
+		return m;
     }
 		
     case M_MESO1 :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"MESO1" + postfix);
-	m->addProbe(meso1Pr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"MESO1" + postfix);
+		m->addProbe(meso1Pr,metric,binning);
+		return m;
     }
 
     case M_MESO2 :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"MESO2" + postfix);
-	m->addProbe(meso2Pr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"MESO2" + postfix);
+		m->addProbe(meso2Pr,metric,binning);
+		return m;
     }
 
     case M_MESO1_MESO2 :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"MESO1_MESO2" + postfix);
-	m->addProbe(meso1Pr,metric,binning);
-	m->addProbe(meso2Pr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"MESO1_MESO2" + postfix);
+		m->addProbe(meso1Pr,metric,binning);
+		m->addProbe(meso2Pr,metric,binning);
+		return m;
     }
 			
     case M_AGENT1_MESO1 :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1" + postfix);
-	m->addProbe(agent1Pr,metric,binning);
-	m->addProbe(meso1Pr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1" + postfix);
+		m->addProbe(agent1Pr,metric,binning);
+		m->addProbe(meso1Pr,metric,binning);
+		return m;
     }
 
     case M_AGENT1_MESO2 :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO2" + postfix);
-	m->addProbe(agent1Pr,metric,binning);
-	m->addProbe(meso2Pr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO2" + postfix);
+		m->addProbe(agent1Pr,metric,binning);
+		m->addProbe(meso2Pr,metric,binning);
+		return m;
     }
 			
     case M_AGENT1_MESO1_MESO2 :
     {
-	VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1_MESO2" + postfix);
-	m->addProbe(meso1Pr,metric,binning);
-	m->addProbe(meso2Pr,metric,binning);
-	m->addProbe(agent1Pr,metric,binning);
-	return m;
+		VoterMeasurement *m = new VoterMeasurement(VG,"AGENT1_MESO1_MESO2" + postfix);
+		m->addProbe(meso1Pr,metric,binning);
+		m->addProbe(meso2Pr,metric,binning);
+		m->addProbe(agent1Pr,metric,binning);
+		return m;
     }
     	    
     default : std::cout << "ERROR: unknown measurement!" << std::endl;
@@ -619,84 +619,84 @@ void addMultiMeasurement (MeasurementSet *set, VoterGraph *VG, MeasurementType t
     {
     case M_ALLSIZES1 : case M_SOMESIZES1 : case M_AGENT1_ALLSIZES1 : case M_AGENT1_SOMESIZES1 :
     {
-	std::set<VoterNode*> *nodeSet = VG->nodeSet;
-	TwoCommunitiesVoterGraph *TCVG = dynamic_cast<TwoCommunitiesVoterGraph*>(VG);
-	if (TCVG != NULL) { nodeSet = TCVG->community1; }
-	int size = VG->nodeSet->size();
+		std::set<VoterNode*> *nodeSet = VG->nodeSet;
+		TwoCommunitiesVoterGraph *TCVG = dynamic_cast<TwoCommunitiesVoterGraph*>(VG);
+		if (TCVG != NULL) { nodeSet = TCVG->community1; }
+		int size = VG->nodeSet->size();
 	
-	VoterProbe **prList = new VoterProbe *[size-1];
-	VoterMeasurement **mList = new VoterMeasurement *[size-1];
+		VoterProbe **prList = new VoterProbe *[size-1];
+		VoterMeasurement **mList = new VoterMeasurement *[size-1];
 
-	for (int i = 1; i <= size; i++)
-	{
-	    std::string str = int2string(i);
+		for (int i = 1; i <= size; i++)
+		{
+			std::string str = int2string(i);
 
-	    std::string prefix = "";
-	    if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { prefix = "AGENT1_"; }	    
+			std::string prefix = "";
+			if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { prefix = "AGENT1_"; }	    
 	    
-	    prList[i-1] = new VoterProbe(VG);
-	    mList[i-1] = new VoterMeasurement(VG,prefix + "SIZE" + str + postfix);
-	    mList[i-1]->addProbe(prList[i-1],metric);
+			prList[i-1] = new VoterProbe(VG);
+			mList[i-1] = new VoterMeasurement(VG,prefix + "SIZE" + str + postfix);
+			mList[i-1]->addProbe(prList[i-1],metric);
 				
-	    if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { mList[i-1]->addProbe(agent1Pr,metric); }
+			if (type == M_AGENT1_ALLSIZES1 || type == M_AGENT1_SOMESIZES1) { mList[i-1]->addProbe(agent1Pr,metric); }
 				
-	    switch (type)
-	    {
-	    case M_ALLSIZES1 : case M_AGENT1_ALLSIZES1 : set->insert(mList[i-1]); break;
-	    case M_SOMESIZES1 : case M_AGENT1_SOMESIZES1 : if (i % (size/5) == 0) { set->insert(mList[i-1]); } break;	
-	    default : break;
-	    }
-	}
+			switch (type)
+			{
+			case M_ALLSIZES1 : case M_AGENT1_ALLSIZES1 : set->insert(mList[i-1]); break;
+			case M_SOMESIZES1 : case M_AGENT1_SOMESIZES1 : if (i % (size/5) == 0) { set->insert(mList[i-1]); } break;	
+			default : break;
+			}
+		}
 	
-	int j = 1;
+		int j = 1;
 	
-	for (std::set<VoterNode*>::iterator it = nodeSet->begin(); it != nodeSet->end(); ++it)
-	{
-	    for (int i = j; i <= size; i++) { prList[i-1]->addNode(*it); }
-	    j++;
-	}
+		for (std::set<VoterNode*>::iterator it = nodeSet->begin(); it != nodeSet->end(); ++it)
+		{
+			for (int i = j; i <= size; i++) { prList[i-1]->addNode(*it); }
+			j++;
+		}
 
-	//delete [] prList;
-	//delete [] mList;
+		//delete [] prList;
+		//delete [] mList;
 
-	break;
+		break;
     }
 
 
     case M_ALLNEIGHBORHOODS :
     {
-	ChainVoterGraph *CVG = dynamic_cast<ChainVoterGraph*>(VG);
-	if (CVG != NULL)
-	{
-	    if (CVG->ring)
-	    {
-		int size = CVG->size;
-		VoterProbe **prList = new VoterProbe *[size/2];
-		VoterMeasurement **mList = new VoterMeasurement *[size/2];
-		
-		for (int i = 1; i <= size/2; i++)
+		ChainVoterGraph *CVG = dynamic_cast<ChainVoterGraph*>(VG);
+		if (CVG != NULL)
 		{
-		    std::stringstream ss; ss << i;
-		    std::string str = ss.str();
+			if (CVG->ring)
+			{
+				int size = CVG->size;
+				VoterProbe **prList = new VoterProbe *[size/2];
+				VoterMeasurement **mList = new VoterMeasurement *[size/2];
 		
-		    prList[i-1] = new VoterProbe(VG);
-		    prList[i-1]->addNode(CVG->nodeArray[0]);
-		    for (int j = 1; j <= i; j++)
-		    {
-			prList[i-1]->addNode(CVG->nodeArray[j]);
-			prList[i-1]->addNode(CVG->nodeArray[size-j]);
-		    }
+				for (int i = 1; i <= size/2; i++)
+				{
+					std::stringstream ss; ss << i;
+					std::string str = ss.str();
+		
+					prList[i-1] = new VoterProbe(VG);
+					prList[i-1]->addNode(CVG->nodeArray[0]);
+					for (int j = 1; j <= i; j++)
+					{
+						prList[i-1]->addNode(CVG->nodeArray[j]);
+						prList[i-1]->addNode(CVG->nodeArray[size-j]);
+					}
 
-		    mList[i-1] = new VoterMeasurement(VG,"NEIGHBORHOOD" + str + postfix);
-		    mList[i-1]->addProbe(prList[i-1],metric);
-		    set->insert(mList[i-1]);
-		}
+					mList[i-1] = new VoterMeasurement(VG,"NEIGHBORHOOD" + str + postfix);
+					mList[i-1]->addProbe(prList[i-1],metric);
+					set->insert(mList[i-1]);
+				}
 	    
-		delete [] prList;
-		delete [] mList;
-	    }
-	}
-	break;
+				delete [] prList;
+				delete [] mList;
+			}
+		}
+		break;
     }
 	    
     default : std::cout << "ERROR: unknown measurement!" << std::endl;
@@ -714,46 +714,46 @@ void addTwoCommunitiesHeaderToCSV (std::string fileName)
 	
     if (emptyFile)
     {
-	std::ofstream csvFile;
-	openOutputCSV(csvFile,fileName);
+		std::ofstream csvFile;
+		openOutputCSV(csvFile,fileName);
 
-	CSVLine line;
-	line.push_back("TYPE");
-	line.push_back("UPDATE");
-	line.push_back("SIZE1");
-	line.push_back("SIZE2");
-	line.push_back("INTRARATE1");
-	line.push_back("INTRARATE2");
-	line.push_back("INTERRATE1");
-	line.push_back("INTERRATE2");
-	line.push_back("CONTRARIAN1");
-	line.push_back("CONTRARIAN2");
+		CSVLine line;
+		line.push_back("TYPE");
+		line.push_back("UPDATE");
+		line.push_back("SIZE1");
+		line.push_back("SIZE2");
+		line.push_back("INTRARATE1");
+		line.push_back("INTRARATE2");
+		line.push_back("INTERRATE1");
+		line.push_back("INTERRATE2");
+		line.push_back("CONTRARIAN1");
+		line.push_back("CONTRARIAN2");
 
-	line.push_back("PREM");
-	line.push_back("POSTM");
-	line.push_back("TIME");
-	line.push_back("DELAY");
+		line.push_back("PREM");
+		line.push_back("POSTM");
+		line.push_back("TIME");
+		line.push_back("DELAY");
 
-	line.push_back("CURRENT_MICRO_H");
-	line.push_back("CURRENT_MACRO_H");
-	line.push_back("NEXT_MICRO_H");
-	line.push_back("NEXT_MACRO_H");
+		line.push_back("CURRENT_MICRO_H");
+		line.push_back("CURRENT_MACRO_H");
+		line.push_back("NEXT_MICRO_H");
+		line.push_back("NEXT_MACRO_H");
 		
-	line.push_back("MICRO_I");
-	line.push_back("MACRO_I");
-	line.push_back("CURRENT_I");
-	line.push_back("NEXT_I");
+		line.push_back("MICRO_I");
+		line.push_back("MACRO_I");
+		line.push_back("CURRENT_I");
+		line.push_back("NEXT_I");
 
-	addCSVLine(csvFile,line);
+		addCSVLine(csvFile,line);
 
-	closeOutputCSV(csvFile);
+		closeOutputCSV(csvFile);
     }
 }
 
 
 void computeTwoCommunitiesMeasures (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
-				    int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
-				    VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, Partition *microP)
+									int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
+									VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, Partition *microP)
 {
     addCSVField(csvFile,type);
 
@@ -812,47 +812,47 @@ void computeTwoCommunitiesMeasures (std::ofstream &csvFile, MarkovProcess *MP, s
 
 
 void computeTwoCommunitiesMeasuresWithAggregation (std::ofstream &csvFile, MarkovProcess *MP, std::string type, int update,
-						   int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
-						   VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, double threshold)
+												   int size1, int size2, double intraR1, double intraR2, double interR1, double interR2, double contrarian1, double contrarian2,
+												   VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay, double threshold)
 {
     std::set<OrderedPartition*> *pSet = MP->getOptimalOrderedPartition(postM->partition,preM->partition,delay,time,threshold);
     for (std::set<OrderedPartition*>::iterator it = pSet->begin(); it != pSet->end(); ++it)
     {
-	OrderedPartition *p = *it;
-	addCSVField(csvFile,type);
+		OrderedPartition *p = *it;
+		addCSVField(csvFile,type);
 		
-	switch (update)
-	{
-	case UPDATE_NODES : addCSVField(csvFile,"NODES"); break;
-	case UPDATE_EDGES : addCSVField(csvFile,"EDGES"); break;
-	default : addCSVField(csvFile,"NA");
-	}
+		switch (update)
+		{
+		case UPDATE_NODES : addCSVField(csvFile,"NODES"); break;
+		case UPDATE_EDGES : addCSVField(csvFile,"EDGES"); break;
+		default : addCSVField(csvFile,"NA");
+		}
 	
-	addCSVField(csvFile,size1);
-	addCSVField(csvFile,size2);
-	addCSVField(csvFile,intraR1);
-	addCSVField(csvFile,intraR2);
-	addCSVField(csvFile,interR1);
-	addCSVField(csvFile,interR2);
-	addCSVField(csvFile,contrarian1);
-	addCSVField(csvFile,contrarian2);
+		addCSVField(csvFile,size1);
+		addCSVField(csvFile,size2);
+		addCSVField(csvFile,intraR1);
+		addCSVField(csvFile,intraR2);
+		addCSVField(csvFile,interR1);
+		addCSVField(csvFile,interR2);
+		addCSVField(csvFile,contrarian1);
+		addCSVField(csvFile,contrarian2);
 		
-	addCSVField(csvFile,preM->type + "_" + p->string);
-	addCSVField(csvFile,postM->type);
-	addCSVField(csvFile,time);
-	addCSVField(csvFile,delay);
+		addCSVField(csvFile,preM->type + "_" + p->string);
+		addCSVField(csvFile,postM->type);
+		addCSVField(csvFile,time);
+		addCSVField(csvFile,delay);
 	
-	addCSVField(csvFile,"NA",true);
-	addCSVField(csvFile,"NA",true);
-	addCSVField(csvFile,"NA",true);
-	addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,"NA",true);
 		
-	addCSVField(csvFile,"NA",true);
-	addCSVField(csvFile,p->information,true,15);
-	addCSVField(csvFile,p->entropy,true,15);
-	addCSVField(csvFile,"NA",false);
+		addCSVField(csvFile,"NA",true);
+		addCSVField(csvFile,p->information,true,15);
+		addCSVField(csvFile,p->entropy,true,15);
+		addCSVField(csvFile,"NA",false);
 	
-	endCSVLine(csvFile);
+		endCSVLine(csvFile);
     }
 }
 
@@ -867,82 +867,82 @@ void addTwoCommunitiesPartHeaderToCSV (std::string fileName, std::string type)
 	
     if (emptyFile)
     {
-	std::ofstream csvFile;
-	openOutputCSV(csvFile,fileName);
+		std::ofstream csvFile;
+		openOutputCSV(csvFile,fileName);
 
-	CSVLine line;
-	if (type == "AGENT1_MESO1_MESO2_MS")
-	{
-	    line.push_back("AGENT");
-	    line.push_back("MESO1");
-	    line.push_back("MESO2");
-	}
+		CSVLine line;
+		if (type == "AGENT1_MESO1_MESO2_MS")
+		{
+			line.push_back("AGENT");
+			line.push_back("MESO1");
+			line.push_back("MESO2");
+		}
 
-	if (type == "MESO1_MS")
-	{
-	    line.push_back("MESO1");
-	}
+		if (type == "MESO1_MS")
+		{
+			line.push_back("MESO1");
+		}
 
-	if (type == "AGENT1_MACRO_MS")
-	{
-	    line.push_back("AGENT");
-	    line.push_back("MACRO");
-	}
+		if (type == "AGENT1_MACRO_MS")
+		{
+			line.push_back("AGENT");
+			line.push_back("MACRO");
+		}
 
-	line.push_back("PROBABILITY");
-	line.push_back("INFORMATION");
+		line.push_back("PROBABILITY");
+		line.push_back("INFORMATION");
 
-	addCSVLine(csvFile,line);
+		addCSVLine(csvFile,line);
 
-	closeOutputCSV(csvFile);
+		closeOutputCSV(csvFile);
     }
 }
 
 
 void computeTwoCommunitiesPartMeasures (std::ofstream &csvFile, MarkovProcess *MP, int size1, int size2,
-					VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay)
+										VoterMeasurement *preM, VoterMeasurement *postM, int time, int delay)
 {
     for (std::list<Part*>::iterator it = preM->partition->parts->begin(); it != preM->partition->parts->end(); ++it)
     {
-	Part *part = *it;
-	int i = part->individuals->front();
+		Part *part = *it;
+		int i = part->individuals->front();
 
-	int a = i % 2;
-	int n1 = (i-a)/2 % size1;
-	int n2 = (i-a-2*n1)/(2*size1);
+		int a = i % 2;
+		int n1 = (i-a)/2 % size1;
+		int n2 = (i-a-2*n1)/(2*size1);
 
-	if (preM->type == "AGENT1_MESO1_MESO2_MS")
-	{
-	    addCSVField(csvFile,a);
-	    addCSVField(csvFile,a+n1);
-	    addCSVField(csvFile,n2);
-	}
+		if (preM->type == "AGENT1_MESO1_MESO2_MS")
+		{
+			addCSVField(csvFile,a);
+			addCSVField(csvFile,a+n1);
+			addCSVField(csvFile,n2);
+		}
 
-	if (preM->type == "MESO1_MS")
-	{
-	    addCSVField(csvFile,a+n1);
-	}
+		if (preM->type == "MESO1_MS")
+		{
+			addCSVField(csvFile,a+n1);
+		}
 
-	if (preM->type == "AGENT1_MACRO_MS")
-	{
-	    addCSVField(csvFile,a);
-	    addCSVField(csvFile,a+n1+n2);
-	}
+		if (preM->type == "AGENT1_MACRO_MS")
+		{
+			addCSVField(csvFile,a);
+			addCSVField(csvFile,a+n1+n2);
+		}
 
-	double probability = MP->getProbability(part,time);
-	double information = MP->getPartMutualInformation(postM->partition,part,delay,time);
+		double probability = MP->getProbability(part,time);
+		double information = MP->getPartMutualInformation(postM->partition,part,delay,time);
 
-	addCSVField(csvFile,probability,true,15);
-	addCSVField(csvFile,information,false,15);
+		addCSVField(csvFile,probability,true,15);
+		addCSVField(csvFile,information,false,15);
 	
-	endCSVLine(csvFile);
+		endCSVLine(csvFile);
     }
 }
 
 
 
 TwoCommunitiesExperiment::TwoCommunitiesExperiment (int size1, int size2, double intraR1, double intraR2, double interR1, double interR2,
-						    double contrarian1, double contrarian2, double time, double delay, SpecMeasurementSet *preM, SpecMeasurementSet *postM)
+													double contrarian1, double contrarian2, double time, double delay, SpecMeasurementSet *preM, SpecMeasurementSet *postM)
 {
     id = ++id_number;
     update = UPDATE_EDGES;

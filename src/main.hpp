@@ -20,4 +20,6 @@ void testMarkovProcess ();
 void testVoterGraph ();
 void testMeasuresWithAggregation ();
 
+void testLandUseModel ();
+
 #endif

@@ -64,7 +64,7 @@ public:
      * \param j : The index of the row to be set
      * \param array : An array of probabilities (summing to 1) with the size of the Markov chain state space
      */
-    void setTransition (int j, double *array);
+    void setTransition (int i, double *array);
 
     /*!
      * \brief Get the state distribution at a given time (-1 for the stationary distribution)
@@ -127,14 +127,14 @@ public:
     double getPartMutualInformation (Partition *nextPartition, Part *currentPart, int delay, int time);
 
     /*!
-     * \brief Get the Shannon entropy of the next state distribution knowing the current state distribution at a given time (-1 for the stationary distribution), when the next distribution is lumped according to a given partition of the state space, and when the current partition is also lumped by the same partition (when micro is true)
+     * \brief Get the Shannon entropy of the next state distribution knowing the current state distribution at a given time (-1 for the stationary distribution), when the next distribution is lumped according to a given partition of the state space, and when the current partition is also lumped by the same partition (when micro is false)
      */
-	double getNextEntropy (Partition *partition, bool micro, int time);
+	double getNextEntropy (Partition *partition, bool micro, int delay, int time);
 
     /*!
      * \brief Get the information flow at a given time (-1 for the stationary distribution) between the Markov chain lumped according to a given partition of the state space and the microscopic Markov chain
      */
-    double getInformationFlow (Partition *partition, int time);
+    double getInformationFlow (Partition *partition, int delay, int time);
 
     int *getOptimalCut (int microSize, double *macroEntropy, double *macroInformation, double beta);
     std::set<OrderedPartition*> *getOptimalOrderedPartition (Partition *nextPartition, Partition *currentPartition, int delay, int time, double threshold);

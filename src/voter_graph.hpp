@@ -71,6 +71,7 @@ class VoterMeasurementState;
 class VoterMeasurementTrajectory;
 
 long unsigned int nChoosek (int n, int k);
+//double nChoosekProb (int n, int k, double p = 1./2);
 
 typedef std::set<VoterMeasurement*> MeasurementSet;
 typedef std::set< std::pair<MeasurementType,VoterMetric> > SpecMeasurementSet;
@@ -147,6 +148,7 @@ class VoterGraph
 {
 public:
     int updateProcess;		/*!< How the system evolves at each simulation step (UPDATE_NODES or UPDATE_EDGES)*/
+	int complete;
 		
     int nodeNumber;			/*!< The total number of nodes in the graph*/
     int edgeNumber;			/*!< The total number of edges in the graph*/
@@ -200,6 +202,7 @@ public:
 
     
     VoterNode *getRandomNode ();
+    VoterNode *getUniformRandomNode ();
     VoterEdge *getRandomEdge (VoterNode *node);
 		
     /*!

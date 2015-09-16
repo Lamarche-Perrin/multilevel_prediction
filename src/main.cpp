@@ -17,40 +17,93 @@
 bool VERBOSE = false;
 
 
+
+
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
     //srand(4);
 
-	//testScoreFunctions();
+	/*
+	for (int size = 1; size <= 50; size++)
+	{
+		MarkovProcess *MP = new MarkovProcess (size);
+
+		for (int i = 0; i < size; i++)
+			MP->distribution[i] = 1./size;
+
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++)
+				MP->transition[j*size+i] = 1./size;
+
+		MP->computeStationaryDistribution(0.00001);
+
+		delete MP;
+	}
+	*/
 	
-    int size = 100;
+	testLandUseModel();
+	
+	/*
+	int size = 100;
     double contrarian = 1./(size+1);
 
-    int time = 1000;
+    int time = 10000;
     int delay = 10;
 	int prior = 1;
 
-	int trainSize = 100;
+	int trainSize = 2000;
 	int testSize = 100;
 	int trainLength = 100;
 	int testLength = 0;
 
+	int incrStep = 10;
+
+	
+	std::string fileName = "../data/optbin_small-test.csv";
+	testSize = 50;
+
+	std::ofstream file;
+	deleteCSV(fileName);
+	openOutputCSV(file,fileName);
+	addCSVField(file,"VAR");
+	addCSVField(file,"SCORE");
+	addCSVField(file,"BINS");
+	addCSVField(file,"CUTS",false);
+	endCSVLine(file);
+	
 	
     CompleteVoterGraph *VG = new CompleteVoterGraph (size,UPDATE_EDGES,contrarian);
-	VoterDataSet *DS = new VoterDataSet (VG, time, delay, trainSize, testSize, trainLength, testLength);
+ 	VoterDataSet *DS = new VoterDataSet (VG, time, delay, trainSize, testSize, trainLength, testLength);
 
 	VoterMeasurement *preM = getMeasurement (VG, M_MACRO, MACRO_STATE);
 	VoterMeasurement *postM = getMeasurement (VG, M_MACRO, MACRO_STATE);
 
-	for (int t = 5; t <= trainSize; t += 5)
+	for (int t = incrStep; t <= trainSize; t += incrStep)
 	{
 		VoterBinning *binning = DS->getOptimalBinning(preM, postM, prior, t);
 		std::cout << "OPTIMAL BINNING FOR " << t << " TRAJECTORIES" << std::endl;
 		binning->print(false);
+
+		addCSVField(file,t);
+		addCSVField(file,binning->score);
+		addCSVField(file,binning->binNumber);
+
+		std::string str = "";
+		for (int i = 0; i < binning->binNumber; i++)
+		{
+			if (i > 0) { str += ","; }
+			str += int2string(binning->cuts[i]);
+		}
+		addCSVField(file,str,false);
+		endCSVLine(file);
+
+		delete binning;
 	}
 	
+	closeOutputCSV(file);
 
+	*/
 	
     /*
     int size = 7;
@@ -488,4 +541,158 @@ void testMeasuresWithAggregation ()
     {
 	std::cout << (*it)->string << std::endl;
     }
+}
+
+
+void testLandUseModel ()
+{
+	double quality [2] = {1, 2};
+	double breaks [2] = {1.5, 1.9};
+	double gamma = 1./3;
+		
+	int sizeMin = 3;
+	int sizeMax = 3;
+
+	bool saveData = false;
+	bool newData = false;
+	std::string fileName = "../data/landuse_flow.csv";
+
+
+	std::ofstream file;
+
+	if (saveData)
+	{
+		if (newData) { deleteCSV(fileName); }	
+		openOutputCSV(file,fileName);	
+
+		if (newData)
+		{
+			addCSVField(file,"SIZE");
+			addCSVField(file,"HY");
+			addCSVField(file,"IYpY");
+			addCSVField(file,"HYpY");
+			addCSVField(file,"HYpX");
+			addCSVField(file,"FLOW",false);
+			endCSVLine(file);
+		}
+	}
+
+	std::cout << "SIZE     H(Y)     I(Y;Y')     H(Y'|Y)     H(Y'|X)     FLOW"  << std::endl;
+
+	
+	for (int s = sizeMin; s <= sizeMax; s++)
+	{
+		int agentNb = s;
+		int size = pow(agentNb+1,2);
+
+		MarkovProcess *MP = new MarkovProcess (size);
+
+		for (int i = 0; i < size; i++)
+		{
+			int i01 = i % (agentNb+1);
+			int i11 = (i-i01) / (agentNb+1);
+
+			double prob0 = nChoosek(agentNb,i01) * pow(0.5,agentNb);
+			double prob1 = nChoosek(agentNb,i11) * pow(0.5,agentNb);
+		
+			MP->distribution[i] = prob0 * prob1;
+		}	
+
+		for (int i = 0; i < size; i++)
+			for (int j = 0; j < size; j++)
+				MP->transition[j*size+i] = 0;
+
+		for (int i = 0; i < size; i++)
+		{
+			int i01 = i % (agentNb+1);
+			int i11 = (i-i01) / (agentNb+1);
+			int i00 = agentNb - i01;
+			int i10 = agentNb - i11;
+
+			int q = i01 * quality[0] + i11 * quality[1];
+			bool d0 = (q < breaks[0] * agentNb);
+			bool d1 = (q < breaks[1] * agentNb);
+
+			for (int d00 = 0; d00 <= i00; d00++)
+			{
+				double prob00 = nChoosek(i00,d00) * pow(gamma,d00) * pow(1.-gamma,i00-d00);
+
+				for (int d01 = 0; d01 <= i01; d01++)
+				{
+					double prob01 = nChoosek(i01,d01) * pow(gamma,d01) * pow(1.-gamma,i01-d01);
+
+					for (int d10 = 0; d10 <= i10; d10++) {
+						double prob10 = nChoosek(i10,d10) * pow(gamma,d10) * pow(1.-gamma,i10-d10);
+
+						for (int d11 = 0; d11 <= i11; d11++)
+						{
+							double prob11 = nChoosek(i11,d11) * pow(gamma,d11) * pow(1.-gamma,i11-d11);
+
+							int j01;
+							if (d0) { j01 = i01 + d00; } else { j01 = i01 - d01; }
+
+							int j11;
+							if (d1) { j11 = i11 + d10; } else { j11 = i11 - d11; }
+
+							int j = j11 * (agentNb+1) + j01;
+							MP->transition[j*size+i] += prob00 * prob01 * prob10 * prob11;
+						}
+					}
+				}
+			}
+		}
+
+		MP->computeStationaryDistribution(0.00001);
+		
+		Partition *partition = new Partition();
+
+		int partNb = agentNb * (quality[0] + quality[1]) + 1;
+		Part **parts = new Part*[partNb];
+		for (int p = 0; p < partNb; p++)
+		{
+			parts[p] = new Part();
+			partition->addPart(parts[p]);
+		}
+	
+		
+		for (int i = 0; i < size; i++)
+		{
+			int i01 = i % (agentNb+1);
+			int i11 = (i-i01) / (agentNb+1);
+			int qi = i01 * quality[0] + i11 * quality[1];
+			parts[qi]->addIndividual(i);
+		}
+
+		MP->print();
+		partition->print(true);
+
+		int time = -1;
+		int delay = 1;
+		
+		double H = MP->getEntropy(partition,time);
+		double I = MP->getMutualInformation(partition,partition,delay,time);
+		double H1 = MP->getNextEntropy(partition,false,delay,time);
+		double H2 = MP->getNextEntropy(partition,true,delay,time);
+		double F = H1-H2;
+
+		if (saveData)
+		{
+			addCSVField(file,agentNb);
+			addCSVField(file,H);
+			addCSVField(file,I);
+			addCSVField(file,H1);
+			addCSVField(file,H2);
+			addCSVField(file,F,false);
+			endCSVLine(file);
+		}
+
+		std::cout << agentNb << "     " << H << "     " << I << "     " << H1 << "     " << H2 << "     " << F << std::endl;
+		
+		
+		delete partition;
+		delete MP;
+	}
+
+	closeOutputCSV(file);
+	
 }

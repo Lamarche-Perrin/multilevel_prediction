@@ -14,6 +14,7 @@
 #include "csv_tools.hpp"
 
 
+void deleteCSV (std::string fileName) { remove(fileName.c_str()); }
 
 void openInputCSV (std::ifstream &file, std::string fileName)
 {

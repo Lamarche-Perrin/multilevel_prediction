@@ -40,11 +40,13 @@ MarkovProcess::MarkovProcess (int s)
 
 MarkovProcess::~MarkovProcess ()
 {
-    delete[] distribution;
+    //delete[] distribution;
+	for (std::vector<double*>::iterator it = distributions->begin(); it != distributions->end(); ++it) { delete [] (*it); }
     distributions->clear();
     delete distributions;
 
-    delete[] transition;
+    //delete[] transition;
+	for (std::vector<double*>::iterator it = transitions->begin(); it != transitions->end(); ++it) { delete [] (*it); }
     transitions->clear();
     delete transitions;	
 }
@@ -82,7 +84,7 @@ double *MarkovProcess::getDistribution (int time)
 		double *currentDist = getDistribution(lastTime);
 		for (int t = lastTime + 1; t <= time; t++)
 		{
-			std::cout << "Distribution " << t << std::endl;
+			if (VERBOSE) { std::cout << "Distribution " << t << std::endl; }
 			double *newDist = new double [size];
 			for (int i = 0; i < size; i++)
 			{
@@ -165,7 +167,7 @@ double *MarkovProcess::getTransition (int delay)
 		double *currentTrans = getTransition(lastDelay);
 		for (int d = lastDelay + 1; d <= delay; d++)
 		{
-			std::cout << "Transition " << d << " (size " << size << ")" << std::endl;
+			if (VERBOSE) { std::cout << "Transition " << d << " (size " << size << ")" << std::endl; }
 			double *newTrans = new double [size*size];
 
 			for (int i = 0; i < size; i++)
@@ -308,7 +310,7 @@ double MarkovProcess::getPartMutualInformation (Partition *nextPartition, Part *
 }
 
 
-double MarkovProcess::getNextEntropy (Partition *partition, bool micro, int time)
+double MarkovProcess::getNextEntropy (Partition *partition, bool micro, int delay, int time)
 {
     double entropy = 0;
 	
@@ -319,7 +321,7 @@ double MarkovProcess::getNextEntropy (Partition *partition, bool micro, int time
 			for (std::list<Part*>::iterator nextIt = partition->parts->begin(); nextIt != partition->parts->end(); ++nextIt)
 			{
 				Part *nextPart = *nextIt;
-				double nextProbability = getNextProbability(nextPart,currentIndividual,0);
+				double nextProbability = getNextProbability(nextPart,currentIndividual,delay);
 				if (nextProbability > 0)
 					entropy += - getProbability(currentIndividual,time) * nextProbability * log2(nextProbability);
 			}
@@ -333,7 +335,7 @@ double MarkovProcess::getNextEntropy (Partition *partition, bool micro, int time
 			for (std::list<Part*>::iterator nextIt = partition->parts->begin(); nextIt != partition->parts->end(); ++nextIt)
 			{
 				Part *nextPart = *nextIt;
-				double nextProbability = getNextProbability(nextPart,currentPart,0,time);
+				double nextProbability = getNextProbability(nextPart,currentPart,delay,time);
 				if (nextProbability > 0)
 					entropy += - getProbability(currentPart,time) * nextProbability * log2(nextProbability);
 			}
@@ -589,9 +591,9 @@ int *MarkovProcess::getOptimalCut (int microSize, double *macroEntropy, double *
 }	
 
 
-double MarkovProcess::getInformationFlow (Partition *partition, int time)
+double MarkovProcess::getInformationFlow (Partition *partition, int delay, int time)
 {
-    return getNextEntropy(partition,false,time) - getNextEntropy(partition,true,time);
+    return getNextEntropy(partition,false,delay,time) - getNextEntropy(partition,true,delay,time);
 }
 
 

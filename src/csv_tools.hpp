@@ -29,6 +29,8 @@ const int MAX_INDEX = 17;
 
 typedef std::vector<std::string> CSVLine;
 
+void deleteCSV (std::string fileName);
+
 void openInputCSV (std::ifstream &file, std::string fileName);
 bool isInputCSVEmpty(std::ifstream &file);
 bool hasCSVLine (std::ifstream &file);
