@@ -1,7 +1,7 @@
 CC=g++
-CFLAGS=-g -c -Wall
-LDFLAGS=
-SOURCES=main.cpp markov_process.cpp voter_graph.cpp voter_experiment.cpp csv_tools.cpp partition.cpp timer.cpp
+CFLAGS=-pg -g -c -Wall
+LDFLAGS=-pg
+SOURCES=main.cpp markov_process.cpp voter_graph.cpp voter_experiment.cpp landuse.cpp csv_tools.cpp partition.cpp timer.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=multilevel_prediction
 
