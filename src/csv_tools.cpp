@@ -222,3 +222,4 @@ time_t date2time (std::string date)
 	return mktime(&time);
 }
 
+double string2double (std::string str) { return atof(str.c_str()); }

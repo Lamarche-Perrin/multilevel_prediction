@@ -14,21 +14,21 @@ void testLanduseModel ()
 	double quality [2] = {1, 2};
 	double breaks [2] = {1.5, 1.9};
 
-	double gamma = 2./3;
-	std::string suffix = "0.67";
+	double gamma = 1./2;
+	std::string suffix = "0.50";
 
 	int time = -1;
 	int delay = 1;
 	
-	int sizeMin = 1;
-	int sizeMax = 50;
+	int sizeMin = 51;
+	int sizeMax = 100;
 	int sizeStep = 1;
 
 	bool saveFlow = true;
 	bool saveDist = false;
 	bool saveTrans = false;
 
-	bool newData = true;
+	bool newData = false;
 	bool verbose = false;
 	bool logCalculus = true;
 

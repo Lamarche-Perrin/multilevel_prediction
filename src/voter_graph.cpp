@@ -12,7 +12,7 @@
 #include <iterator>
 
 #include "voter_graph.hpp"
-
+#include "main.hpp"
 
 VoterNode::VoterNode (int i, double w, double c)
 {
@@ -347,35 +347,6 @@ MarkovProcess *VoterGraph::getMarkovProcess()
 }
 
 
-long unsigned int nChoosek (int n, int k)
-{
-    if (k > n) return 0;
-    if (k * 2 > n) k = n-k;
-    if (k == 0) return 1;
-	
-    long unsigned int result = n;
-    for( int i = 2; i <= k; ++i ) {
-		result *= (n-i+1);
-		result /= i;
-    }
-    return result;
-}
-
-/*
-double nChoosekProb (int n, int k, double p)
-{
-    if (k > n) return 0;
-    if (k * 2 > n) k = n-k;
-    if (k == 0) return pow(p,n);
-	
-    double result = n * pow(p,n);
-    for (int i = 2; i <= k; ++i) {
-		result *= (n-i+1);
-		result /= i;
-    }
-    return result;
-}
-*/
 
 Partition *VoterGraph::getMarkovPartition (VoterProbe *probe, VoterMetric metric)
 {

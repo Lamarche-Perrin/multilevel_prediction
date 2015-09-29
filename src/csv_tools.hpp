@@ -35,14 +35,14 @@ void openInputCSV (std::ifstream &file, std::string fileName);
 bool isInputCSVEmpty(std::ifstream &file);
 bool hasCSVLine (std::ifstream &file);
 void getCSVLine (std::ifstream &file, CSVLine &line, int sizeMax = 8);
-void printCSVLine (std::vector<std::string> &line);
+void printCSVLine (CSVLine &line);
 void parseCSVFile (std::string fileName);
 int getCSVSize (std::string fileName);
 void closeInputCSV (std::ifstream &file);
 
 void openOutputCSV (std::ofstream &file, std::string fileName, bool erase = false);
 
-void addCSVLine (std::ofstream &file, std::vector<std::string> &line);
+void addCSVLine (std::ofstream &file, CSVLine &line);
 void addCSVField (std::ofstream &file, int field, bool endField = true);
 void addCSVField (std::ofstream &file, double field, bool endField = true, int prec = 0);
 void addCSVField (std::ofstream &file, std::string field, bool endField = true);
@@ -54,6 +54,7 @@ void endCSVLine (std::ofstream &file);
 
 void closeOutputCSV (std::ofstream &file);
 
+double string2double (std::string str);
 std::string int2string (int value);
 std::string float2string (float value, int prec = 10);
 std::string double2string (double value, int prec = 10);

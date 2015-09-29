@@ -20,4 +20,7 @@ void testMarkovProcess ();
 void testVoterGraph ();
 void testMeasuresWithAggregation ();
 
+long unsigned int nChoosek (int n, int k);
+//double nChoosekProb (int n, int k, double p = 1./2);
+
 #endif

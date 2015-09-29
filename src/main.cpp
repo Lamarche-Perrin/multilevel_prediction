@@ -13,6 +13,7 @@
 #include "voter_experiment.hpp"
 #include "voter_graph.hpp"
 #include "landuse.hpp"
+#include "coconut.hpp"
 
 
 bool VERBOSE = false;
@@ -25,8 +26,8 @@ int main(int argc, char *argv[])
     srand(time(NULL));
     //srand(4);
 
-	testLanduseModel();
-	
+	//testLanduseModel();
+	testCoconutModel();
 
 	/*
 	for (int size = 1; size <= 50; size++)
@@ -546,3 +547,32 @@ void testMeasuresWithAggregation ()
 }
 
 
+long unsigned int nChoosek (int n, int k)
+{
+    if (k > n) return 0;
+    if (k * 2 > n) k = n-k;
+    if (k == 0) return 1;
+	
+    long unsigned int result = n;
+    for( int i = 2; i <= k; ++i ) {
+		result *= (n-i+1);
+		result /= i;
+    }
+    return result;
+}
+
+/*
+double nChoosekProb (int n, int k, double p)
+{
+    if (k > n) return 0;
+    if (k * 2 > n) k = n-k;
+    if (k == 0) return pow(p,n);
+	
+    double result = n * pow(p,n);
+    for (int i = 2; i <= k; ++i) {
+		result *= (n-i+1);
+		result /= i;
+    }
+    return result;
+}
+*/

@@ -70,9 +70,6 @@ class VoterMeasurement;
 class VoterMeasurementState;
 class VoterMeasurementTrajectory;
 
-long unsigned int nChoosek (int n, int k);
-//double nChoosekProb (int n, int k, double p = 1./2);
-
 typedef std::set<VoterMeasurement*> MeasurementSet;
 typedef std::set< std::pair<MeasurementType,VoterMetric> > SpecMeasurementSet;
 
