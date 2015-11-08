@@ -21,7 +21,7 @@ class MarkovTrajectory;
 class MarkovProcess
 {
 public:
-    int size;							/*!< The size of the Markov chain state space*/
+    int size;						     	/*!< The size of the Markov chain state space*/
 
     double *distribution;					/*!< The initial probability distribution of the system state (time 0)*/
     std::vector<double*> *distributions;	/*!< A vector of probability distributions through time (from 0 to lastTime)*/
