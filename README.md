@@ -8,11 +8,11 @@ Bottleneck Method for Optimal Prediction of Multilevel Agent-based Systems.
 Technical Report MIS-Preprint 55/2015, Max Planck Institute for Mathematics
 in the Sciences, Leipzig, Germany, 2015.
 
-http://www.mis.mpg.de/publications/preprints/2015/prepr2015-55.html
+<http://www.mis.mpg.de/publications/preprints/2015/prepr2015-55.html>
 
 
 Copyright © 2015 Robin Lamarche-Perrin
-(Robin.Lamarche-Perrin@lip6.fr)
+(<Robin.Lamarche-Perrin@lip6.fr>)
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free

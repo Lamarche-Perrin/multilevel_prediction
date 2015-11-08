@@ -1,5 +1,7 @@
-# executable
+# executable and header files
 multilevel_prediction
+header
+add_header
 
 # C++ and Dev-C++
 *.o
