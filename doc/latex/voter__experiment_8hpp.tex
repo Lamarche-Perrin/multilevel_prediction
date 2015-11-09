@@ -1,47 +1,71 @@
-\hypertarget{voter__experiment_8hpp}{}\section{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+experiment.hpp File Reference}
-\label{voter__experiment_8hpp}\index{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+experiment.\+hpp@{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/voter\+\_\+experiment.\+hpp}}
+\hypertarget{voter__experiment_8hpp}{\section{/home/lamarche/programming/multilevel\-\_\-prediction/src/voter\-\_\-experiment.hpp File Reference}
+\label{voter__experiment_8hpp}\index{/home/lamarche/programming/multilevel\-\_\-prediction/src/voter\-\_\-experiment.\-hpp@{/home/lamarche/programming/multilevel\-\_\-prediction/src/voter\-\_\-experiment.\-hpp}}
+}
 
 
 Tools to run prediction experiments on Voter Models.  
 
 
 {\ttfamily \#include $<$fstream$>$}\\*
-{\ttfamily \#include \char`\"{}csv\+\_\+tools.\+hpp\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}partition.\+hpp\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}voter\+\_\+graph.\+hpp\char`\"{}}\\*
-{\ttfamily \#include \char`\"{}markov\+\_\+process.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}csv\-\_\-tools.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}partition.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}voter\-\_\-graph.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}markov\-\_\-process.\-hpp\char`\"{}}\\*
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-class \hyperlink{class_voter_experiment}{Voter\+Experiment}
-\begin{DoxyCompactList}\small\item\em Programming a prediction experiment on a two-\/communities Voter Model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \hyperlink{class_two_communities_experiment}{Two\-Communities\-Experiment}
+\begin{DoxyCompactList}\small\item\em Programming a prediction experiment on a two-\/communities Voter Model. \end{DoxyCompactList}\item 
+class \hyperlink{class_chain_experiment}{Chain\-Experiment}
+\end{DoxyCompactItemize}
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{voter__experiment_8hpp_a119809cfdecba26d912116a63ae6e4d7}{}typedef std\+::set$<$ \hyperlink{class_voter_experiment}{Voter\+Experiment} $\ast$ $>$ {\bfseries Experiment\+Set}\label{voter__experiment_8hpp_a119809cfdecba26d912116a63ae6e4d7}
+\hypertarget{voter__experiment_8hpp_a8aebebdd677c8747abbcc1ffcaae3058}{typedef std\-::set\\*
+$<$ \hyperlink{class_two_communities_experiment}{Two\-Communities\-Experiment} $\ast$ $>$ {\bfseries Two\-Communities\-Experiment\-Set}}\label{voter__experiment_8hpp_a8aebebdd677c8747abbcc1ffcaae3058}
+
+\item 
+\hypertarget{voter__experiment_8hpp_a094bb45d2c7b3cfb002702ad5cb0c805}{typedef std\-::set\\*
+$<$ \hyperlink{class_chain_experiment}{Chain\-Experiment} $\ast$ $>$ {\bfseries Chain\-Experiment\-Set}}\label{voter__experiment_8hpp_a094bb45d2c7b3cfb002702ad5cb0c805}
 
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{voter__experiment_8hpp_a57337ae2a6d61581c68473f83122595f}{voter\+Experiment} (std\+::set$<$ \hyperlink{class_voter_experiment}{Voter\+Experiment} $\ast$ $>$ $\ast$exp\+Set, std\+::string file\+Name)
+void \hyperlink{voter__experiment_8hpp_a1c5f159319fd76d082befc5ae1f919f9}{two\-Communities\-Experiment} (Two\-Communities\-Experiment\-Set $\ast$exp\-Set, std\-::string file\-Name)
 \begin{DoxyCompactList}\small\item\em Run a set of programmed experiments. \end{DoxyCompactList}\item 
-\hypertarget{voter__experiment_8hpp_a8580972e8b29ad2599f0fbcbe672362c}{}void {\bfseries add\+Measurement} (\hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\+Type} measurement, Measurement\+Set $\ast$set, \hyperlink{class_voter_graph}{Voter\+Graph} $\ast$V\+G)\label{voter__experiment_8hpp_a8580972e8b29ad2599f0fbcbe672362c}
+\hypertarget{voter__experiment_8hpp_a8296a0be48c8304ff1299bd964f9bae2}{void {\bfseries chain\-Experiment} (Chain\-Experiment\-Set $\ast$exp\-Set, std\-::string file\-Name)}\label{voter__experiment_8hpp_a8296a0be48c8304ff1299bd964f9bae2}
 
 \item 
-\hypertarget{voter__experiment_8hpp_a4471ccd67a907a3215b9d7806540c135}{}void {\bfseries add\+Header\+To\+C\+S\+V} (std\+::string file\+Name)\label{voter__experiment_8hpp_a4471ccd67a907a3215b9d7806540c135}
+\hypertarget{voter__experiment_8hpp_ad3c97b666dc8ab2bbce451d9b60abc1d}{void {\bfseries add\-Measurement} (Measurement\-Set $\ast$set, \hyperlink{class_voter_graph}{Voter\-Graph} $\ast$V\-G, \hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\-Type} type, \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{Voter\-Metric} metric)}\label{voter__experiment_8hpp_ad3c97b666dc8ab2bbce451d9b60abc1d}
 
 \item 
-\hypertarget{voter__experiment_8hpp_a59b3c1b6a79d049ed592bac01c608c6a}{}void {\bfseries add\+Line\+To\+C\+S\+V} (std\+::ofstream \&csv\+File, \hyperlink{class_markov_process}{Markov\+Process} $\ast$M\+P, std\+::string type, int update, int size1, int size2, double intra\+R1, double intra\+R2, double inter\+R1, double inter\+R2, double contrarian, \hyperlink{class_voter_measurement}{Voter\+Measurement} $\ast$pre\+M, \hyperlink{class_voter_measurement}{Voter\+Measurement} $\ast$post\+M, int time, int delay, \hyperlink{class_partition}{Partition} $\ast$micro\+P)\label{voter__experiment_8hpp_a59b3c1b6a79d049ed592bac01c608c6a}
+\hypertarget{voter__experiment_8hpp_a713cbf444f3a25a8f0156f8ab3cb2c98}{void {\bfseries add\-Multi\-Measurement} (Measurement\-Set $\ast$set, \hyperlink{class_voter_graph}{Voter\-Graph} $\ast$V\-G, \hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\-Type} type, \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{Voter\-Metric} metric)}\label{voter__experiment_8hpp_a713cbf444f3a25a8f0156f8ab3cb2c98}
+
+\item 
+\hypertarget{voter__experiment_8hpp_a4d09af0fd55a012d017643eab4c5618e}{\hyperlink{class_voter_measurement}{Voter\-Measurement} $\ast$ {\bfseries get\-Measurement} (\hyperlink{class_voter_graph}{Voter\-Graph} $\ast$V\-G, \hyperlink{voter__graph_8hpp_ad35f880f44d18d9c643f02c4057034f7}{Measurement\-Type} type, \hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5}{Voter\-Metric} metric=\hyperlink{voter__graph_8hpp_acb4c45a5ce4a55eee28e54e60409b9c5a24b3f95ee25ae00ace7b4a23a5b14f51}{M\-A\-C\-R\-O\-\_\-\-S\-T\-A\-T\-E}, int binning=0)}\label{voter__experiment_8hpp_a4d09af0fd55a012d017643eab4c5618e}
+
+\item 
+\hypertarget{voter__experiment_8hpp_a04c33eb9b230f4161556ce991088ff3c}{void {\bfseries add\-Two\-Communities\-Header\-To\-C\-S\-V} (std\-::string file\-Name)}\label{voter__experiment_8hpp_a04c33eb9b230f4161556ce991088ff3c}
+
+\item 
+\hypertarget{voter__experiment_8hpp_a8e70f2d5bd4c3a315019af6a4428c9a0}{void {\bfseries add\-Two\-Communities\-Part\-Header\-To\-C\-S\-V} (std\-::string file\-Name, std\-::string type)}\label{voter__experiment_8hpp_a8e70f2d5bd4c3a315019af6a4428c9a0}
+
+\item 
+\hypertarget{voter__experiment_8hpp_afbcf8057dbb29bbbf157305e2489010e}{void {\bfseries compute\-Two\-Communities\-Measures} (std\-::ofstream \&csv\-File, \hyperlink{class_markov_process}{Markov\-Process} $\ast$M\-P, std\-::string type, int update, int size1, int size2, double intra\-R1, double intra\-R2, double inter\-R1, double inter\-R2, double contrarian1, double contrarian2, \hyperlink{class_voter_measurement}{Voter\-Measurement} $\ast$pre\-M, \hyperlink{class_voter_measurement}{Voter\-Measurement} $\ast$post\-M, int time, int delay, \hyperlink{class_partition}{Partition} $\ast$micro\-P)}\label{voter__experiment_8hpp_afbcf8057dbb29bbbf157305e2489010e}
+
+\item 
+\hypertarget{voter__experiment_8hpp_ae5a4e48d3d5e71142d4d7d836dab0eb9}{void {\bfseries compute\-Two\-Communities\-Measures\-With\-Aggregation} (std\-::ofstream \&csv\-File, \hyperlink{class_markov_process}{Markov\-Process} $\ast$M\-P, std\-::string type, int update, int size1, int size2, double intra\-R1, double intra\-R2, double inter\-R1, double inter\-R2, double contrarian1, double contrarian2, \hyperlink{class_voter_measurement}{Voter\-Measurement} $\ast$pre\-M, \hyperlink{class_voter_measurement}{Voter\-Measurement} $\ast$post\-M, int time, int delay, double threshold)}\label{voter__experiment_8hpp_ae5a4e48d3d5e71142d4d7d836dab0eb9}
+
+\item 
+\hypertarget{voter__experiment_8hpp_a5ddd5ab5e02e3d3e140710759bfd6a3f}{void {\bfseries compute\-Two\-Communities\-Part\-Measures} (std\-::ofstream \&csv\-File, \hyperlink{class_markov_process}{Markov\-Process} $\ast$M\-P, int size1, int size2, \hyperlink{class_voter_measurement}{Voter\-Measurement} $\ast$pre\-M, \hyperlink{class_voter_measurement}{Voter\-Measurement} $\ast$post\-M, int time, int delay)}\label{voter__experiment_8hpp_a5ddd5ab5e02e3d3e140710759bfd6a3f}
 
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Tools to run prediction experiments on Voter Models. 
-
-\begin{DoxyAuthor}{Author}
-Robin Lamarche-\/\+Perrin 
+Tools to run prediction experiments on Voter Models. \begin{DoxyAuthor}{Author}
+Robin Lamarche-\/\-Perrin 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 22/01/2015 
@@ -49,22 +73,22 @@ Robin Lamarche-\/\+Perrin
 
 
 \subsection{Function Documentation}
-\hypertarget{voter__experiment_8hpp_a57337ae2a6d61581c68473f83122595f}{}\index{voter\+\_\+experiment.\+hpp@{voter\+\_\+experiment.\+hpp}!voter\+Experiment@{voter\+Experiment}}
-\index{voter\+Experiment@{voter\+Experiment}!voter\+\_\+experiment.\+hpp@{voter\+\_\+experiment.\+hpp}}
-\subsubsection[{voter\+Experiment}]{\setlength{\rightskip}{0pt plus 5cm}void voter\+Experiment (
+\hypertarget{voter__experiment_8hpp_a1c5f159319fd76d082befc5ae1f919f9}{\index{voter\-\_\-experiment.\-hpp@{voter\-\_\-experiment.\-hpp}!two\-Communities\-Experiment@{two\-Communities\-Experiment}}
+\index{two\-Communities\-Experiment@{two\-Communities\-Experiment}!voter_experiment.hpp@{voter\-\_\-experiment.\-hpp}}
+\subsubsection[{two\-Communities\-Experiment}]{\setlength{\rightskip}{0pt plus 5cm}void two\-Communities\-Experiment (
 \begin{DoxyParamCaption}
-\item[{std\+::set$<$ {\bf Voter\+Experiment} $\ast$ $>$ $\ast$}]{exp\+Set, }
-\item[{std\+::string}]{file\+Name}
+\item[{Two\-Communities\-Experiment\-Set $\ast$}]{exp\-Set, }
+\item[{std\-::string}]{file\-Name}
 \end{DoxyParamCaption}
-)}\label{voter__experiment_8hpp_a57337ae2a6d61581c68473f83122595f}
+)}}\label{voter__experiment_8hpp_a1c5f159319fd76d082befc5ae1f919f9}
 
 
 Run a set of programmed experiments. 
 
 
 \begin{DoxyParams}{Parameters}
-{\em exp\+Set} & \+: Experiment set \\
+{\em exp\-Set} & \-: Experiment set \\
 \hline
-{\em file\+Name} & \+: Output file name \\
+{\em file\-Name} & \-: Output file name \\
 \hline
 \end{DoxyParams}

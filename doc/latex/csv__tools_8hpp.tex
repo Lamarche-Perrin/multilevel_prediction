@@ -1,131 +1,162 @@
-\hypertarget{csv__tools_8hpp}{}\section{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/csv\+\_\+tools.hpp File Reference}
-\label{csv__tools_8hpp}\index{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/csv\+\_\+tools.\+hpp@{C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/csv\+\_\+tools.\+hpp}}
+\hypertarget{csv__tools_8hpp}{\section{/home/lamarche/programming/multilevel\-\_\-prediction/src/csv\-\_\-tools.hpp File Reference}
+\label{csv__tools_8hpp}\index{/home/lamarche/programming/multilevel\-\_\-prediction/src/csv\-\_\-tools.\-hpp@{/home/lamarche/programming/multilevel\-\_\-prediction/src/csv\-\_\-tools.\-hpp}}
+}
 
 
-Tools to handle input and output C\+S\+V files.  
+Tools to handle input and output C\-S\-V files.  
 
 
 {\ttfamily \#include $<$vector$>$}\\*
 {\ttfamily \#include $<$string$>$}\\*
-{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
 \subsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{csv__tools_8hpp_a6dc40d83187a203a84ae99dca3d99a00}{}typedef std\+::vector$<$ std\+::string $>$ {\bfseries C\+S\+V\+Line}\label{csv__tools_8hpp_a6dc40d83187a203a84ae99dca3d99a00}
+\hypertarget{csv__tools_8hpp_a6dc40d83187a203a84ae99dca3d99a00}{typedef std\-::vector$<$ std\-::string $>$ {\bfseries C\-S\-V\-Line}}\label{csv__tools_8hpp_a6dc40d83187a203a84ae99dca3d99a00}
 
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{csv__tools_8hpp_a687818e01ed6264403e5c5f27579d895}{}void {\bfseries open\+Input\+C\+S\+V} (std\+::ifstream \&file, std\+::string file\+Name)\label{csv__tools_8hpp_a687818e01ed6264403e5c5f27579d895}
+void \hyperlink{csv__tools_8hpp_a024c025b0012b5564f0934b1fb4123ab}{delete\-C\-S\-V} (std\-::string file\-Name)
+\item 
+\hypertarget{csv__tools_8hpp_a687818e01ed6264403e5c5f27579d895}{void {\bfseries open\-Input\-C\-S\-V} (std\-::ifstream \&file, std\-::string file\-Name)}\label{csv__tools_8hpp_a687818e01ed6264403e5c5f27579d895}
 
 \item 
-\hypertarget{csv__tools_8hpp_a827b18de5502a4b2247304bc1a59422c}{}bool {\bfseries is\+Input\+C\+S\+V\+Empty} (std\+::ifstream \&file)\label{csv__tools_8hpp_a827b18de5502a4b2247304bc1a59422c}
+\hypertarget{csv__tools_8hpp_a827b18de5502a4b2247304bc1a59422c}{bool {\bfseries is\-Input\-C\-S\-V\-Empty} (std\-::ifstream \&file)}\label{csv__tools_8hpp_a827b18de5502a4b2247304bc1a59422c}
 
 \item 
-\hypertarget{csv__tools_8hpp_a02d8d6fe60371c0cdfcaaff94f78eafd}{}bool {\bfseries has\+C\+S\+V\+Line} (std\+::ifstream \&file)\label{csv__tools_8hpp_a02d8d6fe60371c0cdfcaaff94f78eafd}
+\hypertarget{csv__tools_8hpp_a02d8d6fe60371c0cdfcaaff94f78eafd}{bool {\bfseries has\-C\-S\-V\-Line} (std\-::ifstream \&file)}\label{csv__tools_8hpp_a02d8d6fe60371c0cdfcaaff94f78eafd}
 
 \item 
-\hypertarget{csv__tools_8hpp_a6e82a46214c5d41050a864581af4b9b3}{}void {\bfseries get\+C\+S\+V\+Line} (std\+::ifstream \&file, C\+S\+V\+Line \&line, int size\+Max=8)\label{csv__tools_8hpp_a6e82a46214c5d41050a864581af4b9b3}
+\hypertarget{csv__tools_8hpp_a6e82a46214c5d41050a864581af4b9b3}{void {\bfseries get\-C\-S\-V\-Line} (std\-::ifstream \&file, C\-S\-V\-Line \&line, int size\-Max=8)}\label{csv__tools_8hpp_a6e82a46214c5d41050a864581af4b9b3}
 
 \item 
-\hypertarget{csv__tools_8hpp_a8d89a5e4a577569e261e57f4a0979b0f}{}void {\bfseries print\+C\+S\+V\+Line} (std\+::vector$<$ std\+::string $>$ \&line)\label{csv__tools_8hpp_a8d89a5e4a577569e261e57f4a0979b0f}
+\hypertarget{csv__tools_8hpp_ac374547b9e1fbaf5ac994deab1df9c36}{void {\bfseries print\-C\-S\-V\-Line} (C\-S\-V\-Line \&line)}\label{csv__tools_8hpp_ac374547b9e1fbaf5ac994deab1df9c36}
 
 \item 
-\hypertarget{csv__tools_8hpp_ac89e258629ba0bbf76e755df3bfff10d}{}void {\bfseries parse\+C\+S\+V\+File} (std\+::string file\+Name)\label{csv__tools_8hpp_ac89e258629ba0bbf76e755df3bfff10d}
+\hypertarget{csv__tools_8hpp_ac89e258629ba0bbf76e755df3bfff10d}{void {\bfseries parse\-C\-S\-V\-File} (std\-::string file\-Name)}\label{csv__tools_8hpp_ac89e258629ba0bbf76e755df3bfff10d}
 
 \item 
-\hypertarget{csv__tools_8hpp_a8ae66de7cd392e86a0db99cf62815518}{}int {\bfseries get\+C\+S\+V\+Size} (std\+::string file\+Name)\label{csv__tools_8hpp_a8ae66de7cd392e86a0db99cf62815518}
+\hypertarget{csv__tools_8hpp_a8ae66de7cd392e86a0db99cf62815518}{int {\bfseries get\-C\-S\-V\-Size} (std\-::string file\-Name)}\label{csv__tools_8hpp_a8ae66de7cd392e86a0db99cf62815518}
 
 \item 
-\hypertarget{csv__tools_8hpp_af7f1683760a0b039e3103930ed814ff2}{}void {\bfseries close\+Input\+C\+S\+V} (std\+::ifstream \&file)\label{csv__tools_8hpp_af7f1683760a0b039e3103930ed814ff2}
+\hypertarget{csv__tools_8hpp_af7f1683760a0b039e3103930ed814ff2}{void {\bfseries close\-Input\-C\-S\-V} (std\-::ifstream \&file)}\label{csv__tools_8hpp_af7f1683760a0b039e3103930ed814ff2}
 
 \item 
-\hypertarget{csv__tools_8hpp_a5170db079122fa93c735c35b7bd20f54}{}void {\bfseries open\+Output\+C\+S\+V} (std\+::ofstream \&file, std\+::string file\+Name, bool erase=false)\label{csv__tools_8hpp_a5170db079122fa93c735c35b7bd20f54}
+\hypertarget{csv__tools_8hpp_a5170db079122fa93c735c35b7bd20f54}{void {\bfseries open\-Output\-C\-S\-V} (std\-::ofstream \&file, std\-::string file\-Name, bool erase=false)}\label{csv__tools_8hpp_a5170db079122fa93c735c35b7bd20f54}
 
 \item 
-\hypertarget{csv__tools_8hpp_a1924c13e557a4e2b5ec1a328b0f6507a}{}void {\bfseries add\+C\+S\+V\+Line} (std\+::ofstream \&file, std\+::vector$<$ std\+::string $>$ \&line)\label{csv__tools_8hpp_a1924c13e557a4e2b5ec1a328b0f6507a}
+\hypertarget{csv__tools_8hpp_ac62649599bfa560c76b48ef2e72b0622}{void {\bfseries add\-C\-S\-V\-Line} (std\-::ofstream \&file, C\-S\-V\-Line \&line)}\label{csv__tools_8hpp_ac62649599bfa560c76b48ef2e72b0622}
 
 \item 
-\hypertarget{csv__tools_8hpp_a8a7541899904267df54977986596bd04}{}void {\bfseries add\+C\+S\+V\+Field} (std\+::ofstream \&file, int field, bool end\+Field=true)\label{csv__tools_8hpp_a8a7541899904267df54977986596bd04}
+\hypertarget{csv__tools_8hpp_a8a7541899904267df54977986596bd04}{void {\bfseries add\-C\-S\-V\-Field} (std\-::ofstream \&file, int field, bool end\-Field=true)}\label{csv__tools_8hpp_a8a7541899904267df54977986596bd04}
 
 \item 
-\hypertarget{csv__tools_8hpp_a87200e6a5e0cab62b70956fbc2444d5a}{}void {\bfseries add\+C\+S\+V\+Field} (std\+::ofstream \&file, double field, bool end\+Field=true, int prec=0)\label{csv__tools_8hpp_a87200e6a5e0cab62b70956fbc2444d5a}
+\hypertarget{csv__tools_8hpp_a87200e6a5e0cab62b70956fbc2444d5a}{void {\bfseries add\-C\-S\-V\-Field} (std\-::ofstream \&file, double field, bool end\-Field=true, int prec=0)}\label{csv__tools_8hpp_a87200e6a5e0cab62b70956fbc2444d5a}
 
 \item 
-\hypertarget{csv__tools_8hpp_a09325ba5f324a634ebf573462842afab}{}void {\bfseries add\+C\+S\+V\+Field} (std\+::ofstream \&file, std\+::string field, bool end\+Field=true)\label{csv__tools_8hpp_a09325ba5f324a634ebf573462842afab}
+\hypertarget{csv__tools_8hpp_a09325ba5f324a634ebf573462842afab}{void {\bfseries add\-C\-S\-V\-Field} (std\-::ofstream \&file, std\-::string field, bool end\-Field=true)}\label{csv__tools_8hpp_a09325ba5f324a634ebf573462842afab}
 
 \item 
-\hypertarget{csv__tools_8hpp_a6a193a58d36c7d5f64bd5d49ed154ce8}{}void {\bfseries add\+C\+S\+V\+N\+A\+Field} (std\+::ofstream \&file, bool end\+Field=true)\label{csv__tools_8hpp_a6a193a58d36c7d5f64bd5d49ed154ce8}
+\hypertarget{csv__tools_8hpp_a6a193a58d36c7d5f64bd5d49ed154ce8}{void {\bfseries add\-C\-S\-V\-N\-A\-Field} (std\-::ofstream \&file, bool end\-Field=true)}\label{csv__tools_8hpp_a6a193a58d36c7d5f64bd5d49ed154ce8}
 
 \item 
-\hypertarget{csv__tools_8hpp_ae20547037f5a0f12776d9f0e87f1af77}{}void {\bfseries add\+C\+S\+V\+N\+U\+L\+L\+Field} (std\+::ofstream \&file, bool end\+Field=true)\label{csv__tools_8hpp_ae20547037f5a0f12776d9f0e87f1af77}
+\hypertarget{csv__tools_8hpp_ae20547037f5a0f12776d9f0e87f1af77}{void {\bfseries add\-C\-S\-V\-N\-U\-L\-L\-Field} (std\-::ofstream \&file, bool end\-Field=true)}\label{csv__tools_8hpp_ae20547037f5a0f12776d9f0e87f1af77}
 
 \item 
-\hypertarget{csv__tools_8hpp_a329c5bcc5b37604a8cf832f308ab1bad}{}void {\bfseries end\+C\+S\+V\+Field} (std\+::ofstream \&file)\label{csv__tools_8hpp_a329c5bcc5b37604a8cf832f308ab1bad}
+\hypertarget{csv__tools_8hpp_a329c5bcc5b37604a8cf832f308ab1bad}{void {\bfseries end\-C\-S\-V\-Field} (std\-::ofstream \&file)}\label{csv__tools_8hpp_a329c5bcc5b37604a8cf832f308ab1bad}
 
 \item 
-\hypertarget{csv__tools_8hpp_afbfae7b31832fb33c433385894725320}{}void {\bfseries end\+C\+S\+V\+Line} (std\+::ofstream \&file)\label{csv__tools_8hpp_afbfae7b31832fb33c433385894725320}
+\hypertarget{csv__tools_8hpp_afbfae7b31832fb33c433385894725320}{void {\bfseries end\-C\-S\-V\-Line} (std\-::ofstream \&file)}\label{csv__tools_8hpp_afbfae7b31832fb33c433385894725320}
 
 \item 
-\hypertarget{csv__tools_8hpp_aa2de03deb3b4fd2fc2e1fb734ef86e79}{}void {\bfseries close\+Output\+C\+S\+V} (std\+::ofstream \&file)\label{csv__tools_8hpp_aa2de03deb3b4fd2fc2e1fb734ef86e79}
+\hypertarget{csv__tools_8hpp_aa2de03deb3b4fd2fc2e1fb734ef86e79}{void {\bfseries close\-Output\-C\-S\-V} (std\-::ofstream \&file)}\label{csv__tools_8hpp_aa2de03deb3b4fd2fc2e1fb734ef86e79}
 
 \item 
-\hypertarget{csv__tools_8hpp_ae574b99a6893339db3e60f9089c7e3ff}{}std\+::string {\bfseries int2string} (int value)\label{csv__tools_8hpp_ae574b99a6893339db3e60f9089c7e3ff}
+\hypertarget{csv__tools_8hpp_a07310683c3d1762641d24d9dc20d6164}{double {\bfseries string2double} (std\-::string str)}\label{csv__tools_8hpp_a07310683c3d1762641d24d9dc20d6164}
 
 \item 
-\hypertarget{csv__tools_8hpp_a0663c0acdba30d66952034ea63df5107}{}std\+::string {\bfseries float2string} (float value)\label{csv__tools_8hpp_a0663c0acdba30d66952034ea63df5107}
+\hypertarget{csv__tools_8hpp_ae574b99a6893339db3e60f9089c7e3ff}{std\-::string {\bfseries int2string} (int value)}\label{csv__tools_8hpp_ae574b99a6893339db3e60f9089c7e3ff}
 
 \item 
-\hypertarget{csv__tools_8hpp_a3d2deed05263df7619aee7b61b9f31f1}{}std\+::string {\bfseries double2string} (double value)\label{csv__tools_8hpp_a3d2deed05263df7619aee7b61b9f31f1}
+\hypertarget{csv__tools_8hpp_ab0262ed0f0aecb6b9d54f393c53ae8a1}{std\-::string {\bfseries float2string} (float value, int prec=10)}\label{csv__tools_8hpp_ab0262ed0f0aecb6b9d54f393c53ae8a1}
 
 \item 
-\hypertarget{csv__tools_8hpp_a316f79e4ce071f4aa63b61b01318eeb5}{}time\+\_\+t {\bfseries date2time} (std\+::string date)\label{csv__tools_8hpp_a316f79e4ce071f4aa63b61b01318eeb5}
+\hypertarget{csv__tools_8hpp_a460f4d6de5e5f9a93be361880d17b08f}{std\-::string {\bfseries double2string} (double value, int prec=10)}\label{csv__tools_8hpp_a460f4d6de5e5f9a93be361880d17b08f}
+
+\item 
+\hypertarget{csv__tools_8hpp_a316f79e4ce071f4aa63b61b01318eeb5}{time\-\_\-t {\bfseries date2time} (std\-::string date)}\label{csv__tools_8hpp_a316f79e4ce071f4aa63b61b01318eeb5}
 
 \end{DoxyCompactItemize}
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{csv__tools_8hpp_af99838407de1f00344ce35d8675e41a7}{}bool {\bfseries V\+E\+R\+B\+O\+S\+E}\label{csv__tools_8hpp_af99838407de1f00344ce35d8675e41a7}
+bool \hyperlink{csv__tools_8hpp_af99838407de1f00344ce35d8675e41a7}{V\-E\-R\-B\-O\-S\-E}
+\item 
+\hypertarget{csv__tools_8hpp_a8d547ab2fc9f2f605383c82c1aecb9d3}{int {\bfseries V\-E\-R\-B\-O\-S\-E\-\_\-\-T\-A\-B}}\label{csv__tools_8hpp_a8d547ab2fc9f2f605383c82c1aecb9d3}
 
 \item 
-\hypertarget{csv__tools_8hpp_a8d547ab2fc9f2f605383c82c1aecb9d3}{}int {\bfseries V\+E\+R\+B\+O\+S\+E\+\_\+\+T\+A\+B}\label{csv__tools_8hpp_a8d547ab2fc9f2f605383c82c1aecb9d3}
+\hypertarget{csv__tools_8hpp_a136c5ac11a9f50569876115c271e3e30}{const bool {\bfseries C\-S\-V\-\_\-\-Q\-U\-O\-T\-E\-S} = false}\label{csv__tools_8hpp_a136c5ac11a9f50569876115c271e3e30}
 
 \item 
-\hypertarget{csv__tools_8hpp_a136c5ac11a9f50569876115c271e3e30}{}const bool {\bfseries C\+S\+V\+\_\+\+Q\+U\+O\+T\+E\+S} = false\label{csv__tools_8hpp_a136c5ac11a9f50569876115c271e3e30}
+\hypertarget{csv__tools_8hpp_a6a74f302b341c8c657c6a2e6904528cd}{const char {\bfseries Q\-U\-O\-T\-E\-\_\-\-C\-H\-A\-R} = '\char`\"{}'}\label{csv__tools_8hpp_a6a74f302b341c8c657c6a2e6904528cd}
 
 \item 
-\hypertarget{csv__tools_8hpp_a6a74f302b341c8c657c6a2e6904528cd}{}const char {\bfseries Q\+U\+O\+T\+E\+\_\+\+C\+H\+A\+R} = \textquotesingle{}\char`\"{}\textquotesingle{}\label{csv__tools_8hpp_a6a74f302b341c8c657c6a2e6904528cd}
+\hypertarget{csv__tools_8hpp_ab612b2e6f04d3f1aea26be2d80af992f}{const char {\bfseries E\-S\-C\-A\-P\-E\-\_\-\-C\-H\-A\-R} = '\textbackslash{}\textbackslash{}'}\label{csv__tools_8hpp_ab612b2e6f04d3f1aea26be2d80af992f}
 
 \item 
-\hypertarget{csv__tools_8hpp_ab612b2e6f04d3f1aea26be2d80af992f}{}const char {\bfseries E\+S\+C\+A\+P\+E\+\_\+\+C\+H\+A\+R} = \textquotesingle{}\textbackslash{}\textbackslash{}\textquotesingle{}\label{csv__tools_8hpp_ab612b2e6f04d3f1aea26be2d80af992f}
+\hypertarget{csv__tools_8hpp_af605585e67ad07af743bf173931a0943}{const char {\bfseries F\-I\-E\-L\-D\-\_\-\-D\-E\-L\-I\-M} = ','}\label{csv__tools_8hpp_af605585e67ad07af743bf173931a0943}
 
 \item 
-\hypertarget{csv__tools_8hpp_af605585e67ad07af743bf173931a0943}{}const char {\bfseries F\+I\+E\+L\+D\+\_\+\+D\+E\+L\+I\+M} = \textquotesingle{},\textquotesingle{}\label{csv__tools_8hpp_af605585e67ad07af743bf173931a0943}
+\hypertarget{csv__tools_8hpp_a0f0286388a0b3cb54bf1e445288dbf71}{const char {\bfseries L\-I\-N\-E\-\_\-\-D\-E\-L\-I\-M} = '\textbackslash{}n'}\label{csv__tools_8hpp_a0f0286388a0b3cb54bf1e445288dbf71}
 
 \item 
-\hypertarget{csv__tools_8hpp_a0f0286388a0b3cb54bf1e445288dbf71}{}const char {\bfseries L\+I\+N\+E\+\_\+\+D\+E\+L\+I\+M} = \textquotesingle{}\textbackslash{}n\textquotesingle{}\label{csv__tools_8hpp_a0f0286388a0b3cb54bf1e445288dbf71}
+\hypertarget{csv__tools_8hpp_a1e9e66e5c2ef5282ef27094067c9d1ed}{const int {\bfseries D\-A\-T\-E\-\_\-\-I\-N\-D\-E\-X} = 3}\label{csv__tools_8hpp_a1e9e66e5c2ef5282ef27094067c9d1ed}
 
 \item 
-\hypertarget{csv__tools_8hpp_a1e9e66e5c2ef5282ef27094067c9d1ed}{}const int {\bfseries D\+A\+T\+E\+\_\+\+I\+N\+D\+E\+X} = 3\label{csv__tools_8hpp_a1e9e66e5c2ef5282ef27094067c9d1ed}
+\hypertarget{csv__tools_8hpp_a107c6f968774f2d9b73d9e883d440db3}{const int {\bfseries T\-I\-T\-L\-E\-\_\-\-I\-N\-D\-E\-X} = 4}\label{csv__tools_8hpp_a107c6f968774f2d9b73d9e883d440db3}
 
 \item 
-\hypertarget{csv__tools_8hpp_a107c6f968774f2d9b73d9e883d440db3}{}const int {\bfseries T\+I\+T\+L\+E\+\_\+\+I\+N\+D\+E\+X} = 4\label{csv__tools_8hpp_a107c6f968774f2d9b73d9e883d440db3}
+\hypertarget{csv__tools_8hpp_af83dec59090675e5c7a9a615ac3aa83a}{const int {\bfseries B\-O\-D\-Y\-\_\-\-I\-N\-D\-E\-X} = 5}\label{csv__tools_8hpp_af83dec59090675e5c7a9a615ac3aa83a}
 
 \item 
-\hypertarget{csv__tools_8hpp_af83dec59090675e5c7a9a615ac3aa83a}{}const int {\bfseries B\+O\+D\+Y\+\_\+\+I\+N\+D\+E\+X} = 5\label{csv__tools_8hpp_af83dec59090675e5c7a9a615ac3aa83a}
-
-\item 
-\hypertarget{csv__tools_8hpp_a536f7a6a94698abf98ec0f76f532559d}{}const int {\bfseries M\+A\+X\+\_\+\+I\+N\+D\+E\+X} = 17\label{csv__tools_8hpp_a536f7a6a94698abf98ec0f76f532559d}
+\hypertarget{csv__tools_8hpp_a536f7a6a94698abf98ec0f76f532559d}{const int {\bfseries M\-A\-X\-\_\-\-I\-N\-D\-E\-X} = 17}\label{csv__tools_8hpp_a536f7a6a94698abf98ec0f76f532559d}
 
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Tools to handle input and output C\+S\+V files. 
+Tools to handle input and output C\-S\-V files. \begin{DoxyAuthor}{Author}
+Robin Lamarche-\/\-Perrin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+22/01/2015 
+\end{DoxyDate}
 
+
+\subsection{Function Documentation}
+\hypertarget{csv__tools_8hpp_a024c025b0012b5564f0934b1fb4123ab}{\index{csv\-\_\-tools.\-hpp@{csv\-\_\-tools.\-hpp}!delete\-C\-S\-V@{delete\-C\-S\-V}}
+\index{delete\-C\-S\-V@{delete\-C\-S\-V}!csv_tools.hpp@{csv\-\_\-tools.\-hpp}}
+\subsubsection[{delete\-C\-S\-V}]{\setlength{\rightskip}{0pt plus 5cm}void delete\-C\-S\-V (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{file\-Name}
+\end{DoxyParamCaption}
+)}}\label{csv__tools_8hpp_a024c025b0012b5564f0934b1fb4123ab}
 \begin{DoxyAuthor}{Author}
-Robin Lamarche-\/\+Perrin 
+Robin Lamarche-\/\-Perrin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+22/01/2015 
+\end{DoxyDate}
+
+
+\subsection{Variable Documentation}
+\hypertarget{csv__tools_8hpp_af99838407de1f00344ce35d8675e41a7}{\index{csv\-\_\-tools.\-hpp@{csv\-\_\-tools.\-hpp}!V\-E\-R\-B\-O\-S\-E@{V\-E\-R\-B\-O\-S\-E}}
+\index{V\-E\-R\-B\-O\-S\-E@{V\-E\-R\-B\-O\-S\-E}!csv_tools.hpp@{csv\-\_\-tools.\-hpp}}
+\subsubsection[{V\-E\-R\-B\-O\-S\-E}]{\setlength{\rightskip}{0pt plus 5cm}bool V\-E\-R\-B\-O\-S\-E}}\label{csv__tools_8hpp_af99838407de1f00344ce35d8675e41a7}
+\begin{DoxyAuthor}{Author}
+Robin Lamarche-\/\-Perrin 
 \end{DoxyAuthor}
 \begin{DoxyDate}{Date}
 22/01/2015 

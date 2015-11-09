@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['filledges',['fillEdges',['../class_voter_graph.html#aa86a23e7d5984c3c6bbea76f193b73ae',1,'VoterGraph']]]
+  ['emptyvotermeasurement',['EmptyVoterMeasurement',['../class_empty_voter_measurement.html#aff7c264f9f2e68e3608e30b359468ed0',1,'EmptyVoterMeasurement']]]
 ];

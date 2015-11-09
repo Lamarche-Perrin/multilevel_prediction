@@ -1,44 +1,75 @@
-\hypertarget{class_part}{}\section{Part Class Reference}
+\hypertarget{class_part}{\section{Part Class Reference}
 \label{class_part}\index{Part@{Part}}
+}
 
 
-A part of a partition (i.\+e., a set of individuals)  
+A part of a partition (i.\-e., a set of individuals)  
 
 
 
 
-{\ttfamily \#include $<$partition.\+hpp$>$}
+{\ttfamily \#include $<$partition.\-hpp$>$}
 
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_part_a4fc5eedff4d310041e3ebee54693f4ac}{}{\bfseries Part} (\hyperlink{class_part}{Part} $\ast$part)\label{class_part_a4fc5eedff4d310041e3ebee54693f4ac}
+\hyperlink{class_part_a09385851011125e4f9bbe1c4712f1e1f}{Part} ()
+\item 
+\hypertarget{class_part_a4fc5eedff4d310041e3ebee54693f4ac}{{\bfseries Part} (\hyperlink{class_part}{Part} $\ast$part)}\label{class_part_a4fc5eedff4d310041e3ebee54693f4ac}
 
 \item 
-\hypertarget{class_part_aa711a575b6b5bb0080b4e9fa7e20bbe1}{}void {\bfseries add\+Individual} (int i, bool front=false)\label{class_part_aa711a575b6b5bb0080b4e9fa7e20bbe1}
+\hypertarget{class_part_a4f5392674db4c546b35c5a87dec8d204}{void {\bfseries add\-Individual} (int i, bool front=false, int value=-\/1)}\label{class_part_a4f5392674db4c546b35c5a87dec8d204}
 
 \item 
-\hypertarget{class_part_a8b37a2433f60fba0c5dcce393e4f5a86}{}virtual bool {\bfseries equal} (\hyperlink{class_part}{Part} $\ast$p)\label{class_part_a8b37a2433f60fba0c5dcce393e4f5a86}
+\hypertarget{class_part_aad63cc5e3df656d4b847a6ad948dbf3d}{bool {\bfseries contains} (int i)}\label{class_part_aad63cc5e3df656d4b847a6ad948dbf3d}
 
 \item 
-\hypertarget{class_part_a2d3c13012c781d8651b820e60d57c724}{}virtual void {\bfseries print} (bool endl=false)\label{class_part_a2d3c13012c781d8651b820e60d57c724}
+\hypertarget{class_part_a8b37a2433f60fba0c5dcce393e4f5a86}{bool {\bfseries equal} (\hyperlink{class_part}{Part} $\ast$p)}\label{class_part_a8b37a2433f60fba0c5dcce393e4f5a86}
 
 \item 
-\hypertarget{class_part_a501f9fdbc4efd9ce00e1eef4a07f033e}{}virtual int {\bfseries print\+Size} ()\label{class_part_a501f9fdbc4efd9ce00e1eef4a07f033e}
+\hypertarget{class_part_a2d3c13012c781d8651b820e60d57c724}{void {\bfseries print} (bool endl=false)}\label{class_part_a2d3c13012c781d8651b820e60d57c724}
+
+\item 
+\hypertarget{class_part_a501f9fdbc4efd9ce00e1eef4a07f033e}{int {\bfseries print\-Size} ()}\label{class_part_a501f9fdbc4efd9ce00e1eef4a07f033e}
 
 \end{DoxyCompactItemize}
 \subsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{class_part_a12f364b91efb5702af492cbdef1990fe}{}std\+::list$<$ int $>$ $\ast$ {\bfseries individuals}\label{class_part_a12f364b91efb5702af492cbdef1990fe}
+\hypertarget{class_part_a838bf6b7710a67f982193a0dcc2f102f}{int {\bfseries id}}\label{class_part_a838bf6b7710a67f982193a0dcc2f102f}
+
+\item 
+\hypertarget{class_part_a1048e12cbb00ea6f98edebcab1d05d92}{int {\bfseries size}}\label{class_part_a1048e12cbb00ea6f98edebcab1d05d92}
+
+\item 
+\hypertarget{class_part_a3519b6980a5ce58de9da399d84d18285}{int {\bfseries value}}\label{class_part_a3519b6980a5ce58de9da399d84d18285}
+
+\item 
+\hypertarget{class_part_a12f364b91efb5702af492cbdef1990fe}{std\-::list$<$ int $>$ $\ast$ {\bfseries individuals}}\label{class_part_a12f364b91efb5702af492cbdef1990fe}
 
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-A part of a partition (i.\+e., a set of individuals) 
+A part of a partition (i.\-e., a set of individuals) 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_part_a09385851011125e4f9bbe1c4712f1e1f}{\index{Part@{Part}!Part@{Part}}
+\index{Part@{Part}!Part@{Part}}
+\subsubsection[{Part}]{\setlength{\rightskip}{0pt plus 5cm}Part\-::\-Part (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{class_part_a09385851011125e4f9bbe1c4712f1e1f}
+\begin{DoxyAuthor}{Author}
+Robin Lamarche-\/\-Perrin 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+22/01/2015 
+\end{DoxyDate}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/\hyperlink{partition_8hpp}{partition.\+hpp}\item 
-C\+:/\+Users/\+Robin/\+Mes projets/programming/multilevel\+\_\+prediction/src/partition.\+cpp\end{DoxyCompactItemize}
+/home/lamarche/programming/multilevel\-\_\-prediction/src/\hyperlink{partition_8hpp}{partition.\-hpp}\item 
+/home/lamarche/programming/multilevel\-\_\-prediction/src/partition.\-cpp\end{DoxyCompactItemize}

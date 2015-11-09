@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['timer',['Timer',['../class_timer.html',1,'']]],
-  ['twocommunitiesvotergraph',['TwoCommunitiesVoterGraph',['../class_two_communities_voter_graph.html',1,'']]]
+  ['part',['Part',['../class_part.html',1,'']]],
+  ['partition',['Partition',['../class_partition.html',1,'']]]
 ];
